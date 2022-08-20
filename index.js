@@ -1,4 +1,4 @@
-const eslintConfig = require('./.eslintrc')
-const prettierConfig = require('./prettier.config')
+const lint = require("./lint");
+const format = require("./format");
 
-module.exports = { eslintConfig, prettierConfig }
+module.exports = { lint, format };
