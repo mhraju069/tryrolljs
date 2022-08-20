@@ -1,5 +1,5 @@
 {
-  "name": "@tryroll/cli",
+  "name": "@tryroll/cli-tools",
   "description": "CLI tools for Roll applications",
   "version": "1.0.0",
   "main": "./index.js",
