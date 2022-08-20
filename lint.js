@@ -3,7 +3,6 @@ const { ESLint } = require("eslint");
 const config = require("./.eslintrc.js");
 
 const lint = async (files) => {
-  console.log(files);
   try {
     const eslint = new ESLint({
       fix: true,
