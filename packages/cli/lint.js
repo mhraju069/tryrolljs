@@ -1,5 +1,8 @@
 const { ESLint } = require('eslint')
 
+const hasErrors = (results) =>
+  results.some((result) => result.errorCount > 0 || result.fatalErrorCount > 0)
+
 const lint = async (files) => {
   try {
     const eslint = new ESLint({
@@ -8,16 +11,15 @@ const lint = async (files) => {
     })
 
     const results = await eslint.lintFiles(files)
-
-    if (results.length === 0) {
-      console.log('No lint issues found')
-      process.exit(0)
-    }
-
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
-    console.log(resultText)
-    process.exit(1)
+
+    if (hasErrors(results)) {
+      console.log(resultText)
+      process.exit(1)
+    } else {
+      console.log(resultText)
+    }
   } catch (e) {
     console.error(e)
     process.exit(1)
