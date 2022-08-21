@@ -1,5 +1,11 @@
 # @tryrolljs/cli
 
+## 0.0.4
+
+### Patch Changes
+
+- [`ecf41e2`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ecf41e2f065e96ed5c05de30415530d6d6117acb) Thanks [@teimurjan](https://github.com/teimurjan)! - Do not exit with code 1 when no lint errors
+
 ## 0.0.3
 
 ### Patch Changes
