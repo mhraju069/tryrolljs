@@ -1,0 +1,16 @@
+{
+  "name": "@tryrolljs/cli",
+  "description": "CLI for Roll applications",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "bin": {
+    "roll": "./bin/roll.js"
+  },
+  "dependencies": {
+    "commander": "^9.4.0",
+    "@tryrolljs/prettier-config": "0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,25 +1,17 @@
 {
-  "name": "@tryroll/cli-tools",
-  "description": "CLI tools for Roll applications",
-  "version": "1.0.0",
-  "main": "./index.js",
-  "bin": {
-    "roll": "./bin/roll.js"
+  "name": "@tryrolljs/root",
+  "description": "Entrypoint for Roll monorepo packages",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "release": "changeset publish",
+    "lint": "./packages/cli/bin/roll.js lint",
+    "format": "./packages/cli/bin/roll.js format"
   },
+  "workspaces": [
+    "packages/**"
+  ],
   "dependencies": {
-    "@react-native-community/eslint-config": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
-    "commander": "^9.4.0",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-config-standard-with-typescript": "^22.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "@changesets/cli": "^2.24.3"
   }
 }
