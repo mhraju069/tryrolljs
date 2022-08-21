@@ -4,7 +4,6 @@ const prettier = require('prettier')
 const config = require('@tryrolljs/prettier-config')
 
 const format = async (files) => {
-  console.log(config)
   try {
     files.forEach((file) => {
       const text = fs.readFileSync(file, 'utf8')
