@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/cli",
   "description": "CLI for Roll applications",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./index.js",
   "bin": {
     "roll": "./bin/roll.js"
