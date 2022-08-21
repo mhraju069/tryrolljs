@@ -1,5 +1,5 @@
 {
-  "name": "@tryrolljs/eslint-configuration",
+  "name": "@tryrolljs/eslint-config",
   "description": "ESLint configuration for Roll applications",
   "version": "0.0.1",
   "main": "./.eslintrc.js",
@@ -7,19 +7,18 @@
     "@react-native-community/eslint-config": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
-    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-config-standard-with-typescript": "^22.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.7.1",
+    "react": "^18.2.0",
     "typescript": "^4.7.4"
   },
-  "devDependencies": {
-    "react": "^18.2.0"
-  },
-  "publishConfig": {"access": "public"}
+  "publishConfig": {
+    "access": "public"
+  }
 }

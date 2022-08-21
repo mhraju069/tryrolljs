@@ -7,8 +7,10 @@
     "roll": "./bin/roll.js"
   },
   "dependencies": {
+    "@tryrolljs/prettier-config": "0.0.1",
     "commander": "^9.4.0",
-    "@tryrolljs/prettier-config": "0.0.1"
+    "eslint": "^8.22.0",
+    "prettier": "^2.7.1"
   },
   "publishConfig": {
     "access": "public"
