@@ -1,5 +1,11 @@
 # @tryrolljs/cli
 
+## 0.0.5
+
+### Patch Changes
+
+- [`9c7ff40`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9c7ff40c398ce13ebe23bc5b45cfd102d2504ae8) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove log in format
+
 ## 0.0.4
 
 ### Patch Changes
