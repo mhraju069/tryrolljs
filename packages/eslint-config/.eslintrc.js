@@ -8,11 +8,13 @@ module.exports = {
   root: true,
   extends: [
     '@react-native-community/eslint-config',
-    'standard-with-typescript',
+    'plugin:react/jsx-runtime',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'eslint-config-prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-native'],
+  plugins: ['@typescript-eslint', 'react', 'react-native', 'import'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -21,5 +23,18 @@ module.exports = {
   },
   env: {
     'react-native/react-native': true,
+  },
+  rules: {
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: '~/**',
+            group: 'external',
+          },
+        ],
+      },
+    ],
   },
 }
