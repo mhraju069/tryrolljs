@@ -18,10 +18,14 @@ program
   .command('lint')
   .description('Lint your code')
   .option('--changed', 'lint only changed files')
+  .option('--fix', 'fix all auto-fixable problems')
   .action(async (options) => {
     const getFiles = options.changed ? getChangedFiles : getAllFiles
-    await lint(await getFiles())
+    await lint(await getFiles(), {
+      fix: options.fix,
+    })
   })
+
 program
   .command('format')
   .description('Format your code')

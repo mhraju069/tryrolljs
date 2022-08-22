@@ -12,8 +12,12 @@ const getAllFiles = async () => {
     throw new Error(stderr)
   }
 
-  return uniq(stdout.split('\n').filter(isNotEmpty).map(getFullPath)).filter(
-    fs.existsSync,
+  return uniq(
+    stdout
+      .split('\n')
+      .filter(isNotEmpty)
+      .map(getFullPath)
+      .filter(fs.existsSync),
   )
 }
 
