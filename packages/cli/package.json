@@ -1,13 +1,13 @@
 {
   "name": "@tryrolljs/cli",
   "description": "CLI for Roll applications",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./index.js",
   "bin": {
     "roll": "./bin/roll.js"
   },
   "dependencies": {
-    "@tryrolljs/prettier-config": "0.0.1",
+    "@tryrolljs/prettier-config": "0.0.2",
     "commander": "^9.4.0",
     "eslint": "^8.22.0",
     "prettier": "^2.7.1"
