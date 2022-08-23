@@ -24,6 +24,16 @@ module.exports = {
   env: {
     'react-native/react-native': true,
   },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
   rules: {
     'import/order': [
       'error',
