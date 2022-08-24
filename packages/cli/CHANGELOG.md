@@ -1,5 +1,11 @@
 # @tryrolljs/cli
 
+## 0.0.7
+
+### Patch Changes
+
+- [`5f4a909`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5f4a90921394d6eb4dcc96ae224f5e9a7925cff2) Thanks [@teimurjan](https://github.com/teimurjan)! - Use babel ts parser
+
 ## 0.0.6
 
 ### Patch Changes
