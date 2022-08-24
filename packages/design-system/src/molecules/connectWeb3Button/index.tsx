@@ -6,7 +6,8 @@ import { Activity } from '../../atoms/activity'
 import { shortenAddress } from '../../utils/web3'
 import { useEthAddress } from '../../hooks/web3'
 import { Dropdown } from '../dropdown'
-import { AccountDropdwn } from './accountDropdown'
+import { AccountDropdwn } from '../accountDropdown'
+
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
 type Props = {

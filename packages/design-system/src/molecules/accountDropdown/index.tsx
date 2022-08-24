@@ -1,11 +1,9 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
 import { Body, margins, useTheme } from '../..'
 import { etherscanAccountUrl, shortenAddress } from '../../utils/web3'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
 import LinkIcon from '../../assets/svg/link.svg'
 import { useEthAddress } from '../../hooks/web3'
-export type HandleWeb3Connect = (c: AbstractConnector) => void
 
 type Props = {
   onSwitchAccounts: () => void
