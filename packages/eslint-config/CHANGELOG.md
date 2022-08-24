@@ -1,5 +1,13 @@
 # @tryrolljs/eslint-config
 
+## 0.0.4
+
+### Patch Changes
+
+- [`2d74a14`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2d74a145b27f95681f6c08cbff09eac97ed555e8) Thanks [@teimurjan](https://github.com/teimurjan)! - Ignore dist files
+
+* [`c375241`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c375241bab5b3b013fd578b3f19a810c2c6eca68) Thanks [@teimurjan](https://github.com/teimurjan)! - Use ts import resolver
+
 ## 0.0.3
 
 ### Patch Changes
