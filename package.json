@@ -4,9 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "release": "changeset publish",
+    "build": "yarn workspace @tryrolljs/design-system build",
+    "format": "./packages/cli/bin/roll.js format",
     "lint": "./packages/cli/bin/roll.js lint",
-    "format": "./packages/cli/bin/roll.js format"
+    "lint:fix": "./packages/cli/bin/roll.js lint --fix",
+    "prerelease": "yarn build",
+    "release": "changeset publish"
   },
   "workspaces": [
     "packages/**"
