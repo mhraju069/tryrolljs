@@ -2,6 +2,13 @@
 
 This repo is an entrypoint for all Roll monorepo packages.
 
+## Packages
+
+- [@tryrolljs/cli](./packages/cli)
+- [@tryrolljs/eslint-config](./packages/eslint-config)
+- [@tryrolljs/prettier-config](./packages/prettier-config)
+- [@tryrolljs/design-system](./packages/design-system)
+
 
 ## Release
 

@@ -1,5 +1,6 @@
 {
   "name": "@tryrolljs/design-system",
+  "description": "Shared components for Roll applications",
   "version": "0.0.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
