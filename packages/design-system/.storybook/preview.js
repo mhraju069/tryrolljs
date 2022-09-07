@@ -1,3 +1,5 @@
+import { ThemeProvider } from '../src/providers'
+
 import '../src/assets/css/tailwind.css'
 import { injectFonts } from '../src/styles'
 
@@ -12,3 +14,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <ThemeProvider>
+      <Story />
+    </ThemeProvider>
+  ),
+]
