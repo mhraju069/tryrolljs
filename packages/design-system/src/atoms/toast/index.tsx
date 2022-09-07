@@ -19,9 +19,9 @@ import CloseCircle from '../../assets/svg/closeCircle.svg'
 import { Body, Caption } from '../typography'
 
 export interface ToastProps {
-  title: string
-  description: string
-  onClose: (e: GestureResponderEvent) => void
+  title?: string
+  description?: string
+  onClose?: (e: GestureResponderEvent) => void
   action?: {
     title: string
     onPress: (e: GestureResponderEvent) => void
@@ -69,10 +69,12 @@ export const Toast = ({ title, description, action, onClose }: ToastProps) => {
         { backgroundColor: charcoalBlack },
       ]}
     >
-      <Body color={white} weight="semiBold">
-        {title}
-      </Body>
-      <Body color={white}>{description}</Body>
+      {title && (
+        <Body color={white} weight="semiBold">
+          {title}
+        </Body>
+      )}
+      {description && <Body color={white}>{description}</Body>}
 
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <CloseCircle color={white} />
