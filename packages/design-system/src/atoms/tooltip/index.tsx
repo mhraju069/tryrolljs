@@ -2,10 +2,7 @@ import { Tooltip as NBTooltip } from 'native-base'
 import { ReactNode } from 'react'
 import { charcoalBlack, containers, darkNavy, white } from '../../styles'
 
-export enum TooltipVariant {
-  Light = 'light',
-  Dark = 'dark',
-}
+export type TooltipVariant = 'light' | 'dark'
 
 export type TooltipProps = {
   children: ReactNode
@@ -28,7 +25,7 @@ export type TooltipProps = {
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
-  variant = TooltipVariant.Light,
+  variant = 'light',
   open,
   children,
   title,
@@ -39,10 +36,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
       label={title}
       isOpen={open}
       placement={placement}
-      backgroundColor={variant === TooltipVariant.Dark ? darkNavy : white}
+      backgroundColor={variant === 'dark' ? darkNavy : white}
       style={[containers.borderRadius]}
       _text={{
-        color: variant === TooltipVariant.Dark ? white : charcoalBlack,
+        color: variant === 'dark' ? white : charcoalBlack,
       }}
       hasArrow
     >

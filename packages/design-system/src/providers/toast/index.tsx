@@ -1,26 +1,22 @@
 import { Platform } from 'react-native'
 import RNToastMessage from 'react-native-toast-message'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast'
 import { Toast, ToastProps } from '../../atoms'
-import { ToastType } from '../../utils'
+
+const renderToast = ({ props }: { props?: ToastProps }) => <Toast {...props} />
 
 const toastConfig = {
-  [ToastType.Default]: ({
-    text1,
-    text2,
-    props,
-  }: {
-    text1?: string
-    text2?: string
-    props?: Omit<ToastProps, 'title' | 'description'>
-  }) => <Toast title={text1} description={text2} {...props} />,
+  light: renderToast,
+  dark: renderToast,
+  success: renderToast,
+  error: renderToast,
 }
 
 const ToastProvider = () => {
   return Platform.OS === 'web' ? (
-    <ToastContainer />
+    <Toaster position="top-right" />
   ) : (
-    <RNToastMessage config={toastConfig} />
+    <RNToastMessage config={toastConfig} position="bottom" />
   )
 }
 
