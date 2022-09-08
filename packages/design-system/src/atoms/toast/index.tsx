@@ -7,8 +7,7 @@ import {
   ViewStyle,
 } from 'react-native'
 import { useMemo } from 'react'
-import ReactHotToast from 'react-hot-toast'
-import RNToastMessage from 'react-native-toast-message'
+import { Toast as NBToast } from 'native-base'
 import {
   charcoalBlack,
   white,
@@ -19,6 +18,8 @@ import {
   ghostWhite,
   green,
   crimson,
+  containers,
+  cyanBlue,
 } from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
 import { Body, Caption } from '../typography'
@@ -42,7 +43,7 @@ export const TOAST_COLOR_MAP = {
     backgroundColor: white,
     color: charcoalBlack,
     secondaryBackgroundColor: ghostWhite,
-    borderColor: charcoalBlack,
+    borderColor: cyanBlue,
   },
   dark: {
     backgroundColor: charcoalBlack,
@@ -64,9 +65,18 @@ export const TOAST_COLOR_MAP = {
   },
 }
 
+const isWeb = Platform.OS === 'web'
+
 const styles = StyleSheet.create({
-  container: { maxWidth: '100%', width: 250 },
-  closeButton: { position: 'absolute', right: 0, top: 0 },
+  wrapper: {
+    maxWidth: '100%',
+    width: 300,
+    minWidth: isWeb ? undefined : '100%',
+  },
+  container: {
+    borderLeftWidth: 4,
+  },
+  closeButton: { position: 'absolute', right: 16, top: 16 },
   nativeActionDivider: { height: 1 },
 })
 
@@ -78,7 +88,7 @@ export const Toast = ({
   variant = 'light',
   style,
 }: ToastProps) => {
-  const { backgroundColor, color, secondaryBackgroundColor } =
+  const { backgroundColor, color, secondaryBackgroundColor, borderColor } =
     TOAST_COLOR_MAP[variant]
 
   const actionNode = useMemo(() => {
@@ -86,7 +96,7 @@ export const Toast = ({
       return null
     }
 
-    if (Platform.OS === 'web') {
+    if (isWeb) {
       return (
         <TouchableOpacity style={margins.mt8} onPress={action.onPress}>
           <Caption color={color} weight="semiBold" underline>
@@ -100,6 +110,7 @@ export const Toast = ({
       <>
         <View
           style={[
+            styles.nativeActionDivider,
             margins.mt16,
             margins.mb8,
             { backgroundColor: secondaryBackgroundColor },
@@ -115,19 +126,36 @@ export const Toast = ({
   }, [action, color, secondaryBackgroundColor])
 
   return (
-    <View style={[styles.container, padding.pr32, { backgroundColor }, style]}>
-      {title && (
-        <Body color={color} weight="semiBold">
-          {title}
-        </Body>
-      )}
-      {description && <Body color={color}>{description}</Body>}
+    <View style={[styles.wrapper]}>
+      <View
+        style={[
+          styles.container,
+          margins.mh16,
+          padding.p16,
+          containers.shadow,
+          containers.borderRadius,
+          {
+            backgroundColor,
+            borderColor,
+          },
+          style,
+        ]}
+      >
+        <View style={padding.pr32}>
+          {title && (
+            <Body color={color} weight="semiBold">
+              {title}
+            </Body>
+          )}
+          {description && <Body color={color}>{description}</Body>}
+        </View>
 
-      <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-        <CloseCircle color={color} />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <CloseCircle color={color} />
+        </TouchableOpacity>
 
-      {actionNode}
+        {actionNode}
+      </View>
     </View>
   )
 }
@@ -139,41 +167,22 @@ const toast = ({
   action,
   variant = 'light',
 }: ToastProps) => {
-  const isWeb = Platform.OS === 'web'
-  const { backgroundColor, borderColor } = TOAST_COLOR_MAP[variant]
-  if (isWeb) {
-    const toastId = ReactHotToast(
+  const toastId = NBToast.show({
+    placement: isWeb ? 'top-right' : 'bottom',
+    duration: null,
+    render: () => (
       <Toast
         title={title}
         description={description}
         onClose={(e) => {
           onClose?.(e)
-          ReactHotToast.dismiss(toastId)
+          NBToast.close(toastId)
         }}
         action={action}
         variant={variant}
-      />,
-      {
-        style: {
-          background: backgroundColor,
-          borderBottom: `4px solid ${borderColor}`,
-        },
-      },
-    )
-  } else {
-    RNToastMessage.show({
-      type: variant,
-      props: {
-        title,
-        description,
-        onClose,
-        action,
-        style: {
-          borderBottom: `4px solid ${borderColor}`,
-        },
-      },
-    })
-  }
+      />
+    ),
+  })
 }
 
 Toast.show = toast

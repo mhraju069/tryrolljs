@@ -63,9 +63,7 @@ const pipe =
     functions.reduce((acc, fn) => fn(acc), target)
 
 const getConfig = (config) => {
-  console.log(config.module.rules[3].use[0].options.presets)
   return pipe(
-    includeNodeModule('react-native-toast-message'),
     setReactNativeAliases,
     replaceSvgLoader,
   )(config)
