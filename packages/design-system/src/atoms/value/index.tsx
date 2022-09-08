@@ -1,7 +1,7 @@
-import { StyleProp, TextStyle } from 'react-native'
+import { StyleProp, TextStyle, View } from 'react-native'
 import { Body } from '..'
 import { commafy } from '../..'
-import { ToolTip } from '../tooltip'
+import { Tooltip } from '../tooltip'
 
 export const DEFAULT_MAX_DIGITS = 4
 
@@ -30,14 +30,14 @@ export const Value = ({
   const defaultVal = maxDigitsStr(displayValue, maxDigits)
 
   return (
-    <ToolTip placement="top" title={displayValue}>
-      <span>
+    <Tooltip placement="top" title={displayValue}>
+      <View>
         {renderValue ? (
           renderValue(commafy(displayValue, maxDigits))
         ) : (
           <Body style={style}>{commafy(defaultVal, maxDigits)}</Body>
         )}
-      </span>
-    </ToolTip>
+      </View>
+    </Tooltip>
   )
 }

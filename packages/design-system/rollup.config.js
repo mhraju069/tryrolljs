@@ -46,7 +46,7 @@ const getConfig = (format) => ({
       include: ['**/*.ttf'],
       limit: Infinity,
     }),
-    svgr(),
+    svgr({ native: true }),
   ],
 })
 

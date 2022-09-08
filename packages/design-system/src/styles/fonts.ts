@@ -78,20 +78,25 @@ const fontStylesString = `
   }
 `
 
-const fontStyles = document.createElement('style')
+const getFontStyleElement = () => {
+  if (typeof document === 'undefined') {
+    return undefined
+  }
 
-fontStyles.type = 'text/css'
+  const fontStyles = document.createElement('style')
+  fontStyles.type = 'text/css'
+  if (fontStyles.styleSheet) {
+    fontStyles.styleSheet.cssText = fontStylesString
+  } else {
+    fontStyles.appendChild(document.createTextNode(fontStylesString))
+  }
 
-if (fontStyles.styleSheet) {
-  fontStyles.styleSheet.cssText = fontStylesString
-} else {
-  fontStyles.appendChild(document.createTextNode(fontStylesString))
+  return fontStyles
 }
 
 export const injectFonts = () => {
-  if (document) {
-    document.head.appendChild(fontStyles)
+  const fontStyleElement = getFontStyleElement()
+  if (typeof document !== 'undefined' && fontStyleElement) {
+    document.head.appendChild(fontStyleElement)
   }
 }
-
-export default fontStyles

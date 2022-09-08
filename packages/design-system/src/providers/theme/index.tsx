@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { NativeBaseProvider } from 'native-base'
 import { lightTheme, Theme } from '../../styles/theme'
 
 type ThemeContext = {
@@ -15,8 +16,10 @@ export const ThemeProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(lightTheme)
 
   return (
-    <ThemeCtx.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeCtx.Provider>
+    <NativeBaseProvider>
+      <ThemeCtx.Provider value={{ theme, setTheme }}>
+        {children}
+      </ThemeCtx.Provider>
+    </NativeBaseProvider>
   )
 }

@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react'
 import { useTheme } from '../..'
 import Logo from '../../assets/svg/logo.svg'
 import DiscordIcon from '../../assets/svg/discord.svg'
@@ -18,7 +19,7 @@ import { margins } from '../../styles'
 import { openLink } from '../../utils/functions'
 
 interface Icon {
-  Icon: string
+  Icon: FunctionComponent
   url: string
 }
 

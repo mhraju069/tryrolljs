@@ -16,18 +16,32 @@ Import CSS file if your app's target is web.
 import '@tryrolljs/design-system/dist/index.css'
 ```
 
+Wrap the root of your application with the theme provider.
+
+```js
+import { ThemeProvider } from '@tryrolljs/design-system'
+
+const App = ({ children }) => {
+  return (
+    <ThemeProvider>
+      {children}
+    </ThemeProvider>
+  )
+}
+```
+
 Enjoy using the well-typed package available for ESM & CJS. 🥳
 
 ```js
-import { Body, useTheme } from '@tryrolljs/design-system'
+import { Text, useTheme } from '@tryrolljs/design-system'
 
 const MyComponent = () => {
   const theme = useTheme();
 
   return (
-    <Body style={{ color: theme.text.primary }}>
+    <Text style={{ color: theme.text.primary }}>
       @tryrolljs/design-system is awesome!
-    </Body>
+    </Text>
   )
 }
 ```
