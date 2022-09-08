@@ -20,11 +20,12 @@ import {
   crimson,
   containers,
   cyanBlue,
+  orange,
 } from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
 import { Body, Caption } from '../typography'
 
-export type ToastVariant = 'success' | 'error' | 'light' | 'dark'
+export type ToastVariant = 'success' | 'error' | 'light' | 'dark' | 'warn'
 
 export interface ToastProps {
   title?: string
@@ -62,6 +63,12 @@ export const TOAST_COLOR_MAP = {
     color: charcoalBlack,
     secondaryBackgroundColor: ghostWhite,
     borderColor: crimson,
+  },
+  warn: {
+    backgroundColor: white,
+    color: charcoalBlack,
+    secondaryBackgroundColor: ghostWhite,
+    borderColor: orange,
   },
 }
 
@@ -166,10 +173,11 @@ const toast = ({
   onClose,
   action,
   variant = 'light',
-}: ToastProps) => {
+  duration,
+}: ToastProps & { duration?: number | null }) => {
   const toastId = NBToast.show({
     placement: isWeb ? 'top-right' : 'bottom',
-    duration: null,
+    duration,
     render: () => (
       <Toast
         title={title}
