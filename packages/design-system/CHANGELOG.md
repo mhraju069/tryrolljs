@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.4
+
+### Patch Changes
+
+- [#12](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/12) [`427b724`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/427b724725d0e994bee8f0bdc9b2c7f28e8294be) Thanks [@teimurjan](https://github.com/teimurjan)! - Add warn variant & duration prop to toast
+
 ## 0.0.3
 
 ### Patch Changes
