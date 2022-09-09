@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.5
+
+### Patch Changes
+
+- [#14](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/14) [`68c2fcf`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68c2fcfd29d491297fb4ab22874e1857238054f2) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow tooltips to render react nodes. As a side-effect platform separation has been introduced.
+
 ## 0.0.4
 
 ### Patch Changes
