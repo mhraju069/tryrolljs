@@ -25,6 +25,9 @@
     "web3-react-core": "npm:@web3-react/core@^6.0.9"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^1.0.0",
+    "@floating-ui/react-dom-interactions": "^0.9.3",
+    "@floating-ui/react-native": "^0.8.0",
     "boring-avatars": "^1.6.3",
     "ethers": "^5.5.4",
     "native-base": "^3.4.13",
@@ -42,7 +45,7 @@
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^14.0.1",
     "@rollup/plugin-typescript": "^8.3.4",
     "@rollup/plugin-url": "^7.0.0",
     "@storybook/addon-actions": "^6.4.18",
@@ -76,7 +79,8 @@
     "react-native-web-linear-gradient": "^1.1.2",
     "react-refresh": "^0.14.0",
     "rollup": "^2.78.1",
-    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svg": "^2.0.0",
     "storybook": "^6.5.10",
