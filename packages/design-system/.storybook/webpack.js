@@ -32,6 +32,20 @@ const setReactNativeAliases = (config) => ({
   },
 })
 
+const resolvePlatformExtensions = (config) => ({
+  ...config,
+  resolve: {
+    ...config.resolve,
+    extensions: [
+      '.web.ts',
+      '.web.tsx',
+      '.web.js',
+      '.web.jsx',
+      ...config.resolve.extensions,
+    ],
+  },
+})
+
 const includeNodeModule = (noduleName) => (config) => ({
   ...config,
   module: {
@@ -65,6 +79,7 @@ const pipe =
 const getConfig = (config) => {
   return pipe(
     setReactNativeAliases,
+    resolvePlatformExtensions,
     replaceSvgLoader,
   )(config)
 }
