@@ -11,4 +11,4 @@
   - [ ] Web
 - [ ] Have you added stories to demonstrate the new functionality (if there is any)?
 
-## Demo (screenshots, recordings, etc)
+## Demo (screenshots, recordings, etc.)
