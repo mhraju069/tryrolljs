@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/eslint-config",
   "description": "ESLint configuration for Roll applications",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./.eslintrc.js",
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.1.0",
