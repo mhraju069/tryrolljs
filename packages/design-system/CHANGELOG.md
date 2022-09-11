@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.6
+
+### Patch Changes
+
+- [#17](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/17) [`65da1d8`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/65da1d88a08cef7231ba49d33428b12bfaddf134) Thanks [@teimurjan](https://github.com/teimurjan)! - Divide web, native, android & ios builds
+
 ## 0.0.5
 
 ### Patch Changes
