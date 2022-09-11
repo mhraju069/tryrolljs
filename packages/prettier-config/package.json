@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/prettier-config",
   "description": "Prettier configuration for Roll applications",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./.prettierrc.js",
   "publishConfig": {
     "access": "public"

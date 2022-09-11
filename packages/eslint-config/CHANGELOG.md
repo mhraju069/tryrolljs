@@ -1,5 +1,11 @@
 # @tryrolljs/eslint-config
 
+## 0.0.5
+
+### Patch Changes
+
+- [#19](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/19) [`c049527`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c0495275b90f9adac465f6d0a1079b89f8390833) Thanks [@teimurjan](https://github.com/teimurjan)! - Update formatter to include only js,ts,jsx,tsx files & made linting work via peer deps
+
 ## 0.0.4
 
 ### Patch Changes

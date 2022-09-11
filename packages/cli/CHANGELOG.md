@@ -1,5 +1,14 @@
 # @tryrolljs/cli
 
+## 0.0.8
+
+### Patch Changes
+
+- [#19](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/19) [`c049527`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c0495275b90f9adac465f6d0a1079b89f8390833) Thanks [@teimurjan](https://github.com/teimurjan)! - Update formatter to include only js,ts,jsx,tsx files & made linting work via peer deps
+
+- Updated dependencies [[`c049527`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c0495275b90f9adac465f6d0a1079b89f8390833)]:
+  - @tryrolljs/prettier-config@0.0.3
+
 ## 0.0.7
 
 ### Patch Changes
