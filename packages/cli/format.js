@@ -8,7 +8,7 @@ const format = async (files) => {
     files.forEach((file) => {
       const text = fs.readFileSync(file, 'utf8')
       const formattedText = prettier.format(text, {
-        parser: 'babel-ts',
+        parser: 'typescript',
         ...config,
       })
       fs.writeFileSync(file, formattedText)

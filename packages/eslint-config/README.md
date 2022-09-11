@@ -5,7 +5,8 @@ This folder contains ESLint config file used in Roll.
 ## Install
 
 ```sh
-yarn add @tryrolljs/eslint-config
+yarn add -D @tryrolljs/eslint-config
+npx install-peerdeps -D @tryrolljs/eslint-config
 ```
 
 ## Usage

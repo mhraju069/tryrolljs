@@ -6,7 +6,7 @@ const { isNotEmpty, getFullPath } = require('./utils')
 
 const getChangedFiles = async () => {
   const { stdout, stderr } = await exec(
-    "git diff --name-only HEAD | grep -E '.(js|jsx|ts|tsx)$' | xargs",
+    "git diff --name-only HEAD | grep -E '\\.(js|jsx|ts|tsx)$' | xargs",
   )
   if (stderr) {
     throw new Error(stderr)
