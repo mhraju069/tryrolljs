@@ -14,7 +14,7 @@ npx install-peerdeps @tryrolljs/design-system
 Import CSS in the root of your app.
 
 ```js
-import '@tryrolljs/design-system/dist/index.css'
+import '@tryrolljs/design-system/dist/web/index.css'
 ```
 
 ### Native

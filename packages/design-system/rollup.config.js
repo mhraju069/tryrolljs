@@ -11,17 +11,38 @@ import del from 'rollup-plugin-delete'
 
 const packageJson = require('./package.json')
 
-const getConfig = (format, target = 'web') => {
-  const extensions = ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs']
-  const targetSpecificExtensions = extensions.map(
-    (extension) => `.${target}${extension}`,
-  )
-  extensions.unshift(...targetSpecificExtensions)
+const doesTargetIncludeNative = (target) =>
+  target === 'ios' || target === 'android'
 
-  const isTargetNative = target === 'native'
-  const outputDir = isTargetNative
-    ? `./dist/native/${format}`
-    : `./dist/${format}`
+const getExtensions = (target) => {
+  const extensions = ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs']
+  const targets = doesTargetIncludeNative(target)
+    ? [target, 'native']
+    : [target]
+  const extraExtensions = extensions.flatMap((extension) =>
+    targets.map((target_) => `.${target_}${extension}`),
+  )
+  extensions.unshift(...extraExtensions)
+
+  return extensions
+}
+
+const makeEntryFileNameGetter = (target) => (chunkInfo) => {
+  const suffixesToStrip = doesTargetIncludeNative(target)
+    ? [`.${target}`, '.native']
+    : [`.${target}`]
+  const fileNameWithoutExtension = suffixesToStrip.reduce(
+    (fileName, suffix) => `${fileName.replace(suffix, '')}`,
+    chunkInfo.name,
+  )
+
+  return `${fileNameWithoutExtension}.js`
+}
+
+const getConfig = (format, target = 'web') => {
+  const extensions = getExtensions(target)
+
+  const outputDir = `./dist/${target}/${format}`
 
   return {
     input: 'src/index.ts',
@@ -31,8 +52,7 @@ const getConfig = (format, target = 'web') => {
         format: format,
         preserveModules: true,
         preserveModulesRoot: 'src',
-        entryFileNames: (chunkInfo) =>
-          `${chunkInfo.name.replace(`.${target}`, '')}.js`,
+        entryFileNames: makeEntryFileNameGetter(target),
       },
     ],
     external: [...Object.keys(packageJson.peerDependencies || {})],
@@ -78,10 +98,10 @@ const getConfig = (format, target = 'web') => {
   }
 }
 
-const getStyleConfig = () => ({
+const getStyleConfig = (target = 'web') => ({
   input: 'src/assets/css/index.css',
   output: {
-    file: 'dist/index.css',
+    file: `dist/${target}/index.css`,
     format: 'esm',
   },
   plugins: [
@@ -91,10 +111,19 @@ const getStyleConfig = () => ({
   ],
 })
 
-export default [
-  getConfig('cjs'),
-  getConfig('esm'),
+const webConfigs = [
+  getConfig('cjs', 'web'),
+  getConfig('esm', 'web'),
+  getStyleConfig('web'),
+]
+
+const nativeConfigs = [
   getConfig('cjs', 'native'),
   getConfig('esm', 'native'),
-  getStyleConfig(),
+  getConfig('cjs', 'ios'),
+  getConfig('esm', 'ios'),
+  getConfig('cjs', 'android'),
+  getConfig('esm', 'android'),
 ]
+
+export default [...webConfigs, ...nativeConfigs]
