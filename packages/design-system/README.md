@@ -13,7 +13,7 @@ npx install-peerdeps @tryrolljs/design-system
 Import CSS file if your app's target is web.
 
 ```js
-import '@tryrolljs/design-system/dist/index.css'
+import '@tryrolljs/design-system/dist/web/index.css'
 ```
 
 Wrap the root of your application with the theme provider.
