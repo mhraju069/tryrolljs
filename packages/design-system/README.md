@@ -7,14 +7,38 @@ yarn add @tryrolljs/design-system
 npx install-peerdeps @tryrolljs/design-system
 ```
 
+## Setup
 
-## Usage
+### Web
 
-Import CSS file if your app's target is web.
+Import CSS in the root of your app.
 
 ```js
 import '@tryrolljs/design-system/dist/index.css'
 ```
+
+### Native
+
+The package is ready for `react-native` with a minimum amount of changes. You have to add an alias to your react-native application & it'll work smoothly.
+
+```js
+// babel.config.js
+
+module.exports = {
+  plugins: [
+    [
+      "module-resolver",
+      {
+        alias: {
+          "@tryrolljs/design-system": "@tryrolljs/design-system/dist/native/esm"
+        }
+      }
+    ]
+  ]
+}
+```
+
+## Usage
 
 Wrap the root of your application with the theme provider.
 
