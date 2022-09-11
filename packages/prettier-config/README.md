@@ -5,7 +5,7 @@ This folder contains Prettier config file used in Roll.
 ## Install
 
 ```sh
-yarn add @tryrolljs/prettier-config
+yarn add -D @tryrolljs/prettier-config
 ```
 
 ## Usage

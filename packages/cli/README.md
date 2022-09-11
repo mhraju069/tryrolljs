@@ -5,7 +5,7 @@ This folder contains code of the CLI for Roll applications.
 ## Install
 
 ```sh
-yarn add @tryrolljs/cli
+yarn add -D @tryrolljs/cli
 ```
 
 ## Usage

@@ -6,7 +6,7 @@ const { isNotEmpty, getFullPath, uniq } = require('./utils')
 
 const getAllFiles = async () => {
   const { stdout, stderr } = await exec(
-    "git ls-files . --exclude-standard -c -m -o | grep -E '.*.(js|jsx|ts|tsx)$'",
+    "git ls-files . --exclude-standard -c -m -o | grep -E '\\.(js|jsx|ts|tsx)$'",
   )
   if (stderr) {
     throw new Error(stderr)

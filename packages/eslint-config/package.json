@@ -3,7 +3,19 @@
   "description": "ESLint configuration for Roll applications",
   "version": "0.0.4",
   "main": "./.eslintrc.js",
-  "dependencies": {
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.0",
+    "eslint-plugin-ft-flow": "^2.0.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "react": "^18.2.0",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
     "@react-native-community/eslint-config": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",

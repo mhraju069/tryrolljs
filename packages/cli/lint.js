@@ -7,7 +7,7 @@ const lint = async (files, options = { fix: false }) => {
   try {
     const eslint = new ESLint({
       fix: options.fix,
-      resolvePluginsRelativeTo: __dirname,
+      resolvePluginsRelativeTo: process.cwd(),
     })
 
     const results = await eslint.lintFiles(files)
