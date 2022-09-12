@@ -1,5 +1,11 @@
 # @tryrolljs/eslint-config
 
+## 0.0.6
+
+### Patch Changes
+
+- [#21](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/21) [`a020d77`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a020d7776ee18279b78a00c350c65afe15ef9869) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove useless peer deps
+
 ## 0.0.5
 
 ### Patch Changes
