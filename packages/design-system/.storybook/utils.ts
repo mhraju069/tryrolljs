@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent } from 'react'
 
 export const titleBuilder = {
   atoms: (componentTitle: string) => `Design System/Atoms/${componentTitle}`,
@@ -9,9 +9,9 @@ export const titleBuilder = {
   templates: (componentTitle: string) =>
     `Design System/Templates/${componentTitle}`,
   pages: (componentTitle: string) => `Design System/Pages/${componentTitle}`,
-};
+}
 
 export const fromTemplate = <P>(
   component: FunctionComponent<P>,
-  args: Partial<P> = {}
-) => Object.assign(component.bind({}), { args });
+  args: Partial<P> = {},
+) => Object.assign(component.bind({}), { args })
