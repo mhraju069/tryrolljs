@@ -1,5 +1,11 @@
 # @tryrolljs/eslint-config
 
+## 0.0.7
+
+### Patch Changes
+
+- [#23](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/23) [`f440bfc`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f440bfc1f9ab3751567509b6e808d6782c99b730) Thanks [@teimurjan](https://github.com/teimurjan)! - Add jest plugin to the peer deps
+
 ## 0.0.6
 
 ### Patch Changes
