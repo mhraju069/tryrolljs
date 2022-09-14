@@ -48,29 +48,12 @@ const Layout = () => {
 
 ## Advanced Usage
 
-This package allows you to inject any feature flag provider. It means that you can combine static, async & computed feature flags. Moreover, you can add an async group from an external provider (ex. LaunchDarkly).
+This package allows you to inject any feature flag provider. You can make static, async & computed flags. Moreover, you can add an async group from an external provider (ex. LaunchDarkly).
+
 
 ```js
 import * as LDClient from 'launchdarkly-js-client-sdk'
 import { FeatureFlagProvider } from '@tryrolljs/feature-flag'
-
-const isExternalServiceUp = async () => {
-  try {
-    const response = await fetch('https://external.service/api/healthcheck')
-    return response.status === 200
-  } catch (e) {
-    return false
-  }
-}
-
-const user = {
-  key: 'aa0ceb'
-};
-const client = LDClient.initialize('LAUNCH_DARKLY_CLIENT_ID', user)
-const getLDFeatureFlags = async () => {
-  await client.waitUntilReady()
-  return client.allFlags();
-}
 
 const flags = [
   {
@@ -81,12 +64,23 @@ const flags = [
   {
     type: 'async',
     name: 'useExternalService',
-    value: isExternalServiceUp,
+    value: async () => {
+      try {
+        const response = await fetch('https://external.service/api/healthcheck')
+        return response.status === 200
+      } catch (e) {
+        return false
+      }
+    },
     defaultValue: false,
   },
   {
     type: 'asyncGroup',
-    value: getLDFeatureFlags,
+    value: async () => {
+      const client = LDClient.initialize('LAUNCH_DARKLY_CLIENT_ID', { key: 'test' })
+      await client.waitUntilReady()
+      return client.allFlags();
+    },
     defaultValue: {
       ldFeatureFlag1: true,
       ldFeatureFlag2: 123,
