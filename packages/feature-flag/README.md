@@ -3,8 +3,8 @@
 ## Install
 
 ```sh
-yarn add @tryrolljs/feature-flags
-npx install-peerdeps @tryrolljs/feature-flags
+yarn add @tryrolljs/feature-flag
+npx install-peerdeps @tryrolljs/feature-flag
 ```
 
 ## Usage
