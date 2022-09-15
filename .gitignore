@@ -1,3 +1,14 @@
-node_modules
 *.log
+
 .DS_Store
+
+node_modules
+
+.yarn/*
+# Disable zero-installs to reduce the repo size
+# !.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
