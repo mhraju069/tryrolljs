@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "yarn workspaces foreach run build",
-    "format": "./packages/cli/bin/roll.js format",
+    "test": "yarn workspaces foreach run test",
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
     "prerelease": "yarn build",
