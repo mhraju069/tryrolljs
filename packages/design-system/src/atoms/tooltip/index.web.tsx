@@ -7,9 +7,11 @@ import {
   offset,
   flip,
   safePolygon,
+  autoUpdate,
+  shift,
+  size,
 } from '@floating-ui/react-dom-interactions'
 import { useState } from 'react'
-import { StyleSheet } from 'react-native'
 import { View } from 'native-base'
 import {
   charcoalBlack,
@@ -20,13 +22,6 @@ import {
 } from '../../styles'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
-
-const styles = StyleSheet.create({
-  tooltip: {
-    position: 'absolute',
-    maxWidth: 250,
-  },
-})
 
 export const Tooltip: React.FC<TooltipProps> = ({
   variant = 'light',
@@ -40,10 +35,30 @@ export const Tooltip: React.FC<TooltipProps> = ({
     placement,
     open,
     onOpenChange: setIsOpen,
-    middleware: [offset(8), flip()],
+    middleware: [
+      offset(8),
+      flip(),
+      shift(),
+      size({
+        apply({ availableWidth, availableHeight, elements }) {
+          Object.assign(elements.floating.style, {
+            maxWidth: `${Math.max(availableWidth, 250)}px`,
+            maxHeight: `${availableHeight}px`,
+          })
+        },
+      }),
+    ],
+    // https://floating-ui.com/docs/react-dom#updating
+    whileElementsMounted: (reference_, floating_, update) =>
+      autoUpdate(reference_, floating_, update, {
+        animationFrame: true,
+      }),
   })
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    useHover(context, { handleClose: safePolygon() }),
+    useHover(context, {
+      handleClose: safePolygon(),
+      move: false,
+    }),
     useFocus(context),
   ])
 
@@ -56,7 +71,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
         <FloatingOverlay>
           <View
             style={[
-              styles.tooltip,
               containers.borderRadius,
               containers.shadow,
               padding.ph16,
