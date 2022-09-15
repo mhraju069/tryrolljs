@@ -6999,9 +6999,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/feature-flag@workspace:packages/feature-flags":
+"@tryrolljs/feature-flag@workspace:packages/feature-flag":
   version: 0.0.0-use.local
-  resolution: "@tryrolljs/feature-flag@workspace:packages/feature-flags"
+  resolution: "@tryrolljs/feature-flag@workspace:packages/feature-flag"
   dependencies:
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
