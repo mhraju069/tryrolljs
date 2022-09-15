@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "yarn workspace @tryrolljs/design-system build",
+    "build": "yarn workspaces foreach run build",
     "format": "./packages/cli/bin/roll.js format",
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
@@ -17,5 +17,6 @@
   "dependencies": {
     "@changesets/changelog-github": "^0.4.6",
     "@changesets/cli": "^2.24.3"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }
