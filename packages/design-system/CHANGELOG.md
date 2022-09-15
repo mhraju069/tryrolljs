@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.8
+
+### Patch Changes
+
+- [#28](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/28) [`6913914`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/69139142b18d3dd00363dba9b72a74e778da1f66) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix tooltip invalid positioning on dynamic layout
+
 ## 0.0.7
 
 ### Patch Changes
