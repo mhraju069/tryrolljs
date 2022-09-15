@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.7
+
+### Patch Changes
+
+- [#26](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/26) [`25e9dc8`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/25e9dc83ace239f946dfa57fb3e7cc3ed4d290a0) Thanks [@teimurjan](https://github.com/teimurjan)! - Update tailwindcss & web3-react-core
+
 ## 0.0.6
 
 ### Patch Changes
