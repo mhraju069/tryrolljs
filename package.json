@@ -8,8 +8,7 @@
     "test": "yarn workspaces foreach run test",
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
-    "prerelease": "yarn build",
-    "release": "changeset publish"
+    "release": "yarn build && changeset publish"
   },
   "workspaces": [
     "packages/**"
