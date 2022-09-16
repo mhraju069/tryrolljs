@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.10
+
+### Patch Changes
+
+- [#32](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/32) [`b5c1380`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/b5c13804a3e19cb35e6ab6b3b3324d4c66a2232f) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix empty dist folder
+
 ## 0.0.9
 
 ### Patch Changes
