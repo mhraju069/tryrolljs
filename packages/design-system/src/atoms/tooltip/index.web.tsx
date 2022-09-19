@@ -3,7 +3,6 @@ import {
   useInteractions,
   useHover,
   useFocus,
-  FloatingOverlay,
   offset,
   flip,
   safePolygon,
@@ -42,7 +41,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       size({
         apply({ availableWidth, availableHeight, elements }) {
           Object.assign(elements.floating.style, {
-            maxWidth: `${Math.max(availableWidth, 250)}px`,
+            maxWidth: `${Math.min(availableWidth, 250)}px`,
             maxHeight: `${availableHeight}px`,
           })
         },
@@ -67,28 +66,26 @@ export const Tooltip: React.FC<TooltipProps> = ({
       <div ref={reference} {...getReferenceProps()}>
         {children}
       </div>
-      {isOpen && (
-        <FloatingOverlay>
-          <View
-            style={[
-              containers.borderRadius,
-              containers.shadow,
-              padding.ph16,
-              padding.pv8,
-              // @ts-ignore
-              {
-                top: y ?? 0,
-                left: x ?? 0,
-                backgroundColor: variant === 'dark' ? darkNavy : white,
-                position: strategy,
-              },
-            ]}
-            ref={floating}
-            {...getFloatingProps()}
-          >
-            {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
-          </View>
-        </FloatingOverlay>
+      {(isOpen || open) && (
+        <View
+          style={[
+            containers.borderRadius,
+            containers.shadow,
+            padding.ph16,
+            padding.pv8,
+            // @ts-ignore
+            {
+              top: y ?? 0,
+              left: x ?? 0,
+              backgroundColor: variant === 'dark' ? darkNavy : white,
+              position: strategy,
+            },
+          ]}
+          ref={floating}
+          {...getFloatingProps()}
+        >
+          {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
+        </View>
       )}
     </>
   )

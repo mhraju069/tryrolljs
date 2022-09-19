@@ -6138,6 +6138,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@svgr/webpack@npm:^6.3.1":
+  version: 6.3.1
+  resolution: "@svgr/webpack@npm:6.3.1"
+  dependencies:
+    "@babel/core": ^7.18.5
+    "@babel/plugin-transform-react-constant-elements": ^7.17.12
+    "@babel/preset-env": ^7.18.2
+    "@babel/preset-react": ^7.17.12
+    "@babel/preset-typescript": ^7.17.12
+    "@svgr/core": ^6.3.1
+    "@svgr/plugin-jsx": ^6.3.1
+    "@svgr/plugin-svgo": ^6.3.1
+  checksum: 36784eacf80601462ede7eab66347423a8635e68aa9f152308c81878b071807adee152a28eed2cce9c72faaf6553dd500f68f00601062ec6821ec0a3a77f4e13
+  languageName: node
+  linkType: hard
+
 "@swc/core-android-arm-eabi@npm:1.3.1":
   version: 1.3.1
   resolution: "@swc/core-android-arm-eabi@npm:1.3.1"
@@ -6400,6 +6416,7 @@ __metadata:
     "@storybook/manager-webpack5": ^6.5.10
     "@storybook/react": ^6.4.18
     "@svgr/rollup": ^6.3.1
+    "@svgr/webpack": ^6.3.1
     "@types/node": ^12.0.0
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
