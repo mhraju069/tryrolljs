@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.0.11
+
+### Patch Changes
+
+- [#34](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/34) [`0ffa50d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0ffa50ddc1750b855cac2e4d471349416acbe1d2) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Remove FloatingOverlay so user can interact with background.
+  - Add support to manual open/close control.
+  - Tooltip max width set to 250px.
+
 ## 0.0.10
 
 ### Patch Changes
