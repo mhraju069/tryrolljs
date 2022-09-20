@@ -5,7 +5,6 @@ export type TooltipVariant = 'light' | 'dark'
 export type TooltipProps = {
   children: ReactNode
   title: ReactNode
-  /** Only use it for manual control */
   open?: boolean
   variant?: TooltipVariant
   placement?:
