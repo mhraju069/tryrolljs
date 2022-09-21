@@ -2,7 +2,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle } from 'react-native'
 import { useState } from 'react'
 import { Body, Button } from '../..'
-import { Activity } from '../../atoms/activity'
+import { Spinner } from '../../atoms'
 import { shortenAddress } from '../../utils/web3'
 import { useEthAddress } from '../../hooks/web3'
 import { Dropdown } from '../dropdown'
@@ -28,7 +28,7 @@ export const ConnectWeb3Button = ({
   if (activity) {
     return (
       <div className="flex items-center h-full w-28 p-2">
-        <Activity />
+        <Spinner />
       </div>
     )
   }
