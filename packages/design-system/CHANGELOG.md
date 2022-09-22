@@ -1,5 +1,12 @@
 # @tryrolljs/design-system
 
+## 0.0.12
+
+### Patch Changes
+
+- [#38](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/38) [`f0217be`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f0217be2ffcbaefc4a3dc8d6954c480b640cbab1) Thanks [@teimurjan](https://github.com/teimurjan)! - - Rename Activity to Spinner
+  - Use Spinner from native-base instead of react-native-paper
+
 ## 0.0.11
 
 ### Patch Changes
