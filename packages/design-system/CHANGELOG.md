@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.13
+
+### Patch Changes
+
+- [#39](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/39) [`2b29a60`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2b29a60bb46f6bfdcb19ae7cdd837412e6374a43) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Change tooltip to be on top of other elements.
+
 ## 0.0.12
 
 ### Patch Changes
