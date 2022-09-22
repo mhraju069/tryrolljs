@@ -7,6 +7,7 @@ import {
   flip,
   safePolygon,
   autoUpdate,
+  FloatingPortal,
   shift,
   size,
 } from '@floating-ui/react-dom-interactions'
@@ -66,28 +67,30 @@ export const Tooltip: React.FC<TooltipProps> = ({
       <div ref={reference} {...getReferenceProps()}>
         {children}
       </div>
-      {(isOpen || open) && (
-        <View
-          style={[
-            containers.borderRadius,
-            containers.shadow,
-            padding.ph16,
-            padding.pv8,
-            // @ts-ignore
-            {
-              zIndex: 999,
-              top: y ?? 0,
-              left: x ?? 0,
-              backgroundColor: variant === 'dark' ? darkNavy : white,
-              position: strategy,
-            },
-          ]}
-          ref={floating}
-          {...getFloatingProps()}
-        >
-          {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
-        </View>
-      )}
+      <FloatingPortal>
+        {(isOpen || open) && (
+          <View
+            style={[
+              containers.borderRadius,
+              containers.shadow,
+              padding.ph16,
+              padding.pv8,
+              // @ts-ignore
+              {
+                zIndex: 999,
+                top: y ?? 0,
+                left: x ?? 0,
+                backgroundColor: variant === 'dark' ? darkNavy : white,
+                position: strategy,
+              },
+            ]}
+            ref={floating}
+            {...getFloatingProps()}
+          >
+            {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
+          </View>
+        )}
+      </FloatingPortal>
     </>
   )
 }
