@@ -1,5 +1,20 @@
 # @tryrolljs/design-system
 
+## 0.0.12
+
+### Patch Changes
+
+- [#38](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/38) [`f0217be`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f0217be2ffcbaefc4a3dc8d6954c480b640cbab1) Thanks [@teimurjan](https://github.com/teimurjan)! - - Rename Activity to Spinner
+  - Use Spinner from native-base instead of react-native-paper
+
+## 0.0.11
+
+### Patch Changes
+
+- [#34](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/34) [`0ffa50d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0ffa50ddc1750b855cac2e4d471349416acbe1d2) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Remove FloatingOverlay so user can interact with background.
+  - Add support to manual open/close control.
+  - Tooltip max width set to 250px.
+
 ## 0.0.10
 
 ### Patch Changes

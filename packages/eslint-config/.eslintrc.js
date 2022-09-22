@@ -23,6 +23,7 @@ module.exports = {
   },
   env: {
     'react-native/react-native': true,
+    'jest/globals': true,
   },
   settings: {
     'import/parsers': {
