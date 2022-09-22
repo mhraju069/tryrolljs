@@ -75,6 +75,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             padding.pv8,
             // @ts-ignore
             {
+              zIndex: 999,
               top: y ?? 0,
               left: x ?? 0,
               backgroundColor: variant === 'dark' ? darkNavy : white,
