@@ -1,5 +1,11 @@
 # @tryrolljs/eslint-config
 
+## 0.0.8
+
+### Patch Changes
+
+- [#36](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/36) [`9dd6027`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9dd602721eb22950cab685fccc34ebb655bc31b4) Thanks [@teimurjan](https://github.com/teimurjan)! - Add jest globals
+
 ## 0.0.7
 
 ### Patch Changes
