@@ -8,6 +8,7 @@ import postcss from 'rollup-plugin-postcss'
 import svgr from '@svgr/rollup'
 import copy from 'rollup-plugin-copy'
 import del from 'rollup-plugin-delete'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const packageJson = require('./package.json')
 
@@ -39,7 +40,7 @@ const makeEntryFileNameGetter = (target) => (chunkInfo) => {
   return `${fileNameWithoutExtension}.js`
 }
 
-const getConfig = (format, target = 'web') => {
+const getConfig = (format, target = 'web', visualize = false) => {
   const extensions = getExtensions(target)
 
   const outputDir = `./dist/${target}/${format}`
@@ -94,6 +95,9 @@ const getConfig = (format, target = 'web') => {
         flatten: false,
         verbose: true,
       }),
+      ...(visualize
+        ? [visualizer({ filename: `stats.${format}.${target}.html` })]
+        : []),
     ],
   }
 }
