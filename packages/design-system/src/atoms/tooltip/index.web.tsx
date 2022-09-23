@@ -11,7 +11,7 @@ import {
   shift,
   size,
 } from '@floating-ui/react-dom-interactions'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'native-base'
 import {
   charcoalBlack,
@@ -23,6 +23,10 @@ import {
 import { ConditionalWrapper } from '../conditionalWrapper'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
+
+const wrapper = (render: React.ReactNode) => {
+  return <FloatingPortal>{render}</FloatingPortal>
+}
 
 export const Tooltip: React.FC<TooltipProps> = ({
   variant = 'light',
@@ -64,10 +68,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     useFocus(context),
   ])
 
-  const wrapper = useCallback((render: React.ReactNode) => {
-    return <FloatingPortal>{render}</FloatingPortal>
-  }, [])
-
   return (
     <>
       <div ref={reference} {...getReferenceProps()}>
@@ -82,6 +82,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
               padding.ph16,
               padding.pv8,
               // @ts-ignore
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 zIndex: 999,
                 top: y ?? 0,
