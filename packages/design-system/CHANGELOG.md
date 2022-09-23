@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.0.14
+
+### Patch Changes
+
+- [#41](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/41) [`8c460f0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8c460f0c684246da2bc1d11f97526f48733a187a) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Use FloatingPortal to render tooltip
+  - Add ConditionalWrapper atom component
+  - Add boolean prop on tooltip component to wrap it with FloatingPortal
+
 ## 0.0.13
 
 ### Patch Changes
