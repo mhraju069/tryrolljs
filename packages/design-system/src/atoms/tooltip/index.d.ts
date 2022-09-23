@@ -7,6 +7,7 @@ export type TooltipProps = {
   title: ReactNode
   open?: boolean
   variant?: TooltipVariant
+  renderInPortal?: boolean
   placement?:
     | 'top'
     | 'right'

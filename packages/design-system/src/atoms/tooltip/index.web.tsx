@@ -11,7 +11,7 @@ import {
   shift,
   size,
 } from '@floating-ui/react-dom-interactions'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { View } from 'native-base'
 import {
   charcoalBlack,
@@ -20,6 +20,7 @@ import {
   padding,
   white,
 } from '../../styles'
+import { ConditionalWrapper } from '../conditionalWrapper'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
 
@@ -29,6 +30,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   children,
   title,
   placement,
+  renderInPortal = true,
 }) => {
   const [isOpen, setIsOpen] = useState(open)
   const { context, x, y, reference, floating, strategy } = useFloating({
@@ -62,12 +64,16 @@ export const Tooltip: React.FC<TooltipProps> = ({
     useFocus(context),
   ])
 
+  const wrapper = useCallback((render: React.ReactNode) => {
+    return <FloatingPortal>{render}</FloatingPortal>
+  }, [])
+
   return (
     <>
       <div ref={reference} {...getReferenceProps()}>
         {children}
       </div>
-      <FloatingPortal>
+      <ConditionalWrapper condition={renderInPortal} wrapper={wrapper}>
         {(isOpen || open) && (
           <View
             style={[
@@ -90,7 +96,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
           </View>
         )}
-      </FloatingPortal>
+      </ConditionalWrapper>
     </>
   )
 }
