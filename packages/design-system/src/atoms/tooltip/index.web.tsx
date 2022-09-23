@@ -7,6 +7,7 @@ import {
   flip,
   safePolygon,
   autoUpdate,
+  FloatingPortal,
   shift,
   size,
 } from '@floating-ui/react-dom-interactions'
@@ -19,8 +20,13 @@ import {
   padding,
   white,
 } from '../../styles'
+import { ConditionalWrapper } from '../conditionalWrapper'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
+
+const wrapper = (render: React.ReactNode) => {
+  return <FloatingPortal>{render}</FloatingPortal>
+}
 
 export const Tooltip: React.FC<TooltipProps> = ({
   variant = 'light',
@@ -28,6 +34,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   children,
   title,
   placement,
+  renderInPortal = true,
 }) => {
   const [isOpen, setIsOpen] = useState(open)
   const { context, x, y, reference, floating, strategy } = useFloating({
@@ -66,28 +73,31 @@ export const Tooltip: React.FC<TooltipProps> = ({
       <div ref={reference} {...getReferenceProps()}>
         {children}
       </div>
-      {(isOpen || open) && (
-        <View
-          style={[
-            containers.borderRadius,
-            containers.shadow,
-            padding.ph16,
-            padding.pv8,
-            // @ts-ignore
-            {
-              zIndex: 999,
-              top: y ?? 0,
-              left: x ?? 0,
-              backgroundColor: variant === 'dark' ? darkNavy : white,
-              position: strategy,
-            },
-          ]}
-          ref={floating}
-          {...getFloatingProps()}
-        >
-          {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
-        </View>
-      )}
+      <ConditionalWrapper condition={renderInPortal} wrapper={wrapper}>
+        {(isOpen || open) && (
+          <View
+            style={[
+              containers.borderRadius,
+              containers.shadow,
+              padding.ph16,
+              padding.pv8,
+              // @ts-ignore
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                zIndex: 999,
+                top: y ?? 0,
+                left: x ?? 0,
+                backgroundColor: variant === 'dark' ? darkNavy : white,
+                position: strategy,
+              },
+            ]}
+            ref={floating}
+            {...getFloatingProps()}
+          >
+            {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}
+          </View>
+        )}
+      </ConditionalWrapper>
     </>
   )
 }
