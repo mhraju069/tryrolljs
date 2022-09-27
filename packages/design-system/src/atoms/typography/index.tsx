@@ -35,7 +35,7 @@ export const truncateMaxChars = (str: string, maxlimit = 100) => {
 }
 
 type TypographyProps = {
-  children: any
+  children: React.ReactNode
   style?: StyleProp<TextStyle>
   weight?: keyof Weights
   color?: string

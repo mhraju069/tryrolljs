@@ -6,7 +6,7 @@ import { Spinner } from '../../atoms'
 import { shortenAddress } from '../../utils/web3'
 import { useEthAddress } from '../../hooks/web3'
 import { Dropdown } from '../dropdown'
-import { AccountDropdwn } from '../accountDropdown'
+import { AccountDropdown } from '../accountDropdown'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
@@ -41,7 +41,7 @@ export const ConnectWeb3Button = ({
         onMouseLeave={() => setMouseInB(false)}
         open={mouseInA || mouseInB}
         renderDropdown={() => (
-          <AccountDropdwn
+          <AccountDropdown
             onSwitchAccounts={() => {
               setMouseInB(false)
               onPress()

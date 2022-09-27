@@ -1,10 +1,13 @@
+import { Link } from 'native-base'
+import { ReactNode } from 'react'
 import { TypographyBase, TypographyBaseProps } from '..'
 import { useTheme } from '../..'
 
 export type AnchorProps = {
-  children: string
-  href: string
+  children: ReactNode
+  href?: string
   target?: string
+  onPress?: () => void
 }
 
 export const Anchor = ({
@@ -12,14 +15,25 @@ export const Anchor = ({
   href,
   fontSize,
   target = '_blank',
+  onPress,
 }: AnchorProps & Pick<TypographyBaseProps, 'fontSize'>) => {
   const theme = useTheme()
 
   return (
-    <a href={href} target={target}>
+    <Link
+      href={href}
+      isExternal={target === '_blank'}
+      onPress={(event) => {
+        console.log(onPress, href)
+        if (onPress && !href) {
+          event?.preventDefault()
+          onPress?.()
+        }
+      }}
+    >
       <TypographyBase color={theme.text.highlight} fontSize={fontSize}>
         {children}
       </TypographyBase>
-    </a>
+    </Link>
   )
 }
