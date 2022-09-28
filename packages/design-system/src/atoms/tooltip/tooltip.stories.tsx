@@ -10,7 +10,7 @@ const storyConfig = {
 
 const Template = (props: TooltipProps) => <Tooltip {...props}>Hover me</Tooltip>
 
-const WithManualControlTemplate = (props: TooltipProps) => {
+const ControlledTemplate = (props: TooltipProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
     <Tooltip {...props} open={isOpen}>
@@ -34,8 +34,8 @@ export const Dark = fromTemplate(Template, {
   variant: 'dark',
   placement: 'bottom-start',
 })
-export const WithManualControl = fromTemplate(WithManualControlTemplate, {
-  title: 'With maunal control',
+export const Controlled = fromTemplate(ControlledTemplate, {
+  title: 'The tooltip is controlled by the consumer',
   variant: 'dark',
   placement: 'bottom-start',
 })

@@ -1,4 +1,8 @@
-import { Body, margins, useTheme } from '../..'
+import { View } from 'native-base'
+import { StyleSheet } from 'react-native'
+import { Body, Anchor } from '../../atoms'
+import { useTheme } from '../../hooks'
+import { margins, padding, containers } from '../../styles'
 import { etherscanAccountUrl, shortenAddress } from '../../utils/web3'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
@@ -6,56 +10,81 @@ import LinkIcon from '../../assets/svg/link.svg'
 import { useEthAddress } from '../../hooks/web3'
 
 type Props = {
-  onSwitchAccounts: () => void
+  onSwitchAccounts?: () => void
 }
 
-export const AccountDropdwn = ({ onSwitchAccounts }: Props) => {
+const styles = StyleSheet.create({
+  container: {
+    minWidth: 320,
+  },
+  address: {
+    maxWidth: 150,
+  },
+})
+
+type SwitchAccountLinkProps = {
+  icon: React.ReactElement
+  title: string
+  onPress?: () => void
+  href?: string
+}
+
+const SwitchAccountLink = ({
+  icon,
+  title,
+  onPress,
+  href,
+}: SwitchAccountLinkProps) => {
+  const theme = useTheme()
+  return (
+    <Anchor target="_blank" href={href} onPress={onPress}>
+      <View style={[containers.row, containers.alignCenter, margins.mh8]}>
+        {icon}
+        <Body
+          onPress={onPress}
+          style={margins.ml4}
+          color={theme.text.highlight}
+        >
+          {title}
+        </Body>
+      </View>
+    </Anchor>
+  )
+}
+
+export const AccountDropdown = ({ onSwitchAccounts }: Props) => {
   const theme = useTheme()
   const address = useEthAddress()
   return (
-    <div className="p-4" style={{ minWidth: 320 }}>
+    <View style={[padding.p8, styles.container]}>
       <Body color={theme.text.secondary}>Connected with MetaMask</Body>
-      <div
-        className="flex flex-row bg-gray-200 p-2 rounded-lg my-2"
-        style={{ maxWidth: 150 }}
+      <View
+        style={[
+          containers.row,
+          styles.address,
+          padding.p8,
+          containers.borderRadiusXL,
+          margins.mv8,
+          { backgroundColor: theme.background.page },
+        ]}
       >
         <Body weight="bold" style={margins.mr8}>
           {shortenAddress(address || '')}
         </Body>
         <Copy />
-      </div>
-      <div className="flex flex-row">
-        <LinkOption
+      </View>
+      <View style={containers.row}>
+        <SwitchAccountLink
           onPress={onSwitchAccounts}
           icon={<WalletIcon />}
           title="Switch Accounts"
         />
-        <a
-          target="_blank"
+        <SwitchAccountLink
+          icon={<LinkIcon />}
+          title="View on Etherscan"
           href={etherscanAccountUrl(address || '')}
-          rel="noreferrer"
-        >
-          <LinkOption icon={<LinkIcon />} title="View on Etherscan" />
-        </a>
-      </div>
-    </div>
-  )
-}
-
-type LinkProps = {
-  icon: React.ReactElement
-  title: string
-  onPress?: () => void
-}
-
-const LinkOption = ({ icon, title, onPress }: LinkProps) => {
-  const theme = useTheme()
-  return (
-    <div className="flex flex-row items-center mr-4">
-      {icon}
-      <Body onPress={onPress} style={margins.ml4} color={theme.text.highlight}>
-        {title}
-      </Body>
-    </div>
+        />
+      </View>
+    </View>
   )
 }
