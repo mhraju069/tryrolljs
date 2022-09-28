@@ -16,7 +16,7 @@ const doesTargetIncludeNative = (target) =>
   target === 'ios' || target === 'android'
 
 const getExtensions = (target) => {
-  const extensions = ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs']
+  const extensions = ['.ts', '.tsx', '.js', '.jsx']
   const targets = doesTargetIncludeNative(target)
     ? [target, 'native']
     : [target]
@@ -56,9 +56,17 @@ const getConfig = (format, target = 'web', visualize = false) => {
         entryFileNames: makeEntryFileNameGetter(target),
       },
     ],
-    external: [...Object.keys(packageJson.peerDependencies || {})],
+    external: [
+      // We don't need to bundle deps & peer deps
+      ...Object.keys(packageJson.dependencies || {}),
+      ...Object.keys(packageJson.peerDependencies || {}),
+    ],
     plugins: [
       del({ targets: outputDir }),
+      resolve({
+        extensions,
+        moduleDirectories: [],
+      }),
       alias({
         entries: [
           { find: 'react-native$', replacement: 'react-native-web' },
@@ -67,10 +75,6 @@ const getConfig = (format, target = 'web', visualize = false) => {
             replacement: 'react-native-web-linear-gradient',
           },
         ],
-      }),
-      resolve({
-        extensions,
-        moduleDirectories: [],
       }),
       commonjs(),
       babel({
