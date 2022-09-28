@@ -8,7 +8,7 @@ export type AnchorProps = {
   children: ReactNode
   href?: string
   target?: string
-  onPress?: () => void
+  onPress?: (event?: GestureResponderEvent) => void
 }
 
 export const Anchor = ({
@@ -24,7 +24,7 @@ export const Anchor = ({
     (event?: GestureResponderEvent) => {
       if (onPress && !href) {
         event?.preventDefault()
-        onPress?.()
+        onPress(event)
       }
     },
     [onPress, href],

@@ -34,8 +34,8 @@ export const Dark = fromTemplate(Template, {
   variant: 'dark',
   placement: 'bottom-start',
 })
-export const WithManualControl = fromTemplate(ControlledTemplate, {
-  title: 'With maunal control',
+export const Controlled = fromTemplate(ControlledTemplate, {
+  title: 'The tooltip is controlled by the consumer',
   variant: 'dark',
   placement: 'bottom-start',
 })
