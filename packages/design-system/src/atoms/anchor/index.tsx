@@ -1,5 +1,6 @@
 import { Link } from 'native-base'
-import { ReactNode } from 'react'
+import { ReactNode, useCallback } from 'react'
+import type { GestureResponderEvent } from 'react-native'
 import { TypographyBase, TypographyBaseProps } from '..'
 import { useTheme } from '../..'
 
@@ -19,18 +20,18 @@ export const Anchor = ({
 }: AnchorProps & Pick<TypographyBaseProps, 'fontSize'>) => {
   const theme = useTheme()
 
+  const handlePress = useCallback(
+    (event?: GestureResponderEvent) => {
+      if (onPress && !href) {
+        event?.preventDefault()
+        onPress?.()
+      }
+    },
+    [onPress, href],
+  )
+
   return (
-    <Link
-      href={href}
-      isExternal={target === '_blank'}
-      onPress={(event) => {
-        console.log(onPress, href)
-        if (onPress && !href) {
-          event?.preventDefault()
-          onPress?.()
-        }
-      }}
-    >
+    <Link href={href} isExternal={target === '_blank'} onPress={handlePress}>
       <TypographyBase color={theme.text.highlight} fontSize={fontSize}>
         {children}
       </TypographyBase>
