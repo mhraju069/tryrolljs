@@ -1,4 +1,7 @@
-import { Body, containers, Header, Surface } from '../..'
+import { View } from 'native-base'
+import { StyleSheet } from 'react-native'
+import { containers, lightestGray, margins, padding } from '../../styles'
+import { Body, Button, Header, Surface } from '../../atoms'
 import ExpandIcon from '../../assets/svg/expandIcon.svg'
 import CollapseIcon from '../../assets/svg/collapseIcon.svg'
 
@@ -15,6 +18,22 @@ const renderContent = (content: React.ReactElement | string) => {
   return content
 }
 
+const styles = StyleSheet.create({
+  button: {
+    width: 'auto',
+    height: 'auto',
+    minWidth: undefined,
+  },
+  buttonTouchableOpacity: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: lightestGray,
+  },
+})
+
 export const CollapsableView = ({
   title,
   content,
@@ -23,20 +42,31 @@ export const CollapsableView = ({
 }: Props) => {
   return (
     <Surface style={[containers.fullWidth]}>
-      <div className="flex flex-col p-8">
-        <div className="flex justify-between items-center h-8">
+      <View style={[padding.p32]}>
+        <View
+          style={[
+            containers.justifySpaceBetween,
+            containers.alignCenter,
+            containers.row,
+          ]}
+        >
           <Header weight="bold">{title}</Header>
-          <button className="w-8 h-8 rounded-full bg-blue-600" onClick={toggle}>
+          <Button
+            type="primary"
+            onPress={toggle}
+            style={styles.button}
+            touchableOpacityStyle={styles.buttonTouchableOpacity}
+          >
             {isExpanded ? <ExpandIcon /> : <CollapseIcon />}
-          </button>
-        </div>
+          </Button>
+        </View>
         {isExpanded && (
-          <div>
-            <div className="pt-7 w-full border-b" />
-            <div className="flex flex-col pt-7">{renderContent(content)}</div>
-          </div>
+          <View>
+            <View style={[margins.mt24, styles.divider]} />
+            <View style={padding.pt24}>{renderContent(content)}</View>
+          </View>
         )}
-      </div>
+      </View>
     </Surface>
   )
 }

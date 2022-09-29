@@ -12,6 +12,7 @@ import { typeContainerStyles, typeTextStyles } from './styles'
 
 export type ButtonProps = {
   style?: StyleProp<ViewStyle>
+  touchableOpacityStyle?: StyleProp<ViewStyle>
   type: 'primary' | 'secondary' | 'minimal' | 'disabled'
   title?: string
   onPress?: (e?: GestureResponderEvent) => void
@@ -60,6 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   onPress,
   style,
+  touchableOpacityStyle,
   type,
   isHovering = false,
 }) => {
@@ -77,6 +79,7 @@ export const Button: React.FC<ButtonProps> = ({
           padding.ph24,
           containers.fullWidth,
           containers.center,
+          touchableOpacityStyle,
         ]}
         onPress={onPress}
         disabled={type === 'disabled'}

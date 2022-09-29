@@ -144,10 +144,6 @@ export const containers = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-  redBorder: {
-    borderWidth: 1,
-    borderColor: 'red',
-  },
   alignCenter: {
     alignItems: 'center',
   },
@@ -193,6 +189,9 @@ export const containers = StyleSheet.create({
   },
   justifyStart: {
     justifyContent: 'flex-start',
+  },
+  justifySpaceBetween: {
+    justifyContent: 'space-between',
   },
   positionAbsolute: {
     position: 'absolute',
