@@ -9,8 +9,7 @@ import svgr from '@svgr/rollup'
 import copy from 'rollup-plugin-copy'
 import del from 'rollup-plugin-delete'
 import { visualizer } from 'rollup-plugin-visualizer'
-
-const packageJson = require('./package.json')
+import externals from 'rollup-plugin-node-externals'
 
 const doesTargetIncludeNative = (target) =>
   target === 'ios' || target === 'android'
@@ -40,6 +39,20 @@ const makeEntryFileNameGetter = (target) => (chunkInfo) => {
   return `${fileNameWithoutExtension}.js`
 }
 
+const getAliasEntries = (target) => {
+  if (target === 'web') {
+    return [
+      { find: 'react-native', replacement: 'react-native-web' },
+      {
+        find: 'react-native-linear-gradient',
+        replacement: 'react-native-web-linear-gradient',
+      },
+    ]
+  }
+
+  return []
+}
+
 const getConfig = (format, target = 'web', visualize = false) => {
   const extensions = getExtensions(target)
 
@@ -56,25 +69,15 @@ const getConfig = (format, target = 'web', visualize = false) => {
         entryFileNames: makeEntryFileNameGetter(target),
       },
     ],
-    external: [
-      // We don't need to bundle deps & peer deps
-      ...Object.keys(packageJson.dependencies || {}),
-      ...Object.keys(packageJson.peerDependencies || {}),
-    ],
     plugins: [
       del({ targets: outputDir }),
+      alias({
+        entries: getAliasEntries(target),
+      }),
+      externals(),
       resolve({
         extensions,
         moduleDirectories: [],
-      }),
-      alias({
-        entries: [
-          { find: 'react-native$', replacement: 'react-native-web' },
-          {
-            find: 'react-native-linear-gradient',
-            replacement: 'react-native-web-linear-gradient',
-          },
-        ],
       }),
       commonjs(),
       babel({

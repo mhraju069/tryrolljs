@@ -6447,6 +6447,7 @@ __metadata:
     rollup: ^2.78.1
     rollup-plugin-copy: ^3.4.0
     rollup-plugin-delete: ^2.0.0
+    rollup-plugin-node-externals: ^5.0.0
     rollup-plugin-postcss: ^4.0.2
     rollup-plugin-svg: ^2.0.0
     rollup-plugin-visualizer: ^5.8.1
@@ -21675,6 +21676,15 @@ __metadata:
   dependencies:
     del: ^5.1.0
   checksum: 8c05b55d0f454e8a487118edfc03aba78092b32fc0bd1fb061617bc7a2a9563a8e9ba64af34dcc0769ff75a89d113108fcc143c6b694901dfd7e1a9b254b106f
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-node-externals@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "rollup-plugin-node-externals@npm:5.0.0"
+  peerDependencies:
+    rollup: ^2.60.0
+  checksum: 92d5744faa159b0b443778a9856437e2d24cba413e4dc3feb97b24a28b5c0de22410cd312a7050bf6d2995f6abf58dc6e8c4231060c90f771263aeb87c684ff5
   languageName: node
   linkType: hard
 
