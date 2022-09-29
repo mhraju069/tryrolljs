@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.16
+
+### Patch Changes
+
+- [#46](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/46) [`dc3856b`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/dc3856ba560467918e46139d4abf51c81f2b2c4a) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix react-native aliases
+
 ## 0.0.15
 
 ### Patch Changes
