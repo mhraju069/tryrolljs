@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.17
+
+### Patch Changes
+
+- [#48](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/48) [`05e1579`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/05e1579b080964eddf86ee40a2e206267c89e423) Thanks [@teimurjan](https://github.com/teimurjan)! - Make CollapsibleView cross-platform
+
 ## 0.0.16
 
 ### Patch Changes
