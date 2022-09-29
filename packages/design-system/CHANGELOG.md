@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.0.15
+
+### Patch Changes
+
+- [#45](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/45) [`374929d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/374929d8d4c3ea9e39a7f4caee9e041b4c0196f5) Thanks [@teimurjan](https://github.com/teimurjan)! - Exclude dependencies from package dist folder
+
+- [#43](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/43) [`185244a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/185244afb027f92910a98468ab279f2b3a9cc108) Thanks [@teimurjan](https://github.com/teimurjan)! - Make AccountDropdown ready for native
+
 ## 0.0.14
 
 ### Patch Changes
