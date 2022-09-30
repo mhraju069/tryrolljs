@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { titleBuilder } from '../../../.storybook/utils'
 import { Dropdown } from '.'
 
@@ -7,26 +6,23 @@ const storyConfig = {
   component: Dropdown,
 }
 
+const styles = {
+  trigger: { padding: '4px 8px', border: '1px solid lightgray', width: 250 },
+  menuItem: { padding: '4px 8px' },
+}
+
+const renderTrigger = () => <div style={styles.trigger}>Dropdown</div>
+
+const renderDropdown = () => (
+  <ul>
+    <li style={styles.menuItem}>Menu item #1</li>
+    <li style={styles.menuItem}>Menu item #2</li>
+    <li style={styles.menuItem}>Menu item #3</li>
+  </ul>
+)
+
 export const Default = () => {
-  const [open, setOpen] = useState(false)
-  return (
-    <div style={{ width: 100 }}>
-      <Dropdown
-        open={open}
-        renderDropdown={() => (
-          <div style={{ width: 100, height: 100, backgroundColor: 'red' }} />
-        )}
-      >
-        <div
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
-          style={{ width: 100, height: 100, backgroundColor: 'blue' }}
-        >
-          <p>hover</p>
-        </div>
-      </Dropdown>
-    </div>
-  )
+  return <Dropdown renderDropdown={renderDropdown}>{renderTrigger()}</Dropdown>
 }
 
 export default storyConfig
