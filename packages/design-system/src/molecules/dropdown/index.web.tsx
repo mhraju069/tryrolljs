@@ -15,11 +15,7 @@ import { useTheme } from '../../hooks'
 import { containers } from '../../styles'
 import { DropdownProps } from '.'
 
-export const Dropdown: React.FC<DropdownProps> = ({
-  children,
-  open,
-  renderDropdown,
-}: DropdownProps) => {
+export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
   const theme = useTheme()
   const [isOpen, setIsOpen] = useState(open)
   const { context, x, y, reference, floating, strategy } = useFloating({
