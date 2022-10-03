@@ -6382,7 +6382,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tryrolljs/cli@workspace:packages/cli"
   dependencies:
-    "@tryrolljs/prettier-config": 0.0.3
+    "@tryrolljs/prettier-config": 0.0.4
     commander: ^9.4.0
     eslint: ^8.22.0
     prettier: ^2.7.1
@@ -6523,7 +6523,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/prettier-config@0.0.3, @tryrolljs/prettier-config@workspace:packages/prettier-config":
+"@tryrolljs/prettier-config@0.0.4, @tryrolljs/prettier-config@workspace:packages/prettier-config":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/prettier-config@workspace:packages/prettier-config"
   languageName: unknown
