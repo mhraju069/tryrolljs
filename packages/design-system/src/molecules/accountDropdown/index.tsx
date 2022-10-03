@@ -63,7 +63,7 @@ export const AccountDropdown = ({ onSwitchAccounts }: Props) => {
           containers.row,
           styles.address,
           padding.p8,
-          containers.borderRadiusXL,
+          containers.borderRadius,
           margins.mv8,
           { backgroundColor: theme.background.page },
         ]}

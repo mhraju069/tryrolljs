@@ -1,15 +1,17 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle } from 'react-native'
-import { Body, Button } from '../..'
-import { Spinner } from '../../atoms'
+import { View } from 'native-base'
+import { Body, Button, Spinner } from '../../atoms'
+import { useTheme } from '../../hooks'
 import { shortenAddress } from '../../utils/web3'
 import { useEthAddress } from '../../hooks/web3'
+import { containers, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
 import { AccountDropdown } from '../accountDropdown'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
-type Props = {
+export type ConnectWeb3ButtonProps = {
   buttonStyle?: StyleProp<ViewStyle> // TODO define type properly
   onPress: () => void
   activity?: boolean
@@ -19,14 +21,22 @@ export const ConnectWeb3Button = ({
   buttonStyle,
   onPress,
   activity,
-}: Props) => {
+}: ConnectWeb3ButtonProps) => {
   const address = useEthAddress()
+  const theme = useTheme()
 
   if (activity) {
     return (
-      <div className="flex items-center h-full w-28 p-2">
+      <View
+        style={[
+          containers.alignCenter,
+          containers.justifyCenter,
+          containers.fullHeight,
+          padding.p4,
+        ]}
+      >
         <Spinner />
-      </div>
+      </View>
     )
   }
 
@@ -41,9 +51,16 @@ export const ConnectWeb3Button = ({
           />
         )}
       >
-        <div className="flex h-8 self-center items-center bg-gray-200 p-2 rounded-lg">
+        <View
+          style={[
+            containers.row,
+            padding.p8,
+            containers.borderRadius,
+            { backgroundColor: theme.background.page },
+          ]}
+        >
           <Body>{shortenAddress(address)}</Body>
-        </div>
+        </View>
       </Dropdown>
     )
   }
