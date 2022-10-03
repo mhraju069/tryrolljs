@@ -1,13 +1,13 @@
 {
   "name": "@tryrolljs/cli",
   "description": "CLI for Roll applications",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "./index.js",
   "bin": {
     "roll": "./bin/roll.js"
   },
   "dependencies": {
-    "@tryrolljs/prettier-config": "0.0.3",
+    "@tryrolljs/prettier-config": "0.0.4",
     "commander": "^9.4.0",
     "eslint": "^8.22.0",
     "prettier": "^2.7.1"
@@ -25,5 +25,9 @@
     "npm": "~8.3.1",
     "node": "16.14.0"
   },
-  "keywords": ["cli", "lint", "format"]
+  "keywords": [
+    "cli",
+    "lint",
+    "format"
+  ]
 }
