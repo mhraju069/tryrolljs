@@ -35,5 +35,16 @@
   "scripts": {
     "test": "jest --testEnvironment=jsdom",
     "build": "rollup -c"
-  }
+  },
+  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/feature-flag",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+  },
+  "engines": {
+    "npm": "~8.3.1",
+    "node": "16.14.0"
+  },
+  "keywords": ["feature", "flag", "experiment"]
 }

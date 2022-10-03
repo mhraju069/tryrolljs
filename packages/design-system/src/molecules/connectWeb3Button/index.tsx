@@ -1,6 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle } from 'react-native'
-import { useState } from 'react'
 import { Body, Button } from '../..'
 import { Spinner } from '../../atoms'
 import { shortenAddress } from '../../utils/web3'
@@ -22,8 +21,6 @@ export const ConnectWeb3Button = ({
   activity,
 }: Props) => {
   const address = useEthAddress()
-  const [mouseInA, setMouseInA] = useState(false)
-  const [mouseInB, setMouseInB] = useState(false)
 
   if (activity) {
     return (
@@ -36,24 +33,15 @@ export const ConnectWeb3Button = ({
   if (address) {
     return (
       <Dropdown
-        alignLeft
-        onMouseEnter={() => setMouseInB(true)}
-        onMouseLeave={() => setMouseInB(false)}
-        open={mouseInA || mouseInB}
         renderDropdown={() => (
           <AccountDropdown
             onSwitchAccounts={() => {
-              setMouseInB(false)
               onPress()
             }}
           />
         )}
       >
-        <div
-          onMouseEnter={() => setMouseInA(true)}
-          onMouseLeave={() => setMouseInA(false)}
-          className="flex h-8 self-center items-center bg-gray-200 p-2 rounded-lg"
-        >
+        <div className="flex h-8 self-center items-center bg-gray-200 p-2 rounded-lg">
           <Body>{shortenAddress(address)}</Body>
         </div>
       </Dropdown>
