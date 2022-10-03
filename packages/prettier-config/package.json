@@ -5,5 +5,15 @@
   "main": "./.prettierrc.js",
   "publishConfig": {
     "access": "public"
+  },
+  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/prettier-config",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+  },
+  "engines": {
+    "npm": "~8.3.1",
+    "node": "16.14.0"
   }
 }
