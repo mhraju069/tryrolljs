@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/prettier-config",
   "description": "Prettier configuration for Roll applications",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./.prettierrc.js",
   "publishConfig": {
     "access": "public"
@@ -16,5 +16,8 @@
     "npm": "~8.3.1",
     "node": "16.14.0"
   },
-  "keywords": ["prettier", "config"]
+  "keywords": [
+    "prettier",
+    "config"
+  ]
 }

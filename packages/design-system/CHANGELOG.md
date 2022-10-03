@@ -1,5 +1,15 @@
 # @tryrolljs/design-system
 
+## 0.0.18
+
+### Patch Changes
+
+- [#50](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/50) [`3f83b0e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/3f83b0eba6e0cb47a2f7fa0a0422c8c1bb020463) Thanks [@teimurjan](https://github.com/teimurjan)! - Populate package json with useful data
+
+- [#50](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/50) [`91b4e3d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/91b4e3d939c4224a42ae374cce555b9a582abb9c) Thanks [@teimurjan](https://github.com/teimurjan)! - - Use floating-ui for Dropdown component
+  - Add a stub Dropdown implementation for native
+  - Allow creation of uncontrolled Dropdown components
+
 ## 0.0.17
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @tryrolljs/cli
 
+## 0.0.9
+
+### Patch Changes
+
+- [#50](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/50) [`3f83b0e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/3f83b0eba6e0cb47a2f7fa0a0422c8c1bb020463) Thanks [@teimurjan](https://github.com/teimurjan)! - Populate package json with useful data
+
+- Updated dependencies [[`3f83b0e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/3f83b0eba6e0cb47a2f7fa0a0422c8c1bb020463)]:
+  - @tryrolljs/prettier-config@0.0.4
+
 ## 0.0.8
 
 ### Patch Changes
