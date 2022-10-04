@@ -2,4 +2,4 @@
 '@tryrolljs/design-system': patch
 ---
 
-Make CopyText cross-platform
+Make CopyLink cross-platform
