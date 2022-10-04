@@ -1,34 +1,34 @@
 import { useState } from 'react'
-import { titleBuilder } from '../../../.storybook/utils'
-import { withThemeProvider } from '../../providers/theme/withProvider'
+import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import { ConnectWeb3Options } from '../connectWeb3Options'
 import { withWeb3Provider } from '../../providers/web3'
-import { useWeb3ConnectorsCtx } from '../../providers/web3Connectors'
-import { ConnectWeb3Button } from '.'
+import { ConnectWeb3Button, ConnectWeb3ButtonProps } from '.'
 
-const conf = {
+const storyConfig = {
   title: titleBuilder.molecules('ConnectWeb3Button'),
   component: ConnectWeb3Button,
 }
 
-export const Default = () => {
-  return withWeb3Provider(withThemeProvider(<StoryComponent />))
-}
-
-const StoryComponent = () => {
+const Template = (props: ConnectWeb3ButtonProps) => {
   const [showOptions, setShowOptions] = useState(false)
-  const { isActivating } = useWeb3ConnectorsCtx()
-  return (
-    <div>
+
+  return withWeb3Provider(
+    <>
       <ConnectWeb3Button
-        activity={isActivating}
-        onPress={() => setShowOptions(true)}
+        {...props}
+        onPress={() => {
+          props.onPress?.()
+          setShowOptions(true)
+        }}
       />
       {showOptions && (
         <ConnectWeb3Options onClose={() => setShowOptions(!showOptions)} />
       )}
-    </div>
+    </>,
   )
 }
 
-export default conf
+export const Default = fromTemplate(Template, {})
+export const Loading = fromTemplate(Template, { activity: true })
+
+export default storyConfig
