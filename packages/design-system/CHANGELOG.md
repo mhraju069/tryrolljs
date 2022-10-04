@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.0.19
+
+### Patch Changes
+
+- [#53](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/53) [`ad4df3d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ad4df3daca9cf7af1763957fa0cce14aeee42a1e) Thanks [@teimurjan](https://github.com/teimurjan)! - Make ConnectWeb3Button cross-platform
+
+- [#54](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/54) [`f68f0c4`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f68f0c4cb114cf4e0f8618b427dff3be860faed4) Thanks [@teimurjan](https://github.com/teimurjan)! - Make CopyLink cross-platform
+
 ## 0.0.18
 
 ### Patch Changes
