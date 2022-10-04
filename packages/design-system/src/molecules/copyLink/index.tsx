@@ -1,38 +1,71 @@
-import { useState } from 'react'
-import { Body, margins, truncateText } from '../..'
+import { useCallback, useEffect, useState } from 'react'
+import { Pressable, useClipboard, View } from 'native-base'
+import { StyleSheet } from 'react-native'
+import { Body } from '../../atoms'
+import { margins, containers, lightestGray, padding } from '../../styles'
 import Copy from '../../assets/svg/copy.svg'
 import Check from '../../assets/svg/check.svg'
+import { truncateText } from '../../utils'
 
-type Props = {
+export type CopyLinkProps = {
   url: string
-  maxLen?: number
+  maxLength?: number
 }
 
-export const CopyLink = ({ url, maxLen }: Props) => {
-  const [check, setCheck] = useState(false)
+const SUCCESS_TIMEOUT = 1000
+const DEFAULT_MAX_LENGTH = 40
 
-  const handleCopy = async () => {
-    try {
-      setCheck(true)
-      await navigator.clipboard.writeText(url)
-      setTimeout(() => {
-        setCheck(false)
-      }, 500)
-    } catch (err) {
-      alert('unable to copy text to clipboard')
+const styles = StyleSheet.create({
+  wrapper: {
+    borderBottomWidth: 2,
+    borderColor: lightestGray,
+  },
+})
+
+export const CopyLink = ({
+  url,
+  maxLength = DEFAULT_MAX_LENGTH,
+}: CopyLinkProps) => {
+  const [showSuccess, setShowSuccess] = useState(false)
+  const { onCopy } = useClipboard()
+
+  const handleCopy = useCallback(async () => {
+    setShowSuccess(true)
+    await onCopy(url)
+  }, [onCopy, url])
+
+  useEffect(() => {
+    if (showSuccess) {
+      const timeoutId = setTimeout(() => {
+        setTimeout(() => {
+          setShowSuccess(false)
+        }, SUCCESS_TIMEOUT)
+      })
+
+      return () => {
+        clearTimeout(timeoutId)
+      }
     }
-  }
+  }, [showSuccess])
 
   return (
-    <div className="inline-flex flex-row border-b-2 justify-between items-center">
-      <Body style={margins.mr8}>{truncateText(url, maxLen || 40)}</Body>
-      {!check ? (
-        <div className="cursor-pointer" onClick={handleCopy}>
-          <Copy />
-        </div>
-      ) : (
+    <View
+      style={[
+        styles.wrapper,
+        containers.row,
+        containers.justifySpaceBetween,
+        containers.alignCenter,
+        padding.pb4,
+      ]}
+    >
+      <Body style={margins.mr8}>{truncateText(url, maxLength)}</Body>
+      {showSuccess ? (
         <Check />
+      ) : (
+        <Pressable onPress={handleCopy}>
+          <Copy />
+        </Pressable>
       )}
-    </div>
+    </View>
   )
 }
