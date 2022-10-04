@@ -1,16 +1,20 @@
-import { titleBuilder } from '../../../.storybook/utils'
-import { CopyLink } from '.'
+import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { CopyLink, CopyLinkProps } from '.'
 
 const storyConfig = {
   title: titleBuilder.molecules('CopyLink'),
   component: CopyLink,
 }
 
-export const Default = () => {
-  return (
-    <div style={{ maxWidth: 400 }}>
-      <CopyLink url="https://www.google.com/somelonglinkthatisverylong" />
-    </div>
-  )
-}
+const Template = (props: CopyLinkProps) => <CopyLink {...props} />
+
+export const Default = fromTemplate(Template, {
+  url: 'https://www.google.com/somelonglinkthatisverylong',
+})
+
+export const MaxLengthSet = fromTemplate(Template, {
+  url: 'https://www.google.com/somelonglinkthatisverylong',
+  maxLength: 20,
+})
+
 export default storyConfig
