@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { containers, padding } from '../..'
+import { containers, padding, text } from '../../styles'
 import { Body } from '../typography'
 import { typeContainerStyles, typeTextStyles } from './styles'
 
@@ -87,7 +87,7 @@ export const Button: React.FC<ButtonProps> = ({
         {title ? (
           <Body
             weight="bold"
-            style={typeStyle.text}
+            style={[typeStyle.text, text.center]}
             color={typeStyle.text.color}
           >
             {title}
