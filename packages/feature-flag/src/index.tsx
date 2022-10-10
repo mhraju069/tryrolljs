@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   useReducer,
   useContext,
+  ComponentType,
 } from 'react'
 import groupBy from 'lodash.groupby'
 import {
@@ -140,3 +141,14 @@ export const FeatureFlagProvider = ({
 
 export const useFeatureFlag = (name: string) =>
   useContext(FeatureFlagContext)[name]
+
+export type InjectedProps = { flags: FeatureFlagMap }
+
+export const withFeatureFlags =
+  <P extends object>(Component: ComponentType<P & InjectedProps>) =>
+  (props: P) =>
+    (
+      <FeatureFlagContext.Consumer>
+        {(flags) => <Component {...props} flags={flags} />}
+      </FeatureFlagContext.Consumer>
+    )
