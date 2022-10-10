@@ -1,7 +1,7 @@
-import { waitFor, renderHook } from '@testing-library/react'
+import { waitFor, renderHook, render } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
 import { FeatureFlag } from './types'
-import { useFeatureFlag, FeatureFlagProvider } from './index'
+import { useFeatureFlag, FeatureFlagProvider, withFeatureFlags } from './index'
 
 const getWrapper =
   (flags: FeatureFlag[]) =>
@@ -155,5 +155,22 @@ describe('useFeatureFlag', () => {
     await waitFor(() => {
       expect(result.current).toBe('foo bar')
     })
+  })
+
+  it('works as hoc', () => {
+    const Component = withFeatureFlags(({ flags }) => (
+      <span data-testid="useFeatureX">{flags.useFeatureX.toString()}</span>
+    ))
+    const { getByTestId } = render(<Component />, {
+      wrapper: getWrapper([
+        {
+          type: 'static',
+          name: 'useFeatureX',
+          value: true,
+        },
+      ]),
+    })
+
+    expect(getByTestId('useFeatureX').firstChild?.textContent).toBe('true')
   })
 })
