@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.0.20
+
+### Patch Changes
+
+- [#58](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/58) [`c9bab5e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c9bab5e165f0bd48aa2ffa28757e5edcc1c8b704) Thanks [@teimurjan](https://github.com/teimurjan)! - Add Result component
+
 ## 0.0.19
 
 ### Patch Changes
