@@ -1,5 +1,8 @@
-import { Body, useTheme } from '../..'
-import { useChainID } from '../../hooks/web3'
+import { View } from 'native-base'
+import { useCallback } from 'react'
+import { Body } from '../../atoms'
+import { useTheme, useChainID } from '../../hooks'
+import { containers, padding } from '../../styles'
 import { SUPPORTED_CHAIN_IDS } from '../../web3Connectors'
 
 type Props = {
@@ -9,8 +12,7 @@ type Props = {
   validChainID: number
 }
 
-const handleChangeNetwork = async (chainID: number) => {
-  // @ts-ignore
+const changeNetwork = async (chainID: number) => {
   const { ethereum } = window
   if (ethereum && ethereum.request) {
     try {
@@ -27,7 +29,10 @@ const handleChangeNetwork = async (chainID: number) => {
 const isSupportedNetwork = (
   supportedChainIDs: number[],
   chainID: number | undefined,
-) => supportedChainIDs.findIndex((val) => val === chainID) !== -1
+) =>
+  supportedChainIDs.findIndex(
+    (supportedChainID) => supportedChainID === chainID,
+  ) !== -1
 
 export const InvalidNetworkBanner = ({
   title,
@@ -37,24 +42,30 @@ export const InvalidNetworkBanner = ({
   const theme = useTheme()
   const chainID = useChainID()
 
-  // only render element if connected to a network && network is invalid
-  if (!chainID || isSupportedNetwork(supportedChainIDs, chainID)) return null
+  const handleNetworkChange = useCallback(() => {
+    changeNetwork(validChainID)
+  }, [validChainID])
+
+  if (!chainID || isSupportedNetwork(supportedChainIDs, chainID)) {
+    return null
+  }
 
   return (
-    <div
-      className="flex justify-center p-6"
-      style={{ backgroundColor: theme.background.error }}
+    <View
+      style={[
+        containers.row,
+        containers.justifyCenter,
+        padding.p16,
+        { backgroundColor: theme.background.error },
+      ]}
     >
       <Body weight="bold" color={theme.text.error}>
-        {title ? `${title} ` : 'You are connected to the wrong network. '}
+        {title ? title : 'You are connected to the wrong network.'}
+        &nbsp;
       </Body>
-      <Body
-        onPress={() => handleChangeNetwork(validChainID)}
-        underline
-        color={theme.text.error}
-      >
+      <Body onPress={handleNetworkChange} underline color={theme.text.error}>
         Click here to change network
       </Body>
-    </div>
+    </View>
   )
 }

@@ -19,18 +19,12 @@ const Banner = () => {
     return <Body>Please connect wallet to test this component</Body>
   }
 
-  if (chainID === CHAIN_ID_MAIN_NET) {
-    return <Body>Switch away from eth main net to see component</Body>
-  }
-
   return (
-    <div style={{ maxWidth: 800 }}>
-      <InvalidNetworkBanner
-        supportedChainIDs={[CHAIN_ID_MAIN_NET]}
-        validChainID={CHAIN_ID_MAIN_NET}
-        chainID={10}
-      />
-    </div>
+    <InvalidNetworkBanner
+      supportedChainIDs={[CHAIN_ID_MAIN_NET]}
+      validChainID={CHAIN_ID_MAIN_NET}
+      chainID={10}
+    />
   )
 }
 
