@@ -1,5 +1,5 @@
 import { StyleProp, View, ViewStyle } from 'react-native'
-import { containers } from '../../styles'
+import { container } from '../../styles'
 
 type Props = {
   style?: StyleProp<ViewStyle>
@@ -7,7 +7,7 @@ type Props = {
 
 export const Surface: React.FC<Props> = ({ style, children }) => {
   return (
-    <View style={[containers.borderRadius, containers.shadow, style]}>
+    <View style={[container.borderRadius, container.shadow, style]}>
       {children}
     </View>
   )

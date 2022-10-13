@@ -1,5 +1,3 @@
-// OpenSans font
-//@ts-nocheck
 import openSansRegular from '../assets/fonts/OpenSans-Regular.ttf'
 import openSansBold from '../assets/fonts/OpenSans-Bold.ttf'
 import openSansBoldItalic from '../assets/fonts/OpenSans-BoldItalic.ttf'
@@ -11,7 +9,6 @@ import openSansLightItalic from '../assets/fonts/OpenSans-LightItalic.ttf'
 import openSansSemiBold from '../assets/fonts/OpenSans-SemiBold.ttf'
 import openSansSemiBoldItalic from '../assets/fonts/OpenSans-SemiBoldItalic.ttf'
 
-// SourceCodePro font
 import sourceCodeProRegular from '../assets/fonts/SourceCodePro-Regular.ttf'
 
 const fontStylesString = `
@@ -85,7 +82,9 @@ const getFontStyleElement = () => {
 
   const fontStyles = document.createElement('style')
   fontStyles.type = 'text/css'
+  // @ts-ignore
   if (fontStyles.styleSheet) {
+    // @ts-ignore
     fontStyles.styleSheet.cssText = fontStylesString
   } else {
     fontStyles.appendChild(document.createTextNode(fontStylesString))

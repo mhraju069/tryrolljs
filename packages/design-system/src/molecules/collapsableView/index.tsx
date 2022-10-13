@@ -1,6 +1,11 @@
 import { View } from 'native-base'
-import { StyleSheet } from 'react-native'
-import { containers, lightestGray, margins, padding } from '../../styles'
+import {
+  container,
+  lightestGray,
+  makeStyles,
+  margin,
+  padding,
+} from '../../styles'
 import { Body, Button, Header, Surface } from '../../atoms'
 import ExpandIcon from '../../assets/svg/expandIcon.svg'
 import CollapseIcon from '../../assets/svg/collapseIcon.svg'
@@ -18,7 +23,7 @@ const renderContent = (content: React.ReactElement | string) => {
   return content
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   button: {
     width: 'auto',
     height: 'auto',
@@ -41,13 +46,13 @@ export const CollapsableView = ({
   toggle,
 }: Props) => {
   return (
-    <Surface style={[containers.fullWidth]}>
+    <Surface style={[container.fullWidth]}>
       <View style={[padding.p32]}>
         <View
           style={[
-            containers.justifySpaceBetween,
-            containers.alignCenter,
-            containers.row,
+            container.justifySpaceBetween,
+            container.alignCenter,
+            container.row,
           ]}
         >
           <Header weight="bold">{title}</Header>
@@ -62,7 +67,7 @@ export const CollapsableView = ({
         </View>
         {isExpanded && (
           <View>
-            <View style={[margins.mt24, styles.divider]} />
+            <View style={[margin.mt24, styles.divider]} />
             <View style={padding.pt24}>{renderContent(content)}</View>
           </View>
         )}

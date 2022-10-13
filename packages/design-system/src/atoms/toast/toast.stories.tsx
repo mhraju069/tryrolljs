@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { action } from '@storybook/addon-actions'
 import { titleBuilder } from '../../../.storybook/utils'
-import { containers, margins } from '../../styles'
+import { container, margin } from '../../styles'
 import { Button } from '../button'
 import { Toast, ToastVariant } from '.'
 
@@ -15,7 +15,7 @@ const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
 
   return (
     <Button
-      style={margins.mr16}
+      style={margin.mr16}
       type="primary"
       title={actionTitle ?? title}
       onPress={() =>
@@ -34,7 +34,7 @@ const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
 
 export const Default = () => {
   return (
-    <View style={containers.row}>
+    <View style={container.row}>
       {renderShowToastButton('light')}
       {renderShowToastButton('dark')}
       {renderShowToastButton('warn')}

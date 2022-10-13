@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 import { NativeBaseProvider } from 'native-base'
-import { lightTheme, Theme } from '../../styles/theme'
+import { lightTheme, Theme } from '../../styles'
 
 type ThemeContext = {
   theme: Theme

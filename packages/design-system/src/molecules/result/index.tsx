@@ -1,6 +1,6 @@
 import { GestureResponderEvent, View } from 'react-native'
 import { Body, Button, LargeHeader } from '../../atoms'
-import { margins, text, containers, orange, crimson, green } from '../../styles'
+import { margin, text, container, orange, crimson, green } from '../../styles'
 
 type Action = {
   onPress: (e?: GestureResponderEvent) => void
@@ -33,8 +33,8 @@ export const Result = ({
   const isVertical = layout === 'vertical'
 
   return (
-    <View style={[containers.center]}>
-      <LargeHeader color={TEXT_COLOR_MAP[variant]} style={margins.mb8}>
+    <View style={[container.center]}>
+      <LargeHeader color={TEXT_COLOR_MAP[variant]} style={margin.mb8}>
         {title}
       </LargeHeader>
       <Body style={text.center}>{description}</Body>
@@ -42,10 +42,10 @@ export const Result = ({
       {actions.length > 0 && (
         <View
           style={[
-            margins.mt48,
-            containers.fullWidth,
-            containers.center,
-            !isVertical && containers.row,
+            margin.mt48,
+            container.fullWidth,
+            container.center,
+            !isVertical && container.row,
           ]}
         >
           {actions[0] && (
@@ -54,8 +54,8 @@ export const Result = ({
               title={actions[0].title}
               onPress={actions[0].onPress}
               style={[
-                isVertical ? margins.mb24 : margins.mr24,
-                isVertical ? containers.fullWidth : containers.flex1,
+                isVertical ? margin.mb24 : margin.mr24,
+                isVertical ? container.fullWidth : container.flex1,
               ]}
             />
           )}
@@ -65,7 +65,7 @@ export const Result = ({
               type="primary"
               title={actions[1].title}
               onPress={actions[1].onPress}
-              style={[isVertical ? containers.fullWidth : containers.flex1]}
+              style={[isVertical ? container.fullWidth : container.flex1]}
             />
           )}
         </View>

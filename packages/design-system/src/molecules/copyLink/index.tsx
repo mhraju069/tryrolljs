@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Pressable, useClipboard, View } from 'native-base'
-import { StyleSheet } from 'react-native'
 import { Body } from '../../atoms'
-import { margins, containers, lightestGray, padding } from '../../styles'
+import {
+  margin,
+  container,
+  lightestGray,
+  padding,
+  makeStyles,
+} from '../../styles'
 import Copy from '../../assets/svg/copy.svg'
 import Check from '../../assets/svg/check.svg'
 import { truncateText } from '../../utils'
@@ -15,7 +20,7 @@ export type CopyLinkProps = {
 const SUCCESS_TIMEOUT = 1000
 const DEFAULT_MAX_LENGTH = 40
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   wrapper: {
     borderBottomWidth: 2,
     borderColor: lightestGray,
@@ -52,13 +57,13 @@ export const CopyLink = ({
     <View
       style={[
         styles.wrapper,
-        containers.row,
-        containers.justifySpaceBetween,
-        containers.alignCenter,
+        container.row,
+        container.justifySpaceBetween,
+        container.alignCenter,
         padding.pb4,
       ]}
     >
-      <Body style={margins.mr8}>{truncateText(url, maxLength)}</Body>
+      <Body style={margin.mr8}>{truncateText(url, maxLength)}</Body>
       {showSuccess ? (
         <Check />
       ) : (

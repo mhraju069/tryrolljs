@@ -15,7 +15,7 @@ import { useState } from 'react'
 import { View } from 'native-base'
 import {
   charcoalBlack,
-  containers,
+  container,
   darkNavy,
   padding,
   white,
@@ -77,8 +77,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
         {(isOpen || open) && (
           <View
             style={[
-              containers.borderRadius,
-              containers.shadow,
+              container.borderRadius,
+              container.shadow,
               padding.ph16,
               padding.pv8,
               // @ts-ignore

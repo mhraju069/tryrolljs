@@ -12,7 +12,7 @@ import {
 import { useState } from 'react'
 import { View } from 'native-base'
 import { useTheme } from '../../hooks'
-import { containers } from '../../styles'
+import { container } from '../../styles'
 import { DropdownProps } from '.'
 
 export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
@@ -56,8 +56,8 @@ export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
       {(isOpen || open) && (
         <View
           style={[
-            containers.borderRadius,
-            containers.shadow,
+            container.borderRadius,
+            container.shadow,
             // @ts-ignore
             // eslint-disable-next-line react-native/no-inline-styles
             {
