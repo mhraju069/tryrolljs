@@ -5,7 +5,7 @@ import { Body, Button, Spinner } from '../../atoms'
 import { useTheme } from '../../hooks'
 import { shortenAddress } from '../../utils/web3'
 import { useEthAddress } from '../../hooks/web3'
-import { containers, padding } from '../../styles'
+import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
 import { AccountDropdown } from '../accountDropdown'
 
@@ -29,9 +29,9 @@ export const ConnectWeb3Button = ({
     return (
       <View
         style={[
-          containers.alignCenter,
-          containers.justifyCenter,
-          containers.fullHeight,
+          container.alignCenter,
+          container.justifyCenter,
+          container.fullHeight,
           padding.p4,
         ]}
       >
@@ -53,9 +53,9 @@ export const ConnectWeb3Button = ({
       >
         <View
           style={[
-            containers.row,
+            container.row,
             padding.p8,
-            containers.borderRadius,
+            container.borderRadius,
             { backgroundColor: theme.background.page },
           ]}
         >

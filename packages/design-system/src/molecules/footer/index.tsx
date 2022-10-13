@@ -15,7 +15,7 @@ import {
   supportEmail,
   twitterUrl,
 } from '../../constants'
-import { margins } from '../../styles'
+import { margin } from '../../styles'
 import { openLink } from '../../utils/functions'
 
 interface Icon {
@@ -50,7 +50,7 @@ export const Footer = () => {
           <Logo />
           <SubHeader
             color={theme.background.primary}
-            style={margins.mt16}
+            style={margin.mt16}
             onPress={() => openLink(`mailto:${supportEmail}`, true)}
           >
             support@tryroll.com
@@ -62,7 +62,7 @@ export const Footer = () => {
           </Header>
           <SubHeader
             color={theme.background.primary}
-            style={margins.mv8}
+            style={margin.mv8}
             onPress={() => openLink(blogUrl)}
           >
             Blog
@@ -80,7 +80,7 @@ export const Footer = () => {
           </Header>
           <SubHeader
             color={theme.background.primary}
-            style={margins.mv8}
+            style={margin.mv8}
             onPress={() => openLink(stakingTermsUrl, true)}
           >
             Protocol Terms

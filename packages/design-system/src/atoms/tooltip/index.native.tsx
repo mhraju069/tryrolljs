@@ -1,17 +1,18 @@
 import { useFloating, shift } from '@floating-ui/react-native'
 import { useCallback, useState } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import {
   charcoalBlack,
-  containers,
+  container,
   darkNavy,
+  makeStyles,
   padding,
   white,
 } from '../../styles'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   tooltip: {
     position: 'absolute',
     maxWidth: 250,
@@ -45,8 +46,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
           ref={floating}
           style={[
             styles.tooltip,
-            containers.borderRadius,
-            containers.shadow,
+            container.borderRadius,
+            container.shadow,
             padding.ph16,
             padding.pv8,
             {

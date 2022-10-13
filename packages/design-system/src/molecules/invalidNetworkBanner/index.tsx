@@ -2,7 +2,7 @@ import { View } from 'native-base'
 import { useCallback } from 'react'
 import { Body } from '../../atoms'
 import { useTheme, useChainID } from '../../hooks'
-import { containers, padding } from '../../styles'
+import { container, padding } from '../../styles'
 import { SUPPORTED_CHAIN_IDS } from '../../web3Connectors'
 
 type Props = {
@@ -53,8 +53,8 @@ export const InvalidNetworkBanner = ({
   return (
     <View
       style={[
-        containers.row,
-        containers.justifyCenter,
+        container.row,
+        container.justifyCenter,
         padding.p16,
         { backgroundColor: theme.background.error },
       ]}

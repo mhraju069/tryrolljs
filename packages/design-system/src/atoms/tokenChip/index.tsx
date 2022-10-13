@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { containers, margins } from '../../styles'
+import { container, margin } from '../../styles'
 import { CircleImg } from '../circleImg'
 import { Body } from '../typography'
 
@@ -13,9 +13,9 @@ export const TokenChip = ({
   size?: number
 }) => {
   return (
-    <View style={[containers.row, containers.alignCenter]}>
+    <View style={[container.row, container.alignCenter]}>
       <CircleImg size={size} uri={logo} />
-      <Body style={margins.ml4}>{symbol}</Body>
+      <Body style={margin.ml4}>{symbol}</Body>
     </View>
   )
 }

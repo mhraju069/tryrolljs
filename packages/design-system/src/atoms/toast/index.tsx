@@ -1,6 +1,5 @@
 import {
   GestureResponderEvent,
-  StyleSheet,
   TouchableOpacity,
   View,
   Platform,
@@ -11,16 +10,17 @@ import { Toast as NBToast } from 'native-base'
 import {
   charcoalBlack,
   white,
-  margins,
+  margin,
   text,
   black,
   padding,
   ghostWhite,
   green,
   crimson,
-  containers,
+  container,
   cyanBlue,
   orange,
+  makeStyles,
 } from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
 import { Body, Caption } from '../typography'
@@ -74,7 +74,7 @@ export const TOAST_COLOR_MAP = {
 
 const isWeb = Platform.OS === 'web'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   wrapper: {
     maxWidth: '100%',
     width: 300,
@@ -105,7 +105,7 @@ export const Toast = ({
 
     if (isWeb) {
       return (
-        <TouchableOpacity style={margins.mt8} onPress={action.onPress}>
+        <TouchableOpacity style={margin.mt8} onPress={action.onPress}>
           <Caption color={color} weight="semiBold" underline>
             {action.title}
           </Caption>
@@ -118,8 +118,8 @@ export const Toast = ({
         <View
           style={[
             styles.nativeActionDivider,
-            margins.mt16,
-            margins.mb8,
+            margin.mt16,
+            margin.mb8,
             { backgroundColor: secondaryBackgroundColor },
           ]}
         />
@@ -137,10 +137,10 @@ export const Toast = ({
       <View
         style={[
           styles.container,
-          margins.mh16,
+          margin.mh16,
           padding.p16,
-          containers.shadow,
-          containers.borderRadius,
+          container.shadow,
+          container.borderRadius,
           {
             backgroundColor,
             borderColor,

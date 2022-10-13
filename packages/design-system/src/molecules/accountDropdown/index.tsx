@@ -1,8 +1,7 @@
 import { View } from 'native-base'
-import { StyleSheet } from 'react-native'
 import { Body, Anchor } from '../../atoms'
 import { useTheme } from '../../hooks'
-import { margins, padding, containers } from '../../styles'
+import { margin, padding, container, makeStyles } from '../../styles'
 import { etherscanAccountUrl, shortenAddress } from '../../utils/web3'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
@@ -13,7 +12,7 @@ type Props = {
   onSwitchAccounts?: () => void
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     minWidth: 320,
   },
@@ -38,13 +37,9 @@ const SwitchAccountLink = ({
   const theme = useTheme()
   return (
     <Anchor target="_blank" href={href} onPress={onPress}>
-      <View style={[containers.row, containers.alignCenter, margins.mh8]}>
+      <View style={[container.row, container.alignCenter, margin.mh8]}>
         {icon}
-        <Body
-          onPress={onPress}
-          style={margins.ml4}
-          color={theme.text.highlight}
-        >
+        <Body onPress={onPress} style={margin.ml4} color={theme.text.highlight}>
           {title}
         </Body>
       </View>
@@ -60,20 +55,20 @@ export const AccountDropdown = ({ onSwitchAccounts }: Props) => {
       <Body color={theme.text.secondary}>Connected with MetaMask</Body>
       <View
         style={[
-          containers.row,
+          container.row,
           styles.address,
           padding.p8,
-          containers.borderRadius,
-          margins.mv8,
+          container.borderRadius,
+          margin.mv8,
           { backgroundColor: theme.background.page },
         ]}
       >
-        <Body weight="bold" style={margins.mr8}>
+        <Body weight="bold" style={margin.mr8}>
           {shortenAddress(address || '')}
         </Body>
         <Copy />
       </View>
-      <View style={containers.row}>
+      <View style={container.row}>
         <SwitchAccountLink
           onPress={onSwitchAccounts}
           icon={<WalletIcon />}

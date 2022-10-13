@@ -1,25 +1,23 @@
-import {
-  GestureResponderEvent,
-  StyleProp,
-  TouchableOpacity,
-  ViewStyle,
-  StyleSheet,
-} from 'react-native'
+import { Pressable } from 'native-base'
+import { useState } from 'react'
+import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { containers, padding, text } from '../../styles'
+import { container, makeStyles, padding, text } from '../../styles'
 import { Body } from '../typography'
-import { typeContainerStyles, typeTextStyles } from './styles'
+import { button, buttonGradient, buttonText } from './styles'
+
+export type ButtonType = 'primary' | 'secondary' | 'minimal' | 'disabled'
 
 export type ButtonProps = {
   style?: StyleProp<ViewStyle>
   touchableOpacityStyle?: StyleProp<ViewStyle>
-  type: 'primary' | 'secondary' | 'minimal' | 'disabled'
+  type: ButtonType
   title?: string
   onPress?: (e?: GestureResponderEvent) => void
   isHovering?: boolean | undefined
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     borderRadius: 50,
     maxWidth: 600,
@@ -28,33 +26,19 @@ const styles = StyleSheet.create({
   },
 })
 
-const getHoverStyle = (type: string) => {
+const getHoverStyles = (type: ButtonType) => {
   return {
-    container: {
-      ...(typeContainerStyles as any)[type],
-      ...(typeContainerStyles as any)[`${type}_hover`],
-    },
-    text: {
-      ...(typeTextStyles as any)[type],
-      ...(typeTextStyles as any)[`${type}_hover`],
-    },
+    container: button[`${type}Hover`],
+    text: buttonText[`${type}Hover`],
   }
 }
 
-const getBaselineStyle = (type: string) => {
+const getBaseStyles = (type: ButtonType) => {
   return {
-    container: {
-      ...(typeContainerStyles as any)[type],
-    },
-    text: {
-      ...(typeTextStyles as any)[type],
-    },
+    container: button[type],
+    text: buttonText[type],
   }
 }
-
-// will default to primary style if incorrect type is given
-const getStyles = (type: string, isHovering: boolean) =>
-  isHovering ? getHoverStyle(type) : getBaselineStyle(type)
 
 export const Button: React.FC<ButtonProps> = ({
   title,
@@ -63,39 +47,54 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   touchableOpacityStyle,
   type,
-  isHovering = false,
 }) => {
-  const typeStyle = getStyles(type, isHovering)
+  const [isHover, setIsHover] = useState(false)
+
+  const baseGradient = buttonGradient[type]
+  const baseStyles = getBaseStyles(type)
+
+  const hoverGradient = buttonGradient[`${type}Hover`]
+  const hoverStyles = getHoverStyles(type)
+
+  const gradient = (isHover ? hoverGradient : baseGradient) ?? []
+
   return (
     <LinearGradient
-      style={[styles.container, typeStyle.container, style]}
+      style={[
+        styles.container,
+        baseStyles.container,
+        isHover && hoverStyles.container,
+        style,
+      ]}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 1 }}
-      colors={typeStyle.container.gradientColors}
+      colors={gradient}
     >
-      <TouchableOpacity
+      <Pressable
         style={[
-          containers.fullHeight,
+          container.fullHeight,
           padding.ph24,
-          containers.fullWidth,
-          containers.center,
+          container.fullWidth,
+          container.center,
           touchableOpacityStyle,
         ]}
         onPress={onPress}
         disabled={type === 'disabled'}
+        onHoverIn={() => setIsHover(true)}
+        onHoverOut={() => setIsHover(false)}
       >
         {title ? (
           <Body
             weight="bold"
-            style={[typeStyle.text, text.center]}
-            color={typeStyle.text.color}
+            style={[baseStyles.text, isHover && hoverStyles.text, text.center]}
+            color={baseStyles.text.color}
           >
             {title}
           </Body>
         ) : (
           children
         )}
-      </TouchableOpacity>
+      </Pressable>
     </LinearGradient>
   )
 }

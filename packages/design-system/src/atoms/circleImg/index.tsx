@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { Image, ImageStyle, StyleProp, StyleSheet, View } from 'react-native'
+import { Image, ImageStyle, StyleProp, View } from 'react-native'
 import Avatar from 'boring-avatars'
+import { makeStyles } from '../../styles'
 
 type Props = {
   size?: number
@@ -9,7 +10,7 @@ type Props = {
   color?: Array<string>
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   borderRadius: {
     borderRadius: 100,
   },
