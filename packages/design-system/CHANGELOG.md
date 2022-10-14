@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.0.21
+
+### Patch Changes
+
+- [#62](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/62) [`411e483`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/411e4839bd4a9ae915bc4bbd1ebb2d9d9d11f17b) Thanks [@teimurjan](https://github.com/teimurjan)! - Unify styling
+
+- [#60](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/60) [`bdb29be`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bdb29bed32a677eb8ab211a53527a30df92a50da) Thanks [@teimurjan](https://github.com/teimurjan)! - Make invalid network banner cross-platform
+
 ## 0.0.20
 
 ### Patch Changes
