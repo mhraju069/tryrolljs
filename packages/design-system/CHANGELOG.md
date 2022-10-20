@@ -1,5 +1,17 @@
 # @tryrolljs/design-system
 
+## 0.0.22
+
+### Patch Changes
+
+- [#64](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/64) [`4d6cb6f`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4d6cb6fcddd2a66ae2c50428ac0dd653eedc03b9) Thanks [@teimurjan](https://github.com/teimurjan)! - Make Footer style-agnostic
+
+- [#65](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/65) [`8f09192`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8f091924ed74d2f903231796f55b3963d39e6501) Thanks [@teimurjan](https://github.com/teimurjan)! - Refactor package structure
+
+- [#67](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/67) [`53ffcc6`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/53ffcc6ea643528c21aa399eb34074fd001b52e5) Thanks [@teimurjan](https://github.com/teimurjan)! - Get rid of css
+
+- [#63](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/63) [`81a4705`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/81a47056e5d36c810d98c39b0ea862a68b903658) Thanks [@teimurjan](https://github.com/teimurjan)! - Make ConnectWeb3Options component style-agnostic
+
 ## 0.0.21
 
 ### Patch Changes
