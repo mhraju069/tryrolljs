@@ -1,12 +1,24 @@
 import type { ValueOf } from 'type-fest'
 import { makeStyles } from './utils'
 
-type PaddingValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64
+type PaddingValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64 | 128 | 'auto'
 type PaddingPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type PaddingPrefix = 'p'
 type PaddingKey = `${PaddingPrefix}${PaddingPostfix}${PaddingValue}`
 
-const paddingValues: PaddingValue[] = [4, 8, 16, 24, 32, 40, 48, 56, 64]
+const paddingValues: PaddingValue[] = [
+  4,
+  8,
+  16,
+  24,
+  32,
+  40,
+  48,
+  56,
+  64,
+  128,
+  'auto',
+]
 const paddingPostfixes: PaddingPostfix[] = ['', 't', 'b', 'r', 'l', 'v', 'h']
 const paddingStylePropByPostfix: Record<PaddingPostfix, string> = {
   '': 'padding',
@@ -30,6 +42,6 @@ const paddingStyles = paddingValues.reduce((acc, value) => {
   })
 
   return acc
-}, {} as Record<PaddingKey, Record<PaddingProperty, number>>)
+}, {} as Record<PaddingKey, Record<PaddingProperty, PaddingValue>>)
 
 export const padding = makeStyles(paddingStyles)
