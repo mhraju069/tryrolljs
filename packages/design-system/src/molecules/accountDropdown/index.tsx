@@ -1,12 +1,11 @@
 import { View } from 'native-base'
 import { Body, Anchor } from '../../atoms'
-import { useTheme } from '../../hooks'
+import { useTheme, useEthAddress } from '../../hooks'
 import { margin, padding, container, makeStyles } from '../../styles'
-import { etherscanAccountUrl, shortenAddress } from '../../utils/web3'
+import { etherscanAccountUrl, shortenAddress } from '../../utils'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
 import LinkIcon from '../../assets/svg/link.svg'
-import { useEthAddress } from '../../hooks/web3'
 
 type Props = {
   onSwitchAccounts?: () => void

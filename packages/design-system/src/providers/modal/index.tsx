@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react'
-import { ModalCtx, ModalOpts, ModalRenderer } from '../../context/modal'
+import { ModalContext, ModalProps, ModalRenderer } from '../../context'
 
 export const ModalProvider: React.FC = ({ children }) => {
   const [open, setOpen] = useState(false)
   const [renderer, setRenderer] = useState<ModalRenderer>(() => () => null)
-  const [options, setOptions] = useState<ModalOpts>({})
+  const [options, setOptions] = useState<ModalProps>({})
 
   const _setRenderer = useCallback(
-    (r: ModalRenderer, opts?: ModalOpts) => {
+    (r: ModalRenderer, opts?: ModalProps) => {
       setRenderer(() => r)
       setOptions(opts || {})
     },
@@ -15,16 +15,16 @@ export const ModalProvider: React.FC = ({ children }) => {
   )
 
   return (
-    <ModalCtx.Provider
+    <ModalContext.Provider
       value={{
         open,
         setOpen,
         renderer,
         setRenderer: _setRenderer,
-        opts: options,
+        props: options,
       }}
     >
       {children}
-    </ModalCtx.Provider>
+    </ModalContext.Provider>
   )
 }

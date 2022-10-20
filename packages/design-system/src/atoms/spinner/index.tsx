@@ -1,6 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native'
 import { Spinner as NBSpinner } from 'native-base'
-import { useTheme } from '../..'
+import { useTheme } from '../../hooks'
 
 export type SpinnerProps = {
   size?: 'sm' | 'lg' | number

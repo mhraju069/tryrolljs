@@ -1,9 +1,9 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useState, useMemo } from 'react'
 import Close from '../../assets/svg/close.svg'
-import { text, useTheme } from '../..'
+import { text } from '../../styles'
 import { Anchor, SubHeader, Body } from '../../atoms'
-import { useWeb3ConnectorsCtx } from '../../providers/web3Connectors'
+import { useTheme, useWeb3Conntectors } from '../../hooks'
 import { stakingTermsUrl } from '../../constants'
 import {
   buildWalletOptionsMobile,
@@ -19,7 +19,7 @@ type Props = {
 export const ConnectWeb3Options = ({ onSelect, onClose, mobile }: Props) => {
   const theme = useTheme()
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
-  const { connectors, handleConnect } = useWeb3ConnectorsCtx()
+  const { connectors, handleConnect } = useWeb3Conntectors()
 
   const walletOptions = useMemo(
     () =>

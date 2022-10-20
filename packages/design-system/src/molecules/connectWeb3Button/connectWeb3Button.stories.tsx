@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import { ConnectWeb3Options } from '../connectWeb3Options'
-import { withWeb3Provider } from '../../providers/web3'
+import { withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Button, ConnectWeb3ButtonProps } from '.'
 
 const storyConfig = {

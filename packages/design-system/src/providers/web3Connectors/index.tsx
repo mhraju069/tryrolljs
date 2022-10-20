@@ -1,37 +1,14 @@
 import { Web3Provider } from '@ethersproject/providers'
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from 'web3-react-core'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import { useInactiveListener } from '../../hooks/web3'
+import { useInactiveListener } from '../../hooks'
 import {
   CHAIN_ID_MAIN_NET,
   SUPPORTED_CHAIN_IDS,
   Web3Connectors,
-} from '../../web3Connectors'
-
-type Web3ConnectorsContext = {
-  connectors: Web3Connectors
-  setConnectors: (c: Web3Connectors) => void
-  handleConnect: (c: AbstractConnector) => void
-  isActivating: boolean
-  eagerConnect: () => void
-}
-
-export const Web3ConnectorsCtx = createContext<Web3ConnectorsContext>({
-  connectors: new Web3Connectors('', ''),
-  setConnectors: () => null,
-  handleConnect: (_: AbstractConnector) => null,
-  isActivating: false,
-  eagerConnect: () => null,
-})
-
-export const useWeb3ConnectorsCtx = () => useContext(Web3ConnectorsCtx)
+} from '../../web3'
+import { Web3ConnectorsContext } from '../../context'
 
 export type Web3ConnectorProviderProps = {
   fortmaticApiKey: string
@@ -99,7 +76,7 @@ export const Web3ConnectorProvider: React.FC<Web3ConnectorProviderProps> = ({
   }, [])
 
   return (
-    <Web3ConnectorsCtx.Provider
+    <Web3ConnectorsContext.Provider
       value={{
         connectors,
         setConnectors,
@@ -109,6 +86,6 @@ export const Web3ConnectorProvider: React.FC<Web3ConnectorProviderProps> = ({
       }}
     >
       {children}
-    </Web3ConnectorsCtx.Provider>
+    </Web3ConnectorsContext.Provider>
   )
 }

@@ -1,22 +1,22 @@
 import * as React from 'react'
 
-export type ModalOpts = {
+export type ModalProps = {
   style?: React.CSSProperties
 }
 
 export type ModalRenderer = () => React.ReactElement | null
 
-export type ModalContext = {
+export type ModalContextValue = {
   open: boolean
   setOpen: (open: boolean) => void
   renderer: ModalRenderer
-  opts: ModalOpts
-  setRenderer: (renderer: ModalRenderer, opts?: ModalOpts) => void
+  props: ModalProps
+  setRenderer: (renderer: ModalRenderer, opts?: ModalProps) => void
 }
 
-export const ModalCtx = React.createContext<ModalContext>({
+export const ModalContext = React.createContext<ModalContextValue>({
   open: false,
-  opts: {},
+  props: {},
   setOpen: () => null,
   renderer: () => null,
   setRenderer: () => null,

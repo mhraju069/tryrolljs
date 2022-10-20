@@ -39,9 +39,3 @@ export const Web3Provider: React.FC<Props> = ({
     </Web3ReactProvider>
   )
 }
-
-export const withWeb3Provider = (component: React.ReactElement) => (
-  <Web3Provider fortmaticApiKey="" portisDappID="">
-    {component}
-  </Web3Provider>
-)
