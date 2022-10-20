@@ -4,7 +4,6 @@ import { babel } from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import url from '@rollup/plugin-url'
-import postcss from 'rollup-plugin-postcss'
 import svgr from '@svgr/rollup'
 import copy from 'rollup-plugin-copy'
 import del from 'rollup-plugin-delete'
@@ -109,24 +108,7 @@ const getConfig = (format, target = 'web', visualize = false) => {
   }
 }
 
-const getStyleConfig = (target = 'web') => ({
-  input: 'src/assets/css/index.css',
-  output: {
-    file: `dist/${target}/index.css`,
-    format: 'esm',
-  },
-  plugins: [
-    postcss({
-      extract: true,
-    }),
-  ],
-})
-
-const webConfigs = [
-  getConfig('cjs', 'web'),
-  getConfig('esm', 'web'),
-  getStyleConfig('web'),
-]
+const webConfigs = [getConfig('cjs', 'web'), getConfig('esm', 'web')]
 
 const nativeConfigs = [
   getConfig('cjs', 'native'),

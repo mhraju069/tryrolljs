@@ -1,6 +1,4 @@
 import { ThemeProvider } from '../src/providers'
-
-import '../src/assets/css/index.css'
 import { injectFonts } from '../src/styles'
 
 injectFonts()
