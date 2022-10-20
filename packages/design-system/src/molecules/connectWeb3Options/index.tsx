@@ -1,7 +1,15 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useState, useMemo } from 'react'
+import { Pressable, View } from 'native-base'
 import Close from '../../assets/svg/close.svg'
-import { text } from '../../styles'
+import {
+  text,
+  makeStyles,
+  container,
+  padding,
+  margin,
+  lightestGray,
+} from '../../styles'
 import { Anchor, SubHeader, Body } from '../../atoms'
 import { useTheme, useWeb3Conntectors } from '../../hooks'
 import { stakingTermsUrl } from '../../constants'
@@ -15,6 +23,19 @@ type Props = {
   onClose?: () => void
   mobile?: boolean
 }
+
+const styles = makeStyles({
+  wrapper: {
+    minWidth: 350,
+    maxWidth: 600,
+  },
+  option: {
+    borderWidth: 1,
+  },
+  termsAndConditions: {
+    width: '80%',
+  },
+})
 
 export const ConnectWeb3Options = ({ onSelect, onClose, mobile }: Props) => {
   const theme = useTheme()
@@ -36,23 +57,28 @@ export const ConnectWeb3Options = ({ onSelect, onClose, mobile }: Props) => {
   }
 
   return (
-    <div
-      className="rounded-lg"
-      style={{
-        minWidth: 350,
-        maxWidth: 600,
-        background: theme.background.primary,
-      }}
+    <View
+      style={[
+        styles.wrapper,
+        container.borderRadiusXL,
+        {
+          backgroundColor: theme.background.primary,
+        },
+      ]}
     >
-      <div className="flex justify-between p-4">
+      <View style={[container.row, container.justifySpaceBetween, padding.p16]}>
         <SubHeader weight="bold">Connect Wallet</SubHeader>
-        <div className="cursor-pointer" onClick={onClose}>
+        <Pressable onPress={onClose}>
           <Close />
-        </div>
-      </div>
-      <div
-        className="p-4 flex flex-col items-center rounded-lg"
-        style={{ backgroundColor: theme.background.primary }}
+        </Pressable>
+      </View>
+      <View
+        style={[
+          container.alignCenter,
+          container.borderRadius,
+          padding.p16,
+          { backgroundColor: theme.background.primary },
+        ]}
       >
         {walletOptions.map((o, i) => (
           <ConnectWalletOption
@@ -60,18 +86,18 @@ export const ConnectWeb3Options = ({ onSelect, onClose, mobile }: Props) => {
             active={i === selectedIdx}
             title={o.provider.title}
             logo={o.provider.logo}
-            onClick={() => _select(o.connector, i)}
+            onPress={() => _select(o.connector, i)}
           />
         ))}
-        <div className="w-4/5 flex justify-center">
+        <View style={[container.justifyCenter, styles.termsAndConditions]}>
           <Body style={text.center}>
             By connecting, you accept the{' '}
             <Anchor href={stakingTermsUrl}>Terms of Service</Anchor> for using
             the Roll protocol
           </Body>
-        </div>
-      </div>
-    </div>
+        </View>
+      </View>
+    </View>
   )
 }
 
@@ -79,22 +105,29 @@ type OptionProps = {
   title: string
   logo: JSX.Element
   active?: boolean
-  onClick?: () => void
+  onPress?: () => void
 }
 
-const ConnectWalletOption = ({ title, logo, active, onClick }: OptionProps) => {
+const ConnectWalletOption = ({ title, logo, active, onPress }: OptionProps) => {
   const theme = useTheme()
   return (
-    <div
-      onClick={onClick}
-      className="flex flex-row justify-between rounded p-4 mb-4 w-full cursor-pointer"
-      style={{
-        borderWidth: 1,
-        borderColor: active ? theme.background.highlight : undefined,
-      }}
+    <Pressable
+      onPress={onPress}
+      style={[
+        container.row,
+        container.justifySpaceBetween,
+        container.borderRadiusSM,
+        padding.p16,
+        margin.mb8,
+        container.fullWidth,
+        styles.option,
+        {
+          borderColor: active ? theme.background.highlight : lightestGray,
+        },
+      ]}
     >
       <SubHeader>{title}</SubHeader>
       {logo}
-    </div>
+    </Pressable>
   )
 }

@@ -48,20 +48,3 @@ export const lightTheme: Theme = {
     warning: orange,
   },
 }
-
-/**
- * Keeping as a reference for the time being until
- * this new theme format is more better adopted
- */
-// backgroundPrimary: white,
-// backgroundPage: ghostWhite,
-// backgroundSecondary: aliceBlue,
-// backgroundModal: white,
-// backgroundHeader: white,
-// backgroundError: mistyRose,
-// textMuted: grey,
-// textError: crimson,
-// textWarning: orange,
-// highlight: dodgerBlue,
-// backgroundGrey: solitudeGrey,
-// backgroundBlue: darkNavy,
