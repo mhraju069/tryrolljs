@@ -57,7 +57,7 @@ export const CollapsableView = ({
         >
           <Header weight="bold">{title}</Header>
           <Button
-            type="primary"
+            variant="primary"
             onPress={toggle}
             style={styles.button}
             touchableOpacityStyle={styles.buttonTouchableOpacity}

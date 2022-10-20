@@ -1,4 +1,4 @@
-import { ThemeProvider } from '../src/providers'
+import { TryrollProvider } from '../src/providers'
 import { injectFonts } from '../src/styles'
 
 injectFonts()
@@ -11,12 +11,13 @@ export const parameters = {
       date: /Date$/,
     },
   },
+   layout: 'fullscreen'
 }
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider>
+    <TryrollProvider>
       <Story />
-    </ThemeProvider>
+    </TryrollProvider>
   ),
 ]

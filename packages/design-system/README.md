@@ -39,13 +39,13 @@ module.exports = {
 Wrap the root of your application with the theme provider.
 
 ```js
-import { ThemeProvider } from '@tryrolljs/design-system'
+import { TryrollProvider } from '@tryrolljs/design-system'
 
 const App = ({ children }) => {
   return (
-    <ThemeProvider>
+    <TryrollProvider>
       {children}
-    </ThemeProvider>
+    </TryrollProvider>
   )
 }
 ```

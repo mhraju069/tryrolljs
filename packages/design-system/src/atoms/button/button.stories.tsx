@@ -1,5 +1,6 @@
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import { Button, ButtonProps } from '.'
+import type { ButtonProps } from './types'
+import { Button } from '.'
 
 const storyConfig = {
   title: titleBuilder.atoms('Button'),
@@ -9,22 +10,29 @@ const storyConfig = {
 const Template = (props: ButtonProps) => <Button {...props} />
 
 export const Primary = fromTemplate(Template, {
-  type: 'primary',
+  variant: 'primary',
   title: 'Click me',
 })
 
 export const Secondary = fromTemplate(Template, {
-  type: 'secondary',
+  variant: 'secondary',
   title: 'Click me',
 })
 
 export const Disabled = fromTemplate(Template, {
-  type: 'disabled',
+  disabled: true,
   title: 'Click me',
 })
 
-export const Minimal = fromTemplate(Template, {
-  type: 'minimal',
+export const InvertedPrimary = fromTemplate(Template, {
+  variant: 'primary',
+  inverted: true,
+  title: 'Click me',
+})
+
+export const InvertedSecondary = fromTemplate(Template, {
+  variant: 'secondary',
+  inverted: true,
   title: 'Click me',
 })
 
