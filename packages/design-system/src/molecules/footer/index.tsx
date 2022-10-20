@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react'
+import { Pressable, View } from 'native-base'
 import Logo from '../../assets/svg/logo.svg'
 import DiscordIcon from '../../assets/svg/discord.svg'
 import InstagramIcon from '../../assets/svg/insta.svg'
@@ -15,7 +16,7 @@ import {
   supportEmail,
   twitterUrl,
 } from '../../constants'
-import { margin } from '../../styles'
+import { container, margin } from '../../styles'
 import { openLink } from '../../utils'
 
 interface Icon {
@@ -41,12 +42,21 @@ const icons: Icon[] = [
 export const Footer = () => {
   const theme = useTheme()
   return (
-    <div
-      className="flex flex-col w-full"
-      style={{ backgroundColor: theme.background.lowLight }}
+    <View
+      style={[
+        container.fullWidth,
+        { backgroundColor: theme.background.lowLight },
+      ]}
     >
-      <div className="flex self-center mt-11 mb-16">
-        <div className="flex flex-col self-end">
+      <View
+        style={[
+          container.row,
+          container.alignSelfCenter,
+          margin.mt40,
+          margin.mb64,
+        ]}
+      >
+        <View style={margin.mtauto}>
           <Logo />
           <SubHeader
             color={theme.background.primary}
@@ -55,8 +65,8 @@ export const Footer = () => {
           >
             support@tryroll.com
           </SubHeader>
-        </div>
-        <div className="flex flex-col mx-32">
+        </View>
+        <View style={margin.ml128}>
           <Header color={theme.background.primary} weight="bold">
             Company
           </Header>
@@ -73,8 +83,8 @@ export const Footer = () => {
           >
             FAQ
           </SubHeader>
-        </div>
-        <div className="flex flex-col">
+        </View>
+        <View style={margin.ml128}>
           <Header color={theme.background.primary} weight="bold">
             Resources
           </Header>
@@ -91,24 +101,24 @@ export const Footer = () => {
           >
             Resource Center
           </SubHeader>
-        </div>
-        <div className="flex flex-col ml-32">
+        </View>
+        <View style={margin.ml128}>
           <Header color={theme.background.primary} weight="bold">
             Connect with us
           </Header>
-          <div className="flex mt-4">
-            {icons.map(({ Icon, url }, idx) => (
-              <div
-                key={idx}
-                onClick={() => openLink(url, true)}
-                className="cursor-pointer mr-6"
+          <View style={[container.row, margin.mt16]}>
+            {icons.map(({ Icon, url }) => (
+              <Pressable
+                key={url}
+                onPress={() => openLink(url, true)}
+                style={margin.mr24}
               >
                 <Icon />
-              </div>
+              </Pressable>
             ))}
-          </div>
-        </div>
-      </div>
-    </div>
+          </View>
+        </View>
+      </View>
+    </View>
   )
 }

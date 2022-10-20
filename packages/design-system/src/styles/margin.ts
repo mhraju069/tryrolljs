@@ -1,12 +1,24 @@
 import type { ValueOf } from 'type-fest'
 import { makeStyles } from './utils'
 
-type MarginValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64
+type MarginValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64 | 128 | 'auto'
 type MarginPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type MarginPrefix = 'm'
 type MarginKey = `${MarginPrefix}${MarginPostfix}${MarginValue}`
 
-const marginValues: MarginValue[] = [4, 8, 16, 24, 32, 40, 48, 56, 64]
+const marginValues: MarginValue[] = [
+  4,
+  8,
+  16,
+  24,
+  32,
+  40,
+  48,
+  56,
+  64,
+  128,
+  'auto',
+]
 const marginPostfixes: MarginPostfix[] = ['', 't', 'b', 'r', 'l', 'v', 'h']
 const marginStylePropByPostfix: Record<MarginPostfix, string> = {
   '': 'margin',
@@ -30,6 +42,6 @@ const marginStyles = marginValues.reduce((acc, value) => {
   })
 
   return acc
-}, {} as Record<MarginKey, Record<MarginProperty, number>>)
+}, {} as Record<MarginKey, Record<MarginProperty, MarginValue>>)
 
 export const margin = makeStyles(marginStyles)
