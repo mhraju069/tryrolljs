@@ -74,6 +74,9 @@ export const container = makeStyles({
   positionAbsolute: {
     position: 'absolute',
   },
+  borderRadiusSM: {
+    borderRadius: 4,
+  },
   borderRadius: {
     borderRadius: 8,
   },
