@@ -1,6 +1,6 @@
 import { StyleProp, TextStyle, View } from 'react-native'
 import { Body } from '..'
-import { commafy } from '../..'
+import { commafy } from '../../utils'
 import { Tooltip } from '../tooltip'
 
 export const DEFAULT_MAX_DIGITS = 4

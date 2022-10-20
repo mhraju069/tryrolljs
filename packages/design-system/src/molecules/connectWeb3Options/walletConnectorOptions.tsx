@@ -4,7 +4,7 @@ import WalletConnectLogo from '../../assets/svg/walletConnectLogo.svg'
 import CoinBaseLogo from '../../assets/svg/coinbaseWalletLogo.svg'
 import FortmaticLogo from '../../assets/svg/fortmaticLogo.svg'
 import PortisLogo from '../../assets/svg/portisLogo.svg'
-import { Web3Connectors } from '../../web3Connectors'
+import { Web3Connectors } from '../../web3'
 
 export type WalletProvider = {
   title: string

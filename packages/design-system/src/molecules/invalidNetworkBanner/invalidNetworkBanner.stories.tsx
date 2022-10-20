@@ -1,8 +1,8 @@
-import { Body } from '../..'
 import { titleBuilder } from '../../../.storybook/utils'
-import { useChainID } from '../../hooks/web3'
-import { withWeb3Provider } from '../../providers/web3'
-import { CHAIN_ID_MAIN_NET } from '../../web3Connectors'
+import { Body } from '../../atoms'
+import { useChainID } from '../../hooks'
+import { withWeb3Provider } from '../../hoc'
+import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { InvalidNetworkBanner } from '.'
 
 const storyConfig = {

@@ -1,6 +1,5 @@
 import { titleBuilder } from '../../../.storybook/utils'
-import { withThemeProvider } from '../../providers/theme/withProvider'
-import { withWeb3Provider } from '../../providers/web3'
+import { withThemeProvider, withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Options } from '.'
 
 const conf = {

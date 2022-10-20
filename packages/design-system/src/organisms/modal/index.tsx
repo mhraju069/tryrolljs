@@ -25,7 +25,7 @@ export const ModalManager = () => {
           bottom: undefined,
           right: undefined,
           padding: 16,
-          ...modal.opts.style,
+          ...modal.props.style,
         },
       }}
     >

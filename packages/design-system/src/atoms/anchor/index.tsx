@@ -1,8 +1,8 @@
 import { Link } from 'native-base'
 import { ReactNode, useCallback } from 'react'
 import type { GestureResponderEvent } from 'react-native'
-import { TypographyBase, TypographyBaseProps } from '..'
-import { useTheme } from '../..'
+import { TypographyBase, TypographyBaseProps } from '../typography'
+import { useTheme } from '../../hooks'
 
 export type AnchorProps = {
   children: ReactNode

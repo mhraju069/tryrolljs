@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { Body } from '../../atoms'
 import { useTheme, useChainID } from '../../hooks'
 import { container, padding } from '../../styles'
-import { SUPPORTED_CHAIN_IDS } from '../../web3Connectors'
+import { SUPPORTED_CHAIN_IDS } from '../../web3'
 
 type Props = {
   title?: string
