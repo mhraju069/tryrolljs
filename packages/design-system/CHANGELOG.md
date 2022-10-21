@@ -1,5 +1,14 @@
 # @tryrolljs/design-system
 
+## 0.0.23
+
+### Patch Changes
+
+- [#68](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/68) [`049ff46`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/049ff4677cd3db12a3b42905b5b955db66a34f87) Thanks [@teimurjan](https://github.com/teimurjan)! - - Add Modal component
+  - Add ConfirmationModalComponent
+  - Refactor button to support only 2 variants, disabled & inverted properties
+  - Rename ThemeProvider to TryrollProvider because it's gonna be a provider of all the lib's dependencies (not only theme)
+
 ## 0.0.22
 
 ### Patch Changes
