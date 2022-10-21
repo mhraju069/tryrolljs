@@ -1,75 +1,74 @@
-import { white, dodgerBlue, cyanBlue, grey } from '../../styles'
+import Color from 'color'
+import { white, dodgerBlue, cyanBlue, grey, lightGray } from '../../styles'
+import type { ButtonProps } from './types'
 
-export const buttonShadow = {
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 4,
-  },
-  shadowOpacity: 0.18,
-  shadowRadius: 20,
-  elevation: 6,
+type ColorMap = {
+  text: string
+  backgroundGradient: [string, string]
+  borderColor?: string
+  hover: {
+    backgroundGradient: [string, string]
+  }
 }
 
-export const buttonGradient = {
-  primary: [cyanBlue, dodgerBlue],
-  primaryHover: ['#0040D2', '#002579'],
-  secondary: [white, white],
-  secondaryHover: undefined,
-  disabled: [grey, grey],
-  disabledHover: undefined,
-  minimal: [white, white],
-  minimalHover: undefined,
-}
+const getHoverColor = (color: string) => Color(color).darken(0.05).hex()
 
-export const button = {
+const colorMapByVariant: Record<ButtonProps['variant'], ColorMap> = {
   primary: {
-    backgroundColor: dodgerBlue,
-  },
-  primaryHover: {
-    backgroundColor: '#002579',
-    opacity: 0.8,
+    text: white,
+    backgroundGradient: [cyanBlue, dodgerBlue],
+    borderColor: undefined,
+    hover: {
+      backgroundGradient: [getHoverColor(cyanBlue), getHoverColor(dodgerBlue)],
+    },
   },
   secondary: {
-    backgroundColor: white,
-    borderWidth: 1,
-    borderColor: dodgerBlue,
+    text: grey,
+    backgroundGradient: [white, white],
+    borderColor: lightGray,
+    hover: {
+      backgroundGradient: [getHoverColor(white), getHoverColor(white)],
+    },
   },
-  secondaryHover: {
-    borderColor: '#002579',
-  },
-  disabled: {},
-  disabledHover: {},
-  minimal: {
-    backgroundColor: 'white',
-    borderColor: 'white',
-  },
-  minimalHover: {},
 }
 
-export const buttonText = {
-  primary: {
-    color: white,
+const disabledColors: ColorMap = {
+  text: white,
+  backgroundGradient: [grey, grey],
+  borderColor: undefined,
+  hover: {
+    backgroundGradient: [grey, grey],
   },
-  primaryHover: {
-    color: white,
-  },
-  secondary: {
-    color: dodgerBlue,
-  },
-  secondaryHover: {
-    color: '#002579',
-  },
-  disabled: {
-    color: white,
-  },
-  disabledHover: {
-    color: white,
-  },
-  minimal: {
-    color: dodgerBlue,
-  },
-  minimalHover: {
-    color: dodgerBlue,
-  },
+}
+
+const invertColors = (colorMap: ColorMap): ColorMap => {
+  return {
+    text: colorMap.backgroundGradient[1],
+    backgroundGradient: [colorMap.text, colorMap.text],
+    borderColor: colorMap.borderColor
+      ? undefined
+      : colorMap.backgroundGradient[1],
+    hover: {
+      backgroundGradient: [
+        getHoverColor(colorMap.text),
+        getHoverColor(colorMap.text),
+      ],
+    },
+  }
+}
+
+export const getColors = ({
+  disabled,
+  variant,
+  inverted,
+}: Pick<ButtonProps, 'variant' | 'disabled' | 'inverted'>) => {
+  if (disabled) {
+    return disabledColors
+  }
+
+  if (inverted) {
+    return invertColors(colorMapByVariant[variant])
+  }
+
+  return colorMapByVariant[variant]
 }

@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions'
 import { titleBuilder } from '../../../.storybook/utils'
-import { withThemeProvider, withWeb3Provider } from '../../hoc'
+import { withWeb3Provider } from '../../hoc'
 import { AccountDropdown } from '.'
 
 const conf = {
@@ -10,9 +10,7 @@ const conf = {
 
 export const Default = () => {
   return withWeb3Provider(
-    withThemeProvider(
-      <AccountDropdown onSwitchAccounts={action('action.onSwitchAccounts')} />,
-    ),
+    <AccountDropdown onSwitchAccounts={action('action.onSwitchAccounts')} />,
   )
 }
 

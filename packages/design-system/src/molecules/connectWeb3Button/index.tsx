@@ -67,7 +67,7 @@ export const ConnectWeb3Button = ({
   return (
     <Button
       style={buttonStyle}
-      type="primary"
+      variant="primary"
       title="Connect Wallet"
       onPress={onPress}
     />

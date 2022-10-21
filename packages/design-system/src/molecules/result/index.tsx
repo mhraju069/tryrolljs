@@ -50,7 +50,7 @@ export const Result = ({
         >
           {actions[0] && (
             <Button
-              type="secondary"
+              variant="secondary"
               title={actions[0].title}
               onPress={actions[0].onPress}
               style={[
@@ -62,7 +62,7 @@ export const Result = ({
 
           {actions[1] && (
             <Button
-              type="primary"
+              variant="primary"
               title={actions[1].title}
               onPress={actions[1].onPress}
               style={[isVertical ? container.fullWidth : container.flex1]}

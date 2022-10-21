@@ -1,5 +1,5 @@
 import { titleBuilder } from '../../../.storybook/utils'
-import { withThemeProvider, withWeb3Provider } from '../../hoc'
+import { withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Options } from '.'
 
 const conf = {
@@ -9,23 +9,19 @@ const conf = {
 
 export const WebOptions = () =>
   withWeb3Provider(
-    withThemeProvider(
-      <ConnectWeb3Options
-        onClose={() => alert('on close event')}
-        onSelect={() => alert('on select event')}
-      />,
-    ),
+    <ConnectWeb3Options
+      onClose={() => alert('on close event')}
+      onSelect={() => alert('on select event')}
+    />,
   )
 
 export const MobileOptions = () =>
   withWeb3Provider(
-    withThemeProvider(
-      <ConnectWeb3Options
-        mobile={true}
-        onClose={() => alert('on close event')}
-        onSelect={() => alert('on select event')}
-      />,
-    ),
+    <ConnectWeb3Options
+      mobile={true}
+      onClose={() => alert('on close event')}
+      onSelect={() => alert('on select event')}
+    />,
   )
 
 export default conf

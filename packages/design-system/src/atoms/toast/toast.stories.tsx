@@ -16,7 +16,7 @@ const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
   return (
     <Button
       style={margin.mr16}
-      type="primary"
+      variant="primary"
       title={actionTitle ?? title}
       onPress={() =>
         Toast.show({
