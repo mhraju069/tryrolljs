@@ -1,5 +1,14 @@
 # @tryrolljs/design-system
 
+## 0.1.0
+
+### Minor Changes
+
+- [#70](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/70) [`212a4cc`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/212a4cc844303f79e53138aada5cf89834ef3e81) Thanks [@teimurjan](https://github.com/teimurjan)! - - Add Select & Popover components
+  - Replace TextField with Input component
+  - Remove react-native-paper dependency
+  - Add iOS & Android storybooks
+
 ## 0.0.23
 
 ### Patch Changes
