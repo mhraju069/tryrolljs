@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.1
+
+### Patch Changes
+
+- [#72](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/72) [`d71d2d3`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/d71d2d32b1066d03c89a412bda31f0b6d57e3330) Thanks [@teimurjan](https://github.com/teimurjan)! - Improve Select rendering performance
+
 ## 0.1.0
 
 ### Minor Changes
