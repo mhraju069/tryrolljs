@@ -1,5 +1,5 @@
 import { Pressable, View } from 'native-base'
-import { useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, TextInput } from 'react-native'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Body, Popover, Input } from '../../atoms'
@@ -27,42 +27,51 @@ export const Select = ({
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState(defaultValue)
 
-  const optionOnPress = Platform.select({
-    native: () => inputRef?.current?.blur(),
-    web: () => setIsOpen(false),
-  })
+  const optionOnPress = useMemo(
+    () =>
+      Platform.select({
+        native: () => inputRef?.current?.blur(),
+        web: () => setIsOpen(false),
+      }),
+    [],
+  )
+
+  const renderReference = useCallback(
+    ({ reference, getReferenceProps }) => {
+      const referenceProps = getReferenceProps()
+      const inputProps = Platform.select({
+        web: referenceProps,
+        native: {
+          onFocus: () => setIsOpen(true),
+          onBlur: () => setIsOpen(false),
+          onLayout: referenceProps.onLayout,
+        },
+      })
+
+      return (
+        <Input
+          // @ts-ignore
+          ref={(node) => {
+            // @ts-ignore
+            inputRef.current = node
+            // @ts-ignore
+            reference(node)
+          }}
+          placeholder={placeholder}
+          right={<ArrowDownCircle />}
+          value={value}
+          {...inputProps}
+        />
+      )
+    },
+    [placeholder, value],
+  )
 
   return (
     <Popover
       open={isOpen}
       onOpenChange={setIsOpen}
-      renderReference={({ reference, getReferenceProps }) => {
-        const referenceProps = getReferenceProps()
-        const inputProps = Platform.select({
-          web: referenceProps,
-          native: {
-            onFocus: () => setIsOpen(true),
-            onBlur: () => setIsOpen(false),
-            onLayout: referenceProps.onLayout,
-          },
-        })
-
-        return (
-          <Input
-            // @ts-ignore
-            ref={(node) => {
-              // @ts-ignore
-              inputRef.current = node
-              // @ts-ignore
-              reference(node)
-            }}
-            placeholder={placeholder}
-            right={<ArrowDownCircle />}
-            value={value}
-            {...inputProps}
-          />
-        )
-      }}
+      renderReference={renderReference}
       openOnHover={false}
       matchReferenceWidth
     >

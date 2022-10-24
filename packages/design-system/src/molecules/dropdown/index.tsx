@@ -1,6 +1,6 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import { Pressable, View } from 'native-base'
-import { Popover } from '../../atoms'
+import { Popover, PopoverProps } from '../../atoms'
 
 export type DropdownProps = {
   children: ReactNode
@@ -11,15 +11,20 @@ export type DropdownProps = {
 export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(open)
 
+  const renderReference: PopoverProps['renderReference'] = useCallback(
+    ({ reference, getReferenceProps }) => (
+      <Pressable {...getReferenceProps()}>
+        <View ref={reference}>{children}</View>
+      </Pressable>
+    ),
+    [children],
+  )
+
   return (
     <Popover
       open={!!(isOpen || open)}
       onOpenChange={setIsOpen}
-      renderReference={({ reference, getReferenceProps }) => (
-        <Pressable {...getReferenceProps()}>
-          <View ref={reference}>{children}</View>
-        </Pressable>
-      )}
+      renderReference={renderReference}
     >
       {renderDropdown()}
     </Popover>

@@ -1,9 +1,8 @@
 import { useFloating, shift, flip } from '@floating-ui/react-native'
 import { View } from 'native-base'
-import { Platform } from 'react-native'
-import { useAndroidFloatingXY, useTheme } from '../../hooks'
+import { useCallback, useMemo } from 'react'
+import { useFloatingLayoutAndroidHandler, useTheme } from '../../hooks'
 import { container } from '../../styles'
-import { formatCoordinate } from '../../utils'
 import { PopoverProps } from '.'
 
 export const Popover = ({
@@ -20,19 +19,26 @@ export const Popover = ({
     middleware: [flip(), shift()],
   })
 
-  const { xy: androidXY, onLayout } = useAndroidFloatingXY()
-  const xy = Platform.select({ android: androidXY, default: [x, y] })
+  const { xy, onLayout } = useFloatingLayoutAndroidHandler({ x, y })
 
-  const getReferenceProps = () => ({
-    onPress: () => {
-      onOpenChange?.(!open)
-    },
-    onLayout,
-  })
+  const getReferenceProps = useCallback(
+    () => ({
+      onPress: () => {
+        onOpenChange?.(!open)
+      },
+      onLayout,
+    }),
+    [onLayout, onOpenChange, open],
+  )
+
+  const referenceNode = useMemo(
+    () => renderReference({ reference, getReferenceProps }),
+    [reference, renderReference, getReferenceProps],
+  )
 
   return (
     <>
-      {renderReference({ reference, getReferenceProps })}
+      {referenceNode}
       {open && (
         <View
           style={[
@@ -43,8 +49,8 @@ export const Popover = ({
             // eslint-disable-next-line react-native/no-inline-styles
             {
               zIndex: 999,
-              top: formatCoordinate(xy[1]),
-              left: formatCoordinate(xy[0]),
+              top: xy[1],
+              left: xy[0],
               backgroundColor: theme.background.primary,
             },
           ]}
