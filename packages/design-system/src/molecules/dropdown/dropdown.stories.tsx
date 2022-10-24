@@ -1,4 +1,6 @@
+import { View } from 'native-base'
 import { titleBuilder } from '../../../.storybook/utils'
+import { Body } from '../../atoms'
 import { Dropdown } from '.'
 
 const storyConfig = {
@@ -6,19 +8,16 @@ const storyConfig = {
   component: Dropdown,
 }
 
-const styles = {
-  trigger: { padding: '4px 8px', border: '1px solid lightgray', width: 250 },
-  menuItem: { padding: '4px 8px' },
-}
-
-const renderTrigger = () => <div style={styles.trigger}>Dropdown</div>
+const renderTrigger = () => (
+  <View>
+    <Body>Dropdown</Body>
+  </View>
+)
 
 const renderDropdown = () => (
-  <ul>
-    <li style={styles.menuItem}>Menu item #1</li>
-    <li style={styles.menuItem}>Menu item #2</li>
-    <li style={styles.menuItem}>Menu item #3</li>
-  </ul>
+  <View>
+    <Body>Hi there!</Body>
+  </View>
 )
 
 export const Default = () => {

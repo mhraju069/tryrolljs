@@ -1,27 +1,34 @@
 import {
   useFloating,
-  useInteractions,
-  useHover,
-  useFocus,
   flip,
-  safePolygon,
   autoUpdate,
   shift,
   size,
+  useFocus,
+  useHover,
+  safePolygon,
+  useInteractions,
 } from '@floating-ui/react-dom-interactions'
-import { useState } from 'react'
 import { View } from 'native-base'
 import { useTheme } from '../../hooks'
 import { container } from '../../styles'
-import { DropdownProps } from '.'
+import { PopoverProps } from '.'
 
-export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
+export const Popover = ({
+  children,
+  onOpenChange,
+  open,
+  renderReference,
+  openOnHover,
+  placement = 'bottom-start',
+  matchReferenceWidth,
+  ...rest
+}: PopoverProps) => {
   const theme = useTheme()
-  const [isOpen, setIsOpen] = useState(open)
-  const { context, x, y, reference, floating, strategy } = useFloating({
-    placement: 'bottom-start',
+  const { x, y, reference, floating, strategy, context } = useFloating({
+    placement,
     open,
-    onOpenChange: setIsOpen,
+    onOpenChange,
     middleware: [
       flip(),
       shift(),
@@ -29,6 +36,7 @@ export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
         apply({ availableWidth, availableHeight, elements }) {
           Object.assign(elements.floating.style, {
             maxWidth: `${availableWidth}px`,
+            width: matchReferenceWidth ? `${availableWidth}px` : undefined,
             maxHeight: `${availableHeight}px`,
           })
         },
@@ -40,23 +48,23 @@ export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
         animationFrame: true,
       }),
   })
+
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       handleClose: safePolygon(),
       move: false,
+      enabled: openOnHover,
     }),
     useFocus(context),
   ])
 
   return (
     <>
-      <div ref={reference} {...getReferenceProps()}>
-        {children}
-      </div>
-      {(isOpen || open) && (
+      {renderReference({ reference, getReferenceProps })}
+      {open && (
         <View
           style={[
-            container.borderRadius,
+            container.borderRadiusSM,
             container.shadow,
             // @ts-ignore
             // eslint-disable-next-line react-native/no-inline-styles
@@ -70,8 +78,9 @@ export const Dropdown = ({ children, open, renderDropdown }: DropdownProps) => {
           ]}
           ref={floating}
           {...getFloatingProps()}
+          {...rest}
         >
-          {renderDropdown()}
+          {children}
         </View>
       )}
     </>

@@ -1,0 +1,101 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/OpenSans-Bold.ttf",
+      "sha1": "0ad533c702f9ac1de717063040426858662cfbcc"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-BoldItalic.ttf",
+      "sha1": "2a24a4e2c75799ece2453068a536be001ae3f786"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-ExtraBold.ttf",
+      "sha1": "9fd34e983ea20a25495a74be5f88dc22b5055649"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-ExtraBoldItalic.ttf",
+      "sha1": "f3ad930518728edac2c1ef8894a8acdedda38afa"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-Italic.ttf",
+      "sha1": "936492dbbb85515e3e860ed5a6a182ebbb7bdb36"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-Light.ttf",
+      "sha1": "23a44778d51bf3f2d7d56eecc233659814e3f875"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-LightItalic.ttf",
+      "sha1": "a71910c6cda89d17919e67eab8d4335e0cabaea6"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-Regular.ttf",
+      "sha1": "dc9c07303a2392f9ee02fdb636814970753ac94a"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-SemiBold.ttf",
+      "sha1": "7b92a6fcde1c17e8f3dc20ec4c2c768551a1660c"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-SemiBoldItalic.ttf",
+      "sha1": "32ba163e576bc49ecc7f712f0ac2dac3b31001e5"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-Black.ttf",
+      "sha1": "b9be51f46a4dbd71db20dea5f61939944f5f41a4"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-BlackItalic.ttf",
+      "sha1": "6d5721c82c037f97fbc2d9052fd7444b8c8fa5a7"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-Bold.ttf",
+      "sha1": "ce300cf7e485e7433d9b45669308449fa0b06621"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-BoldItalic.ttf",
+      "sha1": "bda91b7f99ff1d90bc72b2533f1f14215909034a"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-ExtraLight.ttf",
+      "sha1": "23c84c86949a68a27ce9a56c88598942efb66724"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-ExtraLightItalic.ttf",
+      "sha1": "c7776638fce38e128a379017c26271b4f644a764"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-Light.ttf",
+      "sha1": "71d131420fe91d755e5a6e43f8caf3f31eb8b3c4"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-LightItalic.ttf",
+      "sha1": "3dbc633296d5efaecdbc7ad6c1b084c803ad2d64"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-Medium.ttf",
+      "sha1": "2369ca00286b2afd7f011d80fb0ccdb5e71dadd4"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-MediumItalic.ttf",
+      "sha1": "e24a1c83354b217819dd8d1309b07a6fd04643b9"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-Regular.ttf",
+      "sha1": "4a5c00901673a5adecd1747552949388722fd29e"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-RegularItalic.ttf",
+      "sha1": "9b857c0d2c9ad54b09041067e13b70cc8c040a07"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-SemiBold.ttf",
+      "sha1": "80d915040f60552599353ef8b3f4df3722ce959d"
+    },
+    {
+      "path": "src/assets/fonts/SourceCodePro-SemiBoldItalic.ttf",
+      "sha1": "f4e7c795dd9367467a34b645680f5ec83e85ea69"
+    }
+  ]
+}

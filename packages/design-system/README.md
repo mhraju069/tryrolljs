@@ -68,8 +68,19 @@ const MyComponent = () => {
 
 ## Development
 
+### Web
+
 Use Storybook to test your changes locally.
 
 ```sh
 yarn start
 ```
+
+### Native
+
+You can use React Native Storybook to test changes locally. You'll need to add your story to
+
+1. Add your story to [storybook.requires.js](./.ondevice/storybook.requires.js).
+2. Run `yarn start:native`
+3. Run `yarn ios` for iOS development.
+4. Run `yarn android` for Android development.

@@ -83,6 +83,7 @@ const getConfig = (format, target = 'web', visualize = false) => {
         babelHelpers: 'bundled',
         extensions,
         exclude: 'node_modules/**',
+        configFile: false,
       }),
       typescript({
         tsconfig: './tsconfig.build.json',
