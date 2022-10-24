@@ -19,15 +19,3 @@ export const truncateText = (str: string, len: number): string => {
   if (str.length < len) return str
   return `${str.substring(0, len)}...`
 }
-
-export const formatCoordinate = (coordinate: number | undefined | null) => {
-  if (
-    coordinate === undefined ||
-    coordinate === null ||
-    Number.isNaN(coordinate)
-  ) {
-    return 0
-  }
-
-  return coordinate
-}

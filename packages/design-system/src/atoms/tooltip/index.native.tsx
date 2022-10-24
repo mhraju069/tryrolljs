@@ -10,8 +10,7 @@ import {
   padding,
   white,
 } from '../../styles'
-import { useAndroidFloatingXY } from '../../hooks'
-import { formatCoordinate } from '../../utils'
+import { useFloatingLayoutAndroidHandler } from '../../hooks'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
 
@@ -35,8 +34,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     middleware: [shift()],
   })
 
-  const { xy: androidXY, onLayout } = useAndroidFloatingXY()
-  const xy = Platform.select({ android: androidXY, default: [x, y] })
+  const { xy, onLayout } = useFloatingLayoutAndroidHandler({ x, y })
 
   const handlePress = useCallback(() => {
     setIsOpen((prevIsOpen) => !prevIsOpen)
@@ -65,8 +63,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
             padding.ph16,
             padding.pv8,
             {
-              top: formatCoordinate(xy[1]),
-              left: formatCoordinate(xy[0]),
+              top: xy[1],
+              left: xy[0],
               backgroundColor: variant === 'dark' ? darkNavy : white,
             },
           ]}
