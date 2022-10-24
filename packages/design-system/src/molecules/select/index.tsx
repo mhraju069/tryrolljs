@@ -27,6 +27,8 @@ export const Select = ({
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState(defaultValue)
 
+  const inputValue = options.find((option) => option.value === value)?.name
+
   const optionOnPress = useMemo(
     () =>
       Platform.select({
@@ -59,12 +61,13 @@ export const Select = ({
           }}
           placeholder={placeholder}
           right={<ArrowDownCircle />}
-          value={value}
+          value={inputValue}
+          testID="selectInput"
           {...inputProps}
         />
       )
     },
-    [placeholder, value],
+    [placeholder, inputValue],
   )
 
   return (
@@ -98,6 +101,7 @@ export const Select = ({
                 { backgroundColor: theme.background.highlight },
               ],
             }}
+            testID={`selectOption__${option.value}`}
           >
             <Body>{option.name}</Body>
           </Pressable>
