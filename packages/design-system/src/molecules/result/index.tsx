@@ -50,7 +50,8 @@ export const Result = ({
         >
           {actions[0] && (
             <Button
-              variant="secondary"
+              variant="primary"
+              inverted
               title={actions[0].title}
               onPress={actions[0].onPress}
               style={[

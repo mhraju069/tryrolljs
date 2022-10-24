@@ -1,6 +1,7 @@
 import { useFloating, shift } from '@floating-ui/react-native'
 import { useCallback, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, View } from 'native-base'
+import { Platform } from 'react-native'
 import {
   charcoalBlack,
   container,
@@ -9,6 +10,8 @@ import {
   padding,
   white,
 } from '../../styles'
+import { useAndroidFloatingXY } from '../../hooks'
+import { formatCoordinate } from '../../utils'
 import { asTextNode } from './utils'
 import { TooltipProps } from '.'
 
@@ -32,6 +35,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
     middleware: [shift()],
   })
 
+  const { xy: androidXY, onLayout } = useAndroidFloatingXY()
+  const xy = Platform.select({ android: androidXY, default: [x, y] })
+
   const handlePress = useCallback(() => {
     setIsOpen((prevIsOpen) => !prevIsOpen)
   }, [])
@@ -39,7 +45,15 @@ export const Tooltip: React.FC<TooltipProps> = ({
   return (
     <View>
       <Pressable onPress={handlePress}>
-        <View ref={reference}>{asTextNode(children)}</View>
+        <View
+          ref={reference}
+          onLayout={Platform.select({
+            android: onLayout,
+            default: undefined,
+          })}
+        >
+          {asTextNode(children)}
+        </View>
       </Pressable>
       {isOpen && (
         <View
@@ -51,8 +65,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
             padding.ph16,
             padding.pv8,
             {
-              top: y ?? 0,
-              left: x ?? 0,
+              top: formatCoordinate(xy[1]),
+              left: formatCoordinate(xy[0]),
               backgroundColor: variant === 'dark' ? darkNavy : white,
             },
           ]}

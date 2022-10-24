@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import { Tooltip } from './index.web'
-import { TooltipProps } from '.'
+import { Input } from '../input'
+import { Tooltip, TooltipProps } from '.'
 
 const storyConfig = {
   title: titleBuilder.atoms('Tooltip'),
@@ -14,12 +14,7 @@ const ControlledTemplate = (props: TooltipProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
     <Tooltip {...props} open={isOpen}>
-      <input
-        onFocus={() => setIsOpen(true)}
-        onBlur={() => setIsOpen(false)}
-        type="text"
-        style={{ border: '1px solid black', width: 200 }}
-      />
+      <Input onFocus={() => setIsOpen(true)} onBlur={() => setIsOpen(false)} />
     </Tooltip>
   )
 }
