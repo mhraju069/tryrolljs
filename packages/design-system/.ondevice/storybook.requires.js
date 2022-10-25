@@ -29,6 +29,7 @@ const getStories = () => {
     require('../src/atoms/tooltip/tooltip.stories.tsx'),
     require('../src/molecules/dropdown/dropdown.stories.tsx'),
     require('../src/molecules/select/select.stories.tsx'),
+    require('../src/molecules/information/information.stories.tsx'),
   ]
 }
 
