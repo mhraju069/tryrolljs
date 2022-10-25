@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.2
+
+### Patch Changes
+
+- [#74](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/74) [`7b88bbd`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7b88bbd5baf3f83036807b2ba929635159a2ce8d) Thanks [@teimurjan](https://github.com/teimurjan)! - Add Information component
+
 ## 0.1.1
 
 ### Patch Changes
