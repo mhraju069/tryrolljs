@@ -18,7 +18,7 @@ export interface TokenSelectProps {
   options: TokenSelectOption[]
   placeholder?: string
   searchPlaceholder?: string
-  defaultValue: string
+  defaultValue?: string
   onChange: (value: string) => void
   notFoundText?: string
 }
@@ -34,6 +34,7 @@ export const TokenSelect = ({
   placeholder = 'Select a token',
   searchPlaceholder = 'Search name or paste address',
   notFoundText = 'No results found',
+  onChange,
 }: TokenSelectProps) => {
   const theme = useTheme()
   const [value, setValue] = useState(defaultValue)
@@ -71,6 +72,7 @@ export const TokenSelect = ({
           value={inputValue}
           editable={false}
           pointerEvents="none"
+          testID="tokenSelectInput"
         />
       </Pressable>
 
@@ -83,12 +85,13 @@ export const TokenSelect = ({
         <Modal.Content>
           <Modal.CloseButton onPress={handleModalClose} />
 
-          <Modal.Header>Select a token</Modal.Header>
+          <Modal.Header>{placeholder}</Modal.Header>
           <Modal.Body style={modalBodyStyle}>
             <Input
               value={searchInputValue}
               onChangeText={setSearchInputValue}
               placeholder={searchPlaceholder}
+              testID="tokenSelectSearchInput"
             />
             <Divider style={[margin.mt16, margin.mb8]} />
             {filteredOptions.length > 0 ? (
@@ -103,8 +106,10 @@ export const TokenSelect = ({
                     }}
                     onPress={() => {
                       setValue(option.value)
+                      onChange?.(option.value)
                       handleModalClose()
                     }}
+                    testID={`tokenSelectOption__${option.value}`}
                   >
                     <CircleImg size={32} uri={option.logo} />
                     <SubHeader style={margin.ml16}>{option.symbol}</SubHeader>
