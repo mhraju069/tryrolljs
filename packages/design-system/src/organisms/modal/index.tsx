@@ -6,7 +6,7 @@ import {
   View,
 } from 'native-base'
 import { ReactNode } from 'react'
-import { useWindowDimensions, ViewStyle } from 'react-native'
+import { useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { Body, LargeHeader } from '../../atoms'
 import { useModal, useTheme } from '../../hooks'
@@ -41,28 +41,25 @@ export const Modal = (props: ModalProps) => {
   )
 }
 
-Modal.Content = (props: InterfaceBoxProps<IModalProps>) => (
+const ModalContent = (props: InterfaceBoxProps<IModalProps>) => (
   <NBModal.Content {...props} style={[props.style, styles.content]} />
 )
 
-export interface ModalHeaderProps {
+export interface ModalHeaderProps extends ViewProps {
   children: string
-  style?: ViewStyle
 }
 
-Modal.Header = ({ style, children }: ModalHeaderProps) => (
+const ModalHeader = ({ style, children }: ModalHeaderProps) => (
   <View style={[style, padding.ph40, padding.pt24, padding.pb8]}>
     <LargeHeader weight="semiBold">{children}</LargeHeader>
   </View>
 )
 
-export interface ModalSubHeaderProps {
+export interface ModalSubHeaderProps extends ViewProps {
   children: string
-  style?: ViewStyle
 }
 
-Modal.SubHeader = ({ style, children }: ModalSubHeaderProps) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const ModalSubHeader = ({ style, children }: ModalSubHeaderProps) => {
   const theme = useTheme()
 
   return (
@@ -72,21 +69,21 @@ Modal.SubHeader = ({ style, children }: ModalSubHeaderProps) => {
   )
 }
 
-export interface ModalBodyProps {
+export interface ModalBodyProps extends ViewProps {
   children: ReactNode
-  style?: ViewStyle
 }
 
-Modal.Body = ({ style, children }: ModalBodyProps) => (
-  <View style={[style, padding.ph40, padding.pv16]}>{children}</View>
+const ModalBody = ({ style, children, ...rest }: ModalBodyProps) => (
+  <View style={[style, padding.ph40, padding.pv16]} {...rest}>
+    {children}
+  </View>
 )
 
-export interface ModalFooterProps {
+export interface ModalFooterProps extends ViewProps {
   children: ReactNode
-  style?: ViewStyle
 }
 
-Modal.Footer = ({ style, children }: ModalFooterProps) => (
+const ModalFooter = ({ style, children }: ModalFooterProps) => (
   <View
     style={[
       style,
@@ -101,8 +98,15 @@ Modal.Footer = ({ style, children }: ModalFooterProps) => (
   </View>
 )
 
-Modal.CloseButton = ({ onPress }: IIconButtonProps) => (
+const ModalCloseButton = ({ onPress }: IIconButtonProps) => (
   <Pressable style={styles.closeButton} onPress={onPress}>
     <CloseCircle />
   </Pressable>
 )
+
+Modal.Content = ModalContent
+Modal.Header = ModalHeader
+Modal.SubHeader = ModalSubHeader
+Modal.Body = ModalBody
+Modal.Footer = ModalFooter
+Modal.CloseButton = ModalCloseButton

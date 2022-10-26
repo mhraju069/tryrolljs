@@ -15,12 +15,14 @@ export interface SelectProps {
   placeholder?: string
   options: SelectOption[]
   defaultValue?: string
+  onChange?: (value: string) => void
 }
 
 export const Select = ({
   placeholder,
   options = [],
   defaultValue,
+  onChange,
 }: SelectProps) => {
   const inputRef = useRef<TextInput>(null)
   const theme = useTheme()
@@ -84,6 +86,7 @@ export const Select = ({
             key={option.value}
             onPress={() => {
               setValue(option.value)
+              onChange?.(option.value)
               optionOnPress?.()
             }}
             style={[padding.ph16, padding.pv8]}
