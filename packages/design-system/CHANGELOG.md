@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.1.3
+
+### Patch Changes
+
+- [#76](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/76) [`7614aa0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7614aa0e5f3022c46c4d50a18dc0d7bcaf48771d) Thanks [@teimurjan](https://github.com/teimurjan)! - - Add TokenSelect component
+  - Make CircleImg cross-platform
+  - Add onChange prop to Select
+
 ## 0.1.2
 
 ### Patch Changes
