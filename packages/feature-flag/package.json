@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/feature-flag",
   "description": "Feature flag utils for Roll applications",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
