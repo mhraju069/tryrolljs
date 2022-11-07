@@ -1,5 +1,11 @@
 # @tryrolljs/feature-flag
 
+## 0.0.6
+
+### Patch Changes
+
+- [#78](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/78) [`168c1ee`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/168c1ee7867f18a22ede94726b412dd42f653088) Thanks [@teimurjan](https://github.com/teimurjan)! - Add useFeatureFlagsLoading hook
+
 ## 0.0.5
 
 ### Patch Changes
