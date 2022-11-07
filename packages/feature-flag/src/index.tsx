@@ -18,7 +18,10 @@ import {
 } from './types'
 import { reducer } from './store'
 
-const FeatureFlagContext = createContext<FeatureFlagMap>({})
+const FeatureFlagContext = createContext<{
+  flags: FeatureFlagMap
+  loading: boolean
+}>({ flags: {}, loading: true })
 
 export const FeatureFlagProvider = ({
   flags,
@@ -133,14 +136,17 @@ export const FeatureFlagProvider = ({
   }, [])
 
   return (
-    <FeatureFlagContext.Provider value={state.flags}>
+    <FeatureFlagContext.Provider value={state}>
       {children}
     </FeatureFlagContext.Provider>
   )
 }
 
 export const useFeatureFlag = (name: string) =>
-  useContext(FeatureFlagContext)[name]
+  useContext(FeatureFlagContext).flags[name]
+
+export const useFeatureFlagsLoading = () =>
+  useContext(FeatureFlagContext).loading
 
 export type InjectedProps = { flags: FeatureFlagMap }
 
@@ -149,6 +155,8 @@ export const withFeatureFlags =
   (props: P) =>
     (
       <FeatureFlagContext.Consumer>
-        {(flags) => <Component {...props} flags={flags} />}
+        {({ flags, loading }) => (
+          <Component {...props} flags={flags} flagsLoading={loading} />
+        )}
       </FeatureFlagContext.Consumer>
     )
