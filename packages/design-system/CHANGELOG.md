@@ -1,5 +1,12 @@
 # @tryrolljs/design-system
 
+## 0.1.4
+
+### Patch Changes
+
+- [#80](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/80) [`b05986d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/b05986d3ec808b348ab3aea4ff11ee25091e6330) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add Banner component
+  - Refactor InvalidNetworkBanner to use new Banner component
+
 ## 0.1.3
 
 ### Patch Changes
