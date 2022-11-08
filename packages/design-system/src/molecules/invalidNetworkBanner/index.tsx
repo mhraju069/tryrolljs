@@ -1,9 +1,7 @@
-import { View } from 'native-base'
 import { useCallback } from 'react'
-import { Body } from '../../atoms'
-import { useTheme, useChainID } from '../../hooks'
-import { container, padding } from '../../styles'
+import { useChainID } from '../../hooks'
 import { SUPPORTED_CHAIN_IDS } from '../../web3'
+import { Banner } from '../banner'
 
 type Props = {
   title?: string
@@ -39,7 +37,6 @@ export const InvalidNetworkBanner = ({
   supportedChainIDs = SUPPORTED_CHAIN_IDS,
   validChainID,
 }: Props) => {
-  const theme = useTheme()
   const chainID = useChainID()
 
   const handleNetworkChange = useCallback(() => {
@@ -51,21 +48,13 @@ export const InvalidNetworkBanner = ({
   }
 
   return (
-    <View
-      style={[
-        container.row,
-        container.justifyCenter,
-        padding.p16,
-        { backgroundColor: theme.background.error },
-      ]}
-    >
-      <Body weight="bold" color={theme.text.error}>
-        {title ? title : 'You are connected to the wrong network.'}
-        &nbsp;
-      </Body>
-      <Body onPress={handleNetworkChange} underline color={theme.text.error}>
-        Click here to change network
-      </Body>
-    </View>
+    <Banner
+      title={title ?? 'You are connected to the wrong network.'}
+      variant="warning"
+      action={{
+        title: 'Click here to change network',
+        onPress: handleNetworkChange,
+      }}
+    />
   )
 }
