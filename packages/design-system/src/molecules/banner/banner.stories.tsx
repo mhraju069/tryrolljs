@@ -1,5 +1,5 @@
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
-import { Banner, BannerProps, BannerVariant } from '.'
+import { Banner, BannerProps } from '.'
 
 const storyConfig = {
   title: titleBuilder.molecules('Banner'),
@@ -10,7 +10,7 @@ const Template = (props: BannerProps) => <Banner {...props} />
 
 export const Default = fromTemplate(Template, {
   title: 'Testing Banner component',
-  variant: BannerVariant.DEFAULT,
+  variant: 'default',
 })
 
 export const WithAction = fromTemplate(Template, {
@@ -19,7 +19,7 @@ export const WithAction = fromTemplate(Template, {
     title: 'Click here',
     onPress: () => null,
   },
-  variant: BannerVariant.WARNING,
+  variant: 'warning',
 })
 
 export default storyConfig

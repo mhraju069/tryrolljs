@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useChainID } from '../../hooks'
 import { SUPPORTED_CHAIN_IDS } from '../../web3'
-import { Banner, BannerVariant } from '../banner'
+import { Banner } from '../banner'
 
 type Props = {
   title?: string
@@ -50,7 +50,7 @@ export const InvalidNetworkBanner = ({
   return (
     <Banner
       title={title ?? 'You are connected to the wrong network.'}
-      variant={BannerVariant.WARNING}
+      variant="warning"
       action={{
         title: 'Click here to change network',
         onPress: handleNetworkChange,

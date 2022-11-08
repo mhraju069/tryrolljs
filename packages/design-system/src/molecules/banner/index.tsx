@@ -4,14 +4,9 @@ import { Body } from '../../atoms'
 import { useTheme } from '../../hooks'
 import { container, padding } from '../../styles'
 
-export enum BannerVariant {
-  WARNING = 'WARNING',
-  DEFAULT = 'DEFAULT',
-}
-
 export type BannerProps = {
   title: string
-  variant?: BannerVariant
+  variant?: 'default' | 'warning'
   action?: {
     title: string
     onPress: () => void
@@ -21,7 +16,7 @@ export type BannerProps = {
 export const Banner = ({ title, action, variant }: BannerProps) => {
   const theme = useTheme()
   const colors: { background: string; text: string } = useMemo(() => {
-    if (variant === BannerVariant.WARNING) {
+    if (variant === 'warning') {
       return {
         background: theme.background.error,
         text: theme.text.error,
