@@ -23,6 +23,16 @@ const FeatureFlagContext = createContext<{
   loading: boolean
 }>({ flags: {}, loading: true })
 
+// Using polyfill for Promise.allSettled
+const allSettled = <T extends unknown>(promises: Promise<T>[]) =>
+  Promise.all(
+    promises.map((promise) =>
+      promise
+        .then((value) => ({ status: 'fulfilled', value }))
+        .catch((reason) => ({ status: 'rejected', reason })),
+    ),
+  )
+
 export const FeatureFlagProvider = ({
   flags,
   children,
@@ -91,9 +101,11 @@ export const FeatureFlagProvider = ({
     const promises = allAsyncFeatureFlags.map((featureFlag) =>
       featureFlag.value(),
     )
-    const settledPromises = await Promise.allSettled(promises)
+    4
 
-    return settledPromises.reduce((acc, result, index) => {
+    return (
+      await allSettled<StaticFeatureFlagValue | FeatureFlagMap>(promises)
+    ).reduce((acc, result, index) => {
       if (result.status === 'fulfilled') {
         const correspondingFeatureFlag = allAsyncFeatureFlags[index]
 
