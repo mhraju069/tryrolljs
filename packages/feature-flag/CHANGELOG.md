@@ -1,5 +1,11 @@
 # @tryrolljs/feature-flag
 
+## 0.0.7
+
+### Patch Changes
+
+- [#81](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/81) [`9ab9129`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9ab9129c9774027c3f46283c3967ddcb49f1a216) Thanks [@teimurjan](https://github.com/teimurjan)! - Use Promise.allSettled polyfill
+
 ## 0.0.6
 
 ### Patch Changes
