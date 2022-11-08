@@ -28,8 +28,8 @@ const allSettled = <T extends unknown>(promises: Promise<T>[]) =>
   Promise.all(
     promises.map((promise) =>
       promise
-        .then((value) => ({ status: 'fulfilled', value }))
-        .catch((reason) => ({ status: 'rejected', reason })),
+        .then((value) => ({ status: 'fulfilled' as const, value }))
+        .catch((reason) => ({ status: 'rejected' as const, reason })),
     ),
   )
 
