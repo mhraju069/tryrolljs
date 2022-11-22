@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.5
+
+### Patch Changes
+
+- [#85](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/85) [`bfd68d3`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bfd68d30010a69cef9a2180d9d0095e028dd4779) Thanks [@teimurjan](https://github.com/teimurjan)! - Add token filtering by address
+
 ## 0.1.4
 
 ### Patch Changes
