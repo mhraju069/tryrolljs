@@ -1,5 +1,5 @@
 import { Divider, Pressable, useBreakpointValue } from 'native-base'
-import { FlatList, Platform } from 'react-native'
+import { FlatList, Platform, StyleProp, ViewStyle } from 'react-native'
 import { useCallback, useMemo, useState } from 'react'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Body, Caption, CircleImg, Input, SubHeader } from '../../atoms'
@@ -12,6 +12,7 @@ export type TokenSelectOption = {
   symbol: string
   logo?: string
   value: string
+  address: string
 }
 
 export interface TokenSelectProps {
@@ -21,6 +22,7 @@ export interface TokenSelectProps {
   defaultValue?: string
   onChange: (value: string) => void
   notFoundText?: string
+  style?: StyleProp<ViewStyle>
 }
 
 const modalBodyStyle = Platform.select({
@@ -35,6 +37,7 @@ export const TokenSelect = ({
   searchPlaceholder = 'Search name or paste address',
   notFoundText = 'No results found',
   onChange,
+  style,
 }: TokenSelectProps) => {
   const theme = useTheme()
   const [value, setValue] = useState(defaultValue)
@@ -52,8 +55,10 @@ export const TokenSelect = ({
 
   const filteredOptions = useMemo(
     () =>
-      options.filter((option) =>
-        option.name.toLowerCase().includes(searchInputValue.toLowerCase()),
+      options.filter(
+        (option) =>
+          option.name.toLowerCase().includes(searchInputValue.toLowerCase()) ||
+          option.address.toLowerCase().includes(searchInputValue.toLowerCase()),
       ),
     [options, searchInputValue],
   )
@@ -67,6 +72,7 @@ export const TokenSelect = ({
     <>
       <Pressable onPress={handleInputWrapperPress}>
         <Input
+          style={style}
           placeholder={placeholder}
           right={<ArrowDownCircle />}
           value={inputValue}
