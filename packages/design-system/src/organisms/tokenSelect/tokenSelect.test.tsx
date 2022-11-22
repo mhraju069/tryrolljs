@@ -6,9 +6,9 @@ describe('TokenSelect', () => {
   it('picks tokens', async () => {
     const onChange = jest.fn()
     const options = [
-      { name: 'Ether', symbol: 'ETH', value: 'eth' },
-      { name: 'Wrapped Ether', symbol: 'WETH', value: 'weth' },
-      { name: 'USD Coin', symbol: 'USDC', value: 'usdc' },
+      { name: 'Ether', symbol: 'ETH', value: 'eth', address: '0x00' },
+      { name: 'Wrapped Ether', symbol: 'WETH', value: 'weth', address: '0x01' },
+      { name: 'USD Coin', symbol: 'USDC', value: 'usdc', address: '0x02' },
     ]
     render(<TokenSelect options={options} onChange={onChange} />, {
       wrapper: TryrollTestProvider,
@@ -38,5 +38,35 @@ describe('TokenSelect', () => {
       ).props.value,
     ).toBe('Ether')
     expect(onChange).toHaveBeenCalledWith('eth')
+  })
+
+  it('filters by address', async () => {
+    const onChange = jest.fn()
+    const options = [
+      { name: 'Ether', symbol: 'ETH', value: 'eth', address: '0x00' },
+      { name: 'Wrapped Ether', symbol: 'WETH', value: 'weth', address: '0x01' },
+      { name: 'USD Coin', symbol: 'USDC', value: 'usdc', address: '0x02' },
+    ]
+    render(<TokenSelect options={options} onChange={onChange} />, {
+      wrapper: TryrollTestProvider,
+    })
+
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
+    const searchInput = await screen.findByTestId('tokenSelectSearchInput')
+    expect(searchInput).toBeDefined()
+    options.forEach((option) => {
+      expect(
+        screen.getByTestId(`tokenSelectOption__${option.value}`),
+      ).toBeDefined()
+    })
+
+    fireEvent.changeText(searchInput, '0x02')
+    expect(screen.queryByTestId('tokenSelectOption__eth')).toBeNull()
+    expect(screen.queryByTestId('tokenSelectOption__weth')).toBeNull()
+    expect(screen.queryByTestId('tokenSelectOption__usdc')).toBeDefined()
   })
 })
