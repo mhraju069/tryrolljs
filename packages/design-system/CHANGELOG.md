@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.6
+
+### Patch Changes
+
+- [#87](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/87) [`ad47c6b`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ad47c6b245210ee6ec23c30483da1ec35962dcb7) Thanks [@teimurjan](https://github.com/teimurjan)! - Export Select component
+
 ## 0.1.5
 
 ### Patch Changes
