@@ -33,10 +33,14 @@ export const Popover = ({
       flip(),
       shift(),
       size({
-        apply({ availableWidth, availableHeight, elements }) {
+        apply({ rects, availableWidth, availableHeight, elements }) {
           Object.assign(elements.floating.style, {
-            maxWidth: `${availableWidth}px`,
-            width: matchReferenceWidth ? `${availableWidth}px` : undefined,
+            maxWidth: matchReferenceWidth
+              ? `${rects.reference.width}px`
+              : `${availableWidth}px`,
+            width: matchReferenceWidth
+              ? `${rects.reference.width}px`
+              : undefined,
             maxHeight: `${availableHeight}px`,
           })
         },
