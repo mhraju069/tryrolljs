@@ -1,3 +1,4 @@
+import { View } from 'native-base'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { Select, SelectProps } from '.'
 
@@ -6,7 +7,11 @@ const storyConfig = {
   component: Select,
 }
 
-const Template = (props: SelectProps) => <Select {...props} />
+const Template = (props: SelectProps) => (
+  <View style={{ maxWidth: 300 }}>
+    <Select {...props} />
+  </View>
+)
 
 export const Default = fromTemplate(Template, {
   placeholder: 'Select an option',

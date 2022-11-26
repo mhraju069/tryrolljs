@@ -12,8 +12,8 @@ export interface InformationItemProps {
 
 export interface InformationProps {
   children:
-    | ReactElement<InformationItemProps>
-    | ReactElement<InformationItemProps>[]
+    | (ReactElement<InformationItemProps> | null)
+    | (ReactElement<InformationItemProps> | null)[]
 }
 
 export const Information = ({ children }: InformationProps) => {
@@ -22,10 +22,12 @@ export const Information = ({ children }: InformationProps) => {
     <View>
       {Children.map(children, (child, index) => {
         const isLast = index + 1 === childrenCount
-        return cloneElement(child, {
-          ...child.props,
-          style: [child.props.style, !isLast && margin.mb8],
-        })
+        return child
+          ? cloneElement(child, {
+              ...child.props,
+              style: [child.props.style, !isLast && margin.mb8],
+            })
+          : child
       })}
     </View>
   )

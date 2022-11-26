@@ -4,7 +4,7 @@ import { Platform, TextInput } from 'react-native'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Body, Popover, Input } from '../../atoms'
 import { useTheme } from '../../hooks'
-import { padding } from '../../styles'
+import { makeStyles, padding } from '../../styles'
 
 export type SelectOption = {
   name: string
@@ -18,6 +18,8 @@ export interface SelectProps {
   onChange?: (value: string) => void
 }
 
+const styles = makeStyles({ input: { cursor: 'pointer' } as any })
+
 export const Select = ({
   placeholder,
   options = [],
@@ -28,8 +30,14 @@ export const Select = ({
   const theme = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState(defaultValue)
+  const [searchValue, setSearchValue] = useState('')
 
-  const inputValue = options.find((option) => option.value === value)?.name
+  const selectedOption = options.find((option) => option.value === value)
+  const inputValue = selectedOption ? selectedOption.name : searchValue
+
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchValue.toLowerCase()),
+  )
 
   const optionOnPress = useMemo(
     () =>
@@ -38,6 +46,26 @@ export const Select = ({
         web: () => setIsOpen(false),
       }),
     [],
+  )
+
+  const handleChangeText = useCallback(
+    (text: string) => {
+      if (selectedOption) {
+        const shouldClear = (text = selectedOption.name.slice(
+          0,
+          selectedOption.name.length - 1,
+        ))
+
+        if (shouldClear) {
+          setValue(undefined)
+        }
+
+        return
+      }
+
+      setSearchValue(text)
+    },
+    [selectedOption],
   )
 
   const renderReference = useCallback(
@@ -61,15 +89,17 @@ export const Select = ({
             // @ts-ignore
             reference(node)
           }}
+          style={styles.input}
           placeholder={placeholder}
           right={<ArrowDownCircle />}
           value={inputValue}
           testID="selectInput"
+          onChangeText={handleChangeText}
           {...inputProps}
         />
       )
     },
-    [placeholder, inputValue],
+    [placeholder, inputValue, handleChangeText],
   )
 
   return (
@@ -80,11 +110,12 @@ export const Select = ({
       openOnHover={false}
       matchReferenceWidth
     >
-      {options.length > 0 ? (
-        options.map((option) => (
+      {filteredOptions.length > 0 ? (
+        filteredOptions.map((option) => (
           <Pressable
             key={option.value}
             onPress={() => {
+              setSearchValue('')
               setValue(option.value)
               onChange?.(option.value)
               optionOnPress?.()
