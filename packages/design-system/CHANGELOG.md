@@ -1,5 +1,12 @@
 # @tryrolljs/design-system
 
+## 0.1.7
+
+### Patch Changes
+
+- [#89](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/89) [`33ebdbe`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/33ebdbe7060a48eb9a5326ba9fc7a1ac043aa0ab) Thanks [@teimurjan](https://github.com/teimurjan)! - - Allow null children for Information component
+  - Fix search & clear functionality for Select
+
 ## 0.1.6
 
 ### Patch Changes
