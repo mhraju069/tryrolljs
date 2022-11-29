@@ -9,13 +9,13 @@ const getConfig = (format) => {
   const outputDir = `./dist/${format}`
 
   return {
-    input: './index.ts',
+    input: 'src/index.ts',
     output: [
       {
         dir: outputDir,
         format: format,
         preserveModules: true,
-        preserveModulesRoot: './',
+        preserveModulesRoot: 'src',
       },
     ],
     external: [...Object.keys(packageJson.peerDependencies || {})],
