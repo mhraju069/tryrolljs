@@ -8,7 +8,7 @@ export type { Registry } from "./Registry";
 export type { SocialMoney } from "./SocialMoney";
 export type { TokenFactory } from "./TokenFactory";
 export type { TokenVesting } from "./TokenVesting";
-
+export * as factories from "./factories";
 export { ERC20__factory } from "./factories/ERC20__factory";
 export { Manager__factory } from "./factories/Manager__factory";
 export { MultiSigWallet__factory } from "./factories/MultiSigWallet__factory";

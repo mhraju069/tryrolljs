@@ -6,7 +6,7 @@ export type { IStakingRegistry } from "./IStakingRegistry";
 export type { RollStakingFactoryV2 } from "./RollStakingFactoryV2";
 export type { RollStakingRewardsV2 } from "./RollStakingRewardsV2";
 export type { StakingRegistry } from "./StakingRegistry";
-
+export * as factories from "./factories";
 export { ERC20Mintable__factory } from "./factories/ERC20Mintable__factory";
 export { IStakingRegistry__factory } from "./factories/IStakingRegistry__factory";
 export { RollStakingFactoryV2__factory } from "./factories/RollStakingFactoryV2__factory";

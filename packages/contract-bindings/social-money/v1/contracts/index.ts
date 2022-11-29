@@ -3,6 +3,6 @@
 /* eslint-disable */
 export type { Registry } from "./Registry";
 export type { TokenVesting } from "./TokenVesting";
-
+export * as factories from "./factories";
 export { Registry__factory } from "./factories/Registry__factory";
 export { TokenVesting__factory } from "./factories/TokenVesting__factory";
