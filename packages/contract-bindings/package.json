@@ -1,0 +1,51 @@
+{
+  "name": "@tryrolljs/contract-bindings",
+  "description": "Contract bindings for Roll's smart contracts",
+  "version": "0.0.1",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "generate:typechain-staking-v1": "rm -rf ./staking/v1/contracts && typechain --target ethers-v5 --out-dir ./staking/v1/contracts ./staking/v1/abi/**/*.json",
+    "generate:typechain-social-money-v1": "rm -rf ./social-money/v1/contracts && typechain --target ethers-v5 --out-dir ./social-money/v1/contracts ./social-money/v1/abi/**/*.json",
+    "generate:typechain-social-money-v1.5": "rm -rf ./social-money/v1.5/contracts && typechain --target ethers-v5 --out-dir ./social-money/v1.5/contracts ./social-money/v1.5/abi/**/*.abi"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.4.3",
+    "@ethersproject/bytes": "^5.4.3",
+    "@ethersproject/contracts": "^5.4.3",
+    "@ethersproject/providers": "^5.4.3",
+    "@typechain/web3-v1": "^3.0.0",
+    "typechain": "^5.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@typechain/ethers-v5": "^7.2.0",
+    "rollup": "^2.78.1",
+    "rollup-plugin-delete": "^2.0.0"
+  },
+  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/contract-bindings",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+  },
+  "engines": {
+    "npm": "~8.3.1",
+    "node": "16.14.0"
+  },
+  "keywords": [
+    "roll",
+    "smart",
+    "contracts",
+    "bindings"
+  ]
+}
