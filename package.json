@@ -13,10 +13,6 @@
   "workspaces": [
     "packages/**"
   ],
-  "nohoist": [
-    "**/typechain",
-    "**/@typechain/*"
-  ],
   "dependencies": {
     "@changesets/changelog-github": "^0.4.6",
     "@changesets/cli": "^2.24.3"
