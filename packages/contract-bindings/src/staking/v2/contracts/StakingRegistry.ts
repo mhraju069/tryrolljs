@@ -32,7 +32,6 @@ export interface StakingRegistryInterface extends utils.Interface {
     "assignOwnerToContract(address,address,address)": FunctionFragment;
     "authorisedCallers(address)": FunctionFragment;
     "contractCountPerOwner(address)": FunctionFragment;
-    "contractIndex(address)": FunctionFragment;
     "contractToOwner(address)": FunctionFragment;
     "controller()": FunctionFragment;
     "getIndexArray(address[],address)": FunctionFragment;
@@ -46,7 +45,6 @@ export interface StakingRegistryInterface extends utils.Interface {
       | "assignOwnerToContract"
       | "authorisedCallers"
       | "contractCountPerOwner"
-      | "contractIndex"
       | "contractToOwner"
       | "controller"
       | "getIndexArray"
@@ -69,10 +67,6 @@ export interface StakingRegistryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "contractCountPerOwner",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "contractIndex",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -113,10 +107,6 @@ export interface StakingRegistryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "contractIndex",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "contractToOwner",
     data: BytesLike
   ): Result;
@@ -136,11 +126,37 @@ export interface StakingRegistryInterface extends utils.Interface {
   ): Result;
 
   events: {
+    "CallerUpdated(address,bool)": EventFragment;
+    "ControllerUpdated(address)": EventFragment;
     "NewStakingContractOwner(address,address,address)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "CallerUpdated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ControllerUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "NewStakingContractOwner"): EventFragment;
 }
+
+export interface CallerUpdatedEventObject {
+  newCaller: string;
+  newValue: boolean;
+}
+export type CallerUpdatedEvent = TypedEvent<
+  [string, boolean],
+  CallerUpdatedEventObject
+>;
+
+export type CallerUpdatedEventFilter = TypedEventFilter<CallerUpdatedEvent>;
+
+export interface ControllerUpdatedEventObject {
+  newController: string;
+}
+export type ControllerUpdatedEvent = TypedEvent<
+  [string],
+  ControllerUpdatedEventObject
+>;
+
+export type ControllerUpdatedEventFilter =
+  TypedEventFilter<ControllerUpdatedEvent>;
 
 export interface NewStakingContractOwnerEventObject {
   stakingContract: string;
@@ -199,11 +215,6 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    contractIndex(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     contractToOwner(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -249,11 +260,6 @@ export interface StakingRegistry extends BaseContract {
 
   contractCountPerOwner(
     _owner: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  contractIndex(
-    arg0: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -305,11 +311,6 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    contractIndex(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     contractToOwner(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -342,6 +343,22 @@ export interface StakingRegistry extends BaseContract {
   };
 
   filters: {
+    "CallerUpdated(address,bool)"(
+      newCaller?: PromiseOrValue<string> | null,
+      newValue?: null
+    ): CallerUpdatedEventFilter;
+    CallerUpdated(
+      newCaller?: PromiseOrValue<string> | null,
+      newValue?: null
+    ): CallerUpdatedEventFilter;
+
+    "ControllerUpdated(address)"(
+      newController?: PromiseOrValue<string> | null
+    ): ControllerUpdatedEventFilter;
+    ControllerUpdated(
+      newController?: PromiseOrValue<string> | null
+    ): ControllerUpdatedEventFilter;
+
     "NewStakingContractOwner(address,address,address)"(
       stakingContract?: PromiseOrValue<string> | null,
       newOwner?: PromiseOrValue<string> | null,
@@ -369,11 +386,6 @@ export interface StakingRegistry extends BaseContract {
 
     contractCountPerOwner(
       _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    contractIndex(
-      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -423,11 +435,6 @@ export interface StakingRegistry extends BaseContract {
 
     contractCountPerOwner(
       _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    contractIndex(
-      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
