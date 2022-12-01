@@ -1,5 +1,11 @@
 # @tryrolljs/contract-bindings
 
+## 0.0.4
+
+### Patch Changes
+
+- [#96](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/96) [`c397e86`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c397e8659951712c50843c6d1bd2f30055fd3b9d) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix staking v2 contracts
+
 ## 0.0.3
 
 ### Patch Changes
