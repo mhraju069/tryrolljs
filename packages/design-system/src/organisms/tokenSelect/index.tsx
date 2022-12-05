@@ -41,7 +41,8 @@ export const TokenSelect = ({
 }: TokenSelectProps) => {
   const theme = useTheme()
   const [value, setValue] = useState(defaultValue)
-  const inputValue = options.find((option) => option.value === value)?.name
+  const selectedOption = options.find((option) => option.value === value)
+  const inputValue = selectedOption?.name ?? ''
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchInputValue, setSearchInputValue] = useState('')
 
