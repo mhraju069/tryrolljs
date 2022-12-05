@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.8
+
+### Patch Changes
+
+- [#98](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/98) [`c32e3d2`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c32e3d27681aa115d4e4f62b12f65325aebff40b) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix TokenSelect error when uncontrolled input becomes controlled
+
 ## 0.1.7
 
 ### Patch Changes
