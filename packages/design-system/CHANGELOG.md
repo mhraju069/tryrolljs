@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.9
+
+### Patch Changes
+
+- [`6e8fac7`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/6e8fac7365fd42056da07aa96ee131fe168a810e) Thanks [@teimurjan](https://github.com/teimurjan)! - Add style prop to Select
+
 ## 0.1.8
 
 ### Patch Changes
