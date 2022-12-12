@@ -1,6 +1,6 @@
 import { Pressable, View } from 'native-base'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { Platform, TextInput } from 'react-native'
+import { Platform, StyleProp, TextInput, ViewStyle } from 'react-native'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Body, Popover, Input } from '../../atoms'
 import { useTheme } from '../../hooks'
@@ -12,6 +12,7 @@ export type SelectOption = {
 }
 
 export interface SelectProps {
+  style?: StyleProp<ViewStyle>
   placeholder?: string
   options: SelectOption[]
   defaultValue?: string
@@ -21,6 +22,7 @@ export interface SelectProps {
 const styles = makeStyles({ input: { cursor: 'pointer' } as any })
 
 export const Select = ({
+  style,
   placeholder,
   options = [],
   defaultValue,
@@ -89,7 +91,7 @@ export const Select = ({
             // @ts-ignore
             reference(node)
           }}
-          style={styles.input}
+          style={[styles.input, style]}
           placeholder={placeholder}
           right={<ArrowDownCircle />}
           value={inputValue}
@@ -99,7 +101,7 @@ export const Select = ({
         />
       )
     },
-    [placeholder, inputValue, handleChangeText],
+    [placeholder, inputValue, handleChangeText, style],
   )
 
   return (

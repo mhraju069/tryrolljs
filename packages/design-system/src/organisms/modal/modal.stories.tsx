@@ -6,7 +6,7 @@ import { ConfirmationModalContent } from '../confirmationModalContent'
 import { Modal, ModalProps } from './index'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Modal'),
+  title: titleBuilder.organisms('Modal'),
   component: Modal,
   layout: 'fullscreen',
 }
