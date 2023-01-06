@@ -31,7 +31,7 @@
     "test": "jest --testEnvironment=jsdom",
     "build": "rollup -c"
   },
-  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/api",
+  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/sdk",
   "license": "MIT",
   "repository": {
     "type": "git",
