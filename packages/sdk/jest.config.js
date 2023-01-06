@@ -9,6 +9,10 @@ module.exports = {
               runtime: 'automatic',
             },
           },
+          // TODO: remove when @tryrolljs/api is published
+          paths: {
+            '@tryrolljs/api/*': ['../api/*'],
+          },
         },
       },
     ],
