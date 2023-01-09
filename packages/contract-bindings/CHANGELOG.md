@@ -1,5 +1,11 @@
 # @tryrolljs/contract-bindings
 
+## 0.0.5
+
+### Patch Changes
+
+- [#104](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/104) [`5e13ba0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5e13ba049d34da191ef6503988bbb7d8393bf14b) Thanks [@teimurjan](https://github.com/teimurjan)! - Add as const to abi schemes
+
 ## 0.0.4
 
 ### Patch Changes
