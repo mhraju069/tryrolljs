@@ -285,7 +285,7 @@ const _abi = [
     name: "OwnershipTransferred",
     type: "event",
   },
-];
+] as const;
 
 export class TokenVesting__factory {
   static readonly abi = _abi;
