@@ -358,7 +358,7 @@ const _abi = [
     ],
     outputs: [],
   },
-];
+] as const;
 
 export class Manager__factory {
   static readonly abi = _abi;

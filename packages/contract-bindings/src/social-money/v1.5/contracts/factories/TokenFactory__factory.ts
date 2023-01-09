@@ -352,7 +352,7 @@ const _abi = [
     ],
     outputs: [],
   },
-];
+] as const;
 
 export class TokenFactory__factory {
   static readonly abi = _abi;

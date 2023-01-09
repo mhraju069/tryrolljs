@@ -745,7 +745,7 @@ const _abi = [
     ],
     outputs: [],
   },
-];
+] as const;
 
 export class Registry__factory {
   static readonly abi = _abi;

@@ -266,7 +266,7 @@ const _abi = [
       },
     ],
   },
-];
+] as const;
 
 export class ERC20__factory {
   static readonly abi = _abi;

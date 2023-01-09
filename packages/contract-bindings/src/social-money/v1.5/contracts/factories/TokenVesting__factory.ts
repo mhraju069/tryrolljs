@@ -445,7 +445,7 @@ const _abi = [
       },
     ],
   },
-];
+] as const;
 
 export class TokenVesting__factory {
   static readonly abi = _abi;
