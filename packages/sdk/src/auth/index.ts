@@ -37,14 +37,17 @@ class AuthSDK {
     }
   }
 
-  public async refreshToken(force = false) {
-    const hasEnoughDataToRefresh = !!(this.oauthCode && this.tokenData)
-    const isTimeToRefresh = isLastUpdateTimestampExpired(
+  public isTokenExpired() {
+    return isLastUpdateTimestampExpired(
       this.lastUpdateTimestamp,
       this.tokenData?.expires_in,
     )
+  }
 
-    if ((hasEnoughDataToRefresh && isTimeToRefresh) || force) {
+  public async refreshTokens(force = false) {
+    const hasEnoughDataToRefresh = !!(this.oauthCode && this.tokenData)
+
+    if ((hasEnoughDataToRefresh && this.isTokenExpired()) || force) {
       const response = await requestToken({
         issuerUrl: this.oauthConfig.issuerUrl,
         grantType: 'refresh_token',

@@ -89,7 +89,7 @@ describe('AuthSDK', () => {
 
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
-    await sdk.refreshToken()
+    await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
     expect(requestToken).toHaveBeenCalledTimes(2)
@@ -124,7 +124,7 @@ describe('AuthSDK', () => {
 
     const sdk = new AuthSDK(config, storage)
     await sdk.restoreFromCache()
-    await sdk.refreshToken()
+    await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
@@ -149,7 +149,7 @@ describe('AuthSDK', () => {
     await sdk.makeSession('code')
 
     mockTokenResponse({ access_token: 'new_access_token' })
-    await sdk.refreshToken(true)
+    await sdk.refreshTokens(true)
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
   })
@@ -160,7 +160,7 @@ describe('AuthSDK', () => {
 
     const sdk = new AuthSDK(config, storage)
     await sdk.restoreFromCache()
-    await sdk.refreshToken()
+    await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(storage.setItem).not.toHaveBeenCalled()
