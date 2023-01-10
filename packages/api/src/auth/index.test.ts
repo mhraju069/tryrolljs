@@ -1,7 +1,7 @@
-import { getLogInUrl, getLogOutUrl } from './auth'
+import { getLogInUrl, getLogOutUrl } from '.'
 
-jest.mock('./utils', () => ({
-  ...jest.requireActual('./utils'),
+jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
   getRandomString: jest.fn().mockReturnValue('foo'),
 }))
 

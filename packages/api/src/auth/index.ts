@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as qs from 'qs'
 
-import { getRandomString, pickQueryStringItemFromUrl } from './utils'
+import { getRandomString, pickQueryStringItemFromUrl } from '../utils'
 
 export interface RequestTokenArgs {
   issuerUrl: string
