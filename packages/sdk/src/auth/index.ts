@@ -37,7 +37,7 @@ class AuthSDK {
     }
   }
 
-  public async isTokenExpired() {
+  public isTokenExpired() {
     return isLastUpdateTimestampExpired(
       this.lastUpdateTimestamp,
       this.tokenData?.expires_in,
