@@ -17,6 +17,7 @@ export default class Client {
   private isAuthorizationExpired: () => boolean
   private handleRefresh: () => unknown
   private handleError: <T>(response: AxiosResponse<T>) => unknown
+  private handleInvalidAuthorization: <T>(response: AxiosResponse<T>) => unknown
   private queue: Queue
 
   constructor(
@@ -24,13 +25,15 @@ export default class Client {
     getAuthorization: () => string | undefined,
     isAuthorizationExpired: () => boolean,
     handleRefresh: () => {},
-    handleError: () => unknown,
+    handleError: <T>(response: AxiosResponse<T>) => unknown,
+    handleInvalidAuthorization: <T>(response: AxiosResponse<T>) => unknown,
   ) {
     this.getClientVersion = getClientVersion
     this.getAuthorization = getAuthorization
     this.isAuthorizationExpired = isAuthorizationExpired
     this.handleRefresh = handleRefresh
     this.handleError = handleError
+    this.handleInvalidAuthorization = handleInvalidAuthorization
     this.queue = new Queue(
       async (call, cb) => {
         try {
@@ -104,6 +107,9 @@ export default class Client {
 
       case 200:
         return response.data
+
+      case 401:
+        return this.handleInvalidAuthorization(response)
 
       default:
         return this.handleError(response)
