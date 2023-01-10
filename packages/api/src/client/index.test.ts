@@ -11,6 +11,7 @@ const defaultOptions = {
   getAuthorization: jest.fn().mockReturnValue('Bearer 123'),
   isAuthorizationExpired: jest.fn().mockReturnValue(false),
   handleRefresh: jest.fn(),
+  handleInvalidAuthorization: jest.fn(),
   handleError: jest.fn(),
 }
 
@@ -19,13 +20,14 @@ describe('client', () => {
     jest.clearAllMocks()
   })
 
-  it('calls anaonymous request', async () => {
+  it('calls anonymous request', async () => {
     const client = new Client(
       defaultOptions.getClientVersion,
       defaultOptions.getAuthorization,
       defaultOptions.isAuthorizationExpired,
       defaultOptions.handleRefresh,
       defaultOptions.handleError,
+      defaultOptions.handleInvalidAuthorization,
     )
 
     const request = {
@@ -54,6 +56,7 @@ describe('client', () => {
       defaultOptions.isAuthorizationExpired,
       defaultOptions.handleRefresh,
       defaultOptions.handleError,
+      defaultOptions.handleInvalidAuthorization,
     )
 
     const request = {
@@ -91,6 +94,7 @@ describe('client', () => {
       isAuthorizationExpired,
       handleRefresh,
       defaultOptions.handleError,
+      defaultOptions.handleInvalidAuthorization,
     )
 
     const request = {
@@ -117,5 +121,55 @@ describe('client', () => {
     expect(handleRefresh.mock.invocationCallOrder[0]).toBeLessThan(
       mockAxios.mock.invocationCallOrder[0],
     )
+  })
+
+  it('handles invalid authorization', async () => {
+    mockAxios.mockResolvedValue({ status: 401, data: { foo: 'bar' } })
+
+    const client = new Client(
+      defaultOptions.getClientVersion,
+      defaultOptions.getAuthorization,
+      defaultOptions.isAuthorizationExpired,
+      defaultOptions.handleRefresh,
+      defaultOptions.handleError,
+      defaultOptions.handleInvalidAuthorization,
+    )
+
+    const request = {
+      method: 'GET',
+      url: 'https://foo.bar',
+    }
+
+    await client.call(request)
+
+    expect(defaultOptions.handleInvalidAuthorization).toHaveBeenCalledWith({
+      status: 401,
+      data: { foo: 'bar' },
+    })
+  })
+
+  it('handles errors', async () => {
+    mockAxios.mockResolvedValue({ status: 500, data: { foo: 'bar' } })
+
+    const client = new Client(
+      defaultOptions.getClientVersion,
+      defaultOptions.getAuthorization,
+      defaultOptions.isAuthorizationExpired,
+      defaultOptions.handleRefresh,
+      defaultOptions.handleError,
+      defaultOptions.handleInvalidAuthorization,
+    )
+
+    const request = {
+      method: 'GET',
+      url: 'https://foo.bar',
+    }
+
+    await client.call(request)
+
+    expect(defaultOptions.handleError).toHaveBeenCalledWith({
+      status: 500,
+      data: { foo: 'bar' },
+    })
   })
 })
