@@ -1,16 +1,6 @@
 import * as qs from 'qs'
 
-export const getRandomString = () => {
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  )
-}
-
-export const pickQueryStringItemFromUrl = (
-  url: string,
-  key: string,
-): string => {
+const pickQueryStringItemFromUrl = (url: string, key: string): string => {
   const queryString = url.split('?')[1]
 
   if (!queryString) {
@@ -29,3 +19,5 @@ export const pickQueryStringItemFromUrl = (
 
   return ''
 }
+
+export default pickQueryStringItemFromUrl
