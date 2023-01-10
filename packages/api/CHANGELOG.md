@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.0.3
+
+### Patch Changes
+
+- [#109](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/109) [`a3cf603`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a3cf603cb3fe83ba6b6800c99ac5186c106619b2) Thanks [@teimurjan](https://github.com/teimurjan)! - Add invalid authorization handler
+
 ## 0.0.2
 
 ### Patch Changes
