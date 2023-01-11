@@ -1,5 +1,14 @@
 # @tryrolljs/sdk
 
+## 0.0.4
+
+### Patch Changes
+
+- [#114](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/114) [`5a81f57`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5a81f5731e59ef8fe69a141e080f4a7f9717d9f4) Thanks [@teimurjan](https://github.com/teimurjan)! - Update error handling
+
+- Updated dependencies [[`5a81f57`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5a81f5731e59ef8fe69a141e080f4a7f9717d9f4)]:
+  - @tryrolljs/api@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
