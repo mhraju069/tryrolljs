@@ -124,7 +124,13 @@ describe('client', () => {
   })
 
   it('handles invalid authorization', async () => {
-    mockAxios.mockResolvedValue({ status: 401, data: { foo: 'bar' } })
+    mockAxios.mockRejectedValue({
+      response: { status: 401, data: { foo: 'bar' } },
+    })
+
+    const handleInvalidAuthorization = jest
+      .fn()
+      .mockImplementation((response: any) => response)
 
     const client = new Client(
       defaultOptions.getClientVersion,
@@ -132,7 +138,7 @@ describe('client', () => {
       defaultOptions.isAuthorizationExpired,
       defaultOptions.handleRefresh,
       defaultOptions.handleError,
-      defaultOptions.handleInvalidAuthorization,
+      handleInvalidAuthorization,
     )
 
     const request = {
@@ -140,23 +146,36 @@ describe('client', () => {
       url: 'https://foo.bar',
     }
 
-    await client.call(request)
+    await expect(client.call(request)).rejects.toEqual({
+      status: 401,
+      data: { foo: 'bar' },
+    })
 
-    expect(defaultOptions.handleInvalidAuthorization).toHaveBeenCalledWith({
+    expect(handleInvalidAuthorization).toHaveBeenCalledWith({
       status: 401,
       data: { foo: 'bar' },
     })
   })
 
   it('handles errors', async () => {
-    mockAxios.mockResolvedValue({ status: 500, data: { foo: 'bar' } })
+    mockAxios.mockRejectedValue({
+      response: {
+        status: 500,
+        message: 'Something went wrong',
+        data: { foo: 'bar' },
+      },
+    })
+
+    const handleError = jest
+      .fn()
+      .mockImplementation((response: any) => response)
 
     const client = new Client(
       defaultOptions.getClientVersion,
       defaultOptions.getAuthorization,
       defaultOptions.isAuthorizationExpired,
       defaultOptions.handleRefresh,
-      defaultOptions.handleError,
+      handleError,
       defaultOptions.handleInvalidAuthorization,
     )
 
@@ -165,11 +184,16 @@ describe('client', () => {
       url: 'https://foo.bar',
     }
 
-    await client.call(request)
-
-    expect(defaultOptions.handleError).toHaveBeenCalledWith({
-      status: 500,
+    await expect(client.call(request)).rejects.toEqual({
       data: { foo: 'bar' },
+      message: 'Something went wrong',
+      status: 500,
+    })
+
+    expect(handleError).toHaveBeenCalledWith({
+      data: { foo: 'bar' },
+      message: 'Something went wrong',
+      status: 500,
     })
   })
 })

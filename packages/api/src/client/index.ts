@@ -91,7 +91,11 @@ export default class Client {
         try {
           const response = await axios<T>(this.getOptions(request))
           return resolve(this.handleResponse(response))
-        } catch (e) {
+        } catch (e: any) {
+          if (e.response) {
+            reject(this.handleResponse(e.response))
+          }
+
           reject(e)
         }
       })
@@ -103,7 +107,7 @@ export default class Client {
 
     switch (status) {
       case 204:
-        break
+        return undefined
 
       case 200:
         return response.data

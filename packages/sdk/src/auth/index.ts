@@ -18,7 +18,7 @@ class AuthSDK {
     this.storage = storage
   }
 
-  private async processResponse(data: RequestTokenResponseData) {
+  private processResponse = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.storage.clear()
       throw new Error(data.error)
@@ -37,14 +37,14 @@ class AuthSDK {
     }
   }
 
-  public isTokenExpired() {
+  public isTokenExpired = () => {
     return isLastUpdateTimestampExpired(
       this.lastUpdateTimestamp,
       this.tokenData?.expires_in,
     )
   }
 
-  public async refreshTokens(force = false) {
+  public refreshTokens = async (force = false) => {
     const hasEnoughDataToRefresh = !!(this.oauthCode && this.tokenData)
 
     if ((hasEnoughDataToRefresh && this.isTokenExpired()) || force) {
@@ -61,7 +61,7 @@ class AuthSDK {
     }
   }
 
-  public async makeSession(oauthCode: string) {
+  public makeSession = async (oauthCode: string) => {
     if (this.getAccessToken()) {
       return
     }
@@ -79,7 +79,7 @@ class AuthSDK {
     await this.processResponse(response.data)
   }
 
-  public async restoreFromCache() {
+  public restoreFromCache = async () => {
     const cache = await this.storage.getItem(STORAGE_KEY)
 
     if (!cache) {
@@ -100,10 +100,12 @@ class AuthSDK {
     this.lastUpdateTimestamp = lastUpdateTimestamp
   }
 
-  public logIn() {}
-
-  public getAccessToken() {
+  public getAccessToken = () => {
     return this.tokenData?.access_token
+  }
+
+  public getIdToken = () => {
+    return this.tokenData?.id_token
   }
 }
 
