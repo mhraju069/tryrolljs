@@ -3,6 +3,7 @@ import {
   useNetwork,
   useProvider,
   useSigner as useSigner_,
+  useWebSocketProvider as useWebSocketProvider_,
 } from 'wagmi'
 
 export const useSigner = () => {
@@ -10,7 +11,14 @@ export const useSigner = () => {
   return signer
 }
 export const useLibrary = () => {
-  const provider = useProvider()
+  const chainId = useChainID()
+  const provider = useProvider({ chainId })
+  return provider
+}
+
+export const useWebSocketProvider = () => {
+  const chainId = useChainID()
+  const provider = useWebSocketProvider_({ chainId })
   return provider
 }
 

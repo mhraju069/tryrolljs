@@ -6,8 +6,8 @@ import { useTheme } from '../../hooks'
 import { shortenAddress } from '../../utils'
 import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
-import { AccountDropdown } from '../accountDropdown'
 import { useEthAddress } from '../../hooks/web3New'
+import { AccountDropdownNew } from '../accountDropdownNew'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
@@ -44,7 +44,7 @@ export const ConnectWeb3ButtonNew = ({
     return (
       <Dropdown
         renderDropdown={() => (
-          <AccountDropdown
+          <AccountDropdownNew
             onSwitchAccounts={() => {
               onPress()
             }}
