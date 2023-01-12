@@ -1,0 +1,33 @@
+name: Version Packages
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  version_packages:
+    name: Version Packages
+    runs-on: ubuntu-latest
+    if: ${{ github.head_ref == changeset-release/main }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+        with:
+          # This makes Actions fetch all Git history so that Changesets
+          # can generate changelogs with the correct commits.
+          fetch-depth: 0
+
+      - name: Set up Node.js 16.4.0
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.4.0
+
+      - name: Install dependencies with lockfile update
+        run: |
+          yarn changeset version
+          yarn config set enableImmutableInstalls false
+          yarn install
+          git add yarn.lock
+          git commit -m "Update lockfile"
+          git push --set-upstream origin master
