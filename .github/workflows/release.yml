@@ -5,8 +5,8 @@ on:
     branches:
       - main
 jobs:
-  ci:
-    name: CI
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -22,12 +22,11 @@ jobs:
           node-version: 16.4.0
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
-          version: yarn changeset version
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

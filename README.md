@@ -10,6 +10,8 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/design-system](./packages/design-system)
 - [@tryrolljs/feature-flag](./packages/feature-flag)
 - [@tryrolljs/contract-bindings](./packages/contract-bindings)
+- [@tryrolljs/api](./packages/api)
+- [@tryrolljs/sdk](./packages/sdk)
 
 
 ## Release
