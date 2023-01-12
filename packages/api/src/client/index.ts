@@ -11,22 +11,28 @@ interface Request {
   override?: { headers?: Record<string, unknown> }
 }
 
+type AnyHandler = () => unknown | Promise<unknown>
+
+type ResponseHandler = <T>(
+  response: AxiosResponse<T>,
+) => unknown | Promise<unknown>
+
 export default class Client {
   private getClientVersion: () => string
   private getAuthorization: () => string | undefined
   private isAuthorizationExpired: () => boolean
-  private handleRefresh: () => unknown
-  private handleError: <T>(response: AxiosResponse<T>) => unknown
-  private handleInvalidAuthorization: <T>(response: AxiosResponse<T>) => unknown
+  private handleRefresh: AnyHandler
+  private handleError: ResponseHandler
+  private handleInvalidAuthorization: ResponseHandler
   private queue: Queue
 
   constructor(
     getClientVersion: () => string,
     getAuthorization: () => string | undefined,
     isAuthorizationExpired: () => boolean,
-    handleRefresh: () => {},
-    handleError: <T>(response: AxiosResponse<T>) => unknown,
-    handleInvalidAuthorization: <T>(response: AxiosResponse<T>) => unknown,
+    handleRefresh: AnyHandler,
+    handleError: ResponseHandler,
+    handleInvalidAuthorization: ResponseHandler,
   ) {
     this.getClientVersion = getClientVersion
     this.getAuthorization = getAuthorization
@@ -90,10 +96,10 @@ export default class Client {
       this.queue.push(async () => {
         try {
           const response = await axios<T>(this.getOptions(request))
-          return resolve(this.handleResponse(response))
+          return resolve(await this.handleResponse(response))
         } catch (e: any) {
           if (e.response) {
-            reject(this.handleResponse(e.response))
+            reject(await this.handleResponse(e.response))
           }
 
           reject(e)
@@ -102,7 +108,7 @@ export default class Client {
     })
   }
 
-  private handleResponse = <T>(response: AxiosResponse<T>) => {
+  private handleResponse = async <T>(response: AxiosResponse<T>) => {
     const { status } = response
 
     switch (status) {
@@ -113,10 +119,10 @@ export default class Client {
         return response.data
 
       case 401:
-        return this.handleInvalidAuthorization(response)
+        return await this.handleInvalidAuthorization(response)
 
       default:
-        return this.handleError(response)
+        return await this.handleError(response)
     }
   }
 }
