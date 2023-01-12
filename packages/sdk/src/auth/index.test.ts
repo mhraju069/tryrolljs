@@ -83,7 +83,7 @@ describe('AuthSDK', () => {
   it('refreshes and updates token', async () => {
     const sdk = new AuthSDK(config, storage)
 
-    mockTokenResponse({ expires_in: -1 })
+    mockTokenResponse({ expires_in: 0 })
 
     await sdk.makeSession('code')
 
@@ -155,7 +155,7 @@ describe('AuthSDK', () => {
   })
 
   it('skips refresh if tokens are up-to-date', async () => {
-    mockCache({ lastUpdateTimestamp: new Date().getTime() - 50 })
+    mockCache({ lastUpdateTimestamp: new Date().getTime() - 3601 })
     mockTokenResponse({ access_token: 'new_access_token' })
 
     const sdk = new AuthSDK(config, storage)

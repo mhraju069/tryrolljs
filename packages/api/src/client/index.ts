@@ -1,9 +1,10 @@
+import 'setimmediate'
 import Queue from 'better-queue'
 // @ts-ignore
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
 
-interface Request {
+export interface Request {
   url: string
   method: string
   body?: object
@@ -11,9 +12,9 @@ interface Request {
   override?: { headers?: Record<string, unknown> }
 }
 
-type AnyHandler = () => unknown | Promise<unknown>
+export type AnyHandler = () => unknown | Promise<unknown>
 
-type ResponseHandler = <T>(
+export type ResponseHandler = <T>(
   response: AxiosResponse<T>,
 ) => unknown | Promise<unknown>
 

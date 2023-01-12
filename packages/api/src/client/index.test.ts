@@ -1,4 +1,3 @@
-import 'setimmediate'
 import axios from 'axios'
 import Client from '.'
 
