@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.0.5
+
+### Patch Changes
+
+- [#121](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/121) [`8c5844e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8c5844ee42c97a5243e67952b7a3fe743ba11570) Thanks [@teimurjan](https://github.com/teimurjan)! - Make API client to accept async handlers
+
 ## 0.0.4
 
 ### Patch Changes
