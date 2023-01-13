@@ -6,7 +6,7 @@ import { etherscanAccountUrl, shortenAddress } from '../../utils'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
 import LinkIcon from '../../assets/svg/link.svg'
-import { useEthAddress } from '../../hooks/web3New'
+import { useEthAddress } from '../../hooks/web3Wagmi'
 
 type Props = {
   onSwitchAccounts?: () => void
@@ -47,7 +47,7 @@ const SwitchAccountLink = ({
   )
 }
 
-export const AccountDropdownNew = ({ onSwitchAccounts }: Props) => {
+export const AccountDropdownWagmi = ({ onSwitchAccounts }: Props) => {
   const theme = useTheme()
   const address = useEthAddress()
   return (

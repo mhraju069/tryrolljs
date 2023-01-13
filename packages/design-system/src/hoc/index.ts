@@ -1,2 +1,2 @@
 export { default as withWeb3Provider } from './withWeb3Provider'
-export { default as withWeb3ProviderNew } from './withWb3ProviderNew'
+export { default as withWeb3ProviderWagmi } from './withWeb3ProviderWagmi'

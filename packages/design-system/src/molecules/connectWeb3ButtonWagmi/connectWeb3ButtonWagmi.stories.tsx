@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
-import { ConnectWeb3OptionsNew } from '../connectWeb3OptionsNew'
-import { Web3ProviderNew } from '../../providers'
+import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
+import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { ConnectWeb3ButtonNew, ConnectWeb3ButtonNewProps } from '.'
+import { ConnectWeb3ButtonWagmi, ConnectWeb3ButtonWagmiProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('ConnectWeb3ButtonNew'),
-  component: ConnectWeb3ButtonNew,
+  title: titleBuilder.molecules('ConnectWeb3ButtonWagmi'),
+  component: ConnectWeb3ButtonWagmi,
 }
 
-const Template = (props: ConnectWeb3ButtonNewProps) => {
+const Template = (props: ConnectWeb3ButtonWagmiProps) => {
   const [showOptions, setShowOptions] = useState(false)
   return (
-    <Web3ProviderNew
+    <Web3ProviderWagmi
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId="b49bc876391bc029b19959a66a911b80"
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
     >
-      <ConnectWeb3ButtonNew
+      <ConnectWeb3ButtonWagmi
         {...props}
         onPress={() => {
           props.onPress?.()
@@ -25,9 +25,9 @@ const Template = (props: ConnectWeb3ButtonNewProps) => {
         }}
       />
       {showOptions && (
-        <ConnectWeb3OptionsNew onClose={() => setShowOptions(!showOptions)} />
+        <ConnectWeb3OptionsWagmi onClose={() => setShowOptions(!showOptions)} />
       )}
-    </Web3ProviderNew>
+    </Web3ProviderWagmi>
   )
 }
 

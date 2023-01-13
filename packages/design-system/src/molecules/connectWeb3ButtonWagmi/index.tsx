@@ -6,22 +6,22 @@ import { useTheme } from '../../hooks'
 import { shortenAddress } from '../../utils'
 import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
-import { useEthAddress } from '../../hooks/web3New'
-import { AccountDropdownNew } from '../accountDropdownNew'
+import { useEthAddress } from '../../hooks/web3Wagmi'
+import { AccountDropdownWagmi } from '../accountDropdownWagmi'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
-export type ConnectWeb3ButtonNewProps = {
+export type ConnectWeb3ButtonWagmiProps = {
   buttonStyle?: StyleProp<ViewStyle> // TODO define type properly
   onPress: () => void
   activity?: boolean
 }
 
-export const ConnectWeb3ButtonNew = ({
+export const ConnectWeb3ButtonWagmi = ({
   buttonStyle,
   onPress,
   activity,
-}: ConnectWeb3ButtonNewProps) => {
+}: ConnectWeb3ButtonWagmiProps) => {
   const address = useEthAddress()
   const theme = useTheme()
 
@@ -44,11 +44,7 @@ export const ConnectWeb3ButtonNew = ({
     return (
       <Dropdown
         renderDropdown={() => (
-          <AccountDropdownNew
-            onSwitchAccounts={() => {
-              onPress()
-            }}
-          />
+          <AccountDropdownWagmi onSwitchAccounts={onPress} />
         )}
       >
         <View

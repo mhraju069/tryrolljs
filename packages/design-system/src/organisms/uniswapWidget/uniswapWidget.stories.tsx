@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
-import { ConnectWeb3OptionsNew } from '../../molecules/connectWeb3OptionsNew'
-import { Web3ProviderNew } from '../../providers'
+import { ConnectWeb3OptionsWagmi } from '../../molecules/connectWeb3OptionsWagmi'
+import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { ConnectWeb3ButtonNew } from '../../molecules/connectWeb3ButtonNew'
+import { ConnectWeb3ButtonWagmi } from '../../molecules/connectWeb3ButtonWagmi'
 import { UniswapWidget } from '.'
 
 const storyConfig = {
@@ -14,25 +14,25 @@ const storyConfig = {
 const Template = () => {
   const [showOptions, setShowOptions] = useState(false)
   return (
-    <Web3ProviderNew
+    <Web3ProviderWagmi
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId="b49bc876391bc029b19959a66a911b80"
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
     >
-      <ConnectWeb3ButtonNew
+      <ConnectWeb3ButtonWagmi
         onPress={() => {
           setShowOptions(true)
         }}
       />
       {showOptions && (
-        <ConnectWeb3OptionsNew onClose={() => setShowOptions(!showOptions)} />
+        <ConnectWeb3OptionsWagmi onClose={() => setShowOptions(!showOptions)} />
       )}
       <UniswapWidget
         jsonRpcUrlMap={{
           [CHAIN_ID_MAIN_NET]:
-            'https://c411178e57bb4a98859e1a424d0840a5.eth.rpc.rivet.cloud',
+            process.env.MAINNET_JSON_RPC_URL ?? '',
         }}
       />
-    </Web3ProviderNew>
+    </Web3ProviderWagmi>
   )
 }
 

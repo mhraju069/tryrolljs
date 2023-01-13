@@ -1,12 +1,11 @@
 import { SwapWidget, SwapWidgetProps } from '@uniswap/widgets'
-import { useWebSocketProvider } from '../../hooks/web3New'
+import { useWebSocketProvider } from '../../hooks/web3Wagmi'
 import '@uniswap/widgets/fonts.css'
 
 // Default token list from Uniswap
 const UNISWAP_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
 
-// Use the native token of the connected chain as the default input token
-const NATIVE = 'NATIVE' // Special address for native token
+const DEFAULT_INPUT_TOKEN_ADDRESS = 'NATIVE' // It's a magic keyword to use the native token of the chain you're connected to (ex. Ethereum -> ETH)
 
 export const UniswapWidget: React.FC<SwapWidgetProps> = (props) => {
   const web3Provider = useWebSocketProvider()
@@ -15,7 +14,7 @@ export const UniswapWidget: React.FC<SwapWidgetProps> = (props) => {
     <SwapWidget
       provider={web3Provider}
       tokenList={UNISWAP_TOKEN_LIST}
-      defaultInputTokenAddress={NATIVE}
+      defaultInputTokenAddress={DEFAULT_INPUT_TOKEN_ADDRESS}
       {...props}
     />
   )

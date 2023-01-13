@@ -32,11 +32,9 @@ const styles = makeStyles({
   },
 })
 
-export const ConnectWeb3OptionsNew = ({ onClose }: Props) => {
+export const ConnectWeb3OptionsWagmi = ({ onClose }: Props) => {
   const { connect, connectors, pendingConnector } = useConnect()
   const theme = useTheme()
-
-  const walletOptions = connectors
 
   return (
     <View
@@ -62,7 +60,7 @@ export const ConnectWeb3OptionsNew = ({ onClose }: Props) => {
           { backgroundColor: theme.background.primary },
         ]}
       >
-        {walletOptions.map((connector) => (
+        {connectors.map((connector) => (
           <ConnectWalletOption
             key={connector.id}
             disabled={!connector.ready}

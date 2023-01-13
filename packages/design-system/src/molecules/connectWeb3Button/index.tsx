@@ -42,13 +42,7 @@ export const ConnectWeb3Button = ({
   if (address) {
     return (
       <Dropdown
-        renderDropdown={() => (
-          <AccountDropdown
-            onSwitchAccounts={() => {
-              onPress()
-            }}
-          />
-        )}
+        renderDropdown={() => <AccountDropdown onSwitchAccounts={onPress} />}
       >
         <View
           style={[

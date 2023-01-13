@@ -30,13 +30,13 @@ const MAP_CHAINS: Record<number, Chain> = {
   [CHAIN_ID_MUMBAI]: polygonMumbai,
 }
 
-interface Web3ProviderNewProps {
+interface Web3ProviderWagmiProps {
   supportedChainIds?: number[]
   wallectConnectProjectId?: string
   alchemyApiKey?: string
 }
 
-export const Web3ProviderNew: React.FC<Web3ProviderNewProps> = ({
+export const Web3ProviderWagmi: React.FC<Web3ProviderWagmiProps> = ({
   supportedChainIds,
   wallectConnectProjectId,
   alchemyApiKey,

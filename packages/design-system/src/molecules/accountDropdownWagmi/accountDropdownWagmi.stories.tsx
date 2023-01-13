@@ -1,24 +1,24 @@
 import { action } from '@storybook/addon-actions'
 import { titleBuilder } from '../../../.storybook/utils'
-import { Web3ProviderNew } from '../../providers'
+import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { AccountDropdownNew } from '.'
+import { AccountDropdownWagmi } from '.'
 
 const conf = {
-  title: titleBuilder.molecules('AccountDropdownNew'),
-  component: AccountDropdownNew,
+  title: titleBuilder.molecules('AccountDropdownWagmi'),
+  component: AccountDropdownWagmi,
 }
 
 export const Default = () => {
   return (
-    <Web3ProviderNew
+    <Web3ProviderWagmi
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId="b49bc876391bc029b19959a66a911b80"
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
     >
-      <AccountDropdownNew
+      <AccountDropdownWagmi
         onSwitchAccounts={action('action.onSwitchAccounts')}
       />
-    </Web3ProviderNew>
+    </Web3ProviderWagmi>
   )
 }
 
