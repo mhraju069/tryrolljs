@@ -50,7 +50,7 @@
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^14.0.1",
-    "@rollup/plugin-typescript": "^8.3.4",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@rollup/plugin-url": "^7.0.0",
     "@storybook/addon-actions": "^6.4.18",
     "@storybook/addon-controls": "6.3",
