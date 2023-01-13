@@ -8,5 +8,5 @@ export const isLastUpdateTimestampExpired = (
 
   const now = new Date()
 
-  return Math.abs(lastUpdateTimestamp - now.getTime()) > expiration
+  return now.getTime() - lastUpdateTimestamp <= expiration
 }
