@@ -1,5 +1,14 @@
 # @tryrolljs/sdk
 
+## 0.0.6
+
+### Patch Changes
+
+- [#128](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/128) [`1a0b73f`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1a0b73f4f02adb19688580f9d0633b3023ed5d2c) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix expiration check
+
+- Updated dependencies [[`1a0b73f`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1a0b73f4f02adb19688580f9d0633b3023ed5d2c)]:
+  - @tryrolljs/api@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
