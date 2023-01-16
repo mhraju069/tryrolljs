@@ -8,7 +8,9 @@ on:
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.ref != 'changeset-release/master' }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
