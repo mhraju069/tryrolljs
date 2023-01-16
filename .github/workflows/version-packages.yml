@@ -3,13 +3,11 @@ name: Version Packages
 on:
   pull_request:
     branches:
-      - changeset-release/master
-  push:
-    branches:
-      - changeset-release/master
+      - main
 
 jobs:
   version_packages:
+    if: ${{ github.event.pull_request.head.ref == 'changeset-release/master' }}
     name: Version Packages
     runs-on: ubuntu-latest
     steps:
