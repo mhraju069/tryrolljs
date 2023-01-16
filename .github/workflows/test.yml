@@ -8,6 +8,8 @@ on:
 
 jobs:
   test:
+    if: ${{ github.event.pull_request.head.ref != 'changeset-release/main' }}
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
