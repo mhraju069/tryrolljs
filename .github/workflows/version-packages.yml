@@ -27,6 +27,11 @@ jobs:
         run: |
           yarn config set enableImmutableInstalls false
           yarn install
-          git add yarn.lock
-          git commit -m "Update lockfile"
-          git push --set-upstream origin master
+
+      - name: Commit lockfile changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'Update lockfile'
+          branch: 'changeset-release/main'
+          directory: './yarn.lock'
