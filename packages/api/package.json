@@ -14,6 +14,7 @@
     "axios": "^1.2.2",
     "better-queue": "^3.8.12",
     "better-queue-memory": "^1.0.4",
+    "events": "^3.3.0",
     "lodash.groupby": "^4.6.0",
     "qs": "^6.11.0"
   },

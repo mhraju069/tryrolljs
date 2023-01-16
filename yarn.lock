@@ -7031,6 +7031,7 @@ __metadata:
     babel-jest: ^29.3.1
     better-queue: ^3.8.12
     better-queue-memory: ^1.0.4
+    events: ^3.3.0
     jest: ^29.0.3
     jest-environment-jsdom: ^29.0.3
     lodash.groupby: ^4.6.0
@@ -13718,7 +13719,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.0.0, events@npm:^3.2.0":
+"events@npm:^3.0.0, events@npm:^3.2.0, events@npm:^3.3.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
