@@ -7,7 +7,7 @@ on:
 
 jobs:
   version_packages:
-    if: ${{ github.event.pull_request.head.ref == 'changeset-release/master' }}
+    if: ${{ github.event.pull_request.head.ref == 'changeset-release/main' }}
     name: Version Packages
     runs-on: ubuntu-latest
     steps:
