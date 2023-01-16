@@ -1,46 +1,23 @@
 import 'setimmediate'
+import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 // @ts-ignore
 import MemoryStore from 'better-queue-memory'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
+import { Config, Parsers, Handlers, Request, Event } from './types'
 
-export interface Request {
-  url: string
-  method: string
-  body?: object
-  authorization?: boolean
-  override?: { headers?: Record<string, unknown> }
-}
-
-export type AnyHandler = () => unknown | Promise<unknown>
-
-export type ResponseHandler = <T>(
-  response: AxiosResponse<T>,
-) => unknown | Promise<unknown>
-
-export default class Client {
-  private getClientVersion: () => string
-  private getAuthorization: () => string | undefined
-  private isAuthorizationExpired: () => boolean
-  private handleRefresh: AnyHandler
-  private handleError: ResponseHandler
-  private handleInvalidAuthorization: ResponseHandler
+export default class Client extends EventEmitter {
+  private config: Config
+  private parsers: Parsers
+  private handlers: Handlers
   private queue: Queue
 
-  constructor(
-    getClientVersion: () => string,
-    getAuthorization: () => string | undefined,
-    isAuthorizationExpired: () => boolean,
-    handleRefresh: AnyHandler,
-    handleError: ResponseHandler,
-    handleInvalidAuthorization: ResponseHandler,
-  ) {
-    this.getClientVersion = getClientVersion
-    this.getAuthorization = getAuthorization
-    this.isAuthorizationExpired = isAuthorizationExpired
-    this.handleRefresh = handleRefresh
-    this.handleError = handleError
-    this.handleInvalidAuthorization = handleInvalidAuthorization
+  constructor(config: Config, parsers: Parsers, handlers: Handlers) {
+    super()
+
+    this.config = config
+    this.parsers = parsers
+    this.handlers = handlers
     this.queue = new Queue(
       async (call, cb) => {
         try {
@@ -57,12 +34,12 @@ export default class Client {
   private getHeaders = (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',
-      'X-Client-Version': this.getClientVersion(),
+      'X-Client-Version': this.config.getClientVersion(),
       Authorization: undefined as string | undefined,
     }
 
-    if (authorization && this.getAuthorization()) {
-      headers.Authorization = this.getAuthorization()
+    if (authorization && this.config.getAuthorization()) {
+      headers.Authorization = this.config.getAuthorization()
     }
     return headers
   }
@@ -90,17 +67,21 @@ export default class Client {
 
   public call = <T>(request: Request) => {
     return new Promise((resolve, reject) => {
-      if (request.authorization && this.isAuthorizationExpired()) {
-        this.queue.push(this.handleRefresh)
+      if (request.authorization && this.config.getAuthorizationExpired()) {
+        this.queue.push(this.handlers.refresh)
       }
 
       this.queue.push(async () => {
         try {
           const response = await axios<T>(this.getOptions(request))
-          return resolve(await this.handleResponse(response))
+          return resolve(response.data)
         } catch (e: any) {
           if (e.response) {
-            reject(await this.handleResponse(e.response))
+            if (e.response.status === 401) {
+              this.emit(Event.Unauthorized, e.response)
+            }
+
+            reject(await this.parsers.error(e.response))
           }
 
           reject(e)
@@ -108,22 +89,6 @@ export default class Client {
       })
     })
   }
-
-  private handleResponse = async <T>(response: AxiosResponse<T>) => {
-    const { status } = response
-
-    switch (status) {
-      case 204:
-        return undefined
-
-      case 200:
-        return response.data
-
-      case 401:
-        return await this.handleInvalidAuthorization(response)
-
-      default:
-        return await this.handleError(response)
-    }
-  }
 }
+
+export * from './types'
