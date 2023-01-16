@@ -9,7 +9,7 @@ jobs:
   version_packages:
     name: Version Packages
     runs-on: ubuntu-latest
-    if: ${{ github.head_ref == changeset-release/main }}
+    if: ${{ github.event.pull_request.head.ref == 'changeset-release/master' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
