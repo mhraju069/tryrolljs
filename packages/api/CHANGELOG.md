@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.0.7
+
+### Patch Changes
+
+- [#130](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/130) [`8a5126f`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8a5126fef714d7bdbc458662689dc31fa46a8cfb) Thanks [@teimurjan](https://github.com/teimurjan)! - Update request token to use post payload instead of query params
+
 ## 0.0.6
 
 ### Patch Changes
