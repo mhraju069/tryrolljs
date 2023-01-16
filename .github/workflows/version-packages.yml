@@ -25,7 +25,6 @@ jobs:
 
       - name: Install dependencies with lockfile update
         run: |
-          yarn changeset version
           yarn config set enableImmutableInstalls false
           yarn install
           git add yarn.lock
