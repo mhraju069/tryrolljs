@@ -16,10 +16,10 @@ jobs:
           # can generate changelogs with the correct commits.
           fetch-depth: 0
 
-      - name: Set up Node.js 16.4.0
-        uses: actions/setup-node@master
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16.4.0
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --immutable

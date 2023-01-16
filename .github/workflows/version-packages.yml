@@ -9,7 +9,7 @@ jobs:
   version_packages:
     name: Version Packages
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.head.ref == 'changeset-release/master' }}
+    if: github.ref == 'refs/heads/changeset-release/master'
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
@@ -18,10 +18,10 @@ jobs:
           # can generate changelogs with the correct commits.
           fetch-depth: 0
 
-      - name: Set up Node.js 16.4.0
-        uses: actions/setup-node@master
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16.4.0
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: Install dependencies with lockfile update
         run: |
