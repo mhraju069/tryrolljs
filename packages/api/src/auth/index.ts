@@ -29,17 +29,17 @@ export const requestToken = async ({
   clientId,
 }: RequestTokenArgs) => {
   try {
-    const queryString = qs.stringify({
+    const body = {
       code,
       refresh_token: refreshToken,
       grant_type: grantType,
       redirect_uri: redirectUri,
       client_id: clientId,
-    })
+    }
 
     return await axios.post<RequestTokenResponseData>(
-      `${issuerUrl}/token?${queryString}`,
-      undefined,
+      `${issuerUrl}/token`,
+      body,
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
