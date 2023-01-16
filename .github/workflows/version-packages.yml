@@ -1,9 +1,12 @@
 name: Version Packages
 
 on:
+  pull_request:
+    branches:
+      - changeset-release/master
   push:
     branches:
-      - 'changeset-release/master'
+      - changeset-release/master
 
 jobs:
   version_packages:
