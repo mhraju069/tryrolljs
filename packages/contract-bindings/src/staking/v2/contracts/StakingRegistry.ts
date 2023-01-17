@@ -33,8 +33,12 @@ export interface StakingRegistryInterface extends utils.Interface {
     "authorisedCallers(address)": FunctionFragment;
     "contractCountPerOwner(address)": FunctionFragment;
     "contractToOwner(address)": FunctionFragment;
+    "contractsCount()": FunctionFragment;
     "controller()": FunctionFragment;
+    "getContracts()": FunctionFragment;
+    "getContractsCount()": FunctionFragment;
     "getIndexArray(address[],address)": FunctionFragment;
+    "indexToContract(uint256)": FunctionFragment;
     "ownerToContracts(address,uint256)": FunctionFragment;
     "setCaller(address,bool)": FunctionFragment;
     "setController(address)": FunctionFragment;
@@ -46,8 +50,12 @@ export interface StakingRegistryInterface extends utils.Interface {
       | "authorisedCallers"
       | "contractCountPerOwner"
       | "contractToOwner"
+      | "contractsCount"
       | "controller"
+      | "getContracts"
+      | "getContractsCount"
       | "getIndexArray"
+      | "indexToContract"
       | "ownerToContracts"
       | "setCaller"
       | "setController"
@@ -74,12 +82,28 @@ export interface StakingRegistryInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "contractsCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "controller",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getContracts",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getContractsCount",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getIndexArray",
     values: [PromiseOrValue<string>[], PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "indexToContract",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "ownerToContracts",
@@ -110,9 +134,25 @@ export interface StakingRegistryInterface extends utils.Interface {
     functionFragment: "contractToOwner",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "contractsCount",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getContracts",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getContractsCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getIndexArray",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "indexToContract",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -220,13 +260,24 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    contractsCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     controller(overrides?: CallOverrides): Promise<[string]>;
+
+    getContracts(overrides?: CallOverrides): Promise<[BigNumber, string[]]>;
+
+    getContractsCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getIndexArray(
       _array: PromiseOrValue<string>[],
       value: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, boolean]>;
+
+    indexToContract(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     ownerToContracts(
       arg0: PromiseOrValue<string>,
@@ -268,13 +319,24 @@ export interface StakingRegistry extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  contractsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
   controller(overrides?: CallOverrides): Promise<string>;
+
+  getContracts(overrides?: CallOverrides): Promise<[BigNumber, string[]]>;
+
+  getContractsCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getIndexArray(
     _array: PromiseOrValue<string>[],
     value: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<[BigNumber, boolean]>;
+
+  indexToContract(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   ownerToContracts(
     arg0: PromiseOrValue<string>,
@@ -316,13 +378,24 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    contractsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
     controller(overrides?: CallOverrides): Promise<string>;
+
+    getContracts(overrides?: CallOverrides): Promise<[BigNumber, string[]]>;
+
+    getContractsCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getIndexArray(
       _array: PromiseOrValue<string>[],
       value: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, boolean]>;
+
+    indexToContract(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     ownerToContracts(
       arg0: PromiseOrValue<string>,
@@ -394,11 +467,22 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    contractsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
     controller(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getContracts(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getContractsCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getIndexArray(
       _array: PromiseOrValue<string>[],
       value: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    indexToContract(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -443,11 +527,22 @@ export interface StakingRegistry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    contractsCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getContracts(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getContractsCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getIndexArray(
       _array: PromiseOrValue<string>[],
       value: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    indexToContract(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
