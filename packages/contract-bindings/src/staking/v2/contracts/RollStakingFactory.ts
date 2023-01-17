@@ -29,21 +29,16 @@ import type {
 export interface RollStakingFactoryInterface extends utils.Interface {
   functions: {
     "createStakingContract(address[],address)": FunctionFragment;
-    "initialize(address)": FunctionFragment;
     "registry()": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "createStakingContract" | "initialize" | "registry"
+    nameOrSignatureOrTopic: "createStakingContract" | "registry"
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "createStakingContract",
     values: [PromiseOrValue<string>[], PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "registry", values?: undefined): string;
 
@@ -51,7 +46,6 @@ export interface RollStakingFactoryInterface extends utils.Interface {
     functionFragment: "createStakingContract",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "registry", data: BytesLike): Result;
 
   events: {
@@ -101,22 +95,12 @@ export interface RollStakingFactory extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    initialize(
-      _registry: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     registry(overrides?: CallOverrides): Promise<[string]>;
   };
 
   createStakingContract(
     _rewardTokens: PromiseOrValue<string>[],
     _stakedToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  initialize(
-    _registry: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -128,11 +112,6 @@ export interface RollStakingFactory extends BaseContract {
       _stakedToken: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
-
-    initialize(
-      _registry: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     registry(overrides?: CallOverrides): Promise<string>;
   };
@@ -149,11 +128,6 @@ export interface RollStakingFactory extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    initialize(
-      _registry: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     registry(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -161,11 +135,6 @@ export interface RollStakingFactory extends BaseContract {
     createStakingContract(
       _rewardTokens: PromiseOrValue<string>[],
       _stakedToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    initialize(
-      _registry: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
