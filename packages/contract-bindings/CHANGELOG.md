@@ -1,5 +1,14 @@
 # @tryrolljs/contract-bindings
 
+## 0.1.0
+
+### Minor Changes
+
+- [#134](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/134) [`287d340`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/287d3406be30c3b83d6f116980df8fb04bd3d85b) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Update contracts
+
+  - Update Staking v2 contracts
+  - Add Memberships contracts
+
 ## 0.0.5
 
 ### Patch Changes
