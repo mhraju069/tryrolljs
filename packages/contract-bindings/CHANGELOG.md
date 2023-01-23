@@ -1,5 +1,11 @@
 # @tryrolljs/contract-bindings
 
+## 0.1.1
+
+### Patch Changes
+
+- [#139](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/139) [`4268284`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4268284364764521d6760e8e0077e46930689ca8) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export Memberships contracts
+
 ## 0.1.0
 
 ### Minor Changes
