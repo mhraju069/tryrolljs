@@ -1,5 +1,11 @@
 # @tryrolljs/contract-bindings
 
+## 0.1.2
+
+### Patch Changes
+
+- [#141](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/141) [`9f6e363`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9f6e3637330ac931b08fa1d21ab9d05cb18a6893) Thanks [@teimurjan](https://github.com/teimurjan)! - Update engines to match any 16 node
+
 ## 0.1.1
 
 ### Patch Changes
