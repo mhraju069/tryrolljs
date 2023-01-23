@@ -65,8 +65,8 @@ export default class Client extends EventEmitter {
     return options
   }
 
-  public call = <T>(request: Request) => {
-    return new Promise((resolve, reject) => {
+  public call = <T = any>(request: Request) => {
+    return new Promise<T>((resolve, reject) => {
       if (request.authorization && this.config.getAuthorizationExpired()) {
         this.queue.push(this.handlers.refresh)
       }
