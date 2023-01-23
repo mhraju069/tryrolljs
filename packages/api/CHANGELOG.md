@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.0.9
+
+### Patch Changes
+
+- [#137](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/137) [`0236b9c`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0236b9c45160cdebfcbf8151279e6416b398f8d0) Thanks [@teimurjan](https://github.com/teimurjan)! - Update call method typing
+
 ## 0.0.8
 
 ### Patch Changes
