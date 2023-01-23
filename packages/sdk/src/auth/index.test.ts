@@ -123,9 +123,10 @@ describe('AuthSDK', () => {
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
     const mockSeconds = 1466424490000
+    const mockDateInstance = new Date(mockSeconds)
     const mockDateConstructor = jest
       .spyOn(global, 'Date')
-      .mockImplementation(() => new Date(mockSeconds))
+      .mockImplementation(() => mockDateInstance)
 
     const sdk = new AuthSDK(config, storage)
     await sdk.restoreFromCache()
