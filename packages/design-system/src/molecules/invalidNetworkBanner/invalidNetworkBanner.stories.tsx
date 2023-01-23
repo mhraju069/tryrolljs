@@ -1,31 +1,35 @@
-import { titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import { Body } from '../../atoms'
 import { useChainID } from '../../hooks'
 import { withWeb3Provider } from '../../hoc'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { InvalidNetworkBanner } from '.'
+import { InvalidNetworkBanner, InvalidNetworkBannerProps } from '.'
 
 const storyConfig = {
   title: titleBuilder.molecules('InvalidNetworkBanner'),
   component: InvalidNetworkBanner,
 }
 
-export const Default = () => withWeb3Provider(<Banner />)
+const Template = (props: InvalidNetworkBannerProps) =>
+  withWeb3Provider(<Banner {...props} />)
 
-const Banner = () => {
+const Banner = (props: InvalidNetworkBannerProps) => {
   const chainID = useChainID()
 
   if (!chainID) {
     return <Body>Please connect wallet to test this component</Body>
   }
 
-  return (
-    <InvalidNetworkBanner
-      supportedChainIDs={[CHAIN_ID_MAIN_NET]}
-      validChainID={CHAIN_ID_MAIN_NET}
-      chainID={10}
-    />
-  )
+  return <InvalidNetworkBanner chainID={chainID} {...props} />
 }
+
+export const Default = fromTemplate(Template, {
+  supportedChainIDs: [CHAIN_ID_MAIN_NET],
+})
+export const CustonTitle = fromTemplate(Template, {
+  supportedChainIDs: [CHAIN_ID_MAIN_NET],
+  title:
+    'Unsupported chain. Please switch to Etheruem Mainnet or Polygon in your wallet.',
+})
 
 export default storyConfig
