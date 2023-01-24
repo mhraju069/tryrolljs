@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 0.0.11
+
+### Patch Changes
+
+- [#144](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/144) [`125611e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/125611ef197e3f2368b90885d362da3c5fc8f5f9) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix refresh condition
+
 ## 0.0.10
 
 ### Patch Changes
