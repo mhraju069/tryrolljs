@@ -163,7 +163,7 @@ describe('AuthSDK', () => {
   })
 
   it('skips refresh if tokens are up-to-date', async () => {
-    mockCache({ lastUpdateTimestamp: new Date().getTime() - 3601 })
+    mockCache({ lastUpdateTimestamp: new Date().getTime() - 3600 * 1000 + 1 })
     mockTokenResponse({ access_token: 'new_access_token' })
 
     const sdk = new AuthSDK(config, storage)
