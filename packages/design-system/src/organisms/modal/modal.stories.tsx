@@ -1,4 +1,5 @@
 import { action } from '@storybook/addon-actions'
+import { ScrollView, View } from 'native-base'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { Body, Button, Header } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -14,12 +15,13 @@ const storyConfig = {
 const Template = ({ size, children }: ModalProps) => {
   const { toggle, isOpen, close } = useModal()
   return (
-    <>
+    <ScrollView>
       <Button variant="primary" onPress={toggle} title="Toggle" />
+      <View style={{ height: 2000 }} />
       <Modal isOpen={isOpen} onClose={close} size={size}>
         {children}
       </Modal>
-    </>
+    </ScrollView>
   )
 }
 
