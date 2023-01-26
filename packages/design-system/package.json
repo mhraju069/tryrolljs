@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/design-system",
   "description": "Shared components for Roll applications",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "main": "dist/web/cjs/index.js",
   "module": "dist/web/esm/index.js",
   "files": [
@@ -136,7 +136,7 @@
   },
   "engines": {
     "npm": "~8.3.1",
-    "node": "16.14.0"
+    "node": "^16"
   },
   "keywords": [
     "components",

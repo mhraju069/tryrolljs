@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/contract-bindings",
   "description": "Contract bindings for Roll's smart contracts",
-  "version": "0.0.5",
+  "version": "0.1.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -12,11 +12,12 @@
   },
   "scripts": {
     "build": "yarn generate:typechain && rollup -c",
+    "generate:typechain-memberships": "rm -rf ./src/memberships/contracts && typechain --target ethers-v5 --out-dir ./src/memberships/contracts ./src/memberships/abi/**/*.json",
     "generate:typechain-staking-v1": "rm -rf ./src/staking/v1/contracts && typechain --target ethers-v5 --out-dir ./src/staking/v1/contracts ./src/staking/v1/abi/**/*.json",
     "generate:typechain-staking-v2": "rm -rf ./src/staking/v2/contracts && typechain --target ethers-v5 --out-dir ./src/staking/v2/contracts ./src/staking/v2/abi/**/*.json",
     "generate:typechain-social-money-v1": "rm -rf ./src/social-money/v1/contracts && typechain --target ethers-v5 --out-dir ./src/social-money/v1/contracts ./src/social-money/v1/abi/**/*.json",
     "generate:typechain-social-money-v1.5": "rm -rf ./src/social-money/v1.5/contracts && typechain --target ethers-v5 --out-dir ./src/social-money/v1.5/contracts ./src/social-money/v1.5/abi/**/*.abi",
-    "generate:typechain": "yarn generate:typechain-staking-v1 && yarn generate:typechain-staking-v2 && yarn generate:typechain-social-money-v1 && yarn generate:typechain-social-money-v1.5"
+    "generate:typechain": "yarn generate:typechain-memberships && yarn generate:typechain-staking-v1 && yarn generate:typechain-staking-v2 && yarn generate:typechain-social-money-v1 && yarn generate:typechain-social-money-v1.5"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.4.3",
@@ -42,7 +43,7 @@
   },
   "engines": {
     "npm": "~8.3.1",
-    "node": "16.14.0"
+    "node": "^16"
   },
   "keywords": [
     "roll",

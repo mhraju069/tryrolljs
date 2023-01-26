@@ -1,5 +1,26 @@
 # @tryrolljs/contract-bindings
 
+## 0.1.2
+
+### Patch Changes
+
+- [#141](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/141) [`9f6e363`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9f6e3637330ac931b08fa1d21ab9d05cb18a6893) Thanks [@teimurjan](https://github.com/teimurjan)! - Update engines to match any 16 node
+
+## 0.1.1
+
+### Patch Changes
+
+- [#139](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/139) [`4268284`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4268284364764521d6760e8e0077e46930689ca8) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export Memberships contracts
+
+## 0.1.0
+
+### Minor Changes
+
+- [#134](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/134) [`287d340`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/287d3406be30c3b83d6f116980df8fb04bd3d85b) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Update contracts
+
+  - Update Staking v2 contracts
+  - Add Memberships contracts
+
 ## 0.0.5
 
 ### Patch Changes

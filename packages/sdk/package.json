@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/sdk",
   "description": "Public facing JavaScript SDK for Roll API",
-  "version": "0.0.2",
+  "version": "0.0.11",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/api": "0.0.2",
+    "@tryrolljs/api": "0.0.10",
     "lodash.groupby": "^4.6.0",
     "type-fest": "^3.1.0"
   },
@@ -39,7 +39,7 @@
   },
   "engines": {
     "npm": "~8.3.1",
-    "node": "16.14.0"
+    "node": "^16"
   },
   "keywords": [
     "sdk",
