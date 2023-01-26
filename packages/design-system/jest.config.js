@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'react-native',
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?(@react-native|react-native|react-native-linear-gradient)/.*))',
+    'node_modules/(?!((jest-)?(@react-native|react-native|react-native-linear-gradient|@wagmi|wagmi)/.*))',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testEnvironment: 'node',
