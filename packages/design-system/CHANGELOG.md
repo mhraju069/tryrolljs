@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.11
+
+### Patch Changes
+
+- [#146](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/146) [`82a505a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/82a505ae7850790d624bb1a7d32c43ba215d3438) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Prevent scroll when modal is open
+
 ## 0.1.10
 
 ### Patch Changes
