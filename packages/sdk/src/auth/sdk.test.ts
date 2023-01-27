@@ -1,9 +1,8 @@
-import type { RequestTokenResponseData } from '@tryrolljs/api'
-import { requestToken } from '@tryrolljs/api'
+import { auth } from '@tryrolljs/api'
 import type { PartialDeep } from 'type-fest'
 import { NoCacheError, NotAuthorizedCacheError } from './errors'
 import type { Cache } from './types'
-import AuthSDK from '.'
+import AuthSDK, { STORAGE_KEY } from './sdk'
 
 const config = {
   clientId: 'clientId',
@@ -19,19 +18,23 @@ const storage = {
   clear: jest.fn(),
 }
 
-const mockRequestToken = requestToken as jest.Mock
+const mockRequestToken = auth.requestToken as jest.Mock
 jest.mock('@tryrolljs/api', () => ({
-  requestToken: jest.fn().mockResolvedValue({
-    data: {
-      access_token: 'access_token',
-      expires_in: 3600,
-      refresh_token: 'refresh_token',
-      id_token: 'id_token',
-    },
-  }),
+  auth: {
+    requestToken: jest.fn().mockResolvedValue({
+      data: {
+        access_token: 'access_token',
+        expires_in: 3600,
+        refresh_token: 'refresh_token',
+        id_token: 'id_token',
+      },
+    }),
+  },
 }))
 
-const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
+const mockTokenResponse = (
+  data: Partial<auth.types.RequestTokenResponseData> = {},
+) => {
   mockRequestToken.mockResolvedValue({
     data: {
       access_token: data.access_token ?? 'access_token',
@@ -45,15 +48,15 @@ const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
 const mockCache = (cache: PartialDeep<Cache> = {}) => {
   storage.getItem.mockReturnValue(
     JSON.stringify({
-      tokenData: {
-        access_token: cache?.tokenData?.access_token ?? 'access_token',
-        expires_in: cache?.tokenData?.expires_in ?? 3600,
-        refresh_token: cache?.tokenData?.refresh_token ?? 'refresh_token',
-        id_token: cache?.tokenData?.id_token ?? 'id_token',
+      authState: {
+        access_token: cache?.authState?.access_token ?? 'access_token',
+        expires_in: cache?.authState?.expires_in ?? 3600,
+        refresh_token: cache?.authState?.refresh_token ?? 'refresh_token',
+        id_token: cache?.authState?.id_token ?? 'id_token',
+        last_update_at: cache?.authState?.last_update_at ?? undefined,
       },
-      oauthCode: cache?.oauthCode ?? 'code',
+      authCode: cache?.authCode ?? 'code',
       oauthConfig: config,
-      lastUpdateTimestamp: cache?.lastUpdateTimestamp ?? undefined,
     }),
   )
 }
@@ -71,7 +74,7 @@ describe('AuthSDK', () => {
     await sdk.makeSession('code')
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(requestToken).toHaveBeenCalledWith({
+    expect(auth.requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'authorization_code',
@@ -92,8 +95,8 @@ describe('AuthSDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
-    expect(requestToken).toHaveBeenCalledTimes(2)
-    expect(requestToken).toHaveBeenLastCalledWith({
+    expect(auth.requestToken).toHaveBeenCalledTimes(2)
+    expect(auth.requestToken).toHaveBeenLastCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'refresh_token',
@@ -110,7 +113,7 @@ describe('AuthSDK', () => {
   })
 
   it('does not restore from cache when there is no authorized cache', async () => {
-    mockCache({ tokenData: { access_token: '' } })
+    mockCache({ authState: { access_token: '' } })
     const sdk = new AuthSDK(config, storage)
 
     await expect(sdk.restoreFromCache()).rejects.toThrow(
@@ -136,15 +139,15 @@ describe('AuthSDK', () => {
     expect(storage.setItem).toHaveBeenCalledWith(
       'ROLL_AUTHSDK_AUTH',
       JSON.stringify({
-        tokenData: {
+        authState: {
           access_token: 'new_access_token',
           expires_in: 0,
           refresh_token: 'refresh_token',
           id_token: 'id_token',
+          last_update_at: mockSeconds,
         },
-        oauthCode: 'code',
+        authCode: 'code',
         oauthConfig: config,
-        lastUpdateTimestamp: mockSeconds,
       }),
     )
 
@@ -163,7 +166,15 @@ describe('AuthSDK', () => {
   })
 
   it('skips refresh if tokens are up-to-date', async () => {
-    mockCache({ lastUpdateTimestamp: new Date().getTime() - 3600 * 1000 + 1 })
+    const mockSeconds = 1466424490000
+    const mockDateInstance = new Date(mockSeconds)
+    const mockDateConstructor = jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => mockDateInstance)
+
+    mockCache({
+      authState: { last_update_at: mockSeconds - 3600 * 1000 + 1 },
+    })
     mockTokenResponse({ access_token: 'new_access_token' })
 
     const sdk = new AuthSDK(config, storage)
@@ -171,6 +182,9 @@ describe('AuthSDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(storage.setItem).not.toHaveBeenCalled()
+    expect(storage.setItem).toHaveBeenCalledTimes(1)
+    expect(storage.setItem).toHaveBeenCalledWith(STORAGE_KEY, storage.getItem())
+
+    mockDateConstructor.mockRestore()
   })
 })
