@@ -1,5 +1,6 @@
 import axios from 'axios'
-import Client, { Event } from '.'
+import Client from './client'
+import { Event } from './types'
 
 jest.mock('axios', () => jest.fn().mockReturnValue({ status: 200 }))
 
