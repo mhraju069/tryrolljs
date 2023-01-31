@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.1.1
+
+### Patch Changes
+
+- [#156](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/156) [`2e0ac35`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2e0ac356eaacf347dab4cfa8893f60c64986c6a9) Thanks [@teimurjan](https://github.com/teimurjan)! - Add transaction & user APIs
+
 ## 0.1.0
 
 ### Minor Changes
