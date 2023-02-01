@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 0.1.4
+
+### Patch Changes
+
+- [#165](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/165) [`85922ce`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/85922ceedc8671328a82a27a2acbb4a6ffb1cd91) Thanks [@teimurjan](https://github.com/teimurjan)! - Use removeItem instead of setItem to undefined in storage
+
 ## 0.1.3
 
 ### Patch Changes
