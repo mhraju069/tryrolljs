@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.1.2
+
+### Patch Changes
+
+- [#159](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/159) [`943c781`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/943c781028b95ac7b5da3e54fdae365eb252e566) Thanks [@teimurjan](https://github.com/teimurjan)! - Add base API url support
+
 ## 0.1.1
 
 ### Patch Changes

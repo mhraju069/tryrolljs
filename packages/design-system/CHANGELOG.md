@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.2.0
+
+### Minor Changes
+
+- [#112](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/112) [`e91a87b`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e91a87b4cd56c3ae5a61e3710aecec4145568522) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add web3 functionality using wagmi.
+
 ## 0.1.12
 
 ### Patch Changes
