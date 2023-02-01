@@ -116,7 +116,7 @@ export const FooterV2: React.FC<FooterV2Props> = ({
           <View style={[socialContainerResponsiveStyles]}>
             {social.map((item, index) => (
               <FooterOption
-                key={`${item.title}-${index}`}
+                key={item.title}
                 isLast={index === social.length - 1}
                 {...item}
               />
@@ -125,7 +125,7 @@ export const FooterV2: React.FC<FooterV2Props> = ({
           <View style={[navigationContainerResponsiveStyles]}>
             {navigation.map((item, index) => (
               <FooterOption
-                key={`${item.title}-${index}`}
+                key={item.title}
                 isLast={index === social.length - 1}
                 {...item}
               />
@@ -134,7 +134,7 @@ export const FooterV2: React.FC<FooterV2Props> = ({
         </View>
         <View style={[tradeMarkResponsiveStyles]}>
           <Caption weight="regular" color={theme.text.black[30]}>
-            ©2023 Roll
+            ©{new Date().getFullYear()} Roll
           </Caption>
         </View>
       </View>
