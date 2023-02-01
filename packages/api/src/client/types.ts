@@ -19,9 +19,10 @@ export type ResponseHandler = <T>(
 ) => unknown | Promise<unknown>
 
 export interface Config {
-  getClientVersion: () => string
   getAuthorization: () => string | undefined
   getAuthorizationExpired: () => boolean
+  getApiUrl?: () => string
+  getClientVersion?: () => string
 }
 
 export interface Parsers {

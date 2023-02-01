@@ -2,7 +2,7 @@ import axios from 'axios'
 import Client from './client'
 import { Event } from './types'
 
-jest.mock('axios', () => jest.fn().mockReturnValue({ status: 200 }))
+jest.mock('axios', () => jest.fn())
 
 const mockAxios = axios as unknown as jest.Mock
 
@@ -22,6 +22,10 @@ const defaultHandlers = {
 
 describe('client', () => {
   beforeEach(() => {
+    mockAxios.mockReturnValue({ status: 200 })
+  })
+
+  afterEach(() => {
     jest.clearAllMocks()
   })
 
@@ -171,6 +175,77 @@ describe('client', () => {
       data: { foo: 'bar' },
       message: 'Something went wrong',
       status: 500,
+    })
+  })
+
+  it('uses api url when a request with a relative url is used', async () => {
+    const client = new Client(
+      {
+        ...defaultConfig,
+        getApiUrl: jest.fn().mockReturnValue('https://foo.bar'),
+      },
+      defaultParsers,
+      defaultHandlers,
+    )
+
+    const request = {
+      method: 'GET',
+      url: '/relative/url',
+    }
+
+    await client.call(request)
+
+    expect(mockAxios).toHaveBeenCalledWith({
+      url: 'https://foo.bar/relative/url',
+      method: request.method,
+      body: undefined,
+      headers: {
+        Authorization: undefined,
+        'Content-Type': 'application/json',
+        'X-Client-Version': '0.0.0',
+      },
+    })
+
+    await client.call({ ...request, url: 'relative/url' })
+
+    expect(mockAxios).toHaveBeenCalledWith({
+      url: 'https://foo.bar/relative/url',
+      method: request.method,
+      body: undefined,
+      headers: {
+        Authorization: undefined,
+        'Content-Type': 'application/json',
+        'X-Client-Version': '0.0.0',
+      },
+    })
+  })
+
+  it('does not use api url when a request with an absolute url is used', async () => {
+    const client = new Client(
+      {
+        ...defaultConfig,
+        getApiUrl: jest.fn().mockReturnValue('https://foo.bar'),
+      },
+      defaultParsers,
+      defaultHandlers,
+    )
+
+    const request = {
+      method: 'GET',
+      url: 'https://absolute.url/foo/bar',
+    }
+
+    await client.call(request)
+
+    expect(mockAxios).toHaveBeenCalledWith({
+      url: 'https://absolute.url/foo/bar',
+      method: request.method,
+      body: undefined,
+      headers: {
+        Authorization: undefined,
+        'Content-Type': 'application/json',
+        'X-Client-Version': '0.0.0',
+      },
     })
   })
 })
