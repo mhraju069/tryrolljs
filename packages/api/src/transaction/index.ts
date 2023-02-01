@@ -1,2 +1,2 @@
 export * as types from './types'
-export * from './auth'
+export * from './transaction'

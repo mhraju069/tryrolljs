@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.1.12
+
+### Patch Changes
+
+- [#149](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/149) [`a0a6bb6`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a0a6bb6c4da8cd48f098cd8657e6f487391d1de3) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add util function to get etherscan link based on chain ID
+
 ## 0.1.11
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @tryrolljs/sdk
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`2e0ac35`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2e0ac356eaacf347dab4cfa8893f60c64986c6a9)]:
+  - @tryrolljs/api@0.1.1
+
+## 0.1.0
+
+### Minor Changes
+
+- [#150](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/150) [`459a103`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/459a1031a9794f9300ea5ddd2113a26d68494fcb) Thanks [@teimurjan](https://github.com/teimurjan)! - Update API, add types exports, included login & logout URLs to auth sdk
+
+### Patch Changes
+
+- Updated dependencies [[`459a103`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/459a1031a9794f9300ea5ddd2113a26d68494fcb)]:
+  - @tryrolljs/api@0.1.0
+
 ## 0.0.11
 
 ### Patch Changes

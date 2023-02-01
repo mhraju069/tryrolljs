@@ -1,1 +1,1 @@
-export { default as AuthSDK } from './auth'
+export * as auth from './auth'
