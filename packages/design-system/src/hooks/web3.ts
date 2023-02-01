@@ -1,5 +1,5 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React } from 'web3-react-core'
+import { useWeb3React } from '@web3-react/core'
 import { useCallback, useContext, useEffect, useMemo } from 'react'
 import { Web3Connectors } from '../web3'
 import { Web3ConnectorsContext } from '../context'
@@ -26,16 +26,12 @@ export const useInactiveListener = (
     [activate, connectors],
   )
 
-  const _onChangeChain = useCallback(
-    (e) => {
-      console.log('on change chain: ', e, typeof e)
-      handleReActivate(
-        'failed to re-activate after network changed',
-        () => onChangeChain && onChangeChain,
-      )
-    },
-    [handleReActivate, onChangeChain],
-  )
+  const _onChangeChain = useCallback(() => {
+    handleReActivate(
+      'failed to re-activate after network changed',
+      () => onChangeChain && onChangeChain,
+    )
+  }, [handleReActivate, onChangeChain])
 
   const _onChangeAccount = useCallback(
     (accounts: string[]) => {
