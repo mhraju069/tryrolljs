@@ -7804,7 +7804,7 @@ __metadata:
     "@types/react-native": ^0.66.4
     "@types/react-test-renderer": ^18.0.0
     "@uniswap/widgets": ^2.24.0
-    "@web3-react/core": 8.0.16-alpha.0
+    "@web3-react/core": ^6.0.9
     "@web3-react/fortmatic-connector": ^6.1.6
     "@web3-react/injected-connector": ^6.0.7
     "@web3-react/network-connector": ^6.2.9
@@ -7847,10 +7847,9 @@ __metadata:
     type-fest: ^3.1.0
     typescript: ^4.6.3
     wagmi: ^0.10.6
-    web3-react-core: "npm:@web3-react/core@^6.0.9"
   peerDependencies:
     "@ethersproject/providers": ^5.4.5
-    "@web3-react/core": 8.0.16-alpha.0
+    "@web3-react/core": ^6.0.9
     "@web3-react/fortmatic-connector": ^6.1.6
     "@web3-react/injected-connector": ^6.0.7
     "@web3-react/network-connector": ^6.2.9
@@ -7862,7 +7861,6 @@ __metadata:
     react-native-safe-area-context: ^3.3.2
     react-native-svg: ^12.1.1
     react-native-web: ^0.17.7
-    web3-react-core: "*"
   languageName: unknown
   linkType: soft
 
@@ -9768,20 +9766,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/core@npm:8.0.16-alpha.0":
-  version: 8.0.16-alpha.0
-  resolution: "@web3-react/core@npm:8.0.16-alpha.0"
-  dependencies:
-    "@web3-react/store": ^8.0.16-alpha.0
-    "@web3-react/types": ^8.0.16-alpha.0
-    zustand: ^4.0.0-beta.0
-  peerDependencies:
-    "@ethersproject/providers": ^5.4.5
-    react: ">=16.8"
-  checksum: 9bf7c9fdac078aea201b77797589c20b593853a1d3b1d1048fb20a853310a27a71ba9b75b2c412c0dd517d08469a360f8556960de46a07616a728c63cb784353
-  languageName: node
-  linkType: hard
-
 "@web3-react/core@npm:8.0.35-beta.0":
   version: 8.0.35-beta.0
   resolution: "@web3-react/core@npm:8.0.35-beta.0"
@@ -9796,6 +9780,21 @@ __metadata:
     "@ethersproject/providers":
       optional: true
   checksum: 4c129fbcd97436d62fa788c06b53ee49966f9be3f27f0f5882863949ecfa8c2d7d3d79053d959dd4fb5a1d5775606ae2ba9ccd78b0d8033cb76b6f2513702629
+  languageName: node
+  linkType: hard
+
+"@web3-react/core@npm:^6.0.9":
+  version: 6.1.9
+  resolution: "@web3-react/core@npm:6.1.9"
+  dependencies:
+    "@ethersproject/keccak256": ^5.0.0-beta.130
+    "@web3-react/abstract-connector": ^6.0.7
+    "@web3-react/types": ^6.0.7
+    tiny-invariant: ^1.0.6
+    tiny-warning: ^1.0.3
+  peerDependencies:
+    react: ">=16.8"
+  checksum: b7f3ad62812fb0d000c50447f5b22329ce03942cc681cf01038a450872f79252445083a7fb325c7daf2b4de1f6f89e0298a7a54e0cea0b05872c37d64492af8b
   languageName: node
   linkType: hard
 
@@ -9883,17 +9882,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/store@npm:^8.0.16-alpha.0":
-  version: 8.0.16-beta.0
-  resolution: "@web3-react/store@npm:8.0.16-beta.0"
-  dependencies:
-    "@ethersproject/address": ^5
-    "@web3-react/types": ^8.0.11-beta.0
-    zustand: ^4.0.0-beta.2
-  checksum: c0a3e7b856181ef251f2952d396a652249fd4aa9cd027e4c8833fd50dd9e3eb7c8e94cc276979d46dfb2b245752b62a6700dff286d3d8b9470e1034b50f512cc
-  languageName: node
-  linkType: hard
-
 "@web3-react/store@npm:^8.0.25-beta.0":
   version: 8.0.25-beta.0
   resolution: "@web3-react/store@npm:8.0.25-beta.0"
@@ -9918,24 +9906,6 @@ __metadata:
   version: 6.0.7
   resolution: "@web3-react/types@npm:6.0.7"
   checksum: 29ae264ae4a126e520a64a4b466ea712ee09b934f3fe13b957e09269249ffc882712cf11fff12c1c19dd66e38503075b4adf5e9d5f588ea0dd31bbedf6fa9a42
-  languageName: node
-  linkType: hard
-
-"@web3-react/types@npm:^8.0.11-beta.0":
-  version: 8.0.11-beta.0
-  resolution: "@web3-react/types@npm:8.0.11-beta.0"
-  dependencies:
-    zustand: ^4.0.0-beta.2
-  checksum: ebeb7d0de9bc5dfad321b374a5e088ff40bd37f6bd4b0ef8abcdbe1ddd66ad18de52dceb5ad8514eea1abd9e365a1fee493275f5c81c73388426ef2f71bc5271
-  languageName: node
-  linkType: hard
-
-"@web3-react/types@npm:^8.0.16-alpha.0":
-  version: 8.0.16-beta.0
-  resolution: "@web3-react/types@npm:8.0.16-beta.0"
-  dependencies:
-    zustand: ^4.0.0-rc.0
-  checksum: a14f9cebd1907018e602a3fe4be3ffbb753986e575cd272331ff3f61fe8341ba8dc5353b6c789a0b0e8d74ba3434d62b8006a5480175392ba7e21b3b64480355
   languageName: node
   linkType: hard
 
@@ -28303,21 +28273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web3-react-core@npm:@web3-react/core@^6.0.9":
-  version: 6.1.9
-  resolution: "@web3-react/core@npm:6.1.9"
-  dependencies:
-    "@ethersproject/keccak256": ^5.0.0-beta.130
-    "@web3-react/abstract-connector": ^6.0.7
-    "@web3-react/types": ^6.0.7
-    tiny-invariant: ^1.0.6
-    tiny-warning: ^1.0.3
-  peerDependencies:
-    react: ">=16.8"
-  checksum: b7f3ad62812fb0d000c50447f5b22329ce03942cc681cf01038a450872f79252445083a7fb325c7daf2b4de1f6f89e0298a7a54e0cea0b05872c37d64492af8b
-  languageName: node
-  linkType: hard
-
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
@@ -29094,7 +29049,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^4.0.0-beta.0, zustand@npm:^4.0.0-beta.2, zustand@npm:^4.0.0-rc.0, zustand@npm:^4.1.4":
+"zustand@npm:^4.0.0-rc.0, zustand@npm:^4.1.4":
   version: 4.2.0
   resolution: "zustand@npm:4.2.0"
   dependencies:

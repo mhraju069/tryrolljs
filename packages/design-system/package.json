@@ -9,7 +9,7 @@
   ],
   "peerDependencies": {
     "@ethersproject/providers": "^5.4.5",
-    "@web3-react/core": "8.0.16-alpha.0",
+    "@web3-react/core": "^6.0.9",
     "@web3-react/fortmatic-connector": "^6.1.6",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/network-connector": "^6.2.9",
@@ -20,8 +20,7 @@
     "react-native": "0.70.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-svg": "^12.1.1",
-    "react-native-web": "^0.17.7",
-    "web3-react-core": "*"
+    "react-native-web": "^0.17.7"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^1.0.0",
@@ -79,7 +78,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-native": "^0.66.4",
     "@types/react-test-renderer": "^18.0.0",
-    "@web3-react/core": "8.0.16-alpha.0",
+    "@web3-react/core": "^6.0.9",
     "@web3-react/fortmatic-connector": "^6.1.6",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/network-connector": "^6.2.9",
@@ -113,8 +112,7 @@
     "rollup-plugin-visualizer": "^5.8.1",
     "storybook": "^6.5.10",
     "stream-browserify": "^3.0.0",
-    "typescript": "^4.6.3",
-    "web3-react-core": "npm:@web3-react/core@^6.0.9"
+    "typescript": "^4.6.3"
   },
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 rollup -c",
