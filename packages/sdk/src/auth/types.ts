@@ -9,8 +9,9 @@ export interface OauthConfig {
 }
 
 export interface Storage {
-  setItem(key: string, value: string | undefined): void | Promise<void>
+  setItem(key: string, value: string): void | Promise<void>
   getItem(key: string): string | undefined | Promise<string | undefined>
+  removeItem(key: string): void | Promise<void>
 }
 
 export type AuthState = auth.types.RequestTokenResponseData & {
