@@ -5,6 +5,7 @@
 node_modules
 
 .yarn/*
+**/.env
 # Disable zero-installs to reduce the repo size
 # !.yarn/cache
 !.yarn/patches

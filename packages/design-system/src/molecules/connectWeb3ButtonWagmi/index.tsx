@@ -2,25 +2,26 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle } from 'react-native'
 import { View } from 'native-base'
 import { Body, Button, Spinner } from '../../atoms'
-import { useTheme, useEthAddress } from '../../hooks'
+import { useTheme } from '../../hooks'
 import { shortenAddress } from '../../utils'
 import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
-import { AccountDropdown } from '../accountDropdown'
+import { useEthAddress } from '../../hooks/web3Wagmi'
+import { AccountDropdownWagmi } from '../accountDropdownWagmi'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
-export type ConnectWeb3ButtonProps = {
+export type ConnectWeb3ButtonWagmiProps = {
   buttonStyle?: StyleProp<ViewStyle> // TODO define type properly
   onPress: () => void
   activity?: boolean
 }
 
-export const ConnectWeb3Button = ({
+export const ConnectWeb3ButtonWagmi = ({
   buttonStyle,
   onPress,
   activity,
-}: ConnectWeb3ButtonProps) => {
+}: ConnectWeb3ButtonWagmiProps) => {
   const address = useEthAddress()
   const theme = useTheme()
 
@@ -42,7 +43,9 @@ export const ConnectWeb3Button = ({
   if (address) {
     return (
       <Dropdown
-        renderDropdown={() => <AccountDropdown onSwitchAccounts={onPress} />}
+        renderDropdown={() => (
+          <AccountDropdownWagmi onSwitchAccounts={onPress} />
+        )}
       >
         <View
           style={[
