@@ -1,10 +1,13 @@
 import { NativeBaseProvider } from 'native-base'
 import { PropsWithChildren } from 'react'
 import { ThemeProvider } from '../theme'
+import { ThemeProviderV2 } from '../themeV2'
 
 export const TryrollProvider = ({ children }: PropsWithChildren<{}>) => (
   <NativeBaseProvider>
-    <ThemeProvider>{children}</ThemeProvider>
+    <ThemeProvider>
+      <ThemeProviderV2>{children}</ThemeProviderV2>
+    </ThemeProvider>
   </NativeBaseProvider>
 )
 
@@ -15,6 +18,8 @@ const inset = {
 
 export const TryrollTestProvider = ({ children }: PropsWithChildren<{}>) => (
   <NativeBaseProvider initialWindowMetrics={inset}>
-    <ThemeProvider>{children}</ThemeProvider>
+    <ThemeProvider>
+      <ThemeProviderV2>{children}</ThemeProviderV2>
+    </ThemeProvider>
   </NativeBaseProvider>
 )
