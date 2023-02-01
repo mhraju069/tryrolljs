@@ -45,7 +45,7 @@ class AuthSDK extends EventEmitter {
           }),
         )
       } else {
-        await this.storage.setItem(STORAGE_KEY, undefined)
+        await this.storage.removeItem(STORAGE_KEY)
       }
     })
   }

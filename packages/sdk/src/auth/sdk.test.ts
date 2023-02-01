@@ -15,7 +15,7 @@ const config = {
 const storage = {
   setItem: jest.fn(),
   getItem: jest.fn(),
-  clear: jest.fn(),
+  removeItem: jest.fn(),
 }
 
 const mockRequestToken = auth.requestToken as jest.Mock
@@ -217,7 +217,7 @@ describe('AuthSDK', () => {
 
     await sdk.clear()
     expect(sdk.getAccessToken()).toBe(undefined)
-    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_AUTH', undefined)
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_AUTH')
 
     mockDateConstructor.mockRestore()
   })
