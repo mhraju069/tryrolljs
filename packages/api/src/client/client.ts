@@ -1,10 +1,10 @@
 import 'setimmediate'
 import { EventEmitter } from 'events'
 import Queue from 'better-queue'
-// @ts-ignore
 import MemoryStore from 'better-queue-memory'
 import axios from 'axios'
 import { Config, Parsers, Handlers, Request, Event } from './types'
+import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 
 export default class Client extends EventEmitter {
   private config: Config
@@ -34,7 +34,7 @@ export default class Client extends EventEmitter {
   private getHeaders = (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',
-      'X-Client-Version': this.config.getClientVersion(),
+      'X-Client-Version': this.config.getClientVersion?.(),
       Authorization: undefined as string | undefined,
     }
 
@@ -60,6 +60,11 @@ export default class Client extends EventEmitter {
 
     if (override?.headers) {
       options.headers = { ...options.headers, ...override.headers }
+    }
+
+    if (this.config.getApiUrl && !isAbsoluteUrl(url)) {
+      const apiUrl = this.config.getApiUrl()
+      options.url = concatBaseAndRelativeUrls(apiUrl, url)
     }
 
     return options
