@@ -1,7 +1,20 @@
 import type { ValueOf } from 'type-fest'
 import { makeStyles } from './utils'
 
-type PaddingValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64 | 128 | 'auto'
+type PaddingValue =
+  | 4
+  | 8
+  | 12
+  | 16
+  | 20
+  | 24
+  | 32
+  | 40
+  | 48
+  | 56
+  | 64
+  | 128
+  | 'auto'
 type PaddingPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type PaddingPrefix = 'p'
 type PaddingKey = `${PaddingPrefix}${PaddingPostfix}${PaddingValue}`
@@ -9,7 +22,9 @@ type PaddingKey = `${PaddingPrefix}${PaddingPostfix}${PaddingValue}`
 const paddingValues: PaddingValue[] = [
   4,
   8,
+  12,
   16,
+  20,
   24,
   32,
   40,

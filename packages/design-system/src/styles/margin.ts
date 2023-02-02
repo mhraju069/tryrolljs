@@ -1,7 +1,20 @@
 import type { ValueOf } from 'type-fest'
 import { makeStyles } from './utils'
 
-type MarginValue = 4 | 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64 | 128 | 'auto'
+type MarginValue =
+  | 4
+  | 8
+  | 12
+  | 16
+  | 20
+  | 24
+  | 32
+  | 40
+  | 48
+  | 56
+  | 64
+  | 128
+  | 'auto'
 type MarginPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type MarginPrefix = 'm'
 type MarginKey = `${MarginPrefix}${MarginPostfix}${MarginValue}`
@@ -9,7 +22,9 @@ type MarginKey = `${MarginPrefix}${MarginPostfix}${MarginValue}`
 const marginValues: MarginValue[] = [
   4,
   8,
+  12,
   16,
+  20,
   24,
   32,
   40,
