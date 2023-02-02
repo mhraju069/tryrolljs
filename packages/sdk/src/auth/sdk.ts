@@ -45,7 +45,7 @@ class AuthSDK extends EventEmitter {
           }),
         )
       } else {
-        await this.storage.clear()
+        await this.storage.removeItem(STORAGE_KEY)
       }
     })
   }
@@ -129,7 +129,7 @@ class AuthSDK extends EventEmitter {
     }
   }
 
-  private clear = async () => {
+  public clear = async () => {
     this.setAuthState(undefined)
   }
 
@@ -169,7 +169,11 @@ class AuthSDK extends EventEmitter {
     if (!idToken) {
       throw new IdTokenMissingError()
     }
-    return auth.getLogOutUrl({ issuerUrl: this.oauthConfig.issuerUrl, idToken })
+    return auth.getLogOutUrl({
+      issuerUrl: this.oauthConfig.issuerUrl,
+      redirectUrl: this.oauthConfig.logoutRedirectUrl,
+      idToken,
+    })
   }
 
   private setAuthCode = (authCode?: string) => {

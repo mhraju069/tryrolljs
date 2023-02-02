@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 0.2.1
+
+### Patch Changes
+
+- [#160](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/160) [`9fd0533`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9fd0533f5266ccb29f4c5b3ac6138190af3d7009) Thanks [@teimurjan](https://github.com/teimurjan)! - Replace web3-react-core in favor of @web3-react/core
+
 ## 0.2.0
 
 ### Minor Changes

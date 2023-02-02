@@ -15,7 +15,7 @@ const config = {
 const storage = {
   setItem: jest.fn(),
   getItem: jest.fn(),
-  clear: jest.fn(),
+  removeItem: jest.fn(),
 }
 
 const mockRequestToken = auth.requestToken as jest.Mock
@@ -184,6 +184,40 @@ describe('AuthSDK', () => {
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledTimes(1)
     expect(storage.setItem).toHaveBeenCalledWith(STORAGE_KEY, storage.getItem())
+
+    mockDateConstructor.mockRestore()
+  })
+
+  it('clears', async () => {
+    mockCache()
+
+    const mockSeconds = 1466424490000
+    const mockDateInstance = new Date(mockSeconds)
+    const mockDateConstructor = jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => mockDateInstance)
+
+    const sdk = new AuthSDK(config, storage)
+    await sdk.restoreFromCache()
+
+    expect(sdk.getAccessToken()).toBe('access_token')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      'ROLL_AUTHSDK_AUTH',
+      JSON.stringify({
+        authState: {
+          access_token: 'access_token',
+          expires_in: 3600,
+          refresh_token: 'refresh_token',
+          id_token: 'id_token',
+        },
+        authCode: 'code',
+        oauthConfig: config,
+      }),
+    )
+
+    await sdk.clear()
+    expect(sdk.getAccessToken()).toBe(undefined)
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_AUTH')
 
     mockDateConstructor.mockRestore()
   })

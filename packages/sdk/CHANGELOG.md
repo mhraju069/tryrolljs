@@ -1,5 +1,17 @@
 # @tryrolljs/sdk
 
+## 0.1.4
+
+### Patch Changes
+
+- [#165](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/165) [`85922ce`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/85922ceedc8671328a82a27a2acbb4a6ffb1cd91) Thanks [@teimurjan](https://github.com/teimurjan)! - Use removeItem instead of setItem to undefined in storage
+
+## 0.1.3
+
+### Patch Changes
+
+- [#163](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/163) [`7ab6792`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7ab6792f90c0bb450ea95ca0cfd5920cd7dd2058) Thanks [@teimurjan](https://github.com/teimurjan)! - Add missing redirect url to auth sdk getLogOutUrl
+
 ## 0.1.2
 
 ### Patch Changes

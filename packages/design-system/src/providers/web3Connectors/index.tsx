@@ -1,6 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { useCallback, useEffect, useState } from 'react'
-import { useWeb3React } from 'web3-react-core'
+import { useWeb3React } from '@web3-react/core'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useInactiveListener } from '../../hooks'
 import {
