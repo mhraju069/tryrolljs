@@ -4,10 +4,17 @@ import { useTheme } from '../../hooks'
 
 export type SpinnerProps = {
   size?: 'sm' | 'lg' | number
+  color?: string
   style?: StyleProp<ViewStyle>
 }
 
-export const Spinner = ({ style, size }: SpinnerProps) => {
+export const Spinner = ({ style, size, color }: SpinnerProps) => {
   const theme = useTheme()
-  return <NBSpinner color={theme.text.highlight} size={size} style={style} />
+  return (
+    <NBSpinner
+      color={color || theme.text.highlight}
+      size={size}
+      style={style}
+    />
+  )
 }
