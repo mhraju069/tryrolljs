@@ -30,6 +30,7 @@ const getStories = () => {
     require('../src/molecules/dropdown/dropdown.stories.tsx'),
     require('../src/molecules/select/select.stories.tsx'),
     require('../src/molecules/information/information.stories.tsx'),
+    require('../src/molecules/header/header.stories.tsx'),
     require('../src/molecules/footerV2/footerV2.stories.tsx'),
     require('../src/atoms/buttonV2/buttonV2.stories.tsx'),
     require('../src/molecules/banner/banner.stories.tsx'),
