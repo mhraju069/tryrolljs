@@ -1,5 +1,6 @@
 export * from './anchor'
 export * from './button'
+export * from './buttonV2'
 export * from './circleImg'
 export * from './spinner'
 export * from './surface'

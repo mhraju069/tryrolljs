@@ -31,6 +31,7 @@ const getStories = () => {
     require('../src/molecules/select/select.stories.tsx'),
     require('../src/molecules/information/information.stories.tsx'),
     require('../src/molecules/footerV2/footerV2.stories.tsx'),
+    require('../src/atoms/buttonV2/buttonV2.stories.tsx'),
     require('../src/molecules/banner/banner.stories.tsx'),
     require('../src/organisms/modal/modal.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
