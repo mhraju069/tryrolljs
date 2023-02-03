@@ -15,6 +15,12 @@ const replaceSvgLoader = (config) => {
     test: /\.svg$/,
     enforce: 'pre',
     loader: require.resolve('@svgr/webpack'),
+    options: {
+      icon: true,
+      replaceAttrValues: {
+        "black": '{props.fill}',
+      }
+    }
   })
 
   return { ...config, module: { ...config.module, rules } }

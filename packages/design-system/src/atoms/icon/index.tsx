@@ -168,7 +168,13 @@ const icons = {
   warning: Warning,
 }
 
-export const Icon: React.FC<IconProps> = ({ variant, ...props }) => {
+export const Icon: React.FC<IconProps> = ({
+  variant,
+  width = 24,
+  height = 24,
+  fill = 'currentColor',
+  ...props
+}) => {
   const IconComponent = icons[variant]
-  return <IconComponent {...props} />
+  return <IconComponent width={width} height={height} fill={fill} {...props} />
 }

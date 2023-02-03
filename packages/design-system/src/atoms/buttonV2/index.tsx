@@ -79,6 +79,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
       borderBottomColor: stylesBasedOnState.textColor,
     },
     iconContainer: {
+      color: stylesBasedOnState.textColor,
       marginRight: icon && variant !== 'icon' ? 12 : 0,
     },
   })

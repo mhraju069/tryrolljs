@@ -96,7 +96,11 @@ const getConfig = (format, target = 'web', visualize = false) => {
         include: ['**/*.ttf'],
         limit: Infinity,
       }),
-      svgr({ native: true }),
+      svgr({
+        native: true,
+        icon: true,
+        replaceAttrValues: { black: '{props.fill}' },
+      }),
       copy({
         targets: [{ src: 'src/**/*.d.ts', dest: outputDir }],
         flatten: false,

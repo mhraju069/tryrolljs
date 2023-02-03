@@ -1,7 +1,8 @@
 import { View } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import LogoIso from '../../assets/svg/logo-iso.svg'
+// import LogoIso from '../../assets/svg/logo-iso.svg'
 import { container, margin } from '../../styles'
+import { Icon as IconComponent } from '../icon'
 import { ButtonV2Props } from './types'
 import { ButtonV2 } from '.'
 
@@ -20,6 +21,7 @@ export const Primary = fromTemplate(Template, {
   variant: 'primary',
   size: 'medium',
   title: 'Click me',
+  icon: <IconComponent variant="wallet" />,
   onPress: () => console.log('Primary button clicked'),
 })
 export const Secondary = fromTemplate(Template, {
@@ -42,7 +44,7 @@ export const Text = fromTemplate(Template, {
 })
 export const Icon = fromTemplate(Template, {
   variant: 'icon',
-  icon: <LogoIso />,
+  icon: <IconComponent variant="add" />,
   size: 'medium',
   title: 'Click me',
   onPress: () => console.log('Primary button clicked'),

@@ -12,7 +12,7 @@ export const Default = fromTemplate(Template, {
   variant: 'add',
   width: 100,
   height: 100,
-  fill: 'red',
+  color: 'red',
 })
 
 export default storyConfig
