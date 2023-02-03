@@ -1,7 +1,7 @@
 declare module '*.svg' {
   import { FunctionComponent } from 'react'
-  type Props = { color?: string }
-  const Component: FunctionComponent<Props>
+  import { SvgProps } from 'react-native-svg'
+  const Component: FunctionComponent<SvgProps>
   export default Component
 }
 

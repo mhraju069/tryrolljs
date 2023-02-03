@@ -33,6 +33,8 @@ const getStories = () => {
     require('../src/molecules/header/header.stories.tsx'),
     require('../src/molecules/footerV2/footerV2.stories.tsx'),
     require('../src/atoms/buttonV2/buttonV2.stories.tsx'),
+    require('../src/atoms/icon/icon.stories.tsx'),
+    require('../src/atoms/typographyV2/typographyV2.stories.tsx'),
     require('../src/molecules/banner/banner.stories.tsx'),
     require('../src/organisms/modal/modal.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
