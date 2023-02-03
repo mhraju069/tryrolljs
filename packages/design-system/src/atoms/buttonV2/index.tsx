@@ -1,12 +1,21 @@
-import { Pressable, Text, useBreakpointValue } from 'native-base'
+import { Pressable, useBreakpointValue } from 'native-base'
 import { useState } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container } from '../../styles'
+import {
+  container,
+  FONT_SIZE_BUTTON_LARGE,
+  FONT_SIZE_BUTTON_MEDIUM,
+  FONT_SIZE_BUTTON_TEXT,
+} from '../../styles'
+import { Icon } from '../icon'
 import { Spinner } from '../spinner'
+import { TypographyV2, TypographyVariant } from '../typographyV2'
 import {
   BaseButtonProps,
   ButtonV2Props,
+  fontsBasedOnSize,
+  iconBasedOnSize,
   Size,
   SizeProps,
   StateVariantProps,
@@ -24,8 +33,10 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   paddingHorizontal,
   paddingVertical,
   borderRadius,
+  size,
   textSize,
   icon,
+  namedIcon,
   isDisabled = false,
   isLoading = false,
   onPress,
@@ -49,7 +60,8 @@ const BaseButton: React.FC<BaseButtonProps> = ({
       position: 'relative',
       itemsCenter: 'center',
       justContent: 'center',
-      paddingHorizontal,
+      paddingHorizontal:
+        variant === 'icon' ? paddingVertical : paddingHorizontal,
       paddingVertical,
       borderRadius,
       backgroundColor: stylesBasedOnState.backgroundColor,
@@ -73,16 +85,19 @@ const BaseButton: React.FC<BaseButtonProps> = ({
     title: {
       fontWeight: '600',
       color: stylesBasedOnState.textColor,
-      lineHeight: textSize,
-      fontSize: textSize,
       borderBottomWidth: isUnderlined ? (isActive ? 2 : 1) : 0,
       borderBottomColor: stylesBasedOnState.textColor,
     },
     iconContainer: {
       color: stylesBasedOnState.textColor,
-      marginRight: icon && variant !== 'icon' ? 12 : 0,
+      marginRight: (icon || namedIcon) && variant !== 'icon' ? 12 : 0,
     },
   })
+
+  const fontBasedOnVariantAndSize: TypographyVariant =
+    variant === 'text' && size === 'large'
+      ? 'buttonText'
+      : fontsBasedOnSize[size]
 
   return (
     <View style={[container.alignCenter]}>
@@ -115,8 +130,28 @@ const BaseButton: React.FC<BaseButtonProps> = ({
           <Spinner size={textSize} color={stylesBasedOnState.textColor} />
         ) : (
           <>
-            <View style={[styles.iconContainer]}>{icon}</View>
-            {variant !== 'icon' && <Text style={[styles.title]}>{title}</Text>}
+            {namedIcon && variant !== 'text' && (
+              <View style={[styles.iconContainer]}>
+                <Icon
+                  variant={namedIcon}
+                  width={iconBasedOnSize[size]}
+                  height={iconBasedOnSize[size]}
+                  color={stylesBasedOnState.textColor}
+                />
+              </View>
+            )}
+            {!namedIcon && icon && variant !== 'text' && (
+              <View style={[styles.iconContainer]}>{icon}</View>
+            )}
+            {variant !== 'icon' && (
+              <TypographyV2
+                variant={fontBasedOnVariantAndSize}
+                color={stylesBasedOnState.textColor}
+                style={[styles.title]}
+              >
+                {title}
+              </TypographyV2>
+            )}
           </>
         )}
       </Pressable>
@@ -276,7 +311,7 @@ const useSizeProps = (size: Size): SizeProps => {
       return {
         paddingHorizontal: 8,
         paddingVertical: 8,
-        textSize: 12,
+        textSize: FONT_SIZE_BUTTON_TEXT,
         borderRadius: 10,
       }
     }
@@ -284,7 +319,7 @@ const useSizeProps = (size: Size): SizeProps => {
       return {
         paddingHorizontal: 12,
         paddingVertical: 8,
-        textSize: 14,
+        textSize: FONT_SIZE_BUTTON_MEDIUM,
         borderRadius: 10,
       }
     }
@@ -292,7 +327,7 @@ const useSizeProps = (size: Size): SizeProps => {
       return {
         paddingHorizontal: 16,
         paddingVertical: 12,
-        textSize: 14,
+        textSize: FONT_SIZE_BUTTON_MEDIUM,
         borderRadius: 12,
       }
     }
@@ -300,7 +335,7 @@ const useSizeProps = (size: Size): SizeProps => {
       return {
         paddingHorizontal: 24,
         paddingVertical: 12,
-        textSize: 20,
+        textSize: FONT_SIZE_BUTTON_LARGE,
         borderRadius: 14,
       }
     }

@@ -81,8 +81,9 @@ import WalletMoney from '../../assets/icons/wallet-money.svg'
 import Wallet from '../../assets/icons/wallet.svg'
 import Warning from '../../assets/icons/warning.svg'
 
+export type IconVariant = keyof typeof icons
 export interface IconProps extends SvgProps {
-  variant: keyof typeof icons
+  variant: IconVariant
 }
 
 const icons = {

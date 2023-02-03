@@ -2,7 +2,7 @@ import { useBreakpointValue } from 'native-base'
 import { GestureResponderEvent, StyleProp, Text, TextStyle } from 'react-native'
 import { fontStyles, responsiveFontStyles } from '../../styles'
 
-type Variant =
+export type TypographyVariant =
   | 'caption2'
   | 'caption1'
   | 'text4'
@@ -20,7 +20,7 @@ type Variant =
   | 'h1'
 
 export interface TypographyV2Props {
-  variant: Variant
+  variant: TypographyVariant
   style?: StyleProp<TextStyle>
   color?: string
   underline?: boolean

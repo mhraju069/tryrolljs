@@ -154,7 +154,7 @@ export const fontStyles = StyleSheet.create({
   buttonLarge: {
     fontFamily: manrope.semiBold,
     fontSize: FONT_SIZE_BUTTON_LARGE,
-    lineHeight: 24,
+    lineHeight: 32,
     letterSpacing: getLetterSpacing(FONT_SIZE_BUTTON_LARGE, 2),
   },
   sub3: {
