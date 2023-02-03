@@ -2,22 +2,21 @@ import 'setimmediate'
 import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
-import axios from 'axios'
-import { Config, Parsers, Handlers, Request, Event } from './types'
+import axios, { AxiosResponse } from 'axios'
+import { auth } from '@tryrolljs/sdk'
+import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private parsers: Parsers
-  private handlers: Handlers
+  private authSdk: auth.AuthSDK
   private queue: Queue
 
-  constructor(config: Config, parsers: Parsers, handlers: Handlers) {
+  constructor(config: Config, authSdk: auth.AuthSDK) {
     super()
 
     this.config = config
-    this.parsers = parsers
-    this.handlers = handlers
+    this.authSdk = authSdk
     this.queue = new Queue(
       async (call, cb) => {
         try {
@@ -34,12 +33,13 @@ export default class Client extends EventEmitter {
   private getHeaders = (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',
-      'X-Client-Version': this.config.getClientVersion?.(),
+      ...(this.config.extraHeaders ?? {}),
       Authorization: undefined as string | undefined,
     }
 
-    if (authorization && this.config.getAuthorization()) {
-      headers.Authorization = this.config.getAuthorization()
+    const accessToken = this.authSdk.getAccessToken()
+    if (authorization && this.authSdk.getAccessToken()) {
+      headers.Authorization = `Bearer ${accessToken}`
     }
     return headers
   }
@@ -49,7 +49,7 @@ export default class Client extends EventEmitter {
     method,
     body,
     authorization,
-    override,
+    headers,
   }: Request) => {
     const options = {
       url,
@@ -58,13 +58,12 @@ export default class Client extends EventEmitter {
       data: body,
     }
 
-    if (override?.headers) {
-      options.headers = { ...options.headers, ...override.headers }
+    if (headers) {
+      options.headers = { ...options.headers, ...headers }
     }
 
-    if (this.config.getApiUrl && !isAbsoluteUrl(url)) {
-      const apiUrl = this.config.getApiUrl()
-      options.url = concatBaseAndRelativeUrls(apiUrl, url)
+    if (this.config.baseUrl && !isAbsoluteUrl(url)) {
+      options.url = concatBaseAndRelativeUrls(this.config.baseUrl, url)
     }
 
     return options
@@ -72,8 +71,8 @@ export default class Client extends EventEmitter {
 
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
-      if (request.authorization && this.config.getAuthorizationExpired()) {
-        this.queue.push(this.handlers.refresh)
+      if (request.authorization && this.authSdk.isTokenExpired()) {
+        this.queue.push(this.authSdk.refreshTokens)
       }
 
       this.queue.push(async () => {
@@ -86,12 +85,25 @@ export default class Client extends EventEmitter {
               this.emit(Event.Unauthorized, e.response)
             }
 
-            reject(await this.parsers.error(e.response))
+            reject(this.parseResponseError(e.response))
           }
 
           reject(e)
         }
       })
     })
+  }
+
+  private parseResponseError = (response: AxiosResponse) => {
+    if (typeof response.data === 'object') {
+      return {
+        message: response.data.message ?? '',
+        details: response.data.details ?? '',
+        errorCode: response.data.errorCode ?? 0,
+        status: response.status,
+      }
+    }
+
+    return { message: response.data, status: response.status }
   }
 }

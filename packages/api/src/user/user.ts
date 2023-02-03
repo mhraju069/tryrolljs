@@ -1,4 +1,4 @@
-import { Client } from '../client'
+import Client from '@tryrolljs/api-client'
 import { GetThridPartyProfileArgs, HasBalanceArgs } from './types'
 
 export const getMe = (client: Client) => {

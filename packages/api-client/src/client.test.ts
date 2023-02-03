@@ -5,19 +5,16 @@ import { Event } from './types'
 jest.mock('axios', () => jest.fn())
 
 const mockAxios = axios as unknown as jest.Mock
+const authSdk = {
+  isTokenExpired: jest.fn().mockReturnValue(false),
+  getAccessToken: jest.fn().mockReturnValue('123'),
+  refreshTokens: jest.fn(),
+} as any
 
 const defaultConfig = {
-  getClientVersion: jest.fn().mockReturnValue('0.0.0'),
-  getAuthorization: jest.fn().mockReturnValue('Bearer 123'),
-  getAuthorizationExpired: jest.fn().mockReturnValue(false),
-}
-
-const defaultParsers = {
-  error: jest.fn(),
-}
-
-const defaultHandlers = {
-  refresh: jest.fn(),
+  extraHeaders: {
+    'X-Client-Version': '0.0.0',
+  },
 }
 
 describe('client', () => {
@@ -30,7 +27,7 @@ describe('client', () => {
   })
 
   it('calls anonymous request', async () => {
-    const client = new Client(defaultConfig, defaultParsers, defaultHandlers)
+    const client = new Client(defaultConfig, authSdk)
 
     const request = {
       method: 'GET',
@@ -52,7 +49,7 @@ describe('client', () => {
   })
 
   it('calls authorized request', async () => {
-    const client = new Client(defaultConfig, defaultParsers, defaultHandlers)
+    const client = new Client(defaultConfig, authSdk)
 
     const request = {
       method: 'POST',
@@ -76,18 +73,11 @@ describe('client', () => {
   })
 
   it('calls refresh before authorized request', async () => {
-    const getAuthorizationExpired = jest.fn().mockReturnValue(true)
-
-    const handleRefresh = jest.fn().mockImplementation(async () => {
-      // Check that the API call is not performed until the refresh is done.
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-    })
-
-    const client = new Client(
-      { ...defaultConfig, getAuthorizationExpired },
-      defaultParsers,
-      { ...defaultHandlers, refresh: handleRefresh },
-    )
+    const authSdk_ = {
+      ...authSdk,
+      isTokenExpired: jest.fn().mockReturnValue(true),
+    }
+    const client = new Client(defaultConfig, authSdk_)
 
     const request = {
       method: 'POST',
@@ -98,7 +88,7 @@ describe('client', () => {
 
     await client.call(request)
 
-    expect(handleRefresh).toHaveBeenCalled()
+    expect(authSdk_.refreshTokens).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledWith({
       url: request.url,
       method: request.method,
@@ -110,7 +100,7 @@ describe('client', () => {
       },
     })
 
-    expect(handleRefresh.mock.invocationCallOrder[0]).toBeLessThan(
+    expect(authSdk_.refreshTokens.mock.invocationCallOrder[0]).toBeLessThan(
       mockAxios.mock.invocationCallOrder[0],
     )
   })
@@ -121,13 +111,8 @@ describe('client', () => {
     })
 
     const unauthorizedListener = jest.fn()
-    const parseError = jest.fn().mockImplementation((response: any) => response)
 
-    const client = new Client(
-      defaultConfig,
-      { ...defaultParsers, error: parseError },
-      defaultHandlers,
-    )
+    const client = new Client(defaultConfig, authSdk)
     client.on(Event.Unauthorized, unauthorizedListener)
 
     const request = {
@@ -137,7 +122,9 @@ describe('client', () => {
 
     await expect(client.call(request)).rejects.toEqual({
       status: 401,
-      data: { foo: 'bar' },
+      message: '',
+      details: '',
+      errorCode: 0,
     })
 
     expect(unauthorizedListener).toHaveBeenCalledTimes(1)
@@ -148,17 +135,15 @@ describe('client', () => {
       response: {
         status: 500,
         message: 'Something went wrong',
-        data: { foo: 'bar' },
+        data: {
+          message: 'Something went wrong',
+          details: 'Invalid user credentials',
+          errorCode: 1,
+        },
       },
     })
 
-    const parseError = jest.fn().mockImplementation((response: any) => response)
-
-    const client = new Client(
-      defaultConfig,
-      { ...defaultParsers, error: parseError },
-      defaultHandlers,
-    )
+    const client = new Client(defaultConfig, authSdk)
 
     const request = {
       method: 'GET',
@@ -166,14 +151,9 @@ describe('client', () => {
     }
 
     await expect(client.call(request)).rejects.toEqual({
-      data: { foo: 'bar' },
       message: 'Something went wrong',
-      status: 500,
-    })
-
-    expect(parseError).toHaveBeenCalledWith({
-      data: { foo: 'bar' },
-      message: 'Something went wrong',
+      details: 'Invalid user credentials',
+      errorCode: 1,
       status: 500,
     })
   })
@@ -182,10 +162,9 @@ describe('client', () => {
     const client = new Client(
       {
         ...defaultConfig,
-        getApiUrl: jest.fn().mockReturnValue('https://foo.bar'),
+        baseUrl: 'https://foo.bar',
       },
-      defaultParsers,
-      defaultHandlers,
+      authSdk,
     )
 
     const request = {
@@ -224,10 +203,9 @@ describe('client', () => {
     const client = new Client(
       {
         ...defaultConfig,
-        getApiUrl: jest.fn().mockReturnValue('https://foo.bar'),
+        baseUrl: 'https://foo.bar',
       },
-      defaultParsers,
-      defaultHandlers,
+      authSdk,
     )
 
     const request = {

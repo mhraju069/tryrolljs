@@ -11,6 +11,7 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/feature-flag](./packages/feature-flag)
 - [@tryrolljs/contract-bindings](./packages/contract-bindings)
 - [@tryrolljs/api](./packages/api)
+- [@tryrolljs/api-client](./packages/api-client)
 - [@tryrolljs/sdk](./packages/sdk)
 
 

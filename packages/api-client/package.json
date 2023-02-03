@@ -1,7 +1,7 @@
 {
-  "name": "@tryrolljs/api",
-  "description": "API request functions for Roll",
-  "version": "0.1.2",
+  "name": "@tryrolljs/api-client",
+  "description": "JavaScript-based API client for Roll",
+  "version": "0.0.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -11,10 +11,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/api-client": "0.0.1",
+    "@tryrolljs/sdk": "^0.1.2",
     "axios": "^1.2.2",
-    "events": "^3.3.0",
-    "qs": "^6.11.0"
+    "better-queue": "^3.8.12",
+    "better-queue-memory": "^1.0.4",
+    "events": "^3.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",
@@ -36,7 +37,7 @@
     "test": "jest --testEnvironment=jsdom",
     "build": "rollup -c"
   },
-  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/api",
+  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/api-client",
   "license": "MIT",
   "repository": {
     "type": "git",
