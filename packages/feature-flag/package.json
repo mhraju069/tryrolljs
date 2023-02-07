@@ -14,15 +14,14 @@
     "react": ">=17.0.2"
   },
   "dependencies": {
-    "lodash.groupby": "^4.6.0",
-    "tslib": "latest"
+    "lodash.groupby": "^4.6.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-typescript": "^11.0.0",
     "@swc/core": "^1.3.1",
-    "@swc/jest": "^0.2.22",
+    "@swc/jest": "^0.2.23",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.0.2",
     "@types/lodash.groupby": "^4.6.7",
@@ -31,7 +30,8 @@
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2",
     "rollup": "^2.78.1",
-    "rollup-plugin-delete": "^2.0.0"
+    "rollup-plugin-delete": "^2.0.0",
+    "tslib": "^2.5.0"
   },
   "scripts": {
     "test": "jest --testEnvironment=jsdom",

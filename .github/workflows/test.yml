@@ -12,11 +12,23 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
-      - run: yarn install --immutable
-      - run: yarn build
-      - run: yarn test
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Check circularity
+        run: yarn circularity:check
+
+      - name: Test
+        run: yarn test

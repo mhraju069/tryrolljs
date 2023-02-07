@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as qs from 'qs'
-import { getRandomString, pickQueryStringItemFromUrl } from '../utils'
+import { getRandomString } from './utils'
 import {
   RequestTokenArgs,
   RequestTokenResponseData,
@@ -65,9 +65,4 @@ export const getLogOutUrl = ({
 }: GetLogOutUrlArgs) => {
   const url = `${issuerUrl}/sessions/logout?post_logout_redirect_uri=${redirectUrl}&state=${getRandomString()}&id_token_hint=${idToken}`
   return url
-}
-
-export const getLoginChallenge = async (args: GetLogInUrlArgs) => {
-  const response = await axios.get<string>(getLogInUrl(args))
-  return pickQueryStringItemFromUrl(response.data, 'login_challenge')
 }
