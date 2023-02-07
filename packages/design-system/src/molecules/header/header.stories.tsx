@@ -1,14 +1,14 @@
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import LogoSimple from '../../assets/svg/logoSimple.svg'
 import { HeaderProps } from './types'
-import { Header } from '.'
+import { HeaderV2 } from '.'
 
 const storyConfig = {
   title: titleBuilder.molecules('Header'),
-  component: Header,
+  component: HeaderV2,
 }
 
-const Template = (props: HeaderProps) => <Header {...props} />
+const Template = (props: HeaderProps) => <HeaderV2 {...props} />
 
 export const withWalletConnect = fromTemplate(Template, {
   withConnectWallet: true,

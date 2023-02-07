@@ -8,8 +8,40 @@ import openSansLight from '../assets/fonts/OpenSans-Light.ttf'
 import openSansLightItalic from '../assets/fonts/OpenSans-LightItalic.ttf'
 import openSansSemiBold from '../assets/fonts/OpenSans-SemiBold.ttf'
 import openSansSemiBoldItalic from '../assets/fonts/OpenSans-SemiBoldItalic.ttf'
-
 import sourceCodeProRegular from '../assets/fonts/SourceCodePro-Regular.ttf'
+
+// V2 Fonts
+import manropeBold from '../assets/fonts/Manrope-Bold.ttf'
+import manropeMedium from '../assets/fonts/Manrope-Medium.ttf'
+import manropeRegular from '../assets/fonts/Manrope-Regular.ttf'
+import manropeSemiBold from '../assets/fonts/Manrope-SemiBold.ttf'
+
+const fontStylesStringV2 = `
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+      outline: none;
+  }
+
+  @font-face {
+    src: url(${manropeRegular});
+    font-family: Manrope-Regular;
+  }
+
+  @font-face {
+    src: url(${manropeMedium});
+    font-family: Manrope-Medium;
+  }
+  @font-face {
+    src: url(${manropeSemiBold});
+    font-family: Manrope-SemiBold;
+  }
+  @font-face {
+    src: url(${manropeBold});
+    font-family: Manrope-Bold;
+  }
+`
 
 const fontStylesString = `
   input:focus,
@@ -75,26 +107,33 @@ const fontStylesString = `
   }
 `
 
-const getFontStyleElement = () => {
+const getFontStyleElement = (version: 1 | 2) => {
   if (typeof document === 'undefined') {
     return undefined
   }
 
   const fontStyles = document.createElement('style')
+  const styles = version === 2 ? fontStylesStringV2 : fontStylesString
   fontStyles.type = 'text/css'
   // @ts-ignore
   if (fontStyles.styleSheet) {
     // @ts-ignore
-    fontStyles.styleSheet.cssText = fontStylesString
+    fontStyles.styleSheet.cssText = styles
   } else {
-    fontStyles.appendChild(document.createTextNode(fontStylesString))
+    fontStyles.appendChild(document.createTextNode(styles))
   }
 
   return fontStyles
 }
 
 export const injectFonts = () => {
-  const fontStyleElement = getFontStyleElement()
+  const fontStyleElement = getFontStyleElement(1)
+  if (typeof document !== 'undefined' && fontStyleElement) {
+    document.head.appendChild(fontStyleElement)
+  }
+}
+export const injectFontsV2 = () => {
+  const fontStyleElement = getFontStyleElement(2)
   if (typeof document !== 'undefined' && fontStyleElement) {
     document.head.appendChild(fontStyleElement)
   }

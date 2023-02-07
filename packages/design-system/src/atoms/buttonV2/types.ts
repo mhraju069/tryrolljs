@@ -1,8 +1,23 @@
 import { GestureResponderEvent } from 'react-native'
+import { IconVariant } from '../icon'
+import { TypographyVariant } from '../typographyV2'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'icon'
 export type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
+export const fontsBasedOnSize: Record<Size, TypographyVariant> = {
+  xsmall: 'caption2',
+  small: 'buttonMedium',
+  medium: 'buttonMedium',
+  large: 'buttonLarge',
+} as const
+
+export const iconBasedOnSize: Record<Size, number> = {
+  xsmall: 16,
+  small: 16,
+  medium: 20,
+  large: 24,
+} as const
 export interface ButtonV2Props {
   variant: Variant
   size: Size
@@ -11,6 +26,7 @@ export interface ButtonV2Props {
   isLoading?: boolean
   onPress?: (e?: GestureResponderEvent) => void
   icon?: React.ReactNode
+  namedIcon?: IconVariant
 }
 
 type States = 'rest' | 'hover' | 'active' | 'disabled'
