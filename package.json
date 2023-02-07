@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "yarn workspaces foreach run build",
+    "build": "yarn workspaces foreach -t run build",
     "test": "yarn workspaces foreach run test",
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
