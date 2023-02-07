@@ -21,14 +21,14 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
-      - name: Check circularity
-        run: yarn circularity:check
-
       - name: Install dependencies
         run: yarn install --immutable
 
       - name: Build packages
         run: yarn build
+
+      - name: Check circularity
+        run: yarn circularity:check
 
       - name: Test
         run: yarn test
