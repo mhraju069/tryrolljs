@@ -1,7 +1,7 @@
-import { auth } from '@tryrolljs/api'
 import type { PartialDeep } from 'type-fest'
 import { NoCacheError, NotAuthorizedCacheError } from './errors'
-import type { Cache } from './types'
+import { requestToken } from './api'
+import type { Cache, RequestTokenResponseData } from './types'
 import AuthSDK, { STORAGE_KEY } from './sdk'
 
 const config = {
@@ -18,23 +18,19 @@ const storage = {
   removeItem: jest.fn(),
 }
 
-const mockRequestToken = auth.requestToken as jest.Mock
-jest.mock('@tryrolljs/api', () => ({
-  auth: {
-    requestToken: jest.fn().mockResolvedValue({
-      data: {
-        access_token: 'access_token',
-        expires_in: 3600,
-        refresh_token: 'refresh_token',
-        id_token: 'id_token',
-      },
-    }),
-  },
+const mockRequestToken = requestToken as jest.Mock
+jest.mock('./api', () => ({
+  requestToken: jest.fn().mockResolvedValue({
+    data: {
+      access_token: 'access_token',
+      expires_in: 3600,
+      refresh_token: 'refresh_token',
+      id_token: 'id_token',
+    },
+  }),
 }))
 
-const mockTokenResponse = (
-  data: Partial<auth.types.RequestTokenResponseData> = {},
-) => {
+const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   mockRequestToken.mockResolvedValue({
     data: {
       access_token: data.access_token ?? 'access_token',
@@ -74,7 +70,7 @@ describe('AuthSDK', () => {
     await sdk.makeSession('code')
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(auth.requestToken).toHaveBeenCalledWith({
+    expect(requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'authorization_code',
@@ -95,8 +91,8 @@ describe('AuthSDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
-    expect(auth.requestToken).toHaveBeenCalledTimes(2)
-    expect(auth.requestToken).toHaveBeenLastCalledWith({
+    expect(requestToken).toHaveBeenCalledTimes(2)
+    expect(requestToken).toHaveBeenLastCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'refresh_token',

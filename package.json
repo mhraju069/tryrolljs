@@ -9,7 +9,8 @@
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
     "release": "yarn build && changeset publish",
-    "version": "yarn changeset version && yarn config set enableImmutableInstalls false && yarn install"
+    "version": "yarn changeset version && yarn config set enableImmutableInstalls false && yarn install",
+    "circularity:check": "yarn workspaces foreach --topological-dev exec \"echo '' >/dev/null\""
   },
   "workspaces": [
     "packages/**"

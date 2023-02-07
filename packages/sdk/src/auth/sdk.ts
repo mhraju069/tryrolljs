@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { auth } from '@tryrolljs/api'
+import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
   IdTokenMissingError,
   NoCacheError,
@@ -13,6 +13,7 @@ import {
   AuthState,
   Event,
   GrantType,
+  RequestTokenResponseData,
 } from './types'
 import { isLastUpdateTimestampExpired } from './utils'
 
@@ -59,7 +60,7 @@ class AuthSDK extends EventEmitter {
     }
 
     if (this.isTokenExpired() || force) {
-      const response = await auth.requestToken({
+      const response = await requestToken({
         issuerUrl: this.oauthConfig.issuerUrl,
         grantType: GrantType.RefreshToken,
         clientId: this.oauthConfig?.clientId,
@@ -77,7 +78,7 @@ class AuthSDK extends EventEmitter {
       return
     }
 
-    const response = await auth.requestToken({
+    const response = await requestToken({
       issuerUrl: this.oauthConfig.issuerUrl,
       code: authCode,
       grantType: GrantType.AuthorizationCode,
@@ -90,7 +91,7 @@ class AuthSDK extends EventEmitter {
   }
 
   private handleTokenResponse = async (
-    tokenResponseData: auth.types.RequestTokenResponseData,
+    tokenResponseData: RequestTokenResponseData,
   ) => {
     if (tokenResponseData.error) {
       await this.clear()
@@ -161,7 +162,7 @@ class AuthSDK extends EventEmitter {
   }
 
   public getLogInUrl = () => {
-    return auth.getLogInUrl(this.oauthConfig)
+    return getLogInUrl(this.oauthConfig)
   }
 
   public getLogOutUrl = () => {
@@ -169,7 +170,7 @@ class AuthSDK extends EventEmitter {
     if (!idToken) {
       throw new IdTokenMissingError()
     }
-    return auth.getLogOutUrl({
+    return getLogOutUrl({
       issuerUrl: this.oauthConfig.issuerUrl,
       redirectUrl: this.oauthConfig.logoutRedirectUrl,
       idToken,
