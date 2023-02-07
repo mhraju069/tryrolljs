@@ -13,6 +13,7 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/api](./packages/api)
 - [@tryrolljs/api-client](./packages/api-client)
 - [@tryrolljs/sdk](./packages/sdk)
+- [@tryrolljs/session-manager](./packages/session-manager)
 
 
 ## Release
