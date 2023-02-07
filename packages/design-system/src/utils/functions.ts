@@ -6,3 +6,6 @@ export const openLink = (link: string, newTab = false) => {
   window.location.href = link
   return
 }
+
+export const isLast = (index: number, array: unknown[]) =>
+  index === array.length - 1
