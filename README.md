@@ -15,6 +15,12 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/sdk](./packages/sdk)
 - [@tryrolljs/session-manager](./packages/session-manager)
 
+### Dependants graph
+
+<div align="center">
+<img src="./dependantsgraph.svg">
+</div>
+
 
 ## Release
 

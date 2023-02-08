@@ -10,14 +10,18 @@
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
     "release": "yarn build && changeset publish",
     "version": "yarn changeset version && yarn config set enableImmutableInstalls false && yarn install",
-    "circularity:check": "yarn workspaces foreach --topological-dev exec \"echo '' >/dev/null\""
+    "circularity:check": "yarn workspaces foreach --topological-dev exec \"echo '' >/dev/null\"",
+    "dependentsgraph:build": "node ./scripts/build-dependents-graph"
   },
   "workspaces": [
     "packages/**"
   ],
   "dependencies": {
     "@changesets/changelog-github": "^0.4.6",
-    "@changesets/cli": "^2.24.3"
+    "@changesets/cli": "^2.24.3",
+    "@changesets/get-dependents-graph": "^1.3.5",
+    "@manypkg/get-packages": "^1.1.3",
+    "madge": "^6.0.0"
   },
   "packageManager": "yarn@3.2.3",
   "resolutions": {

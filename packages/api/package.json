@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/api-client": "^0.0.2",
+    "@tryrolljs/api-client": "^0.0.3",
     "axios": "^1.2.2",
     "events": "^3.3.0"
   },
