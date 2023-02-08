@@ -24,16 +24,14 @@ export const requestToken = async ({
       redirect_uri: redirectUri,
       client_id: clientId,
     }
+    const options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      data: qs.stringify(body),
+      url: `${issuerUrl}/token`,
+    }
 
-    return await axios.post<RequestTokenResponseData>(
-      `${issuerUrl}/token`,
-      body,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
-    )
+    return await axios<RequestTokenResponseData>(options)
   } catch (e) {
     throw e
   }
