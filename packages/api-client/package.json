@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/sdk": "^0.2.0",
+    "@tryrolljs/sdk": "^0.2.1",
     "axios": "^1.2.2",
     "better-queue": "^3.8.12",
     "better-queue-memory": "^1.0.4",
