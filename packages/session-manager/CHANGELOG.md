@@ -1,5 +1,12 @@
 # @tryrolljs/session-manager
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tryrolljs/sdk@0.2.1
+
 ## 1.0.0
 
 ### Patch Changes

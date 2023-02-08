@@ -7696,7 +7696,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tryrolljs/api-client@^0.0.2, @tryrolljs/api-client@workspace:packages/api-client":
+"@tryrolljs/api-client@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@tryrolljs/api-client@npm:0.0.2"
+  dependencies:
+    "@tryrolljs/sdk": ^0.2.0
+    axios: ^1.2.2
+    better-queue: ^3.8.12
+    better-queue-memory: ^1.0.4
+    events: ^3.3.0
+  checksum: 9563808d6738a25b915e52ce9a658ad5172fb6ef1e3590a13ee59a5ccb4c3ef22297f61919a65528d3f45fdbff5c3aa37d2f3fc4dfc287d7f91306d059424745
+  languageName: node
+  linkType: hard
+
+"@tryrolljs/api-client@workspace:packages/api-client":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/api-client@workspace:packages/api-client"
   dependencies:
@@ -7952,7 +7965,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/sdk@^0.2.1, @tryrolljs/sdk@workspace:packages/sdk":
+"@tryrolljs/sdk@^0.2.0, @tryrolljs/sdk@^0.2.1, @tryrolljs/sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/sdk@workspace:packages/sdk"
   dependencies:
