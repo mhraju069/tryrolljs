@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 0.2.1
+
+### Patch Changes
+
+- [#178](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/178) [`e3c3d72`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e3c3d7245ea459704557da0b3f3efc73859945b2) Thanks [@teimurjan](https://github.com/teimurjan)! - Pass form urlencoded data to refresh tokens request
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/session-manager",
   "description": "Oauth session manager for Roll applications",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -13,7 +13,7 @@
   "peerDependencies": {
     "@tryrolljs/api": "^0.2.0",
     "@tryrolljs/api-client": "^0.0.2",
-    "@tryrolljs/sdk": "^0.2.0",
+    "@tryrolljs/sdk": "^0.2.1",
     "react": ">=17.0.2"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "@testing-library/react": "^13.4.0",
     "@tryrolljs/api": "^0.2.0",
     "@tryrolljs/api-client": "^0.0.2",
-    "@tryrolljs/sdk": "^0.2.0",
+    "@tryrolljs/sdk": "^0.2.1",
     "@types/jest": "^29.0.2",
     "jest": "^29.0.3",
     "jest-environment-jsdom": "^29.0.3",
