@@ -15,6 +15,10 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/sdk](./packages/sdk)
 - [@tryrolljs/session-manager](./packages/session-manager)
 
+### Private packages
+
+There are some packages that are not listed above (ex. [@tryrolljs/example-oauth-client](./packages/example-oauth-client)). These packages should always start with the `example-` prefix & be responsible for showing how a package/set of packages should be used by a consumer.
+
 ### Dependants graph
 
 <div align="center">

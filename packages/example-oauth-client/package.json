@@ -1,6 +1,6 @@
 {
-  "name": "@tryrolljs/auth-sdk-example",
-  "description": "Examples of auth SDK usage",
+  "name": "@tryrolljs/example-oauth-client",
+  "description": "Example of using Auth SDK to connect to Roll via oauth2",
   "version": "0.0.1",
   "dependencies": {
     "@tryrolljs/api": "^0.2.1",
@@ -30,7 +30,7 @@
   "scripts": {
     "start": "env DISABLE_ESLINT_PLUGIN=true craco start",
     "build": "env DISABLE_ESLINT_PLUGIN=true craco build",
-    "test": "craco test",
+    "test": "craco test --passWithNoTests",
     "eject": "craco eject"
   },
   "license": "MIT",
