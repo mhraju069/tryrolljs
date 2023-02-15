@@ -15,6 +15,7 @@ export const requestToken = async ({
   grantType,
   redirectUri,
   clientId,
+  codeVerifier,
 }: RequestTokenArgs) => {
   try {
     const body = {
@@ -23,6 +24,7 @@ export const requestToken = async ({
       grant_type: grantType,
       redirect_uri: redirectUri,
       client_id: clientId,
+      code_verifier: codeVerifier,
     }
     const options = {
       method: 'POST',
@@ -42,6 +44,7 @@ export const getLogInUrl = ({
   redirectUrl,
   scopes,
   issuerUrl,
+  codeChallenge,
 }: GetLogInUrlArgs) => {
   const params = {
     client_id: clientId,
@@ -50,7 +53,8 @@ export const getLogInUrl = ({
     response_type: 'code',
     response_mode: 'query',
     state: getRandomString(),
-    nonce: getRandomString(),
+    code_challenge: codeChallenge,
+    code_challenge_method: 'S256',
   }
 
   return `${issuerUrl}/auth?${qs.stringify(params, { arrayFormat: 'comma' })}`

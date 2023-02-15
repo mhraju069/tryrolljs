@@ -5,20 +5,18 @@ import {
   useState,
   useEffect,
   useCallback,
-  cloneElement,
   createContext,
   PropsWithChildren,
-  ReactElement,
   useContext,
 } from 'react'
 
 export const SessionContext = createContext<{
   user?: userAPI.types.GetMeResponseData
-  logIn: () => void
+  logIn: () => Promise<void>
   logOut: () => Promise<void>
   error?: unknown
 }>({
-  logIn: () => {},
+  logIn: () => Promise.resolve(),
   logOut: () => Promise.resolve(),
 })
 
@@ -74,18 +72,17 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!user])
 
-  const logIn = useCallback(() => {
-    window.location.href = authSdk.getLogInUrl()
+  const logIn = useCallback(async () => {
+    window.location.href = await authSdk.getLogInUrl()
   }, [authSdk])
 
   const logOut = useCallback(async () => {
-    window.location.href = authSdk.getLogOutUrl()
-    await authSdk.clear()
+    window.location.href = await authSdk.getLogOutUrl()
   }, [authSdk])
 
   return (
     <SessionContext.Provider value={{ user, logIn, logOut, error }}>
-      {cloneElement(children as ReactElement)}
+      {children}
     </SessionContext.Provider>
   )
 }

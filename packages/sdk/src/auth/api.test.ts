@@ -5,7 +5,7 @@ jest.mock('./utils', () => ({
   getRandomString: jest.fn().mockReturnValue('foo'),
 }))
 
-describe('auth', () => {
+describe('api', () => {
   it('builds a login URL', () => {
     expect(
       getLogInUrl({
@@ -13,9 +13,10 @@ describe('auth', () => {
         redirectUrl: 'http://localhost:8000',
         issuerUrl: 'http://localhost:3000/oauth2',
         scopes: ['offline', 'openid', 'base', 'read-tx', 'write-tx'],
+        codeChallenge: '123',
       }),
     ).toBe(
-      'http://localhost:3000/oauth2/auth?client_id=clientId&redirect_uri=http%3A%2F%2Flocalhost%3A8000&scopes=offline%2Copenid%2Cbase%2Cread-tx%2Cwrite-tx&response_type=code&response_mode=query&state=foo&nonce=foo',
+      'http://localhost:3000/oauth2/auth?client_id=clientId&redirect_uri=http%3A%2F%2Flocalhost%3A8000&scopes=offline%2Copenid%2Cbase%2Cread-tx%2Cwrite-tx&response_type=code&response_mode=query&state=foo&code_challenge=123&code_challenge_method=S256',
     )
   })
 
