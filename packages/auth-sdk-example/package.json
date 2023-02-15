@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "env DISABLE_ESLINT_PLUGIN=true craco start",
-    "build": "craco build",
+    "build": "env DISABLE_ESLINT_PLUGIN=true craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
