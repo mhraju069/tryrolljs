@@ -14,10 +14,12 @@ export const SessionContext = createContext<{
   user?: userAPI.types.GetMeResponseData
   logIn: () => Promise<void>
   logOut: () => Promise<void>
+  refresh: () => Promise<void>
   error?: unknown
 }>({
-  logIn: () => Promise.resolve(),
-  logOut: () => Promise.resolve(),
+  logIn: Promise.resolve,
+  logOut: Promise.resolve,
+  refresh: Promise.resolve,
 })
 
 type Props = PropsWithChildren<{
@@ -72,6 +74,10 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!user])
 
+  const refresh = useCallback(async () => {
+    await authSdk.refreshTokens(true)
+  }, [authSdk])
+
   const logIn = useCallback(async () => {
     window.location.href = await authSdk.getLogInUrl()
   }, [authSdk])
@@ -81,7 +87,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
   }, [authSdk])
 
   return (
-    <SessionContext.Provider value={{ user, logIn, logOut, error }}>
+    <SessionContext.Provider value={{ user, logIn, logOut, refresh, error }}>
       {children}
     </SessionContext.Provider>
   )

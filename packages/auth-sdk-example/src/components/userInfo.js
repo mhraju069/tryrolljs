@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Body, CircleImg, Information } from '@tryrolljs/design-system'
+import { Body, Button, CircleImg, Information } from '@tryrolljs/design-system'
 import { useSession } from '@tryrolljs/session-manager'
 
 export default function UserInfo() {
@@ -26,6 +26,8 @@ export default function UserInfo() {
           value={<Body>{session.user.name}</Body>}
         />
       </Information>
+      <br />
+      <Button title="Refresh session" onPress={session.refresh} />
     </div>
   )
 }
