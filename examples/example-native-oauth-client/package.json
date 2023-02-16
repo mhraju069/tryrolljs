@@ -6,7 +6,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "link:assets": "react-native-asset"
+    "link:assets": "react-native-asset",
+    "test": "echo \"Tests are disabled for example repos\" && exit 0",
+    "build": "echo \"Build is disabled for example repos\" && exit 0"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",

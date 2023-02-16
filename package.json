@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "yarn workspaces foreach --exclude 'examples/**' -t run build",
-    "test": "yarn workspaces foreach --exclude 'examples/**' run test",
+    "build": "yarn workspaces foreach -t run build",
+    "test": "yarn workspaces foreach run test",
     "lint": "./packages/cli/bin/roll.js lint",
     "lint:fix": "./packages/cli/bin/roll.js lint --fix",
     "release": "yarn build && changeset publish",

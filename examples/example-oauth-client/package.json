@@ -30,9 +30,8 @@
   },
   "scripts": {
     "start": "env DISABLE_ESLINT_PLUGIN=true craco start",
-    "build": "env DISABLE_ESLINT_PLUGIN=true craco build",
-    "test": "craco test --passWithNoTests",
-    "eject": "craco eject"
+    "test": "echo \"Tests are disabled for example repos\" && exit 0",
+    "build": "echo \"Build is disabled for example repos\" && exit 0"
   },
   "license": "MIT",
   "repository": {
