@@ -17,7 +17,7 @@ This repo is an entrypoint for all Roll monorepo packages.
 
 ### Private packages
 
-There are some packages that are not listed above (ex. [@tryrolljs/example-oauth-client](./packages/example-oauth-client)). These packages should always start with the `example-` prefix & be responsible for showing how a package/set of packages should be used by a consumer.
+There are some packages that are not listed above (ex. [@tryrolljs/example-oauth-client](./examples/example-oauth-client)). These packages should always start with the `example-` prefix & be responsible for showing how a package/set of packages should be used by a consumer.
 
 ### Dependants graph
 

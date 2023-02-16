@@ -86,8 +86,9 @@ describe('AuthSDK', () => {
 
   it('makes session', async () => {
     mockTokenResponse()
-
-    const sdk = new AuthSDK(config, storage)
+    const realStorage = getRealStorage()
+    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
+    const sdk = new AuthSDK(config, realStorage)
 
     await sdk.makeSession('code')
 
@@ -98,11 +99,14 @@ describe('AuthSDK', () => {
       grantType: 'authorization_code',
       redirectUri: 'http://localhost:8000',
       clientId: 'clientId',
+      codeVerifier: '123',
     })
   })
 
   it('refreshes and updates token', async () => {
-    const sdk = new AuthSDK(config, getRealStorage())
+    const realStorage = getRealStorage()
+    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
+    const sdk = new AuthSDK(config, realStorage)
 
     mockTokenResponse({ expires_in: 0 })
 

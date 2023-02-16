@@ -74,6 +74,7 @@ describe('useSession', () => {
         authSdk: {
           restoreFromCache: jest.fn().mockRejectedValue(error),
           makeSession,
+          clear: jest.fn()
         } as any,
         apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
       }),
