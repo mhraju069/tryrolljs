@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
   mainContainer: {},
 })
 
-export const DesktopHeader: React.FC<HeaderProps> = ({
+export const DesktopHeader = ({
   logo,
   options,
   withConnectWallet = false,
-}) => {
+}: HeaderProps) => {
   return (
     <View
       style={[

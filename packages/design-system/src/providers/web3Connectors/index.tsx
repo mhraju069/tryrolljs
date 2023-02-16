@@ -18,14 +18,14 @@ export type Web3ConnectorProviderProps = {
   eagerConnect?: boolean
 }
 
-export const Web3ConnectorProvider: React.FC<Web3ConnectorProviderProps> = ({
+export const Web3ConnectorProvider = ({
   children,
   fortmaticApiKey,
   portisDappID,
   defaultChainID = CHAIN_ID_MAIN_NET,
   supportedChainIDs = SUPPORTED_CHAIN_IDS,
   eagerConnect = true,
-}) => {
+}: React.PropsWithChildren<Web3ConnectorProviderProps>) => {
   const { activate, connector } = useWeb3React<Web3Provider>()
   const [isActivating, setIsActivating] = useState(false)
   const [connectors, setConnectors] = useState<Web3Connectors>(

@@ -1,5 +1,5 @@
 import { Pressable } from 'native-base'
-import { useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { container, makeStyles, padding, text } from '../../styles'
 import { Body } from '../typography'
@@ -15,7 +15,7 @@ const styles = makeStyles({
   },
 })
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   title,
   children,
   onPress,
@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   inverted,
   disabled,
-}) => {
+}: PropsWithChildren<ButtonProps>) => {
   const [isHover, setIsHover] = useState(false)
 
   const colors = getColors({ disabled, variant, inverted })

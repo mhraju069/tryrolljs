@@ -13,11 +13,7 @@ interface FooterOptionProps {
   isLast?: boolean
   link: string
 }
-const FooterOption: React.FC<FooterOptionProps> = ({
-  title,
-  link,
-  isLast = false,
-}) => {
+const FooterOption = ({ title, link, isLast = false }: FooterOptionProps) => {
   const handlePress = useCallback(() => {
     openLink(link, true)
   }, [link])
@@ -64,10 +60,10 @@ interface FooterV2Props {
   navigation: Omit<FooterOptionProps, 'isLast'>[]
 }
 
-export const FooterV2: React.FC<FooterV2Props> = ({
+export const FooterV2 = ({
   social = DEFAULT_SOCIAL_LINKS,
   navigation,
-}) => {
+}: FooterV2Props) => {
   const theme = useThemeV2()
   const contentResponsiveStyles = useBreakpointValue({
     md: [container.alignCenter, container.row],

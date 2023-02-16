@@ -23,7 +23,7 @@ import {
   VariantProps,
 } from './types'
 
-const BaseButton: React.FC<BaseButtonProps> = ({
+const BaseButton = ({
   variant,
   title,
   rest,
@@ -40,7 +40,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   isDisabled = false,
   isLoading = false,
   onPress,
-}) => {
+}: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
@@ -342,11 +342,7 @@ const useSizeProps = (size: Size): SizeProps => {
   }
 }
 
-export const ButtonV2: React.FC<ButtonV2Props> = ({
-  variant,
-  size,
-  ...props
-}) => {
+export const ButtonV2 = ({ variant, size, ...props }: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
     base: size === 'large' ? 'medium' : size,
     md: size,

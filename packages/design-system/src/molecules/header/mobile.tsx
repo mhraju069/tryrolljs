@@ -5,10 +5,10 @@ import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 import { HeaderProps } from './types'
 
-export const MobileHeader: React.FC<HeaderProps> = ({
+export const MobileHeader = ({
   logo,
   withConnectWallet = false,
-}) => {
+}: HeaderProps) => {
   const theme = useThemeV2()
   return (
     <View

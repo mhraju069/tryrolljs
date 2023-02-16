@@ -28,14 +28,14 @@ const wrapper = (render: React.ReactNode) => {
   return <FloatingPortal>{render}</FloatingPortal>
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = ({
   variant = 'light',
   open,
   children,
   title,
   placement,
   renderInPortal = true,
-}) => {
+}: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
   const { context, x, y, reference, floating, strategy } = useFloating({
     placement,

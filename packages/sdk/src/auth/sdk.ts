@@ -1,5 +1,6 @@
 import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
+  CodeVerifierMissingError,
   IdTokenMissingError,
   NoCacheError,
   NotAuthorizedCacheError,
@@ -62,6 +63,9 @@ class AuthSDK {
     const cachedCodeVerifier = await this.storage.getItem(
       CODE_VERIFIER_STORAGE_KEY,
     )
+    if (!cachedCodeVerifier) {
+      throw new CodeVerifierMissingError()
+    }
 
     const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
@@ -101,17 +105,15 @@ class AuthSDK {
 
   private getCache = async () => {
     try {
-      const [token, code] = await Promise.all(
-        [TOKEN_STORAGE_KEY, CODE_STORAGE_KEY, CODE_VERIFIER_STORAGE_KEY].map(
-          this.storage.getItem,
-        ),
-      )
+      const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+      const code = await this.storage.getItem(CODE_STORAGE_KEY)
+      const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
 
-      if (!token || !code) {
+      if (!token || !code || !codeVerifier) {
         throw new NoCacheError()
       }
 
-      const cache = { token: JSON.parse(token) as Token, code }
+      const cache = { token: JSON.parse(token) as Token, code, codeVerifier }
       return cache
     } catch (e) {
       throw new NoCacheError()

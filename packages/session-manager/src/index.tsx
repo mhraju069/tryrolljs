@@ -8,6 +8,7 @@ import {
   createContext,
   PropsWithChildren,
   useContext,
+  useRef,
 } from 'react'
 
 export const SessionContext = createContext<{
@@ -30,6 +31,7 @@ type Props = PropsWithChildren<{
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
 
 const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
+  const isInitializedRef = useRef(false)
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
 
@@ -56,6 +58,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
           await loadUserData()
         }
       } catch (e) {
+        await authSdk.clear()
         setError(e)
         setUser(undefined)
       }
@@ -70,9 +73,12 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
       }
     }
 
-    initialize()
+    if (!isInitializedRef.current) {
+      initialize()
+      isInitializedRef.current = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [!!user])
+  }, [])
 
   const refresh = useCallback(async () => {
     await authSdk.refreshTokens(true)

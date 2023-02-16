@@ -169,13 +169,13 @@ const icons = {
   warning: Warning,
 }
 
-export const Icon: React.FC<IconProps> = ({
+export const Icon = ({
   variant,
   width = 24,
   height = 24,
   fill = 'currentColor',
   ...props
-}) => {
+}: IconProps) => {
   const IconComponent = icons[variant]
   return <IconComponent width={width} height={height} fill={fill} {...props} />
 }
