@@ -36,12 +36,12 @@ interface Web3ProviderWagmiProps {
   alchemyApiKey?: string
 }
 
-export const Web3ProviderWagmi: React.FC<Web3ProviderWagmiProps> = ({
+export const Web3ProviderWagmi = ({
   supportedChainIds,
   wallectConnectProjectId,
   alchemyApiKey,
   children,
-}) => {
+}: React.PropsWithChildren<Web3ProviderWagmiProps>) => {
   const config = useMemo(() => {
     const chains = getChainsById(supportedChainIds ?? SUPPORTED_CHAIN_IDS)
     const providers = alchemyApiKey

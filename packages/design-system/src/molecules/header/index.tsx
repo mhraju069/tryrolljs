@@ -3,7 +3,7 @@ import { DesktopHeader } from './desktop'
 import { MobileHeader } from './mobile'
 import { HeaderProps } from './types'
 
-export const HeaderV2: React.FC<HeaderProps> = (props) => {
+export const HeaderV2 = (props: HeaderProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false })
   if (isMobile) {
     return <MobileHeader {...props} />

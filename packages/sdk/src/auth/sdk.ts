@@ -1,6 +1,6 @@
-import { EventEmitter } from 'events'
 import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
+  CodeVerifierMissingError,
   IdTokenMissingError,
   NoCacheError,
   NotAuthorizedCacheError,
@@ -9,51 +9,33 @@ import {
 import {
   OauthConfig,
   Storage,
-  Cache,
-  AuthState,
-  Event,
+  Token,
   GrantType,
   RequestTokenResponseData,
 } from './types'
-import { isLastUpdateTimestampExpired } from './utils'
+import {
+  getRandomString,
+  isLastUpdateTimestampExpired,
+  pkceChallengeFromVerifier,
+} from './utils'
 
-export const STORAGE_KEY = 'ROLL_AUTHSDK_AUTH'
+export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_TOKEN'
+export const CODE_STORAGE_KEY = 'ROLL_AUTHSDK_CODE'
+export const CODE_VERIFIER_STORAGE_KEY = 'ROLL_AUTHSDK_CODE_VERIFIER'
 
-class AuthSDK extends EventEmitter {
-  private readonly oauthConfig: OauthConfig
+class AuthSDK {
+  private readonly config: OauthConfig
   private readonly storage: Storage
-  private authState?: AuthState
-  private authCode?: string
+  private token?: Token
 
-  constructor(oauthConfig: OauthConfig, storage: Storage) {
-    super()
-
-    this.oauthConfig = oauthConfig
+  constructor(config: OauthConfig, storage: Storage) {
+    this.config = config
     this.storage = storage
-
-    this.initializeStorageSync()
-  }
-
-  private initializeStorageSync = () => {
-    this.on(Event.AuthStateChange, async (authState?: AuthState) => {
-      if (authState) {
-        await this.storage.setItem(
-          STORAGE_KEY,
-          JSON.stringify({
-            authState,
-            authCode: this.authCode,
-            oauthConfig: this.oauthConfig,
-          }),
-        )
-      } else {
-        await this.storage.removeItem(STORAGE_KEY)
-      }
-    })
   }
 
   public refreshTokens = async (force = false) => {
-    const hasEnoughDataToRefresh =
-      !!this.authState?.refresh_token && !!this.authCode
+    const code = await this.storage.getItem(CODE_STORAGE_KEY)
+    const hasEnoughDataToRefresh = !!this.token?.refresh_token && !!code
 
     if (!hasEnoughDataToRefresh) {
       throw new NotEnoughDataToRefreshError()
@@ -61,44 +43,50 @@ class AuthSDK extends EventEmitter {
 
     if (this.isTokenExpired() || force) {
       const response = await requestToken({
-        issuerUrl: this.oauthConfig.issuerUrl,
+        issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
-        clientId: this.oauthConfig?.clientId,
-        redirectUri: this.oauthConfig?.redirectUrl,
-        refreshToken: this.authState!.refresh_token!,
-        code: this.authCode!,
+        clientId: this.config?.clientId,
+        redirectUri: this.config?.redirectUrl,
+        refreshToken: this.token!.refresh_token!,
+        code,
       })
 
       await this.handleTokenResponse(response.data)
     }
   }
 
-  public makeSession = async (authCode: string) => {
+  public makeSession = async (code: string) => {
     if (this.getAccessToken()) {
       return
     }
 
+    const cachedCodeVerifier = await this.storage.getItem(
+      CODE_VERIFIER_STORAGE_KEY,
+    )
+    if (!cachedCodeVerifier) {
+      throw new CodeVerifierMissingError()
+    }
+
     const response = await requestToken({
-      issuerUrl: this.oauthConfig.issuerUrl,
-      code: authCode,
+      issuerUrl: this.config.issuerUrl,
+      code: code,
       grantType: GrantType.AuthorizationCode,
-      redirectUri: this.oauthConfig?.redirectUrl,
-      clientId: this.oauthConfig?.clientId,
+      redirectUri: this.config?.redirectUrl,
+      clientId: this.config?.clientId,
+      codeVerifier: cachedCodeVerifier,
     })
 
-    this.setAuthCode(authCode)
+    await this.setCode(code)
     await this.handleTokenResponse(response.data)
   }
 
-  private handleTokenResponse = async (
-    tokenResponseData: RequestTokenResponseData,
-  ) => {
-    if (tokenResponseData.error) {
+  private handleTokenResponse = async (data: RequestTokenResponseData) => {
+    if (data.error) {
       await this.clear()
-      throw new Error(tokenResponseData.error)
+      throw new Error(data.error)
     } else {
-      await this.setAuthState({
-        ...tokenResponseData,
+      await this.setToken({
+        ...data,
         last_update_at: new Date().getTime(),
       })
     }
@@ -107,83 +95,116 @@ class AuthSDK extends EventEmitter {
   public restoreFromCache = async () => {
     const cache = await this.getCache()
 
-    const isAuthorized = !!cache?.authState?.access_token
+    const isAuthorized = !!cache?.token?.access_token
     if (!isAuthorized) {
       throw new NotAuthorizedCacheError()
     }
 
-    this.setAuthCode(cache.authCode)
-    await this.setAuthState(cache?.authState)
+    await Promise.all([this.setCode(cache.code), this.setToken(cache.token)])
   }
 
   private getCache = async () => {
     try {
-      const cache = await this.storage.getItem(STORAGE_KEY)
+      const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+      const code = await this.storage.getItem(CODE_STORAGE_KEY)
+      const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
 
-      if (!cache) {
+      if (!token || !code || !codeVerifier) {
         throw new NoCacheError()
       }
 
-      return JSON.parse(cache) as Cache
+      const cache = { token: JSON.parse(token) as Token, code, codeVerifier }
+      return cache
     } catch (e) {
       throw new NoCacheError()
     }
   }
 
   public clear = async () => {
-    this.setAuthState(undefined)
+    await Promise.all(
+      [this.setToken, this.setCode, this.setCodeVerifier].map((fn) =>
+        fn(undefined),
+      ),
+    )
   }
 
   public isTokenExpired = () => {
     return isLastUpdateTimestampExpired(
-      this.authState?.last_update_at,
-      this.authState?.expires_in,
+      this.token?.last_update_at,
+      this.token?.expires_in,
     )
   }
 
   public getAccessToken = () => {
-    return this.authState?.access_token
+    return this.token?.access_token
   }
 
   public getIdToken = () => {
-    return this.authState?.id_token
+    return this.token?.id_token
   }
 
   public getRefreshToken = () => {
-    return this.authState?.refresh_token
+    return this.token?.refresh_token
   }
 
   public getExpiresIn = () => {
-    return this.authState?.expires_in
+    return this.token?.expires_in
   }
 
   public getError = () => {
-    return this.authState?.error
+    return this.token?.error
   }
 
-  public getLogInUrl = () => {
-    return getLogInUrl(this.oauthConfig)
+  public getLogInUrl = async () => {
+    const minVerifierLength = 43
+    const codeVerifier = getRandomString(minVerifierLength)
+    const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
+
+    await this.setCodeVerifier(codeVerifier)
+
+    return getLogInUrl({ ...this.config, codeChallenge })
   }
 
-  public getLogOutUrl = () => {
+  public getLogOutUrl = async () => {
     const idToken = this.getIdToken()
     if (!idToken) {
       throw new IdTokenMissingError()
     }
+
+    const { issuerUrl, logoutRedirectUrl: redirectUrl } = this.config
+
+    await this.clear()
+
     return getLogOutUrl({
-      issuerUrl: this.oauthConfig.issuerUrl,
-      redirectUrl: this.oauthConfig.logoutRedirectUrl,
+      issuerUrl,
+      redirectUrl,
       idToken,
     })
   }
 
-  private setAuthCode = (authCode?: string) => {
-    this.authCode = authCode
+  private setCode = async (code?: string) => {
+    if (code) {
+      await this.storage.setItem(CODE_STORAGE_KEY, code)
+    } else {
+      await this.storage.removeItem(CODE_STORAGE_KEY)
+    }
   }
 
-  private setAuthState = async (authState?: AuthState) => {
-    this.authState = authState
-    this.emit(Event.AuthStateChange, authState)
+  private setCodeVerifier = async (codeVerifier?: string) => {
+    if (codeVerifier) {
+      await this.storage.setItem(CODE_VERIFIER_STORAGE_KEY, codeVerifier)
+    } else {
+      await this.storage.removeItem(CODE_VERIFIER_STORAGE_KEY)
+    }
+  }
+
+  private setToken = async (token?: Token) => {
+    this.token = token
+    if (token) {
+      await this.storage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token))
+    } else {
+      await this.storage.removeItem(TOKEN_STORAGE_KEY)
+    }
   }
 }
 

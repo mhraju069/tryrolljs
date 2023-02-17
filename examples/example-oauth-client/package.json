@@ -1,0 +1,57 @@
+{
+  "name": "@tryrolljs/example-oauth-client",
+  "description": "Example of using Auth SDK to connect to Roll via oauth2",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@tryrolljs/api": "workspace:*",
+    "@tryrolljs/api-client": "workspace:*",
+    "@tryrolljs/design-system": "workspace:*",
+    "@tryrolljs/sdk": "workspace:*",
+    "@tryrolljs/session-manager": "workspace:*",
+    "@web3-react/core": "^6.0.9",
+    "@web3-react/fortmatic-connector": "^6.1.6",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/network-connector": "^6.2.9",
+    "@web3-react/portis-connector": "^6.2.11",
+    "@web3-react/walletconnect-connector": "^6.2.10",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-native": "0.70.6",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1",
+    "react-native-web": "^0.17.7",
+    "react-scripts": "^5.0.0",
+    "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.0.0",
+    "react-scripts": "^5.0.0"
+  },
+  "scripts": {
+    "start": "env DISABLE_ESLINT_PLUGIN=true craco start",
+    "test": "echo \"Tests are disabled for example repos\" && exit 0",
+    "build": "echo \"Build is disabled for example repos\" && exit 0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+  },
+  "engines": {
+    "npm": "~8.3.1",
+    "node": "^16"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -19,6 +19,7 @@ export interface RequestTokenArgs {
   refreshToken?: string
   redirectUri?: string
   code: string
+  codeVerifier?: string
 }
 
 export interface RequestTokenResponseData {
@@ -34,6 +35,7 @@ export interface GetLogInUrlArgs {
   clientId: string
   redirectUrl?: string
   scopes: string[]
+  codeChallenge: string
 }
 
 export interface GetLogOutUrlArgs {
@@ -42,21 +44,17 @@ export interface GetLogOutUrlArgs {
   redirectUrl?: string
 }
 
-export type AuthState = RequestTokenResponseData & {
+export type Token = RequestTokenResponseData & {
   last_update_at?: number
 }
 
 export type Cache = Partial<{
-  oauthConfig: OauthConfig
-  authState: AuthState
-  authCode?: string
+  token: Token
+  code: string
+  codeVerifier: string
 }>
 
 export enum GrantType {
   AuthorizationCode = 'authorization_code',
   RefreshToken = 'refresh_token',
-}
-
-export enum Event {
-  AuthStateChange = 'AuthStateChange',
 }

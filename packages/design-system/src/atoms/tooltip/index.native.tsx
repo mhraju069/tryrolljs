@@ -21,13 +21,13 @@ const styles = makeStyles({
   },
 })
 
-export const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = ({
   variant = 'light',
   open,
   children,
   title,
   placement,
-}) => {
+}: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
   const { x, y, reference, floating } = useFloating({
     placement,

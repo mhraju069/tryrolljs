@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import { lightTheme, Theme } from '../../styles'
 import { ThemeContext } from '../../context'
 
-export const ThemeProvider: React.FC = ({ children }) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<Theme>(lightTheme)
 
   return (

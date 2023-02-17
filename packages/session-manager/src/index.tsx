@@ -5,21 +5,22 @@ import {
   useState,
   useEffect,
   useCallback,
-  cloneElement,
   createContext,
   PropsWithChildren,
-  ReactElement,
   useContext,
+  useRef,
 } from 'react'
 
 export const SessionContext = createContext<{
   user?: userAPI.types.GetMeResponseData
-  logIn: () => void
+  logIn: () => Promise<void>
   logOut: () => Promise<void>
+  refresh: () => Promise<void>
   error?: unknown
 }>({
-  logIn: () => {},
-  logOut: () => Promise.resolve(),
+  logIn: Promise.resolve,
+  logOut: Promise.resolve,
+  refresh: Promise.resolve,
 })
 
 type Props = PropsWithChildren<{
@@ -30,6 +31,7 @@ type Props = PropsWithChildren<{
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
 
 const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
+  const isInitializedRef = useRef(false)
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
 
@@ -56,6 +58,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
           await loadUserData()
         }
       } catch (e) {
+        await authSdk.clear()
         setError(e)
         setUser(undefined)
       }
@@ -70,22 +73,28 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
       }
     }
 
-    initialize()
+    if (!isInitializedRef.current) {
+      initialize()
+      isInitializedRef.current = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [!!user])
+  }, [])
 
-  const logIn = useCallback(() => {
-    window.location.href = authSdk.getLogInUrl()
+  const refresh = useCallback(async () => {
+    await authSdk.refreshTokens(true)
+  }, [authSdk])
+
+  const logIn = useCallback(async () => {
+    window.location.href = await authSdk.getLogInUrl()
   }, [authSdk])
 
   const logOut = useCallback(async () => {
-    window.location.href = authSdk.getLogOutUrl()
-    await authSdk.clear()
+    window.location.href = await authSdk.getLogOutUrl()
   }, [authSdk])
 
   return (
-    <SessionContext.Provider value={{ user, logIn, logOut, error }}>
-      {cloneElement(children as ReactElement)}
+    <SessionContext.Provider value={{ user, logIn, logOut, refresh, error }}>
+      {children}
     </SessionContext.Provider>
   )
 }
