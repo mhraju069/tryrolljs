@@ -4,10 +4,6 @@ export interface HasBalanceArgs {
   amount: string
 }
 
-export interface GetThridPartyProfileArgs {
-  userId: string
-}
-
 export interface GetMeResponseData {
   userID: string
   primaryUserID: string

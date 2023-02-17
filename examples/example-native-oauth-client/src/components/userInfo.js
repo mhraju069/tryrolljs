@@ -15,8 +15,8 @@ export default function UserInfo() {
 
   const userImage = user.media && user.media[0] ? user.media[0].link : undefined
 
-  const handleRefreshPress = React.useCallback(() => {
-    authSdk.refreshTokens(true)
+  const handleRefreshPress = React.useCallback(async () => {
+    await authSdk.refreshTokens(true)
   }, [])
 
   return (

@@ -3,7 +3,6 @@ import SessionManager, { useSession } from '@tryrolljs/session-manager'
 import TopNavigation from './components/topNavigation'
 import HasBalance from './features/hasBalance'
 import UserInfo from './components/userInfo'
-import ThirdPartyProfiles from './features/thirdPartyProfiles'
 import Transfer from './features/transfer'
 import LoggedOut from './components/loggedOut'
 import { apiClient, authSdk } from './api'
@@ -30,7 +29,6 @@ const Entrypoint = () => {
         <>
           <UserInfo />
           <HasBalance />
-          <ThirdPartyProfiles />
           <Transfer />
         </>
       ) : (
