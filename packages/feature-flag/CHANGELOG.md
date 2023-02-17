@@ -1,5 +1,11 @@
 # @tryrolljs/feature-flag
 
+## 0.1.0
+
+### Minor Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`a42690e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a42690ed8a7b5c7b35d6088cc445aa0045288c70) Thanks [@teimurjan](https://github.com/teimurjan)! - Update React to version 18.1
+
 ## 0.0.8
 
 ### Patch Changes

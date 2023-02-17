@@ -1,5 +1,14 @@
 # @tryrolljs/api
 
+## 0.2.2
+
+### Patch Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`22de0a5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/22de0a529a59d76b21e975a06f780cf3f7a546a8) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove getThridPartyProfiles
+
+- Updated dependencies []:
+  - @tryrolljs/api-client@0.0.4
+
 ## 0.2.1
 
 ### Patch Changes

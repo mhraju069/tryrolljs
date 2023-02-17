@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 0.3.0
+
+### Minor Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`289c3a4`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/289c3a4042c7fb5ed8943c6cd49d8d7d5e431cd5) Thanks [@teimurjan](https://github.com/teimurjan)! - Migrate to PKCE flow
+
 ## 0.2.1
 
 ### Patch Changes
