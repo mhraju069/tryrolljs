@@ -1,5 +1,25 @@
 # @tryrolljs/sdk
 
+## 0.3.0
+
+### Minor Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`289c3a4`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/289c3a4042c7fb5ed8943c6cd49d8d7d5e431cd5) Thanks [@teimurjan](https://github.com/teimurjan)! - Migrate to PKCE flow
+
+## 0.2.1
+
+### Patch Changes
+
+- [#178](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/178) [`e3c3d72`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e3c3d7245ea459704557da0b3f3efc73859945b2) Thanks [@teimurjan](https://github.com/teimurjan)! - Pass form urlencoded data to refresh tokens request
+
+## 0.2.0
+
+### Minor Changes
+
+- [#174](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/174) [`e054daa`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e054daa7b9b1df1af1a21ddffb4d40b1f666dcd2) Thanks [@teimurjan](https://github.com/teimurjan)! - - Removed parsers, handlers & all the unnecessary configurable options for sdk
+  - Extracted API client to @tryrolljs/api-client package to keep API package for endpoint calls only
+  - Added @tryrolljs/session-manager package to handle session-related actions in React web apps
+
 ## 0.1.4
 
 ### Patch Changes

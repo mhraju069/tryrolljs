@@ -7,7 +7,7 @@ const UNISWAP_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
 
 const DEFAULT_INPUT_TOKEN_ADDRESS = 'NATIVE' // It's a magic keyword to use the native token of the chain you're connected to (ex. Ethereum -> ETH)
 
-export const UniswapWidget: React.FC<SwapWidgetProps> = (props) => {
+export const UniswapWidget = (props: SwapWidgetProps) => {
   const web3Provider = useWebSocketProvider()
 
   return (

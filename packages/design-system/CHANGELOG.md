@@ -1,5 +1,28 @@
 # @tryrolljs/design-system
 
+## 0.3.0
+
+### Minor Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`a42690e`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a42690ed8a7b5c7b35d6088cc445aa0045288c70) Thanks [@teimurjan](https://github.com/teimurjan)! - Update React to version 18.1
+
+## 0.2.2
+
+### Patch Changes
+
+- [#167](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/167) [`89b73c5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/89b73c5f424c316a799c48a8c506738ff789bb18) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add v2 Button component
+
+- [#172](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/172) [`0c1bb16`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0c1bb16eb09e9481aa21d9d2c79b363065b98520) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add Header component
+
+- [#158](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/158) [`cbd85e1`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/cbd85e10ed5c35976bb5b2a704869b1a4acf9dc6) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add Theme v2
+
+  - New color system
+  - Hook for use v2 theme
+  - Footer V2 component
+  - New values for margin and padding
+
+- [#173](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/173) [`bb59aba`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bb59aba16b7e156c624f1733f1a36d89c8d607ec) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Created Typography and Icon component with a library of icons.
+
 ## 0.2.1
 
 ### Patch Changes

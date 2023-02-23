@@ -1,8 +1,12 @@
-import { auth } from '@tryrolljs/api'
 import type { PartialDeep } from 'type-fest'
 import { NoCacheError, NotAuthorizedCacheError } from './errors'
-import type { Cache } from './types'
-import AuthSDK, { STORAGE_KEY } from './sdk'
+import { requestToken } from './api'
+import type { Cache, RequestTokenResponseData } from './types'
+import AuthSDK, {
+  CODE_STORAGE_KEY,
+  CODE_VERIFIER_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+} from './sdk'
 
 const config = {
   clientId: 'clientId',
@@ -18,23 +22,32 @@ const storage = {
   removeItem: jest.fn(),
 }
 
-const mockRequestToken = auth.requestToken as jest.Mock
-jest.mock('@tryrolljs/api', () => ({
-  auth: {
-    requestToken: jest.fn().mockResolvedValue({
-      data: {
-        access_token: 'access_token',
-        expires_in: 3600,
-        refresh_token: 'refresh_token',
-        id_token: 'id_token',
-      },
-    }),
+const getRealStorage = () => ({
+  storage: {} as Record<string, string>,
+  getItem(key: string) {
+    return this.storage[key]
   },
+  setItem(key: string, value: string) {
+    this.storage[key] = value
+  },
+  removeItem(key: string) {
+    delete this.storage[key]
+  },
+})
+
+const mockRequestToken = requestToken as jest.Mock
+jest.mock('./api', () => ({
+  requestToken: jest.fn().mockResolvedValue({
+    data: {
+      access_token: 'access_token',
+      expires_in: 3600,
+      refresh_token: 'refresh_token',
+      id_token: 'id_token',
+    },
+  }),
 }))
 
-const mockTokenResponse = (
-  data: Partial<auth.types.RequestTokenResponseData> = {},
-) => {
+const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   mockRequestToken.mockResolvedValue({
     data: {
       access_token: data.access_token ?? 'access_token',
@@ -46,19 +59,24 @@ const mockTokenResponse = (
 }
 
 const mockCache = (cache: PartialDeep<Cache> = {}) => {
-  storage.getItem.mockReturnValue(
-    JSON.stringify({
-      authState: {
-        access_token: cache?.authState?.access_token ?? 'access_token',
-        expires_in: cache?.authState?.expires_in ?? 3600,
-        refresh_token: cache?.authState?.refresh_token ?? 'refresh_token',
-        id_token: cache?.authState?.id_token ?? 'id_token',
-        last_update_at: cache?.authState?.last_update_at ?? undefined,
-      },
-      authCode: cache?.authCode ?? 'code',
-      oauthConfig: config,
-    }),
-  )
+  storage.getItem.mockImplementation(async (key: string) => {
+    if (key === TOKEN_STORAGE_KEY) {
+      return JSON.stringify({
+        access_token: cache?.token?.access_token ?? 'access_token',
+        expires_in: cache?.token?.expires_in ?? 3600,
+        refresh_token: cache?.token?.refresh_token ?? 'refresh_token',
+        id_token: cache?.token?.id_token ?? 'id_token',
+        last_update_at: cache?.token?.last_update_at ?? undefined,
+      })
+    }
+    if (key === CODE_STORAGE_KEY) {
+      return cache.code ?? 'code'
+    }
+    if (key === CODE_VERIFIER_STORAGE_KEY) {
+      return cache.codeVerifier ?? 'code_verifier'
+    }
+    return undefined
+  })
 }
 
 describe('AuthSDK', () => {
@@ -68,23 +86,27 @@ describe('AuthSDK', () => {
 
   it('makes session', async () => {
     mockTokenResponse()
-
-    const sdk = new AuthSDK(config, storage)
+    const realStorage = getRealStorage()
+    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
+    const sdk = new AuthSDK(config, realStorage)
 
     await sdk.makeSession('code')
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(auth.requestToken).toHaveBeenCalledWith({
+    expect(requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'authorization_code',
       redirectUri: 'http://localhost:8000',
       clientId: 'clientId',
+      codeVerifier: '123',
     })
   })
 
   it('refreshes and updates token', async () => {
-    const sdk = new AuthSDK(config, storage)
+    const realStorage = getRealStorage()
+    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
+    const sdk = new AuthSDK(config, realStorage)
 
     mockTokenResponse({ expires_in: 0 })
 
@@ -95,8 +117,8 @@ describe('AuthSDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
-    expect(auth.requestToken).toHaveBeenCalledTimes(2)
-    expect(auth.requestToken).toHaveBeenLastCalledWith({
+    expect(requestToken).toHaveBeenCalledTimes(2)
+    expect(requestToken).toHaveBeenLastCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'refresh_token',
@@ -113,7 +135,7 @@ describe('AuthSDK', () => {
   })
 
   it('does not restore from cache when there is no authorized cache', async () => {
-    mockCache({ authState: { access_token: '' } })
+    mockCache({ token: { access_token: '' } })
     const sdk = new AuthSDK(config, storage)
 
     await expect(sdk.restoreFromCache()).rejects.toThrow(
@@ -137,19 +159,15 @@ describe('AuthSDK', () => {
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_AUTHSDK_AUTH',
+      'ROLL_AUTHSDK_TOKEN',
       JSON.stringify({
-        authState: {
-          access_token: 'new_access_token',
-          expires_in: 0,
-          refresh_token: 'refresh_token',
-          id_token: 'id_token',
-          last_update_at: mockSeconds,
-        },
-        authCode: 'code',
-        oauthConfig: config,
+        access_token: 'access_token',
+        expires_in: 3600,
+        refresh_token: 'refresh_token',
+        id_token: 'id_token',
       }),
     )
+    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
 
     mockDateConstructor.mockRestore()
   })
@@ -173,7 +191,7 @@ describe('AuthSDK', () => {
       .mockImplementation(() => mockDateInstance)
 
     mockCache({
-      authState: { last_update_at: mockSeconds - 3600 * 1000 + 1 },
+      token: { last_update_at: mockSeconds - 3600 * 1000 + 1 },
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
@@ -182,8 +200,18 @@ describe('AuthSDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(storage.setItem).toHaveBeenCalledTimes(1)
-    expect(storage.setItem).toHaveBeenCalledWith(STORAGE_KEY, storage.getItem())
+    expect(storage.setItem).toHaveBeenCalledTimes(2)
+    expect(storage.setItem).toHaveBeenCalledWith(
+      TOKEN_STORAGE_KEY,
+      JSON.stringify({
+        access_token: 'access_token',
+        expires_in: 3600,
+        refresh_token: 'refresh_token',
+        id_token: 'id_token',
+        last_update_at: 1466420890001,
+      }),
+    )
+    expect(storage.setItem).toHaveBeenCalledWith(CODE_STORAGE_KEY, 'code')
 
     mockDateConstructor.mockRestore()
   })
@@ -202,22 +230,23 @@ describe('AuthSDK', () => {
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_AUTHSDK_AUTH',
+      'ROLL_AUTHSDK_TOKEN',
       JSON.stringify({
-        authState: {
-          access_token: 'access_token',
-          expires_in: 3600,
-          refresh_token: 'refresh_token',
-          id_token: 'id_token',
-        },
-        authCode: 'code',
-        oauthConfig: config,
+        access_token: 'access_token',
+        expires_in: 3600,
+        refresh_token: 'refresh_token',
+        id_token: 'id_token',
       }),
     )
+    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
 
     await sdk.clear()
     expect(sdk.getAccessToken()).toBe(undefined)
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_AUTH')
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_TOKEN')
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE')
+    expect(storage.removeItem).toHaveBeenCalledWith(
+      'ROLL_AUTHSDK_CODE_VERIFIER',
+    )
 
     mockDateConstructor.mockRestore()
   })

@@ -1,5 +1,33 @@
 # @tryrolljs/api
 
+## 0.2.2
+
+### Patch Changes
+
+- [#182](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/182) [`22de0a5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/22de0a529a59d76b21e975a06f780cf3f7a546a8) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove getThridPartyProfiles
+
+- Updated dependencies []:
+  - @tryrolljs/api-client@0.0.4
+
+## 0.2.1
+
+### Patch Changes
+
+- [#180](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/180) [`f508b41`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f508b4140c947cb8cfd3d858ac31c3ce2e0a4581) Thanks [@teimurjan](https://github.com/teimurjan)! - Update api-client to the latest version
+
+## 0.2.0
+
+### Minor Changes
+
+- [#174](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/174) [`e054daa`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e054daa7b9b1df1af1a21ddffb4d40b1f666dcd2) Thanks [@teimurjan](https://github.com/teimurjan)! - - Removed parsers, handlers & all the unnecessary configurable options for sdk
+  - Extracted API client to @tryrolljs/api-client package to keep API package for endpoint calls only
+  - Added @tryrolljs/session-manager package to handle session-related actions in React web apps
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tryrolljs/api-client@0.0.2
+
 ## 0.1.2
 
 ### Patch Changes

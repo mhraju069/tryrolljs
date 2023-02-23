@@ -16,7 +16,7 @@ type Props = Web3ConnectorProviderProps & {
   ) => any
 }
 
-export const Web3Provider: React.FC<Props> = ({
+export const Web3Provider = ({
   children,
   getLibrary,
   fortmaticApiKey,
@@ -24,7 +24,7 @@ export const Web3Provider: React.FC<Props> = ({
   defaultChainID,
   supportedChainIDs,
   eagerConnect,
-}) => {
+}: React.PropsWithChildren<Props>) => {
   return (
     <Web3ReactProvider getLibrary={getLibrary || getDefaultLibrary}>
       <Web3ConnectorProvider

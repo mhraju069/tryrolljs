@@ -7,5 +7,5 @@ export const openLink = (link: string, newTab = false) => {
   return
 }
 
-export const isLast = (index: number, array: any[]) =>
+export const isLast = (index: number, array: unknown[]) =>
   index === array.length - 1

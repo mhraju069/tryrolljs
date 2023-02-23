@@ -1,4 +1,4 @@
-import { Client } from '../client'
+import Client from '@tryrolljs/api-client'
 import { SendArgs } from './types'
 
 export const send = (

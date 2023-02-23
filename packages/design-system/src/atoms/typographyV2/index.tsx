@@ -1,4 +1,5 @@
 import { useBreakpointValue } from 'native-base'
+import { PropsWithChildren } from 'react'
 import { GestureResponderEvent, StyleProp, Text, TextStyle } from 'react-native'
 import { fontStyles, responsiveFontStyles } from '../../styles'
 
@@ -28,7 +29,7 @@ export interface TypographyV2Props {
   onPress?: (event: GestureResponderEvent) => void
 }
 
-export const TypographyV2: React.FC<TypographyV2Props> = ({
+export const TypographyV2 = ({
   children,
   variant,
   style,
@@ -36,7 +37,7 @@ export const TypographyV2: React.FC<TypographyV2Props> = ({
   numberOfLines,
   underline = false,
   onPress,
-}) => {
+}: PropsWithChildren<TypographyV2Props>) => {
   const styles = useBreakpointValue({
     base: responsiveFontStyles,
     md: fontStyles,
