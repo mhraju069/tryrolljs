@@ -24,7 +24,7 @@ export const DesktopHeader = ({
         styles.mainContainer,
       ]}
     >
-      {logo}
+      {logo.desktop}
       <View style={[container.row, container.alignCenter]}>
         {options.map((option, index) => {
           return (

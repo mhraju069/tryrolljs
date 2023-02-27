@@ -39,6 +39,8 @@ const BaseButton = ({
   namedIcon,
   isDisabled = false,
   isLoading = false,
+  colorIcon,
+  backgroundColorIcon,
   onPress,
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
@@ -64,7 +66,8 @@ const BaseButton = ({
         variant === 'icon' ? paddingVertical : paddingHorizontal,
       paddingVertical,
       borderRadius,
-      backgroundColor: stylesBasedOnState.backgroundColor,
+      backgroundColor:
+        backgroundColorIcon || stylesBasedOnState.backgroundColor,
       ...Platform.select({
         native: {
           borderWidth: stylesBasedOnState.borderWidth,
@@ -136,7 +139,7 @@ const BaseButton = ({
                   variant={namedIcon}
                   width={iconBasedOnSize[size]}
                   height={iconBasedOnSize[size]}
-                  color={stylesBasedOnState.textColor}
+                  color={colorIcon || stylesBasedOnState.textColor}
                 />
               </View>
             )}

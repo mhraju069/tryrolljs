@@ -1,7 +1,7 @@
 type PaletteBaseOpacity = 10 | 20 | 40 | 60 | 80 | 100
 interface PaletteBase {
   primary: Record<PaletteBaseOpacity, string>
-  Highlight1: string
+  highlight1: string
   highlight2: Record<PaletteBaseOpacity, string>
   sucess: string
   danger: string
@@ -36,7 +36,7 @@ export const lightTheme: Theme = {
       20: 'rgba(0, 0, 0, 0.2)',
       10: 'rgba(0, 0, 0, 0.1)',
     },
-    Highlight1: '#1B67D9',
+    highlight1: '#1B67D9',
     highlight2: {
       100: 'rgba(121, 102, 255, 1)',
       80: 'rgba(121, 102, 255, 0.8)',

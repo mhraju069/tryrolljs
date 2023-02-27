@@ -1,14 +1,20 @@
-interface Option {
+import { SidebarOptionProps } from '../sidebarOption/types'
+
+export interface SidebarFooterOptionProps {
   title: string
-  onPress: () => void
+  link: string
 }
-
-interface SidebarOption extends Option {
-  nestedOptions?: [Option]
+export interface LogoSidebar {
+  desktop: React.ReactNode
+  mobileHeader: React.ReactNode
+  mobileSidebar: React.ReactNode
 }
-
 export interface SidebarProps {
-  logo: React.ReactNode
-  options: SidebarOption[]
+  logo: LogoSidebar
+  header?: React.ReactNode
+  selectedOptionId?: string
+  options: SidebarOptionProps[][]
   withConnectWallet?: boolean
+  footerOptionsOnMobile?: SidebarFooterOptionProps[]
+  footerOnDesktop?: React.ReactNode
 }

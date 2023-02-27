@@ -18,6 +18,7 @@ type PaddingValue =
 type PaddingPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type PaddingPrefix = 'p'
 type PaddingKey = `${PaddingPrefix}${PaddingPostfix}${PaddingValue}`
+type PaddingThemeKey = `${PaddingPrefix}${PaddingValue}`
 
 const paddingValues: PaddingValue[] = [
   4,
@@ -58,5 +59,10 @@ const paddingStyles = paddingValues.reduce((acc, value) => {
 
   return acc
 }, {} as Record<PaddingKey, Record<PaddingProperty, PaddingValue>>)
+
+export const paddingTheme = paddingValues.reduce((acc, value) => {
+  acc[`p${value}`] = value
+  return acc
+}, {} as Record<PaddingThemeKey, PaddingValue>)
 
 export const padding = makeStyles(paddingStyles)

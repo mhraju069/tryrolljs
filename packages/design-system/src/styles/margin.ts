@@ -18,6 +18,7 @@ type MarginValue =
 type MarginPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type MarginPrefix = 'm'
 type MarginKey = `${MarginPrefix}${MarginPostfix}${MarginValue}`
+type MarginThemeKey = `${MarginPrefix}${MarginValue}`
 
 const marginValues: MarginValue[] = [
   4,
@@ -58,5 +59,10 @@ const marginStyles = marginValues.reduce((acc, value) => {
 
   return acc
 }, {} as Record<MarginKey, Record<MarginProperty, MarginValue>>)
+
+export const marginTheme = marginValues.reduce((acc, value) => {
+  acc[`m${value}`] = value
+  return acc
+}, {} as Record<MarginThemeKey, MarginValue>)
 
 export const margin = makeStyles(marginStyles)
