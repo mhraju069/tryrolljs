@@ -39,9 +39,13 @@ export const SidebarOption: React.FC<
     }
     onPress?.()
   }
-  const optionsId = [id].concat(nestedOptions?.map((option) => option.id) || [])
-  const isSelected = optionsId.includes(selectedOptionId)
-  const textColor = isSelected ? theme.base.highlight1 : theme.text.black[100]
+  const nestedOptionsIds = nestedOptions?.map((option) => option.id) || []
+  const optionIdsSet = new Set([id, ...nestedOptionsIds])
+  const hasSelectedOption = optionIdsSet.has(selectedOptionId)
+
+  const textColor = hasSelectedOption
+    ? theme.base.highlight1
+    : theme.text.black[100]
 
   return (
     <Pressable style={[container.fullWidth]} onPress={handlePress}>
@@ -53,7 +57,7 @@ export const SidebarOption: React.FC<
           styles.mainOptionContainer,
         ]}
       >
-        {isSelected && (
+        {hasSelectedOption && (
           <View
             style={[
               styles.selectedIndicator,

@@ -3,7 +3,7 @@ import MintingLogo from '../../assets/svg/minting-logo.svg'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { JoinBanner } from '../joinBanner'
-import { TokenIdentification } from '../tokenIdentification'
+import { TokenAppearance } from '../tokenAppearance'
 import {
   discordInviteUrl,
   faqUrl,
@@ -74,7 +74,7 @@ export const withWalletConnect = fromTemplate(Template, {
   withConnectWallet: true,
   selectedOptionId: 'tokenHolders',
   header: (
-    <TokenIdentification
+    <TokenAppearance
       logo=""
       name="Harrison First"
       symbol="FIRST"
@@ -99,58 +99,64 @@ export const withWalletConnect = fromTemplate(Template, {
       }}
     />
   ),
-  options: [
-    [
-      {
-        id: 'dashboard',
-        title: 'Dashboard',
-        iconVariant: 'home',
-        onPress: () => null,
-      },
-      {
-        id: 'tokenManagement',
-        title: 'Token Management',
-        iconVariant: 'coin',
-        onPress: () => null,
-        nestedOptions: [
-          {
-            id: 'vesting',
-            title: 'Vesting',
-            onPress: () => null,
-          },
-          {
-            id: 'tokenHolders',
-            title: 'Token Holders',
-            onPress: () => null,
-          },
-          {
-            id: 'sendTokens',
-            title: 'Send Tokens',
-            onPress: () => null,
-          },
-        ],
-      },
-    ],
-    [
-      {
-        id: 'staking',
-        title: 'Staking',
-        iconVariant: 'coin2',
-        onPress: () => null,
-      },
-      {
-        id: 'memberships',
-        title: 'Memberships',
-        iconVariant: 'award',
-        onPress: () => null,
-      },
-      {
-        id: 'learnAndResources',
-        title: 'Learn & Resources',
-        iconVariant: 'note',
-        onPress: () => null,
-      },
-    ],
+  sections: [
+    {
+      id: 'firstSection',
+      options: [
+        {
+          id: 'dashboard',
+          title: 'Dashboard',
+          iconVariant: 'home',
+          onPress: () => null,
+        },
+        {
+          id: 'tokenManagement',
+          title: 'Token Management',
+          iconVariant: 'coin',
+          onPress: () => null,
+          nestedOptions: [
+            {
+              id: 'vesting',
+              title: 'Vesting',
+              onPress: () => null,
+            },
+            {
+              id: 'tokenHolders',
+              title: 'Token Holders',
+              onPress: () => null,
+            },
+            {
+              id: 'sendTokens',
+              title: 'Send Tokens',
+              onPress: () => null,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'secondSection',
+      options: [
+        {
+          id: 'staking',
+          title: 'Staking',
+          iconVariant: 'coin2',
+          onPress: () => null,
+        },
+        {
+          id: 'memberships',
+          title: 'Memberships',
+          iconVariant: 'award',
+          onPress: () => null,
+        },
+        {
+          id: 'learnAndResources',
+          title: 'Learn & Resources',
+          iconVariant: 'note',
+          onPress: () => null,
+        },
+      ],
+    },
   ],
   footerOptionsOnMobile: footerOptions,
 })

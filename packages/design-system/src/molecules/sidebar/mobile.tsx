@@ -39,7 +39,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
   withConnectWallet = false,
   header,
   footerOptionsOnMobile,
-  options,
+  sections,
   selectedOptionId,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -123,7 +123,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
               <View style={[padding.pv24, padding.ph20, dividerStyles]}>
                 {header && <View style={[margin.mb24]}>{header}</View>}
                 <SidebarOptions
-                  options={options}
+                  sections={sections}
                   selectedOptionId={selectedOptionId}
                 />
               </View>

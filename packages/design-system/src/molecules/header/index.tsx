@@ -10,12 +10,17 @@ export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false })
-  const isNative = Platform.OS !== 'web'
   if (isMobile) {
     return (
       <View>
-        <MobileSidebar {...props} options={[props.options]} />
-        {isNative ? <ScrollView>{children}</ScrollView> : children}
+        <MobileSidebar
+          {...props}
+          sections={[{ id: 'main', options: props.options }]}
+        />
+        {Platform.select({
+          native: <ScrollView>{children}</ScrollView>,
+          web: children,
+        })}
       </View>
     )
   }

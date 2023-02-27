@@ -14,6 +14,8 @@ export interface JoinBannerProps {
 }
 
 const MAX_BANNER_WIDTH = 200
+const CIRCLE_BACKGROUND_COLOR = '#FFE9DF'
+const CIRCLE_SIZE = 80
 
 const styles = StyleSheet.create({
   container: {
@@ -21,13 +23,13 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   circle: {
-    borderRadius: 80,
-    width: 80,
-    height: 80,
+    borderRadius: CIRCLE_SIZE,
+    width: CIRCLE_SIZE,
+    height: CIRCLE_SIZE,
     position: 'absolute',
     bottom: -32,
     right: -10,
-    backgroundColor: '#FFE9DF',
+    backgroundColor: CIRCLE_BACKGROUND_COLOR,
   },
 })
 

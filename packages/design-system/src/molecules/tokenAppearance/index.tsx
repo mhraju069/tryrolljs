@@ -5,7 +5,7 @@ import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { container, margin } from '../../styles'
 
-interface TokenIdentificationProps {
+interface TokenAppearanceProps {
   logo: string
   name: string
   symbol: string
@@ -14,7 +14,7 @@ interface TokenIdentificationProps {
     onPress: () => void
   }
 }
-export const TokenIdentification: React.FC<TokenIdentificationProps> = ({
+export const TokenAppearance: React.FC<TokenAppearanceProps> = ({
   logo,
   name,
   symbol,
@@ -34,10 +34,6 @@ export const TokenIdentification: React.FC<TokenIdentificationProps> = ({
   const symbolStyles = useBreakpointValue({
     base: [margin.ml16],
     xl: [margin.mb8],
-  })
-  const actionStyles = useBreakpointValue({
-    base: [],
-    xl: [],
   })
   return (
     <View
@@ -62,7 +58,7 @@ export const TokenIdentification: React.FC<TokenIdentificationProps> = ({
           ${symbol}
         </TypographyV2>
       </View>
-      <Pressable onPress={action.onPress} style={actionStyles}>
+      <Pressable onPress={action.onPress}>
         <TypographyV2 variant="caption2" color={theme.base.highlight1}>
           {action.title}
         </TypographyV2>

@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
   },
 })
 
-type SidebarOptionsProps = Pick<SidebarProps, 'selectedOptionId' | 'options'>
+type SidebarOptionsProps = Pick<SidebarProps, 'selectedOptionId' | 'sections'>
 
 export const SidebarOptions: React.FC<SidebarOptionsProps> = ({
-  options,
+  sections,
   selectedOptionId,
 }) => {
   return (
@@ -43,16 +43,16 @@ export const SidebarOptions: React.FC<SidebarOptionsProps> = ({
       overflowX="visible"
       overflowY="visible"
       style={[container.fullWidth, styles.mainList]}
-      data={options}
-      keyExtractor={(_options, index) => `${index}`}
+      data={sections}
+      keyExtractor={(section) => section.id}
       ItemSeparatorComponent={Divider}
-      renderItem={({ item: sectionOptions }) => (
+      renderItem={({ item: section }) => (
         <FlatList
           scrollEnabled={false}
           overflowX="visible"
           overflowY="visible"
           style={[container.fullWidth, styles.mainList]}
-          data={sectionOptions}
+          data={section.options}
           keyExtractor={(option) => option.id}
           renderItem={({ item }) => (
             <SidebarOption {...item} selectedOptionId={selectedOptionId} />
