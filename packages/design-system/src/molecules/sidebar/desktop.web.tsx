@@ -1,7 +1,7 @@
 import { FlatList } from 'native-base'
 import { Dimensions, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, marginTheme, paddingTheme } from '../../styles'
+import { container, margin, spacing } from '../../styles'
 import { SidebarOption } from '../sidebarOption'
 import { SidebarProps } from './types'
 
@@ -16,10 +16,10 @@ const styles: Record<string, React.CSSProperties> = {
     position: 'fixed',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingRight: paddingTheme.p20,
-    paddingLeft: paddingTheme.p20,
-    paddingTop: paddingTheme.p24,
-    paddingBottom: paddingTheme.p16,
+    paddingRight: spacing[20],
+    paddingLeft: spacing[20],
+    paddingTop: spacing[24],
+    paddingBottom: spacing[16],
     top: 0,
     left: 0,
     boxSizing: 'border-box',
@@ -29,7 +29,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   spacer: {
     width: DESKTOP_SIDEBAR_WIDTH,
-    marginRight: marginTheme.m40,
+    marginRight: spacing[40],
   },
 }
 
@@ -100,9 +100,7 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
           )}
         />
         {footerOnDesktop && (
-          <View
-            style={[container.positionAbsolute, { bottom: paddingTheme.p16 }]}
-          >
+          <View style={[container.positionAbsolute, { bottom: spacing[16] }]}>
             {footerOnDesktop}
           </View>
         )}

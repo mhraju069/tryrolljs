@@ -1,40 +1,11 @@
 import type { ValueOf } from 'type-fest'
+import { SpacingValue, spacingValues } from './spacing'
 import { makeStyles } from './utils'
 
-type MarginValue =
-  | 4
-  | 8
-  | 12
-  | 16
-  | 20
-  | 24
-  | 32
-  | 40
-  | 48
-  | 56
-  | 64
-  | 128
-  | 'auto'
 type MarginPostfix = '' | 't' | 'b' | 'r' | 'l' | 'v' | 'h'
 type MarginPrefix = 'm'
-type MarginKey = `${MarginPrefix}${MarginPostfix}${MarginValue}`
-type MarginThemeKey = `${MarginPrefix}${MarginValue}`
+type MarginKey = `${MarginPrefix}${MarginPostfix}${SpacingValue}`
 
-const marginValues: MarginValue[] = [
-  4,
-  8,
-  12,
-  16,
-  20,
-  24,
-  32,
-  40,
-  48,
-  56,
-  64,
-  128,
-  'auto',
-]
 const marginPostfixes: MarginPostfix[] = ['', 't', 'b', 'r', 'l', 'v', 'h']
 const marginStylePropByPostfix: Record<MarginPostfix, string> = {
   '': 'margin',
@@ -47,7 +18,7 @@ const marginStylePropByPostfix: Record<MarginPostfix, string> = {
 }
 type MarginProperty = ValueOf<typeof marginStylePropByPostfix>
 
-const marginStyles = marginValues.reduce((acc, value) => {
+const marginStyles = spacingValues.reduce((acc, value) => {
   marginPostfixes.forEach((postfix) => {
     const key: MarginKey = `m${postfix}${value}`
     const property: MarginProperty = marginStylePropByPostfix[postfix]
@@ -58,11 +29,6 @@ const marginStyles = marginValues.reduce((acc, value) => {
   })
 
   return acc
-}, {} as Record<MarginKey, Record<MarginProperty, MarginValue>>)
-
-export const marginTheme = marginValues.reduce((acc, value) => {
-  acc[`m${value}`] = value
-  return acc
-}, {} as Record<MarginThemeKey, MarginValue>)
+}, {} as Record<MarginKey, Record<MarginProperty, SpacingValue>>)
 
 export const margin = makeStyles(marginStyles)
