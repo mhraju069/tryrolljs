@@ -104,13 +104,13 @@ export const withWalletConnect = fromTemplate(Template, {
       {
         id: 'dashboard',
         title: 'Dashboard',
-        namedIcon: 'home',
+        iconVariant: 'home',
         onPress: () => null,
       },
       {
         id: 'tokenManagement',
         title: 'Token Management',
-        namedIcon: 'coin',
+        iconVariant: 'coin',
         onPress: () => null,
         nestedOptions: [
           {
@@ -135,19 +135,19 @@ export const withWalletConnect = fromTemplate(Template, {
       {
         id: 'staking',
         title: 'Staking',
-        namedIcon: 'coin2',
+        iconVariant: 'coin2',
         onPress: () => null,
       },
       {
         id: 'memberships',
         title: 'Memberships',
-        namedIcon: 'award',
+        iconVariant: 'award',
         onPress: () => null,
       },
       {
         id: 'learnAndResources',
         title: 'Learn & Resources',
-        namedIcon: 'note',
+        iconVariant: 'note',
         onPress: () => null,
       },
     ],

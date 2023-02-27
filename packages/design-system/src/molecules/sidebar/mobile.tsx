@@ -142,11 +142,11 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
               <ButtonV2
                 onPress={handleClose}
                 variant="icon"
-                namedIcon="close"
+                iconVariant="close"
                 title="close"
                 size="medium"
-                colorIcon={theme.text.white[100]}
-                backgroundColorIcon={theme.base.primary[10]}
+                iconColor={theme.text.white[100]}
+                iconBackgroundColor={theme.base.primary[10]}
               />
             </View>
           </View>

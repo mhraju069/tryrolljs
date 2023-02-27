@@ -36,11 +36,11 @@ const BaseButton = ({
   size,
   textSize,
   icon,
-  namedIcon,
+  iconVariant,
   isDisabled = false,
   isLoading = false,
-  colorIcon,
-  backgroundColorIcon,
+  iconColor,
+  iconBackgroundColor,
   onPress,
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
@@ -67,7 +67,7 @@ const BaseButton = ({
       paddingVertical,
       borderRadius,
       backgroundColor:
-        backgroundColorIcon || stylesBasedOnState.backgroundColor,
+        iconBackgroundColor || stylesBasedOnState.backgroundColor,
       ...Platform.select({
         native: {
           borderWidth: stylesBasedOnState.borderWidth,
@@ -93,7 +93,7 @@ const BaseButton = ({
     },
     iconContainer: {
       color: stylesBasedOnState.textColor,
-      marginRight: (icon || namedIcon) && variant !== 'icon' ? 12 : 0,
+      marginRight: (icon || iconVariant) && variant !== 'icon' ? 12 : 0,
     },
   })
 
@@ -133,17 +133,17 @@ const BaseButton = ({
           <Spinner size={textSize} color={stylesBasedOnState.textColor} />
         ) : (
           <>
-            {namedIcon && variant !== 'text' && (
+            {iconVariant && variant !== 'text' && (
               <View style={[styles.iconContainer]}>
                 <Icon
-                  variant={namedIcon}
+                  variant={iconVariant}
                   width={iconBasedOnSize[size]}
                   height={iconBasedOnSize[size]}
-                  color={colorIcon || stylesBasedOnState.textColor}
+                  color={iconColor || stylesBasedOnState.textColor}
                 />
               </View>
             )}
-            {!namedIcon && icon && variant !== 'text' && (
+            {!iconVariant && icon && variant !== 'text' && (
               <View style={[styles.iconContainer]}>{icon}</View>
             )}
             {variant !== 'icon' && (

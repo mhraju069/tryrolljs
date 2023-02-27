@@ -24,7 +24,7 @@ export const SidebarOption: React.FC<
   SidebarOptionProps & { selectedOptionId?: string }
 > = ({
   id,
-  namedIcon,
+  iconVariant,
   title,
   nestedOptions,
   onPress,
@@ -62,9 +62,9 @@ export const SidebarOption: React.FC<
           />
         )}
         <View style={[container.flex1, container.row, container.alignCenter]}>
-          {namedIcon && (
+          {iconVariant && (
             <View style={[margin.mr16]}>
-              <Icon variant={namedIcon} color={textColor} />
+              <Icon variant={iconVariant} color={textColor} />
             </View>
           )}
           <TypographyV2
@@ -104,7 +104,7 @@ export const SidebarOption: React.FC<
 
 export const NestedSidebarOption: React.FC<
   OptionProps & { isSelected: boolean }
-> = ({ namedIcon, title, isSelected, onPress }) => {
+> = ({ iconVariant, title, isSelected, onPress }) => {
   const theme = useThemeV2()
   const textColor = isSelected ? theme.base.highlight1 : theme.text.black[100]
   return (
@@ -112,9 +112,9 @@ export const NestedSidebarOption: React.FC<
       style={[container.fullWidth, container.alignCenter, container.row]}
       onPress={onPress}
     >
-      {namedIcon && (
+      {iconVariant && (
         <View style={[margin.mr16]}>
-          <Icon variant={namedIcon} color={textColor} />
+          <Icon variant={iconVariant} color={textColor} />
         </View>
       )}
       <TypographyV2

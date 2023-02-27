@@ -26,9 +26,9 @@ export interface ButtonV2Props {
   isLoading?: boolean
   onPress?: (e?: GestureResponderEvent) => void
   icon?: React.ReactNode
-  namedIcon?: IconVariant
-  colorIcon?: string
-  backgroundColorIcon?: string
+  iconVariant?: IconVariant
+  iconColor?: string
+  iconBackgroundColor?: string
 }
 
 type States = 'rest' | 'hover' | 'active' | 'disabled'

@@ -2,7 +2,7 @@ import { IconVariant } from '../../atoms'
 
 export interface OptionProps {
   id: string
-  namedIcon?: IconVariant
+  iconVariant?: IconVariant
   icon?: React.ReactNode
   title: string
   onPress: () => void
