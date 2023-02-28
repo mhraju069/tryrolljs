@@ -161,18 +161,4 @@ export const withWalletConnect = fromTemplate(Template, {
   footerOptionsOnMobile: footerOptions,
 })
 
-// export const withoutWalletConnect = fromTemplate(Template, {
-//   logo: <LogoSimple />,
-//   options: [
-//     {
-//       title: 'Explore Communities',
-//       onPress: () => null,
-//     },
-//     {
-//       title: 'Mint Token',
-//       onPress: () => null,
-//     },
-//   ],
-// })
-
 export default storyConfig

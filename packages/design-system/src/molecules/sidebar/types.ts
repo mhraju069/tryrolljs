@@ -18,7 +18,6 @@ export interface SidebarProps {
   logo: LogoSidebar
   header?: React.ReactNode
   selectedOptionId?: string
-  // options: SidebarOptionProps[][]
   sections: SidebarSection[]
   withConnectWallet?: boolean
   footerOptionsOnMobile?: SidebarFooterOptionProps[]
