@@ -1,5 +1,18 @@
 # @tryrolljs/design-system
 
+## 0.3.1
+
+### Patch Changes
+
+- [#185](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/185) [`a8e56dc`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a8e56dca26c5aee6701de928dc50881dc45748a4) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added Sidebar on mobile and desktop
+  - Update Header component to use sidebar on mobile
+  - Add new color and background props to style icons on buttons
+  - Fixed typo on ThemeV2
+  - Updated openLink util to support native
+  - Export new util style for padding and margin so it can be used outside native
+  - Created TokenIdentification component
+  - Created JoinBanner component
+
 ## 0.3.0
 
 ### Minor Changes
