@@ -10,7 +10,7 @@ interface PaletteBase {
 }
 
 interface PaletteText {
-  black: Record<30 | 80 | 100, string>
+  black: Record<30 | 40 | 80 | 100, string>
   white: Record<40 | 80 | 100, string>
 }
 
@@ -54,6 +54,7 @@ export const lightTheme: Theme = {
     black: {
       100: 'rgba(0, 0, 0, 1)',
       80: 'rgba(0, 0, 0, 0.8)',
+      40: 'rgba(0, 0, 0, 0.4)',
       30: 'rgba(0, 0, 0, 0.3)',
     },
     white: {
