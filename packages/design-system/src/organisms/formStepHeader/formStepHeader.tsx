@@ -3,14 +3,14 @@ import { View } from 'react-native'
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import { ButtonV2 } from '../../atoms'
 import { container, margin, padding } from '../../styles'
-import { FormLayout, FormLayoutProps } from '.'
+import { FormStepHeader, FormStepHeaderProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.organisms('FormLayout'),
-  component: FormLayout,
+  title: titleBuilder.organisms('FormStepHeader'),
+  component: FormStepHeader,
 }
 
-const Template = (props: FormLayoutProps) => {
+const Template = (props: FormStepHeaderProps) => {
   const [currentStep, setCurretStep] = useState(props.currentStep)
   const currentIndex = props.steps.findIndex(
     (step) => step.title === currentStep,
@@ -20,7 +20,7 @@ const Template = (props: FormLayoutProps) => {
 
   return (
     <View style={[padding.p20]}>
-      <FormLayout {...props} currentStep={currentStep} />
+      <FormStepHeader {...props} currentStep={currentStep} />
       <View style={[container.row, margin.mt16]}>
         <ButtonV2
           variant="secondary"

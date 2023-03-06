@@ -72,12 +72,12 @@ const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
   )
 }
 
-export interface FormLayoutProps {
+export interface FormStepHeaderProps {
   steps: { title: string }[]
   currentStep: string
 }
 
-export const FormLayout: React.FC<FormLayoutProps> = ({
+export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
   steps,
   currentStep,
 }) => {

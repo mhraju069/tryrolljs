@@ -1,4 +1,4 @@
 export * from './modal'
-export * from './formLayout'
+export * from './formStepHeader'
 export * from './confirmationModalContent'
 export * from './tokenSelect'
