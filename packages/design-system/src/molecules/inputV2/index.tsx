@@ -1,26 +1,19 @@
-import { forwardRef, useCallback, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, fontStyles, margin, padding, spacing } from '../../styles'
-import { Icon, IconVariant } from '../icon'
-import { TypographyV2 } from '../typographyV2'
+import { TypographyV2 } from '../../atoms/typographyV2'
 
 export interface InputPropsV2 extends TextInputProps {
-  iconVariantRight?: IconVariant
-  iconVariantLeft?: IconVariant
+  value: string
+  onChangeText: (text: string) => void
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
   error?: string
   label?: string
-  withCount?: boolean
+  counter?: boolean
   info?: string
-  data?: {
-    title: string
-    description: string
-  }
-  unlockedTitle?: string
-  action?: {
-    title: string
-    onPress: () => void
-  }
+  disabled?: boolean
 }
 
 const INPUT_BORDER_WIDTH = 1
@@ -36,14 +29,14 @@ const styles = StyleSheet.create({
   inputContainer: {
     position: 'relative',
   },
-  rightContent: {
+  suffix: {
     position: 'absolute',
     right: spacing[16],
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  leftContent: {
+  prefix: {
     position: 'absolute',
     left: spacing[16],
     height: '100%',
@@ -62,28 +55,25 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
     {
       style,
       label,
-      unlockedTitle,
       maxLength,
-      iconVariantRight,
-      iconVariantLeft,
       error,
       value = '',
       info = '',
-      action,
-      data,
-      editable = true,
-      withCount = false,
+      disabled = false,
+      counter = false,
+      prefix,
+      suffix,
       ...props
     },
     ref,
   ) => {
     const [isFocused, setIsFocused] = useState(false)
-    const [isLocked, setIsLocked] = useState(!!unlockedTitle)
     const theme = useThemeV2()
-    const backgroundColor =
-      !isLocked && editable ? theme.base.transparent : theme.base.primary[10]
+    const backgroundColor = !disabled
+      ? theme.base.transparent
+      : theme.base.primary[10]
     const borderColor = useMemo(() => {
-      if (!editable || isLocked) {
+      if (disabled) {
         return theme.base.transparent
       } else if (isFocused) {
         return theme.base.primary[100]
@@ -92,9 +82,7 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
       } else {
         return theme.base.primary[20]
       }
-    }, [editable, isFocused, theme, error, isLocked])
-
-    const unlocked = useCallback(() => setIsLocked(false), [])
+    }, [disabled, isFocused, theme, error])
 
     return (
       <View>
@@ -108,11 +96,7 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
           </TypographyV2>
         )}
         <View style={[styles.inputContainer]}>
-          {iconVariantLeft && (
-            <View style={[styles.leftContent]}>
-              <Icon variant={iconVariantLeft} />
-            </View>
-          )}
+          {prefix && <View style={[styles.prefix]}>{prefix}</View>}
           <TextInput
             ref={ref}
             style={[
@@ -121,8 +105,8 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
               styles.input,
               container.borderRadius,
               padding.pv16,
-              iconVariantLeft ? padding.pl48 : padding.pl16,
-              iconVariantRight ? padding.pr48 : padding.pr16,
+              prefix ? padding.pl48 : padding.pl16,
+              suffix ? padding.pr48 : padding.pr16,
               {
                 borderColor,
                 backgroundColor,
@@ -130,53 +114,15 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
               },
             ]}
             value={value}
-            multiline={withCount}
+            multiline={counter}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            editable={!isLocked && editable}
+            editable={!disabled}
             placeholderTextColor={theme.text.black[40]}
             {...props}
           />
-          {isLocked && (
-            <View style={[styles.rightContent]}>
-              <TypographyV2
-                onPress={unlocked}
-                variant="buttonText"
-                color={theme.base.highlight1}
-              >
-                {unlockedTitle}
-              </TypographyV2>
-            </View>
-          )}
-          {!isLocked && action && (
-            <View style={[styles.rightContent]}>
-              <TypographyV2
-                onPress={action.onPress}
-                variant="caption1"
-                color={
-                  editable ? theme.base.primary[100] : theme.text.black[40]
-                }
-              >
-                {action.title}
-              </TypographyV2>
-            </View>
-          )}
-          {!isLocked && !action && data && (
-            <View style={[styles.rightContent, container.alignEnd]}>
-              <TypographyV2 variant="caption1" color={theme.text.black[100]}>
-                {data.title}
-              </TypographyV2>
-              <TypographyV2 variant="caption2" color={theme.text.black[40]}>
-                {data.description}
-              </TypographyV2>
-            </View>
-          )}
-          {!isLocked && !action && !data && iconVariantRight && (
-            <View style={[styles.rightContent]}>
-              <Icon variant={iconVariantRight} />
-            </View>
-          )}
-          {withCount && maxLength && (
+          {suffix && <View style={[styles.suffix]}>{suffix}</View>}
+          {counter && maxLength && (
             <View style={[styles.count]}>
               <TypographyV2 variant="text4" color={theme.text.black[40]}>
                 {value.length}/{maxLength}
