@@ -12,11 +12,15 @@ const storyConfig = {
 
 const Template = (props: FormStepHeaderProps) => {
   const [currentStep, setCurretStep] = useState(props.currentStep)
-  const currentIndex = props.steps.findIndex(
-    (step) => step.title === currentStep,
-  )
-  const next = () => setCurretStep(props.steps[currentIndex + 1].title)
-  const back = () => setCurretStep(props.steps[currentIndex - 1].title)
+  const currentIndex = props.steps.findIndex((step) => step.id === currentStep)
+  const next = () => {
+    if (currentIndex === props.steps.length - 1) return
+    setCurretStep(props.steps[currentIndex + 1].id)
+  }
+  const back = () => {
+    if (currentIndex === 0) return
+    setCurretStep(props.steps[currentIndex - 1].id)
+  }
 
   return (
     <View style={[padding.p20]}>
@@ -38,16 +42,19 @@ const Template = (props: FormStepHeaderProps) => {
 export const Default = fromTemplate(Template, {
   steps: [
     {
+      id: '1',
       title: 'Token Details',
     },
     {
+      id: '2',
       title: 'Tokenomics',
     },
     {
+      id: '3',
       title: 'Token Distribution',
     },
   ],
-  currentStep: 'Token Details',
+  currentStep: '1',
 })
 
 export default storyConfig

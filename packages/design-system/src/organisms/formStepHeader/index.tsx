@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useRef } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, Platform, StyleSheet, View } from 'react-native'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, spacing } from '../../styles'
+import { makeScrollToIndexFailedHandler } from '../../utils'
 
 const STEP_INDEX_SIZE = spacing[24]
 const STEP_INDEX_BORDER_RADIUS = 24
 const STEP_INDEX_BORDER_WIDTH = 2
 const SEPARATOR_WIDTH = 48
 const SEPARATOR_HEIGHT = 2
+const NATIVE_LINE_HEIGHT = 20
 
 const styles = StyleSheet.create({
   stepIndex: {
@@ -46,9 +48,7 @@ interface StepProps {
 
 const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
   const theme = useThemeV2()
-  const borderColor = isChecked
-    ? theme.base.highlight2[100]
-    : theme.base.highlight2[40]
+  const borderColor = theme.base.highlight2[isChecked ? 100 : 40]
   const backgroundColor = isChecked ? theme.base.highlight2[100] : 'transparent'
   const textColor = isChecked ? theme.text.white[100] : theme.text.black[80]
   return (
@@ -61,7 +61,13 @@ const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
           { backgroundColor, borderColor },
         ]}
       >
-        <TypographyV2 variant="caption1" color={textColor}>
+        <TypographyV2
+          variant="caption1"
+          color={textColor}
+          style={[
+            Platform.select({ native: { lineHeight: NATIVE_LINE_HEIGHT } }),
+          ]}
+        >
           {step}
         </TypographyV2>
       </View>
@@ -73,7 +79,10 @@ const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
 }
 
 export interface FormStepHeaderProps {
-  steps: { title: string }[]
+  steps: {
+    id: string
+    title: string
+  }[]
   currentStep: string
 }
 
@@ -83,8 +92,12 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
 }) => {
   const listRef = useRef<FlatList>(null)
   const currentStepIndex = useMemo(
-    () => steps.findIndex((step) => step.title === currentStep),
+    () => steps.findIndex((step) => step.id === currentStep),
     [steps, currentStep],
+  )
+  const onScrollToIndexFailed = useMemo(
+    () => makeScrollToIndexFailedHandler(listRef),
+    [listRef],
   )
   useEffect(() => {
     listRef.current?.scrollToIndex({ index: currentStepIndex })
@@ -98,13 +111,8 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
       showsHorizontalScrollIndicator={false}
       data={steps}
       ItemSeparatorComponent={Separator}
-      keyExtractor={(item) => item.title}
-      onScrollToIndexFailed={(info) => {
-        const wait = new Promise((resolve) => setTimeout(resolve, 500))
-        wait.then(() => {
-          listRef.current?.scrollToIndex({ index: info.index, animated: true })
-        })
-      }}
+      keyExtractor={(item) => item.id}
+      onScrollToIndexFailed={onScrollToIndexFailed}
       renderItem={({ item, index }) => (
         <Step
           step={index + 1}
