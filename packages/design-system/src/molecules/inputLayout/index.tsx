@@ -1,7 +1,7 @@
 import { useBreakpointValue } from 'native-base'
 import { forwardRef } from 'react'
 import { Platform, StyleSheet, TextInput, View } from 'react-native'
-import { InputPropsV2, InputV2 } from '../../atoms'
+import { InputPropsV2, InputV2 } from '../../molecules'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { container, margin } from '../../styles'
