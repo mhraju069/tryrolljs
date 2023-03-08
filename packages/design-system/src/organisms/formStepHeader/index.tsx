@@ -43,14 +43,14 @@ const Separator: React.FC = () => {
 interface StepProps {
   step: number
   title: string
-  isChecked: boolean
+  checked: boolean
 }
 
-const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
+const Step: React.FC<StepProps> = ({ step, checked, title }) => {
   const theme = useThemeV2()
-  const borderColor = theme.base.highlight2[isChecked ? 100 : 40]
-  const backgroundColor = isChecked ? theme.base.highlight2[100] : 'transparent'
-  const textColor = isChecked ? theme.text.white[100] : theme.text.black[80]
+  const borderColor = theme.base.highlight2[checked ? 100 : 40]
+  const backgroundColor = checked ? theme.base.highlight2[100] : 'transparent'
+  const textColor = checked ? theme.text.white[100] : theme.text.black[80]
   return (
     <View style={[container.row, container.alignCenter]}>
       <View
@@ -65,7 +65,10 @@ const Step: React.FC<StepProps> = ({ step, isChecked, title }) => {
           variant="caption1"
           color={textColor}
           style={[
-            Platform.select({ native: { lineHeight: NATIVE_LINE_HEIGHT } }),
+            Platform.select({
+              native: { lineHeight: NATIVE_LINE_HEIGHT },
+              web: undefined,
+            }),
           ]}
         >
           {step}
@@ -99,9 +102,11 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
     () => makeScrollToIndexFailedHandler(listRef),
     [listRef],
   )
+
   useEffect(() => {
     listRef.current?.scrollToIndex({ index: currentStepIndex })
   }, [currentStepIndex])
+
   return (
     <FlatList
       ref={listRef}
@@ -117,7 +122,7 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
         <Step
           step={index + 1}
           title={item.title}
-          isChecked={index <= currentStepIndex}
+          checked={index <= currentStepIndex}
         />
       )}
     />
