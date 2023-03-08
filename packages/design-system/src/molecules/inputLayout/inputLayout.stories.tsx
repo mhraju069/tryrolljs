@@ -23,7 +23,6 @@ export const Default = fromTemplate(Template, {
   description:
     'This is the total amount of tokens to be created. You can’t change the total supply once the token is created. Recommended supply: 10 million.',
   label: 'Max supply',
-  unlockedTitle: 'Edit',
   placeholder: 'this is the place holder',
 })
 
