@@ -1,5 +1,12 @@
 # @tryrolljs/design-system
 
+## 0.3.2
+
+### Patch Changes
+
+- [#191](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/191) [`9018dc5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9018dc5f9fca14e2cfed26efd18a6907d17bf265) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add InputV2 component
+  - Add InputLayout component
+
 ## 0.3.1
 
 ### Patch Changes
