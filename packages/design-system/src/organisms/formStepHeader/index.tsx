@@ -3,7 +3,7 @@ import { FlatList, Platform, StyleSheet, View } from 'react-native'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, spacing } from '../../styles'
-import { makeScrollToIndexFailedHandler } from '../../utils'
+import { makeScrollToIndexFailedHandler } from './utils'
 
 const STEP_INDEX_SIZE = spacing[24]
 const STEP_INDEX_BORDER_RADIUS = 24
