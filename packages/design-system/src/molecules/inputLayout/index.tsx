@@ -7,7 +7,7 @@ import { container, margin } from '../../styles'
 
 export interface InputLayoutProps {
   title: string
-  description: string
+  description: string | React.ReactNode
 }
 
 const CONTENT_MAX_WIDTH = 448
@@ -43,9 +43,13 @@ export const InputLayout: React.FC<InputLayoutProps & PropsWithChildren> = ({
         >
           {title}
         </TypographyV2>
-        <TypographyV2 variant="text3" color={theme.text.black[80]}>
-          {description}
-        </TypographyV2>
+        {typeof description === 'string' ? (
+          <TypographyV2 variant="text3" color={theme.text.black[80]}>
+            {description}
+          </TypographyV2>
+        ) : (
+          description
+        )}
       </View>
       <View style={[styles.inputsContainer, { maxWidth: INPUT_MAX_WIDTH }]}>
         {children}
