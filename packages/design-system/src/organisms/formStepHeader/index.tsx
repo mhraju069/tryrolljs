@@ -1,5 +1,5 @@
 import { useBreakpointValue } from 'native-base'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
@@ -30,7 +30,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const Separator: React.FC<{ checked?: boolean }> = ({ checked = false }) => {
+interface SeparatorProps {
+  checked?: boolean
+}
+const Separator: React.FC<SeparatorProps> = ({ checked = false }) => {
   const theme = useThemeV2()
   return (
     <View style={[container.center]}>
@@ -52,19 +55,14 @@ interface StepProps {
   step: number
   title: string
   checked: boolean
-  id: string
-  setWidth: (id: string, width: number) => void
+  onLayout?: (event: LayoutChangeEvent) => void
 }
 
-const Step: React.FC<StepProps> = ({ step, checked, title, id, setWidth }) => {
+const Step: React.FC<StepProps> = ({ step, checked, title, onLayout }) => {
   const theme = useThemeV2()
   const borderColor = theme.base.highlight2[checked ? 100 : 40]
   const backgroundColor = checked ? theme.base.highlight2[100] : 'transparent'
   const textColor = checked ? theme.text.white[100] : theme.text.black[80]
-
-  const onLayout = (event: LayoutChangeEvent) => {
-    setWidth(id, event.nativeEvent.layout.width)
-  }
 
   return (
     <View style={[container.row, container.alignCenter]} onLayout={onLayout}>
@@ -108,34 +106,39 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
   steps,
   currentStep,
 }) => {
-  const shouldChangePosition = useBreakpointValue({
+  const isSmallScreen = useBreakpointValue({
     base: true,
     md: false,
   })
-  const [stepsWidth, setStepsWidth] = useState<Record<string, number>>({})
+  const stepsWidth = useRef<Record<string, number>>({})
 
   const currentStepIndex = useMemo(
     () => steps.findIndex((step) => step.id === currentStep),
     [steps, currentStep],
   )
 
-  const updateWidth = useCallback((id: string, width: number) => {
-    setStepsWidth((prev) => ({ ...prev, [id]: width }))
+  const onLayout = useCallback((event: LayoutChangeEvent, id: string) => {
+    const width = event.nativeEvent.layout.width
+    stepsWidth.current = { ...stepsWidth.current, [id]: width }
   }, [])
 
-  const position = useMemo(() => {
-    let position_ = 0
-    for (let i = 0; i < currentStepIndex; i++) {
-      position_ +=
-        stepsWidth[steps[i].id] +
-        SEPARATOR_WIDTH +
-        SEPARATOR_HORIZONTAL_MARGIN * 2
-    }
-    if (position_) {
-      position_ -= SEPARATOR_WIDTH / 2
-    }
-    return position_
-  }, [stepsWidth, currentStepIndex, steps])
+  const stepXPosition = useMemo(() => {
+    const initialPosition = 0
+    const calculatedPosition = Array.from(
+      Array(currentStepIndex).keys(),
+    ).reduce((position, _, index) => {
+      return (
+        position +
+        stepsWidth.current[steps[index].id] + // Include width of the previous steps
+        SEPARATOR_WIDTH + // Include width of the separator coming after a step
+        SEPARATOR_HORIZONTAL_MARGIN * 2 // Include horizontal margin doubled (because it's on left & right)
+      )
+    }, initialPosition)
+
+    // To show a bit of the previous separator, we need to subtract half of the separator width
+    // Avoid negative values by using Math.max
+    return Math.max(initialPosition, calculatedPosition - SEPARATOR_WIDTH / 2)
+  }, [currentStepIndex, steps])
 
   return (
     <View style={[styles.stepsContainer]}>
@@ -143,19 +146,18 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
         style={[
           container.row,
           container.alignCenter,
-          shouldChangePosition && {
-            transform: [{ translateX: position * -1 }],
+          isSmallScreen && {
+            transform: [{ translateX: stepXPosition * -1 }],
           },
         ]}
       >
         {steps.map((step, index) => (
           <View style={[container.row, container.alignCenter]} key={step.id}>
             <Step
-              id={step.id}
               step={index + 1}
               title={step.title}
               checked={index <= currentStepIndex}
-              setWidth={updateWidth}
+              onLayout={(e) => onLayout(e, step.id)}
             />
             {index < steps.length - 1 && (
               <Separator checked={index < currentStepIndex} />

@@ -7,7 +7,7 @@ import { container, margin } from '../../styles'
 
 export interface InputLayoutProps {
   title: string
-  description: string | React.ReactNode
+  description: React.ReactNode
 }
 
 const CONTENT_MAX_WIDTH = 448

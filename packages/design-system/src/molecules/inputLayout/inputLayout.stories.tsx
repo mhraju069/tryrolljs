@@ -50,7 +50,7 @@ export const WithComponentDescription = fromTemplate(Template, {
     <TypographyV2 variant="text3">
       By default we use the connected Ethereum wallet address, but this can be
       any ERC20 wallet address.
-      <br />
+      {'\n'}
       If you are a DAO, we recommend vesting to a multisig address. Don’t have
       one?{' '}
       <TypographyV2 variant="text3" color={lightTheme.base.highlight1}>
