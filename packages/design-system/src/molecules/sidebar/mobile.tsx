@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 })
 
 const DIVIDER_HEIGHT = 1
+const HEADER_Z_INDEX = 100
 
 export const MobileSidebar: React.FC<SidebarProps> = ({
   logo,
@@ -75,7 +76,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
         padding.pv8,
         padding.ph20,
         headerStyles,
-        { backgroundColor: theme.background.white },
+        { backgroundColor: theme.background.white, zIndex: HEADER_Z_INDEX },
       ]}
     >
       {logo.mobileHeader}

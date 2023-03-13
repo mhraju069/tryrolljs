@@ -10,8 +10,8 @@ const storyConfig = {
   component: FormStepHeader,
 }
 
-const Template = (props: FormStepHeaderProps) => {
-  const [currentStep, setCurretStep] = useState(props.currentStep)
+const Template = (props: Pick<FormStepHeaderProps, 'steps'>) => {
+  const [currentStep, setCurretStep] = useState(props.steps[0].id)
   const currentIndex = props.steps.findIndex((step) => step.id === currentStep)
   const next = () => {
     if (currentIndex === props.steps.length - 1) return
@@ -54,7 +54,6 @@ export const Default = fromTemplate(Template, {
       title: 'Token Distribution',
     },
   ],
-  currentStep: '1',
 })
 
 export default storyConfig
