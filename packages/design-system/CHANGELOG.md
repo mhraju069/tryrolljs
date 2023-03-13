@@ -1,5 +1,14 @@
 # @tryrolljs/design-system
 
+## 0.3.4
+
+### Patch Changes
+
+- [#194](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/194) [`a10d077`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a10d0774021a6c85e5af445124814d6cc362200f) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Fixed position when moving around steps in FormStepHeader
+  - Add zIndex on mobile header/sidebar
+  - Update InputLayout implementation to support multiple inputs
+  - Export input related components from atoms
+
 ## 0.3.3
 
 ### Patch Changes
