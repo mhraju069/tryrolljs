@@ -25,7 +25,7 @@ export const SessionContext = createContext<{
 
 type Props = PropsWithChildren<{
   apiClient: Client
-  authSdk: auth.AuthSDK
+  authSdk: auth.SDK
 }>
 
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
@@ -54,7 +54,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
       try {
         const oauthCode = getOauthCode()
         if (oauthCode) {
-          await authSdk.makeSession(oauthCode)
+          await authSdk.exchangeCodeForToken(oauthCode)
           await loadUserData()
         }
       } catch (e) {
@@ -66,7 +66,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
 
     const initialize = async () => {
       try {
-        await authSdk.restoreFromCache()
+        await authSdk.restoreTokenFromCache()
         await loadUserData()
       } catch (e) {
         await initializeNewSession()

@@ -5,7 +5,7 @@ import { auth } from '@tryrolljs/sdk'
 import SessionManager, { useSession } from './index'
 
 const getWrapper =
-  ({ apiClient, authSdk }: { apiClient: Client; authSdk: auth.AuthSDK }) =>
+  ({ apiClient, authSdk }: { apiClient: Client; authSdk: auth.SDK }) =>
   ({ children }: PropsWithChildren<{}>) =>
     (
       <SessionManager apiClient={apiClient} authSdk={authSdk}>
@@ -74,7 +74,7 @@ describe('useSession', () => {
         authSdk: {
           restoreFromCache: jest.fn().mockRejectedValue(error),
           makeSession,
-          clear: jest.fn()
+          clear: jest.fn(),
         } as any,
         apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
       }),

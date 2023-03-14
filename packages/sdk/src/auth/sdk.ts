@@ -23,7 +23,7 @@ export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_TOKEN'
 export const CODE_STORAGE_KEY = 'ROLL_AUTHSDK_CODE'
 export const CODE_VERIFIER_STORAGE_KEY = 'ROLL_AUTHSDK_CODE_VERIFIER'
 
-class AuthSDK {
+class SDK {
   private readonly config: OauthConfig
   private readonly storage: Storage
   private token?: Token
@@ -45,17 +45,17 @@ class AuthSDK {
       const response = await requestToken({
         issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
-        clientId: this.config?.clientId,
         redirectUri: this.config?.redirectUrl,
+        clientId: this.config?.clientId,
         refreshToken: this.token!.refresh_token!,
         code,
       })
 
-      await this.handleTokenResponse(response.data)
+      await this.saveTokenFromResponse(response.data)
     }
   }
 
-  public makeSession = async (code: string) => {
+  public exchangeCodeForToken = async (code: string) => {
     if (this.getAccessToken()) {
       return
     }
@@ -69,18 +69,18 @@ class AuthSDK {
 
     const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
-      code: code,
       grantType: GrantType.AuthorizationCode,
       redirectUri: this.config?.redirectUrl,
       clientId: this.config?.clientId,
       codeVerifier: cachedCodeVerifier,
+      code,
     })
 
     await this.setCode(code)
-    await this.handleTokenResponse(response.data)
+    await this.saveTokenFromResponse(response.data)
   }
 
-  private handleTokenResponse = async (data: RequestTokenResponseData) => {
+  private saveTokenFromResponse = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.clear()
       throw new Error(data.error)
@@ -92,7 +92,7 @@ class AuthSDK {
     }
   }
 
-  public restoreFromCache = async () => {
+  public restoreTokenFromCache = async () => {
     const cache = await this.getCache()
 
     const isAuthorized = !!cache?.token?.access_token
@@ -208,4 +208,4 @@ class AuthSDK {
   }
 }
 
-export default AuthSDK
+export default SDK
