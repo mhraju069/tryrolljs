@@ -1,11 +1,12 @@
 import { requestClientToken } from './api'
-import { NoCacheError, NotAuthorizedCacheError } from './errors'
+import { NotAuthorizedCacheError } from './errors'
 import {
   Storage,
   ClientConfig,
   ClientToken,
   RequestClientTokenResponseData,
 } from './types'
+import { safeJsonParse } from './utils'
 
 export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_CLIENT_TOKEN'
 
@@ -56,18 +57,13 @@ class ClientSDK {
   }
 
   private getCache = async () => {
-    try {
-      const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
-
-      if (!token) {
-        throw new NoCacheError()
-      }
-
-      const cache = { token: JSON.parse(token) as ClientToken }
-      return cache
-    } catch (e) {
-      throw new NoCacheError()
-    }
+    const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+    const parsedToken =
+      typeof token === 'string'
+        ? (safeJsonParse(token) as ClientToken)
+        : undefined
+    const cache = { token: parsedToken }
+    return cache
   }
 
   public clear = async () => {

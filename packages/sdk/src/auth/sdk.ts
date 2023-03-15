@@ -2,7 +2,6 @@ import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
   CodeVerifierMissingError,
   IdTokenMissingError,
-  NoCacheError,
   NotAuthorizedCacheError,
   NotEnoughDataToRefreshError,
 } from './errors'
@@ -17,6 +16,7 @@ import {
   getRandomString,
   isLastUpdateTimestampExpired,
   pkceChallengeFromVerifier,
+  safeJsonParse,
 } from './utils'
 
 export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_TOKEN'
@@ -95,29 +95,27 @@ class SDK {
   public restoreTokenFromCache = async () => {
     const cache = await this.getCache()
 
-    const isAuthorized = !!cache?.token?.access_token
-    if (!isAuthorized) {
+    const hasAccessToken = !!cache?.token?.access_token
+    if (!hasAccessToken) {
       throw new NotAuthorizedCacheError()
     }
 
-    await Promise.all([this.setCode(cache.code), this.setToken(cache.token)])
+    await Promise.all([
+      cache.code && this.setCode(cache.code),
+      cache.codeVerifier && this.setCodeVerifier(cache.codeVerifier),
+      cache.token && this.setToken(cache.token),
+    ])
   }
 
   private getCache = async () => {
-    try {
-      const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
-      const code = await this.storage.getItem(CODE_STORAGE_KEY)
-      const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
+    const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+    const code = await this.storage.getItem(CODE_STORAGE_KEY)
+    const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
 
-      if (!token || !code || !codeVerifier) {
-        throw new NoCacheError()
-      }
-
-      const cache = { token: JSON.parse(token) as Token, code, codeVerifier }
-      return cache
-    } catch (e) {
-      throw new NoCacheError()
-    }
+    const parsedToken =
+      typeof token === 'string' ? (safeJsonParse(token) as Token) : token
+    const cache = { token: parsedToken, code, codeVerifier }
+    return cache
   }
 
   public clear = async () => {

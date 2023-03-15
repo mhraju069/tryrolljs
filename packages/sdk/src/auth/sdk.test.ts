@@ -1,5 +1,5 @@
 import type { PartialDeep } from 'type-fest'
-import { NoCacheError, NotAuthorizedCacheError } from './errors'
+import { NotAuthorizedCacheError } from './errors'
 import { requestToken } from './api'
 import type { Cache, RequestTokenResponseData } from './types'
 import SDK, {
@@ -126,12 +126,6 @@ describe('SDK', () => {
       clientId: 'clientId',
       refreshToken: 'refresh_token',
     })
-  })
-
-  it('does not restore from cache when there is no cache', async () => {
-    const sdk = new SDK(config, storage)
-
-    await expect(sdk.restoreTokenFromCache()).rejects.toThrowError(NoCacheError)
   })
 
   it('does not restore from cache when there is no authorized cache', async () => {

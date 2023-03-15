@@ -26,3 +26,11 @@ export const pkceChallengeFromVerifier = async (value: string) => {
   const hash = sha256(value)
   return Base64Url.stringify(hash)
 }
+
+export const safeJsonParse = (value: string) => {
+  try {
+    return JSON.parse(value)
+  } catch (e) {
+    return undefined
+  }
+}
