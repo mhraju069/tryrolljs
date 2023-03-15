@@ -18,14 +18,41 @@ describe('useSession', () => {
     jest.clearAllMocks()
   })
 
+  it('clears auth on unauthorized request', async () => {
+    const user = { foo: 'bar' }
+    const clear = jest.fn()
+    renderHook(() => useSession(), {
+      wrapper: getWrapper({
+        authSdk: {
+          restoreTokenFromCache: jest.fn().mockResolvedValue(undefined),
+          clear,
+        } as any,
+        apiClient: {
+          on: jest.fn().mockImplementation((_, listener) => listener()),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
+      }),
+    })
+
+    await waitFor(() => {
+      expect(clear).toHaveBeenCalled()
+    })
+  })
+
   it('restores from cache & loads user', async () => {
     const user = { foo: 'bar' }
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
           restoreTokenFromCache: jest.fn().mockResolvedValue(undefined),
+          getAccessToken: jest.fn().mockReturnValue('token'),
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
@@ -49,7 +76,11 @@ describe('useSession', () => {
           restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
           exchangeCodeForToken,
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
@@ -76,7 +107,11 @@ describe('useSession', () => {
           exchangeCodeForToken,
           clear: jest.fn(),
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
@@ -102,7 +137,11 @@ describe('useSession', () => {
           restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
           exchangeCodeForToken,
         } as any,
-        apiClient: { call } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call,
+        } as any,
       }),
     })
 
@@ -129,7 +168,11 @@ describe('useSession', () => {
           restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
           exchangeCodeForToken,
         } as any,
-        apiClient: { call } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call,
+        } as any,
       }),
     })
 

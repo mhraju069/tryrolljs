@@ -1,5 +1,5 @@
 import { user as userAPI } from '@tryrolljs/api'
-import Client from '@tryrolljs/api-client'
+import Client, { types } from '@tryrolljs/api-client'
 import { auth } from '@tryrolljs/sdk'
 import {
   useState,
@@ -36,6 +36,17 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
+    const listener = async () => {
+      await authSdk.clear()
+    }
+    apiClient.on(types.Event.Unauthorized, listener)
+
+    return () => {
+      apiClient.off(types.Event.Unauthorized, listener)
+    }
+  }, [apiClient, authSdk])
+
+  useEffect(() => {
     const loadUserData = async () => {
       try {
         const user_ = await userAPI.getMe(apiClient)
@@ -67,7 +78,11 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
     const initialize = async () => {
       try {
         await authSdk.restoreTokenFromCache()
-        await loadUserData()
+        if (authSdk.getAccessToken()) {
+          await loadUserData()
+        } else {
+          await initializeNewSession()
+        }
       } catch (e) {
         await initializeNewSession()
       }
