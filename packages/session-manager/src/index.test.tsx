@@ -5,7 +5,7 @@ import { auth } from '@tryrolljs/sdk'
 import SessionManager, { useSession } from './index'
 
 const getWrapper =
-  ({ apiClient, authSdk }: { apiClient: Client; authSdk: auth.AuthSDK }) =>
+  ({ apiClient, authSdk }: { apiClient: Client; authSdk: auth.SDK }) =>
   ({ children }: PropsWithChildren<{}>) =>
     (
       <SessionManager apiClient={apiClient} authSdk={authSdk}>
@@ -18,14 +18,41 @@ describe('useSession', () => {
     jest.clearAllMocks()
   })
 
+  it('clears auth on unauthorized request', async () => {
+    const user = { foo: 'bar' }
+    const clear = jest.fn()
+    renderHook(() => useSession(), {
+      wrapper: getWrapper({
+        authSdk: {
+          restoreTokenFromCache: jest.fn().mockResolvedValue(undefined),
+          clear,
+        } as any,
+        apiClient: {
+          on: jest.fn().mockImplementation((_, listener) => listener()),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
+      }),
+    })
+
+    await waitFor(() => {
+      expect(clear).toHaveBeenCalled()
+    })
+  })
+
   it('restores from cache & loads user', async () => {
     const user = { foo: 'bar' }
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockResolvedValue(undefined),
+          restoreTokenFromCache: jest.fn().mockResolvedValue(undefined),
+          getAccessToken: jest.fn().mockReturnValue('token'),
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
@@ -42,19 +69,23 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => oauthCode)
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalledWith(oauthCode)
+      expect(exchangeCodeForToken).toHaveBeenCalledWith(oauthCode)
       expect(result.current.user).toBe(user)
     })
   })
@@ -68,20 +99,24 @@ describe('useSession', () => {
       .mockImplementation((_key) => oauthCode)
 
     const error = new Error('Forbidden')
-    const makeSession = jest.fn().mockRejectedValue(error)
+    const exchangeCodeForToken = jest.fn().mockRejectedValue(error)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(error),
-          makeSession,
-          clear: jest.fn()
+          restoreTokenFromCache: jest.fn().mockRejectedValue(error),
+          exchangeCodeForToken,
+          clear: jest.fn(),
         } as any,
-        apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call: jest.fn().mockResolvedValue(user),
+        } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalledWith(oauthCode)
+      expect(exchangeCodeForToken).toHaveBeenCalledWith(oauthCode)
       expect(result.current.user).toBe(undefined)
       expect(result.current.error).toBe(error)
     })
@@ -94,20 +129,24 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => '')
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const call = jest.fn().mockResolvedValue(user)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
-        apiClient: { call } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call,
+        } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).not.toHaveBeenCalled()
+      expect(exchangeCodeForToken).not.toHaveBeenCalled()
       expect(call).not.toHaveBeenCalled()
       expect(result.current.user).toBe(undefined)
     })
@@ -120,21 +159,25 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => oauthCode)
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const error = new Error('Forbidden')
     const call = jest.fn().mockRejectedValue(error)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
-        apiClient: { call } as any,
+        apiClient: {
+          on: jest.fn(),
+          off: jest.fn(),
+          call,
+        } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalled()
+      expect(exchangeCodeForToken).toHaveBeenCalled()
       expect(call).toHaveBeenCalled()
       expect(result.current.user).toBe(undefined)
       expect(result.current.error).toBe(error)

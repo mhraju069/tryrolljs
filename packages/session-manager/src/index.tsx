@@ -1,5 +1,5 @@
 import { user as userAPI } from '@tryrolljs/api'
-import Client from '@tryrolljs/api-client'
+import Client, { types } from '@tryrolljs/api-client'
 import { auth } from '@tryrolljs/sdk'
 import {
   useState,
@@ -25,7 +25,7 @@ export const SessionContext = createContext<{
 
 type Props = PropsWithChildren<{
   apiClient: Client
-  authSdk: auth.AuthSDK
+  authSdk: auth.SDK
 }>
 
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
@@ -34,6 +34,17 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
   const isInitializedRef = useRef(false)
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
+
+  useEffect(() => {
+    const listener = async () => {
+      await authSdk.clear()
+    }
+    apiClient.on(types.Event.Unauthorized, listener)
+
+    return () => {
+      apiClient.off(types.Event.Unauthorized, listener)
+    }
+  }, [apiClient, authSdk])
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -54,7 +65,7 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
       try {
         const oauthCode = getOauthCode()
         if (oauthCode) {
-          await authSdk.makeSession(oauthCode)
+          await authSdk.exchangeCodeForToken(oauthCode)
           await loadUserData()
         }
       } catch (e) {
@@ -66,8 +77,12 @@ const SessionProvider = ({ apiClient, authSdk, children }: Props) => {
 
     const initialize = async () => {
       try {
-        await authSdk.restoreFromCache()
-        await loadUserData()
+        await authSdk.restoreTokenFromCache()
+        if (authSdk.getAccessToken()) {
+          await loadUserData()
+        } else {
+          await initializeNewSession()
+        }
       } catch (e) {
         await initializeNewSession()
       }

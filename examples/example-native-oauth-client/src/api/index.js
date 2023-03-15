@@ -3,7 +3,7 @@ import Client from '@tryrolljs/api-client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import config from '../config'
 
-const authSdk = new auth.AuthSDK(
+const authSdk = new auth.SDK(
   {
     clientId: config.clientID,
     issuerUrl: config.issuerURL,

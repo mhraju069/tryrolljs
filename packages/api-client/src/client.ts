@@ -9,10 +9,10 @@ import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private authSdk: auth.AuthSDK
+  private authSdk: auth.SDK | auth.ClientSDK
   private queue: Queue
 
-  constructor(config: Config, authSdk: auth.AuthSDK) {
+  constructor(config: Config, authSdk: auth.SDK | auth.ClientSDK) {
     super()
 
     this.config = config
@@ -71,7 +71,11 @@ export default class Client extends EventEmitter {
 
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
-      if (request.authorization && this.authSdk.isTokenExpired()) {
+      if (
+        request.authorization &&
+        'isTokenExpired' in this.authSdk &&
+        this.authSdk.isTokenExpired()
+      ) {
         this.queue.push(this.authSdk.refreshTokens)
       }
 
