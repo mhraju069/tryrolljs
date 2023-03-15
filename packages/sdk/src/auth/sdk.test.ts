@@ -159,7 +159,7 @@ describe('SDK', () => {
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_SDK_TOKEN',
+      'ROLL_AUTHSDK_TOKEN',
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -167,7 +167,7 @@ describe('SDK', () => {
         id_token: 'id_token',
       }),
     )
-    expect(storage.setItem).toHaveBeenCalledWith('ROLL_SDK_CODE', 'code')
+    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
 
     mockDateConstructor.mockRestore()
   })
@@ -230,7 +230,7 @@ describe('SDK', () => {
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_SDK_TOKEN',
+      'ROLL_AUTHSDK_TOKEN',
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -238,13 +238,15 @@ describe('SDK', () => {
         id_token: 'id_token',
       }),
     )
-    expect(storage.setItem).toHaveBeenCalledWith('ROLL_SDK_CODE', 'code')
+    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
 
     await sdk.clear()
     expect(sdk.getAccessToken()).toBe(undefined)
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_SDK_TOKEN')
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_SDK_CODE')
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_SDK_CODE_VERIFIER')
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_TOKEN')
+    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE')
+    expect(storage.removeItem).toHaveBeenCalledWith(
+      'ROLL_AUTHSDK_CODE_VERIFIER',
+    )
 
     mockDateConstructor.mockRestore()
   })
