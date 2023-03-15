@@ -184,7 +184,7 @@ describe('SDK', () => {
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(storage.setItem).toHaveBeenCalledTimes(2)
+    expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
       TOKEN_STORAGE_KEY,
       JSON.stringify({
@@ -196,6 +196,10 @@ describe('SDK', () => {
       }),
     )
     expect(storage.setItem).toHaveBeenCalledWith(CODE_STORAGE_KEY, 'code')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      CODE_VERIFIER_STORAGE_KEY,
+      'code_verifier',
+    )
 
     mockDateConstructor.mockRestore()
   })
