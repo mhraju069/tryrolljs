@@ -23,7 +23,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockResolvedValue(undefined),
+          restoreTokenFromCache: jest.fn().mockResolvedValue(undefined),
         } as any,
         apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
       }),
@@ -42,19 +42,19 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => oauthCode)
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
         apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalledWith(oauthCode)
+      expect(exchangeCodeForToken).toHaveBeenCalledWith(oauthCode)
       expect(result.current.user).toBe(user)
     })
   })
@@ -68,12 +68,12 @@ describe('useSession', () => {
       .mockImplementation((_key) => oauthCode)
 
     const error = new Error('Forbidden')
-    const makeSession = jest.fn().mockRejectedValue(error)
+    const exchangeCodeForToken = jest.fn().mockRejectedValue(error)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(error),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(error),
+          exchangeCodeForToken,
           clear: jest.fn(),
         } as any,
         apiClient: { call: jest.fn().mockResolvedValue(user) } as any,
@@ -81,7 +81,7 @@ describe('useSession', () => {
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalledWith(oauthCode)
+      expect(exchangeCodeForToken).toHaveBeenCalledWith(oauthCode)
       expect(result.current.user).toBe(undefined)
       expect(result.current.error).toBe(error)
     })
@@ -94,20 +94,20 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => '')
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const call = jest.fn().mockResolvedValue(user)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
         apiClient: { call } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).not.toHaveBeenCalled()
+      expect(exchangeCodeForToken).not.toHaveBeenCalled()
       expect(call).not.toHaveBeenCalled()
       expect(result.current.user).toBe(undefined)
     })
@@ -120,21 +120,21 @@ describe('useSession', () => {
       .spyOn(URLSearchParams.prototype, 'get')
       .mockImplementation((_key) => oauthCode)
 
-    const makeSession = jest.fn().mockResolvedValue(undefined)
+    const exchangeCodeForToken = jest.fn().mockResolvedValue(undefined)
     const error = new Error('Forbidden')
     const call = jest.fn().mockRejectedValue(error)
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreFromCache: jest.fn().mockRejectedValue(undefined),
-          makeSession,
+          restoreTokenFromCache: jest.fn().mockRejectedValue(undefined),
+          exchangeCodeForToken,
         } as any,
         apiClient: { call } as any,
       }),
     })
 
     await waitFor(() => {
-      expect(makeSession).toHaveBeenCalled()
+      expect(exchangeCodeForToken).toHaveBeenCalled()
       expect(call).toHaveBeenCalled()
       expect(result.current.user).toBe(undefined)
       expect(result.current.error).toBe(error)
