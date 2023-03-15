@@ -23,7 +23,7 @@ const TopNavigation = () => {
   React.useEffect(() => {
     const initialize = async () => {
       try {
-        await authSdk.restoreFromCache()
+        await authSdk.restoreTokenFromCache()
         const user_ = await userAPI.getMe(apiClient)
         setUser(user_)
       } catch (e) {
@@ -41,7 +41,7 @@ const TopNavigation = () => {
         const [_, query] = url.split('?')
         const { code } = qs.parse(query)
         if (code) {
-          await authSdk.makeSession(code)
+          await authSdk.exchangeCodeForToken(code)
           const me = await userAPI.getMe(apiClient)
           setUser(me)
         }
