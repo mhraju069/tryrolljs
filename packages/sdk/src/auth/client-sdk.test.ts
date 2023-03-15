@@ -1,5 +1,4 @@
 import type { PartialDeep } from 'type-fest'
-import { NotAuthorizedCacheError } from './errors'
 import { requestClientToken } from './api'
 import type { ClientCache, RequestClientTokenResponseData } from './types'
 import ClientSDK, { TOKEN_STORAGE_KEY } from './client-sdk'
@@ -83,15 +82,6 @@ describe('ClientSDK', () => {
       clientId: 'clientId',
       clientSecret: 'clientSecret',
     })
-  })
-
-  it('does not restore from cache when there is no authorized cache', async () => {
-    mockCache({ token: { access_token: '' } })
-    const sdk = new ClientSDK(config, storage)
-
-    await expect(sdk.restoreTokenFromCache()).rejects.toThrow(
-      NotAuthorizedCacheError,
-    )
   })
 
   it('clears', async () => {

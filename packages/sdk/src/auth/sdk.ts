@@ -2,7 +2,6 @@ import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
   CodeVerifierMissingError,
   IdTokenMissingError,
-  NotAuthorizedCacheError,
   NotEnoughDataToRefreshError,
 } from './errors'
 import {
@@ -94,11 +93,6 @@ class SDK {
 
   public restoreTokenFromCache = async () => {
     const cache = await this.getCache()
-
-    const hasAccessToken = !!cache?.token?.access_token
-    if (!hasAccessToken) {
-      throw new NotAuthorizedCacheError()
-    }
 
     await Promise.all([
       cache.code && this.setCode(cache.code),

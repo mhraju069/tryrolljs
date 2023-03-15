@@ -1,5 +1,4 @@
 import type { PartialDeep } from 'type-fest'
-import { NotAuthorizedCacheError } from './errors'
 import { requestToken } from './api'
 import type { Cache, RequestTokenResponseData } from './types'
 import SDK, {
@@ -126,15 +125,6 @@ describe('SDK', () => {
       clientId: 'clientId',
       refreshToken: 'refresh_token',
     })
-  })
-
-  it('does not restore from cache when there is no authorized cache', async () => {
-    mockCache({ token: { access_token: '' } })
-    const sdk = new SDK(config, storage)
-
-    await expect(sdk.restoreTokenFromCache()).rejects.toThrow(
-      NotAuthorizedCacheError,
-    )
   })
 
   it('refreshes from cache', async () => {

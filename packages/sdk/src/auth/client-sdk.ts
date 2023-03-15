@@ -1,5 +1,4 @@
 import { requestClientToken } from './api'
-import { NotAuthorizedCacheError } from './errors'
 import {
   Storage,
   ClientConfig,
@@ -47,11 +46,6 @@ class ClientSDK {
 
   public restoreTokenFromCache = async () => {
     const cache = await this.getCache()
-
-    const isAuthorized = !!cache?.token?.access_token
-    if (!isAuthorized) {
-      throw new NotAuthorizedCacheError()
-    }
 
     await this.setToken(cache.token)
   }
