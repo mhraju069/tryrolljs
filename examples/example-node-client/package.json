@@ -13,6 +13,8 @@
   "scripts": {
     "generate-token": "node generate-token.js",
     "get-client-secret": "node get-client-secret.js",
+    "get-clients": "node get-clients.js",
+    "get-client": "node get-client.js",
     "test": "echo \"Tests are disabled for example repos\" && exit 0",
     "build": "echo \"Build is disabled for example repos\" && exit 0"
   },
