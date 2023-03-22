@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 1.1.0
+
+### Minor Changes
+
+- [#201](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/201) [`a754219`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a7542197dc0fc3574d22411091ca5f4ebc32fd5a) Thanks [@teimurjan](https://github.com/teimurjan)! - Change client credentials method to client_secret_post
+
 ## 1.0.0
 
 ### Major Changes
