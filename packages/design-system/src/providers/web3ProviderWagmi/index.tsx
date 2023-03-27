@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
+import { Web3Modal } from '@web3modal/react'
 import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, goerli, hardhat, polygonMumbai } from 'wagmi/chains'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -30,20 +32,34 @@ const MAP_CHAINS: Record<number, Chain> = {
   [CHAIN_ID_MUMBAI]: polygonMumbai,
 }
 
-interface Web3ProviderWagmiProps {
+interface Web3ProviderWagmiSharedProps {
   supportedChainIds?: number[]
-  wallectConnectProjectId?: string
   alchemyApiKey?: string
 }
+type Web3ProviderWagmiProps =
+  | (Web3ProviderWagmiSharedProps & {
+      wallectConnectProjectId: string
+      variant: 'walletConnect' | 'web3Modal'
+    })
+  | (Web3ProviderWagmiSharedProps & {
+      wallectConnectProjectId?: string
+      variant: 'injected'
+    })
 
 export const Web3ProviderWagmi = ({
   supportedChainIds,
   wallectConnectProjectId,
   alchemyApiKey,
+  variant,
   children,
 }: React.PropsWithChildren<Web3ProviderWagmiProps>) => {
   const config = useMemo(() => {
     const chains = getChainsById(supportedChainIds ?? SUPPORTED_CHAIN_IDS)
+    if (variant === 'web3Modal') {
+      return configureChains(chains, [
+        w3mProvider({ projectId: wallectConnectProjectId }),
+      ])
+    }
     const providers = alchemyApiKey
       ? [alchemyProvider({ apiKey: alchemyApiKey }), publicProvider()]
       : [publicProvider()]
@@ -52,14 +68,20 @@ export const Web3ProviderWagmi = ({
   }, [])
 
   const connectors = useMemo(() => {
-    if (wallectConnectProjectId) {
+    if (variant === 'web3Modal') {
+      return w3mConnectors({
+        projectId: wallectConnectProjectId,
+        version: 1,
+        chains: config.chains,
+      })
+    }
+    if (variant === 'walletConnect') {
       return [
         new InjectedConnector({ chains: config.chains }),
         new WalletConnectConnector({
           chains: config.chains,
           options: {
-            qrcode: true,
-            version: '2',
+            showQrModal: true,
             projectId: wallectConnectProjectId,
           },
         }),
@@ -79,5 +101,17 @@ export const Web3ProviderWagmi = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <WagmiConfig client={client}>{children}</WagmiConfig>
+  const ethereumClient = new EthereumClient(client, config.chains)
+
+  return (
+    <>
+      <WagmiConfig client={client}>{children}</WagmiConfig>
+      {variant === 'web3Modal' && (
+        <Web3Modal
+          projectId={wallectConnectProjectId}
+          ethereumClient={ethereumClient}
+        />
+      )}
+    </>
+  )
 }
