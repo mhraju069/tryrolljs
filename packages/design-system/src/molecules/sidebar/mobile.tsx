@@ -68,6 +68,8 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     borderColor: theme.background.silver,
   }
 
+  const showWeb3Button = withConnectWallet && !isNative
+
   return (
     <View
       style={[
@@ -82,7 +84,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     >
       {logo.mobileHeader}
       <View style={[container.row, container.alignCenter]}>
-        {withConnectWallet && <Web3Button connectedVariant="avatar" />}
+        {showWeb3Button && <Web3Button connectedVariant="avatar" />}
         <Pressable style={[margin.ml16]} onPress={handleOpen}>
           {!isOpen ? (
             <Icon
@@ -126,7 +128,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                   sections={sections}
                   selectedOptionId={selectedOptionId}
                 />
-                {withConnectWallet && (
+                {showWeb3Button && (
                   <View
                     style={[
                       container.fullWidth,
