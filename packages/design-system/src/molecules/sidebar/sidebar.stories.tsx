@@ -12,6 +12,8 @@ import {
   stakingTermsUrl,
   twitterUrl,
 } from '../../constants'
+import { Web3ProviderWagmi } from '../../providers/web3ProviderWagmi'
+import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { SidebarProps } from './types'
 import { Sidebar } from '.'
 
@@ -48,26 +50,32 @@ const footerOptions = [
 ]
 
 const Template = (props: SidebarProps) => (
-  <Sidebar {...props}>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-    <TypographyV2 variant="h1">Hello world</TypographyV2>
-  </Sidebar>
+  <Web3ProviderWagmi
+    variant="web3Modal"
+    supportedChainIds={[CHAIN_ID_MAIN_NET]}
+    wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
+  >
+    <Sidebar {...props}>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+      <TypographyV2 variant="h1">Hello world</TypographyV2>
+    </Sidebar>
+  </Web3ProviderWagmi>
 )
 
 export const withWalletConnect = fromTemplate(Template, {

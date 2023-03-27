@@ -15,6 +15,7 @@ import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 import { openLink } from '../../utils'
 import { SidebarOptions } from '../sidebarOptions'
+import { Web3Button } from '../web3Button'
 import { SidebarFooterOptionProps, SidebarProps } from './types'
 
 const styles = StyleSheet.create({
@@ -67,6 +68,8 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     borderColor: theme.background.silver,
   }
 
+  const showWeb3Button = withConnectWallet && !isNative
+
   return (
     <View
       style={[
@@ -81,9 +84,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     >
       {logo.mobileHeader}
       <View style={[container.row, container.alignCenter]}>
-        {withConnectWallet && (
-          <ButtonV2 size="small" variant="tertiary" title="Connect" />
-        )}
+        {showWeb3Button && <Web3Button connectedVariant="avatar" />}
         <Pressable style={[margin.ml16]} onPress={handleOpen}>
           {!isOpen ? (
             <Icon
@@ -127,6 +128,18 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                   sections={sections}
                   selectedOptionId={selectedOptionId}
                 />
+                {showWeb3Button && (
+                  <View
+                    style={[
+                      container.fullWidth,
+                      container.justifyStart,
+                      container.alignStart,
+                      margin.mt24,
+                    ]}
+                  >
+                    <Web3Button />
+                  </View>
+                )}
               </View>
               <View style={[padding.pv24, padding.ph20]}>
                 <FlatList

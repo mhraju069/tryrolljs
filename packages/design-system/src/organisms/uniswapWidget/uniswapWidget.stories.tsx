@@ -15,8 +15,9 @@ const Template = () => {
   const [showOptions, setShowOptions] = useState(false)
   return (
     <Web3ProviderWagmi
+      variant="web3Modal"
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <ConnectWeb3ButtonWagmi
         onPress={() => {
@@ -28,8 +29,7 @@ const Template = () => {
       )}
       <UniswapWidget
         jsonRpcUrlMap={{
-          [CHAIN_ID_MAIN_NET]:
-            process.env.MAINNET_JSON_RPC_URL ?? '',
+          [CHAIN_ID_MAIN_NET]: process.env.MAINNET_JSON_RPC_URL ?? '',
         }}
       />
     </Web3ProviderWagmi>

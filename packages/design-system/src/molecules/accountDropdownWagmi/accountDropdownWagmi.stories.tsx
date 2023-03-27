@@ -12,8 +12,9 @@ const conf = {
 export const Default = () => {
   return (
     <Web3ProviderWagmi
+      variant="walletConnect"
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <AccountDropdownWagmi
         onSwitchAccounts={action('action.onSwitchAccounts')}

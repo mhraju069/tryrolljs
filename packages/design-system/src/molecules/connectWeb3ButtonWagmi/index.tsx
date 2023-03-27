@@ -12,7 +12,8 @@ import { AccountDropdownWagmi } from '../accountDropdownWagmi'
 export type HandleWeb3Connect = (c: AbstractConnector) => void
 
 export type ConnectWeb3ButtonWagmiProps = {
-  buttonStyle?: StyleProp<ViewStyle> // TODO define type properly
+  variant?: 'walletConnect'
+  buttonStyle?: StyleProp<ViewStyle>
   onPress: () => void
   activity?: boolean
 }
@@ -24,7 +25,6 @@ export const ConnectWeb3ButtonWagmi = ({
 }: ConnectWeb3ButtonWagmiProps) => {
   const address = useEthAddress()
   const theme = useTheme()
-
   if (activity) {
     return (
       <View
@@ -60,7 +60,6 @@ export const ConnectWeb3ButtonWagmi = ({
       </Dropdown>
     )
   }
-
   return (
     <Button
       style={buttonStyle}
