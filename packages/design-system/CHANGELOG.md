@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 0.3.5
+
+### Patch Changes
+
+- [#203](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/203) [`5a8b203`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5a8b2037402dfb9f23001e31c8fb9936a3822192) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added web3Modal support
+  - Created a custom web3 button to handle modal interaction
+  - Integrated the web3 button with header and sidebar components
+
 ## 0.3.4
 
 ### Patch Changes
