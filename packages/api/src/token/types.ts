@@ -6,7 +6,7 @@ export interface GetTokensArgs {
 }
 
 export interface GetTokenCreatorArgs {
-  tokenID: string
+  tokenId: string
 }
 
 export interface GetTokensResponseData {

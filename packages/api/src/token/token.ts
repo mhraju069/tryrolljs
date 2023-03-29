@@ -25,11 +25,11 @@ export const getTokens = (
 }
 
 export const getTokenCreator = (
-  { tokenID }: GetTokenCreatorArgs,
+  { tokenId }: GetTokenCreatorArgs,
   client: Client,
 ) => {
   return client.call<GetTokenCreatorResponseData>({
-    url: `/v1/tokens/${tokenID}/creator`,
+    url: `/v1/tokens/${tokenId}/creator`,
     method: 'GET',
     authorization: false,
   })

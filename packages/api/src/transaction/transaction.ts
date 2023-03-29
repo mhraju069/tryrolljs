@@ -27,14 +27,14 @@ export const send = (
 }
 
 export const internalSend = (
-  { amount, note, toUserID, tokenID }: InternalSendArgs,
+  { amount, note, toUserId, tokenId }: InternalSendArgs,
   client: Client,
 ) => {
   const body = {
     amount,
     note,
-    toUserID,
-    tokenID,
+    toUserID: toUserId,
+    tokenID: tokenId,
   }
   return client.call<TransactionResponseData>({
     url: '/v2/transactions/send',
@@ -45,11 +45,11 @@ export const internalSend = (
 }
 
 export const getTransactionById = (
-  { transactionID }: GetTransactionByIdArgs,
+  { transactionId }: GetTransactionByIdArgs,
   client: Client,
 ) => {
   return client.call<TransactionResponseData>({
-    url: `/v3/transactions/${transactionID}`,
+    url: `/v3/transactions/${transactionId}`,
     method: 'GET',
     authorization: true,
   })

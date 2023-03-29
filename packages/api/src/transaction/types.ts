@@ -7,14 +7,14 @@ export interface SendArgs {
 }
 
 export interface InternalSendArgs {
-  toUserID: string
-  tokenID: string
+  toUserId: string
+  tokenId: string
   amount: string
   note: string
 }
 
 export interface GetTransactionByIdArgs {
-  transactionID: string
+  transactionId: string
 }
 
 export interface TransactionResponseData {
