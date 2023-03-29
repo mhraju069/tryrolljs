@@ -48,7 +48,6 @@ export interface GetUserTokenBalanceResponseData {
   value: string
 }
 
-// ! This is the response data for the v3 endpoint only (not v4)
 export interface GetMeResponseData {
   userID: string
   primaryUserID: string
@@ -67,38 +66,6 @@ export interface GetMeResponseData {
   isEmailVerified: boolean
   MFAEnabled: boolean
   email: string
-  tokens: {
-    uuid: string
-    name: string
-    symbol: string
-    decimals: number
-    logo: string
-    userID: string
-    status: string
-  }[]
-  wallets: {
-    uuid: string
-    name: string
-    userID: string
-    type: string
-    balances: {
-      uuid: string
-      token: {
-        name: string
-        symbol: string
-        logo: string
-        decimals: number
-        userID: string
-        status: string
-      }
-      amount: {
-        maxDenomination: number
-        minDenomination: number
-        decimals: number
-      }
-    }[]
-    address: string
-  }[]
 }
 
 export interface HasBalanceResponseData {

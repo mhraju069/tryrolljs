@@ -11,8 +11,7 @@ import {
 
 export const getMe = (client: Client) => {
   return client.call<GetMeResponseData>({
-    // ? Should this endpoint be updated to v4?
-    url: '/v3/users/session',
+    url: '/v4/users/session',
     method: 'GET',
     authorization: true,
   })
