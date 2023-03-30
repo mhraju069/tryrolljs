@@ -88,8 +88,10 @@ const BaseButton = ({
     title: {
       fontWeight: '600',
       color: stylesBasedOnState.textColor,
-      borderBottomWidth: isUnderlined ? (isActive ? 2 : 1) : 0,
-      borderBottomColor: stylesBasedOnState.textColor,
+      borderBottomWidth: 1,
+      borderBottomColor: isUnderlined
+        ? stylesBasedOnState.textColor
+        : 'transparent',
     },
     iconContainer: {
       color: stylesBasedOnState.textColor,
