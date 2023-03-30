@@ -108,6 +108,9 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
     () =>
       options.filter(
         (option) =>
+          option.symbol
+            .toLowerCase()
+            .includes(searchInputValue.toLowerCase()) ||
           option.name.toLowerCase().includes(searchInputValue.toLowerCase()) ||
           option.address.toLowerCase().includes(searchInputValue.toLowerCase()),
       ),
