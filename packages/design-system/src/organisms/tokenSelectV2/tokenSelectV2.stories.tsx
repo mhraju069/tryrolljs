@@ -9,7 +9,6 @@ const storyConfig = {
 const Template = (props: TokenSelectV2Props) => <TokenSelectV2 {...props} />
 
 export const Default = fromTemplate(Template, {
-  withCloseIcon: true,
   options: [
     { name: 'Ether', symbol: 'ETH', value: 'ETH', address: '0x00' },
     { name: 'Wrapped Ether', symbol: 'WETH', value: 'WETH', address: '0x01' },

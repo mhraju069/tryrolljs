@@ -1,11 +1,15 @@
 import { Divider, Pressable } from 'native-base'
 import { FlatList, StyleSheet, View } from 'react-native'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { CircleImg, Icon, Spinner, TypographyV2 } from '../../atoms'
+import { useEffect, useMemo, useState } from 'react'
+import { Icon, Spinner, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 import { InputV2 } from '..'
 import { isAddress } from '../../utils'
+import {
+  TokenSelectOptionV2,
+  TokenSelectOptionV2Type,
+} from '../../atoms/tokenSelectOptionV2'
 
 const MODAL_BORDER_RADIUS = 16
 const MODAL_MAX_WIDTH = 380
@@ -20,66 +24,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export type TokenSelectOptionV2 = {
-  name: string
-  symbol: string
-  logo?: string
-  value: string
-  address: string
-}
-
-interface TokenSelectOptionProps extends TokenSelectOptionV2 {
-  onChange?: (value: string) => void
-  onClose?: () => void
-}
-
-export const TokenSelectOptionV2: React.FC<TokenSelectOptionProps> = ({
-  value,
-  name,
-  symbol,
-  logo,
-  onChange,
-  onClose,
-}) => {
-  const theme = useThemeV2()
-  const handlePressOption = useCallback(() => {
-    onChange?.(value)
-    onClose?.()
-  }, [onChange, value, onClose])
-  return (
-    <Pressable
-      key={value}
-      style={[
-        container.row,
-        container.justifySpaceBetween,
-        container.fullWidth,
-        container.alignCenter,
-        padding.p8,
-      ]}
-      onPress={handlePressOption}
-      testID={`tokenSelectOption__${value}`}
-    >
-      <View style={[container.row, container.alignCenter]}>
-        <CircleImg size={32} uri={logo} />
-        <TypographyV2
-          variant="caption1"
-          style={margin.ml16}
-          color={theme.text.black[100]}
-        >
-          {symbol}
-        </TypographyV2>
-      </View>
-      <TypographyV2 variant="text3" color={theme.text.black[80]}>
-        {name}
-      </TypographyV2>
-    </Pressable>
-  )
-}
-
 export interface TokenSelectContentV2Props {
   defaultValue?: string
-  withCloseIcon?: boolean
-  options: TokenSelectOptionV2[]
+  closable?: boolean
+  options: TokenSelectOptionV2Type[]
   label?: string
   placeholder?: string
   searchPlaceholder?: string
@@ -91,7 +39,7 @@ export interface TokenSelectContentV2Props {
 }
 export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
   options,
-  withCloseIcon = false,
+  closable = false,
   label = 'Search name or paste contract address',
   placeholder = 'Select a token',
   searchPlaceholder = 'Search name or paste address',
@@ -117,11 +65,13 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
     [options, searchInputValue],
   )
 
+  const isEmpty = useMemo(() => filteredOptions.length === 0, [filteredOptions])
+
   useEffect(() => {
-    if (isAddress(searchInputValue) && filteredOptions.length === 0) {
+    if (isAddress(searchInputValue) && isEmpty) {
       searchToken?.(searchInputValue)
     }
-  }, [searchToken, searchInputValue, filteredOptions])
+  }, [searchToken, searchInputValue, isEmpty])
 
   return (
     <>
@@ -148,8 +98,8 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
           >
             {placeholder}
           </TypographyV2>
-          {withCloseIcon && (
-            <Pressable onPress={onClose}>
+          {closable && (
+            <Pressable onPress={onClose} testID="tokenSelectCloseButton">
               <Icon variant="close" />
             </Pressable>
           )}
@@ -166,7 +116,7 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
         <Divider style={[margin.mv24]} color={theme.background.silver} />
         <View style={[padding.ph24, container.flex1]}>
           {isLoading && <Spinner size="lg" />}
-          {!isLoading && filteredOptions.length > 0 && (
+          {!isLoading && !isEmpty && (
             <FlatList
               data={filteredOptions}
               scrollEnabled
@@ -179,8 +129,8 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
               )}
             />
           )}
-          {!isLoading && filteredOptions.length === 0 && (
-            <View style={container.alignCenter}>
+          {!isLoading && isEmpty && (
+            <View style={container.alignCenter} testID="notFoundText">
               <TypographyV2 variant="text3" color={theme.text.black[80]}>
                 {notFoundText}
               </TypographyV2>

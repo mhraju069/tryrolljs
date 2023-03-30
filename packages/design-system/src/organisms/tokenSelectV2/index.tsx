@@ -21,6 +21,7 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
   style,
   options,
   onChange,
+  onClose,
   ...props
 }) => {
   const [value, setValue] = useState(defaultValue)
@@ -33,8 +34,9 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
   }, [])
 
   const handleModalClose = useCallback(() => {
+    onClose?.()
     setIsModalOpen(false)
-  }, [])
+  }, [onClose])
 
   const handleChange = useCallback(
     (newValue: string) => {
@@ -60,10 +62,15 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
           testID="tokenSelectInput"
         />
       </Pressable>
-      <Modal isOpen={isModalOpen} onClose={handleModalClose} avoidKeyboard>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        avoidKeyboard
+        testID="tokenSelectModal"
+      >
         <TokenSelectContentV2
-          withCloseIcon
           {...props}
+          closable
           options={options}
           placeholder={placeholder}
           onChange={handleChange}
