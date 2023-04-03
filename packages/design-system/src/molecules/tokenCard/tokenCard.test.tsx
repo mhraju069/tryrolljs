@@ -16,7 +16,7 @@ jest.mock('../../utils', () => ({
 const copy = jest.fn()
 jest.mock('../../hooks', () => ({
   ...jest.requireActual('../../hooks'),
-  useCopyOnClipboard: () => copy,
+  useClipboardWithToast: () => copy,
 }))
 
 describe('TokenCard', () => {
@@ -34,25 +34,25 @@ describe('TokenCard', () => {
       },
     )
   })
-  it('Renders short address', async () => {
+  it('renders short address', async () => {
     const shortAddress = utils.shortenAddress(TOKEN_ADDRESS)
     const address = await screen.findByText(shortAddress)
     expect(address).toBeDefined()
   })
-  it('Renders name', async () => {
+  it('renders name', async () => {
     const name = await screen.findByText(TOKEN_NAME)
     expect(name).toBeDefined()
   })
-  it('Renders symbol', async () => {
+  it('renders symbol', async () => {
     const symbolCopy = `$ ${TOKEN_SYMBOL}`
     const symbol = await screen.findByText(symbolCopy)
     expect(symbol).toBeDefined()
   })
-  it('Renders etherscan link if there is an address', async () => {
+  it('renders etherscan link if there is an address', async () => {
     const etherscanLink = await screen.findByText('Etherscan')
     expect(etherscanLink).toBeDefined()
   })
-  it('Renders draft link if there is no address', async () => {
+  it('renders draft link if there is no address', async () => {
     render(
       <TokenCard
         logo={TOKEN_ADDRESS}
@@ -67,13 +67,13 @@ describe('TokenCard', () => {
     const draftLink = await screen.findByText('Draft')
     expect(draftLink).toBeDefined()
   })
-  it('Opens etherscan link if there is an address', async () => {
+  it('opens etherscan link if there is an address', async () => {
     const openLink = jest.spyOn(utils, 'openLink')
     const etherscanLink = await screen.findByText('Etherscan')
     fireEvent.press(etherscanLink)
     expect(openLink).toHaveBeenCalled()
   })
-  it('Copies address to clipboard if there is an address', async () => {
+  it('copies address to clipboard if there is an address', async () => {
     const copyIcon = await screen.findByTestId('copyIcon')
     expect(copyIcon).toBeDefined()
     fireEvent.press(copyIcon)

@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 import { CircleImg, Icon } from '../../atoms'
-import { useCopyOnClipboard, useThemeV2 } from '../../hooks'
+import { useClipboardWithToast, useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
 import BlurText from '../../assets/svg/blur-text.svg'
 import { container, margin, padding, roboto } from '../../styles'
@@ -81,7 +81,7 @@ export const TokenCard: React.FC<TokenCardProps> = ({
   const theme = useThemeV2()
   const hasAddress = !!address
   const linkText = hasAddress ? 'Etherscan' : 'Draft'
-  const copyOnClipboard = useCopyOnClipboard()
+  const clipboardWithToast = useClipboardWithToast()
 
   const onPressEtherscanLink = () => {
     if (!hasAddress) return
@@ -91,7 +91,7 @@ export const TokenCard: React.FC<TokenCardProps> = ({
 
   const onPressCopyAddress = () => {
     if (!hasAddress) return
-    copyOnClipboard(address)
+    clipboardWithToast(address)
   }
 
   return (

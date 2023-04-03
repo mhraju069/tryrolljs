@@ -2,7 +2,7 @@ import { useClipboard } from 'native-base'
 import { useCallback } from 'react'
 import { Toast } from '../atoms'
 
-export const useCopyOnClipboard = () => {
+export const useClipboardWithToast = () => {
   const { onCopy } = useClipboard()
 
   return useCallback(
