@@ -35,7 +35,7 @@ export interface TokenSelectContentV2Props {
   onChange: (value: string) => void
   onClose?: () => void
   isLoading?: boolean
-  searchToken?: (value: string) => void
+  onSearch?: (value: string) => void
 }
 export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
   options,
@@ -47,7 +47,7 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
   isLoading = false,
   onChange,
   onClose,
-  searchToken,
+  onSearch,
 }) => {
   const theme = useThemeV2()
   const [searchInputValue, setSearchInputValue] = useState('')
@@ -69,9 +69,9 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
 
   useEffect(() => {
     if (isAddress(searchInputValue) && isEmpty) {
-      searchToken?.(searchInputValue)
+      onSearch?.(searchInputValue)
     }
-  }, [searchToken, searchInputValue, isEmpty])
+  }, [onSearch, searchInputValue, isEmpty])
 
   return (
     <>
