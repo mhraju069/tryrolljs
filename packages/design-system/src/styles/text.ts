@@ -20,6 +20,10 @@ export const manrope = {
   bold: 'Manrope-Bold',
 }
 
+export const roboto = {
+  medium: 'RobotoMono-Medium',
+}
+
 export const FONT_SIZE_SUB_CAPTION = 8
 export const FONT_SIZE_CAPTION = 12
 export const FONT_SIZE_BODY = 14
