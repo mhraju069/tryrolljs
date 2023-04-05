@@ -2,7 +2,7 @@ import { Pressable, View } from 'native-base'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, StyleProp, TextInput, ViewStyle } from 'react-native'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
-import { Body, Popover, Input } from '../../atoms'
+import { Body, Popover, Input, PopoverProps } from '../../atoms'
 import { useTheme } from '../../hooks'
 import { makeStyles, padding } from '../../styles'
 
@@ -70,7 +70,7 @@ export const Select = ({
     [selectedOption],
   )
 
-  const renderReference = useCallback(
+  const renderReference: PopoverProps['renderReference'] = useCallback(
     ({ reference, getReferenceProps }) => {
       const referenceProps = getReferenceProps()
       const inputProps = Platform.select({

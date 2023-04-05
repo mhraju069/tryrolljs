@@ -1,6 +1,7 @@
 import { View } from 'native-base'
 import { forwardRef, ReactNode, useEffect, useRef } from 'react'
 import { Animated, TextInput, TextInputProps } from 'react-native'
+import { useTheme } from '../../hooks'
 import {
   charcoalBlack,
   container,
@@ -11,6 +12,7 @@ import {
 
 export interface InputProps extends TextInputProps {
   right?: ReactNode
+  disabled?: boolean
 }
 
 const styles = makeStyles({
@@ -39,6 +41,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       right,
       placeholder,
       value,
+      disabled = false,
       editable = true,
       onFocus,
       onBlur,
@@ -46,9 +49,12 @@ export const Input = forwardRef<TextInput, InputProps>(
     },
     ref,
   ) => {
+    const theme = useTheme()
     const isEmpty = !value || value.length === 0
     const labelTop = useRef(new Animated.Value(0)).current
     const labelFontSize = useRef(new Animated.Value(14)).current
+
+    const isEnabledAndEditable = !disabled && editable
 
     const scaleLabelDown = () => {
       Animated.parallel([
@@ -82,7 +88,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 
     const handleFocus: InputProps['onFocus'] = (event) => {
       onFocus?.(event)
-      if (editable) {
+      if (isEnabledAndEditable) {
         scaleLabelDown()
       }
     }
@@ -101,6 +107,19 @@ export const Input = forwardRef<TextInput, InputProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEmpty])
 
+    const disabledInputStyle = disabled
+      ? {
+          backgroundColor: theme.background.tertiary,
+          borderColor: theme.background.tertiary,
+          opacity: 0.5,
+        }
+      : undefined
+    const disabledLabelStyle = disabled
+      ? {
+          opacity: 0.5,
+        }
+      : undefined
+
     return (
       <View>
         <TextInput
@@ -111,6 +130,7 @@ export const Input = forwardRef<TextInput, InputProps>(
             styles.input,
             padding.ph16,
             placeholder ? padding.pt24 : undefined,
+            disabledInputStyle,
             padding.pv8,
             container.borderRadiusSM,
             container.fullWidth,
@@ -118,7 +138,7 @@ export const Input = forwardRef<TextInput, InputProps>(
           value={value}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          editable={editable}
+          editable={isEnabledAndEditable}
         />
         {right && (
           <View style={styles.right} pointerEvents="none">
@@ -127,7 +147,7 @@ export const Input = forwardRef<TextInput, InputProps>(
         )}
         {placeholder && (
           <Animated.View
-            style={[styles.label, { top: labelTop }]}
+            style={[styles.label, disabledLabelStyle, { top: labelTop }]}
             pointerEvents="none"
           >
             <Animated.Text style={{ fontSize: labelFontSize }}>
