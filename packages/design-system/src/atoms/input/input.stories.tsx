@@ -12,6 +12,10 @@ const Template = (props: InputProps) => <Input {...props} />
 export const Default = fromTemplate(Template, {
   placeholder: 'Input a text',
 })
+export const Numeric = fromTemplate(Template, {
+  placeholder: 'Input a number',
+  type: 'number',
+})
 export const WithRight = fromTemplate(Template, {
   placeholder: 'Input a text',
   right: <ArrowDownCircle />,

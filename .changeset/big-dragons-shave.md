@@ -2,4 +2,5 @@
 '@tryrolljs/design-system': patch
 ---
 
-Add disabled state for Input
+- Added disabled state for Input
+- Added number Input type
