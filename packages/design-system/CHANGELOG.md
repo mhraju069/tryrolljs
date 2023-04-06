@@ -1,5 +1,16 @@
 # @tryrolljs/design-system
 
+## 0.3.6
+
+### Patch Changes
+
+- [#211](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/211) [`d4f2e42`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/d4f2e428c0922b6c941ca587d96a944eac00a80d) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added disabled state for Input
+
+  - Added number Input type
+
+- [#206](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/206) [`0173344`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/01733442af5d22c2181d1250e75b6400584fe222) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add TokenSelectV2 component
+  - Fixed border on text button to prevent pushing content down
+
 ## 0.3.5
 
 ### Patch Changes
