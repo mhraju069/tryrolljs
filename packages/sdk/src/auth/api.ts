@@ -19,11 +19,13 @@ export const requestClientToken = async ({
   try {
     const body = {
       grant_type: GrantType.ClientCredentials,
-      client_id: clientId,
-      client_secret: clientSecret,
     }
     const options = {
       method: 'POST',
+      auth: {
+        username: clientId,
+        password: clientSecret,
+      },
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       data: qs.stringify(body),
       url: `${issuerUrl}/token`,
