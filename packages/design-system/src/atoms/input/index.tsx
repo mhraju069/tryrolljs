@@ -55,7 +55,7 @@ export const Input = forwardRef<TextInput, InputProps>(
   ) => {
     const [controlledValue, setControlledValue] = useState<string>(value ?? '')
     const theme = useTheme()
-    const isEmpty = !value || value.length === 0
+    const isEmpty = !controlledValue || controlledValue.length === 0
     const labelTop = useRef(new Animated.Value(0)).current
     const labelFontSize = useRef(new Animated.Value(14)).current
 
