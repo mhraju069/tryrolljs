@@ -1,5 +1,17 @@
 # @tryrolljs/session-manager
 
+## 5.0.0
+
+### Minor Changes
+
+- [#215](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/215) [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added native session manager
+  - Upgraded to react-native 0.71.5
+
+### Patch Changes
+
+- Updated dependencies [[`b9853b6`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/b9853b6145b6b8eee2c4936629e2490c45954778), [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5)]:
+  - @tryrolljs/sdk@1.2.0
+
 ## 4.0.0
 
 ### Patch Changes

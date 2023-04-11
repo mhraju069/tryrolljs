@@ -9107,7 +9107,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/sdk@^1.0.0, @tryrolljs/sdk@^1.1.0, @tryrolljs/sdk@workspace:*, @tryrolljs/sdk@workspace:packages/sdk":
+"@tryrolljs/sdk@^1.0.0, @tryrolljs/sdk@^1.2.0, @tryrolljs/sdk@workspace:*, @tryrolljs/sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/sdk@workspace:packages/sdk"
   dependencies:
@@ -9142,7 +9142,7 @@ __metadata:
     "@testing-library/react": ^13.4.0
     "@tryrolljs/api": ^0.2.3
     "@tryrolljs/api-client": ^0.0.5
-    "@tryrolljs/sdk": ^1.1.0
+    "@tryrolljs/sdk": ^1.2.0
     "@types/jest": ^29.0.2
     jest: ^29.0.3
     jest-environment-jsdom: ^29.0.3
@@ -9154,7 +9154,7 @@ __metadata:
   peerDependencies:
     "@tryrolljs/api": ^0.2.3
     "@tryrolljs/api-client": ^0.0.5
-    "@tryrolljs/sdk": ^1.1.0
+    "@tryrolljs/sdk": ^1.2.0
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
   languageName: unknown

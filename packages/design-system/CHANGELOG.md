@@ -1,5 +1,16 @@
 # @tryrolljs/design-system
 
+## 1.0.0
+
+### Major Changes
+
+- [#215](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/215) [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added native session manager
+  - Upgraded to react-native 0.71.5
+
+### Patch Changes
+
+- [#212](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/212) [`a7702b5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a7702b5ec66cd90e8a33abe904cc17e10f5a1368) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix input label overflows value
+
 ## 0.3.6
 
 ### Patch Changes
