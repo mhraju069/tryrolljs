@@ -21,15 +21,17 @@ export const MobileHeader = ({
         { backgroundColor: theme.background.white },
       ]}
     >
-      {logo}
-      <View style={[container.row, container.alignCenter]}>
-        {withConnectWallet && (
-          <ButtonV2 size="small" variant="tertiary" title="Connect" />
-        )}
-        <Pressable style={[margin.ml16]}>
-          <Menu />
-        </Pressable>
-      </View>
+      <>
+        {logo}
+        <View style={[container.row, container.alignCenter]}>
+          {withConnectWallet && (
+            <ButtonV2 size="small" variant="tertiary" title="Connect" />
+          )}
+          <Pressable style={[margin.ml16]}>
+            <Menu />
+          </Pressable>
+        </View>
+      </>
     </View>
   )
 }

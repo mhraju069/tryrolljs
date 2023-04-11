@@ -1,5 +1,70 @@
 # @tryrolljs/design-system
 
+## 1.0.0
+
+### Major Changes
+
+- [#215](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/215) [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added native session manager
+  - Upgraded to react-native 0.71.5
+
+### Patch Changes
+
+- [#212](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/212) [`a7702b5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a7702b5ec66cd90e8a33abe904cc17e10f5a1368) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix input label overflows value
+
+## 0.3.6
+
+### Patch Changes
+
+- [#211](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/211) [`d4f2e42`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/d4f2e428c0922b6c941ca587d96a944eac00a80d) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added disabled state for Input
+
+  - Added number Input type
+
+- [#206](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/206) [`0173344`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/01733442af5d22c2181d1250e75b6400584fe222) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add TokenSelectV2 component
+  - Fixed border on text button to prevent pushing content down
+
+## 0.3.5
+
+### Patch Changes
+
+- [#203](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/203) [`5a8b203`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/5a8b2037402dfb9f23001e31c8fb9936a3822192) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added web3Modal support
+  - Created a custom web3 button to handle modal interaction
+  - Integrated the web3 button with header and sidebar components
+
+## 0.3.4
+
+### Patch Changes
+
+- [#194](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/194) [`a10d077`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a10d0774021a6c85e5af445124814d6cc362200f) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Fixed position when moving around steps in FormStepHeader
+  - Add zIndex on mobile header/sidebar
+  - Update InputLayout implementation to support multiple inputs
+  - Export input related components from atoms
+
+## 0.3.3
+
+### Patch Changes
+
+- [#189](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/189) [`4fdbcd9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4fdbcd9b09d626e904b9c4ec7c9e667f364a56a5) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Create FormLayout component
+
+## 0.3.2
+
+### Patch Changes
+
+- [#191](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/191) [`9018dc5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9018dc5f9fca14e2cfed26efd18a6907d17bf265) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add InputV2 component
+  - Add InputLayout component
+
+## 0.3.1
+
+### Patch Changes
+
+- [#185](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/185) [`a8e56dc`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a8e56dca26c5aee6701de928dc50881dc45748a4) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added Sidebar on mobile and desktop
+  - Update Header component to use sidebar on mobile
+  - Add new color and background props to style icons on buttons
+  - Fixed typo on ThemeV2
+  - Updated openLink util to support native
+  - Export new util style for padding and margin so it can be used outside native
+  - Created TokenIdentification component
+  - Created JoinBanner component
+
 ## 0.3.0
 
 ### Minor Changes

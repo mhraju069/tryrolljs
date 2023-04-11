@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import { ButtonV2 } from '../../atoms'
 import { container, margin, padding } from '../../styles'
 import { isLast } from '../../utils'
+import { Web3Button } from '../web3Button'
 import { HeaderProps } from './types'
 
 const styles = StyleSheet.create({
@@ -24,7 +25,7 @@ export const DesktopHeader = ({
         styles.mainContainer,
       ]}
     >
-      {logo}
+      {logo.desktop}
       <View style={[container.row, container.alignCenter]}>
         {options.map((option, index) => {
           return (
@@ -42,9 +43,7 @@ export const DesktopHeader = ({
             </View>
           )
         })}
-        {withConnectWallet && (
-          <ButtonV2 size="small" variant="tertiary" title="Connect Wallet" />
-        )}
+        {withConnectWallet && <Web3Button />}
       </View>
     </View>
   )

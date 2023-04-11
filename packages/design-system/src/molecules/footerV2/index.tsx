@@ -1,12 +1,12 @@
-import { StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { useBreakpointValue } from 'native-base'
 import { useCallback } from 'react'
 import LogoIso from '../../assets/svg/logo-iso.svg'
-import { Caption } from '../../atoms'
 import { discordInviteUrl, instaUrl, twitterUrl } from '../../constants'
 import { openLink } from '../../utils'
 import { container, margin, padding } from '../../styles'
 import { useThemeV2 } from '../../hooks'
+import { TypographyV2 } from '../../atoms/typographyV2'
 
 interface FooterOptionProps {
   title: string
@@ -14,6 +14,7 @@ interface FooterOptionProps {
   link: string
 }
 const FooterOption = ({ title, link, isLast = false }: FooterOptionProps) => {
+  const theme = useThemeV2()
   const handlePress = useCallback(() => {
     openLink(link, true)
   }, [link])
@@ -23,9 +24,11 @@ const FooterOption = ({ title, link, isLast = false }: FooterOptionProps) => {
   })
   return (
     <View style={containerStlyes}>
-      <Caption weight="bold" color="rgba(0, 0, 0, 0.3)" onPress={handlePress}>
-        {title}
-      </Caption>
+      <Pressable onPress={handlePress}>
+        <TypographyV2 variant="caption2" color={theme.text.black[30]}>
+          {title}
+        </TypographyV2>
+      </Pressable>
     </View>
   )
 }
@@ -129,9 +132,9 @@ export const FooterV2 = ({
           </View>
         </View>
         <View style={[tradeMarkResponsiveStyles]}>
-          <Caption weight="regular" color={theme.text.black[30]}>
+          <TypographyV2 variant="text4" color={theme.text.black[30]}>
             ©{new Date().getFullYear()} Roll
-          </Caption>
+          </TypographyV2>
         </View>
       </View>
     </View>

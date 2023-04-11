@@ -23,6 +23,7 @@ const watchFolders = [
   path.resolve(__dirname, '../../packages/api'),
   path.resolve(__dirname, '../../packages/api-client'),
   path.resolve(__dirname, '../../packages/design-system'),
+  path.resolve(__dirname, '../../packages/session-manager'),
   path.resolve(__dirname, '../../packages/sdk'),
 ]
 

@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/design-system",
   "description": "Shared components for Roll applications",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "main": "dist/web/cjs/index.js",
   "module": "dist/web/esm/index.js",
   "files": [
@@ -17,7 +17,7 @@
     "@web3-react/walletconnect-connector": "^6.2.10",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.6",
+    "react-native": "0.71.5",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-svg": "^12.1.1",
@@ -28,13 +28,15 @@
     "@floating-ui/react-dom-interactions": "^0.9.3",
     "@floating-ui/react-native": "^0.8.0",
     "@uniswap/widgets": "^2.24.0",
+    "@web3modal/ethereum": "^2.2.2",
+    "@web3modal/react": "^2.2.2",
     "boring-avatars": "^1.6.3",
     "color": "^4.2.3",
     "ethers": "^5.5.4",
     "native-base": "^3.4.25",
     "react-native-web-linear-gradient": "^1.1.2",
     "type-fest": "^3.1.0",
-    "wagmi": "^0.10.6"
+    "wagmi": "0.12.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -94,7 +96,7 @@
     "metro-react-native-babel-preset": "0.72.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.6",
+    "react-native": "0.71.5",
     "react-native-crypto": "^2.2.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-randombytes": "^3.6.1",

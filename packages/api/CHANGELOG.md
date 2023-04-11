@@ -1,5 +1,18 @@
 # @tryrolljs/api
 
+## 0.2.4
+
+### Patch Changes
+
+- [#205](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/205) [`52fae30`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/52fae308af977783f50c9d59c048748d296b1820) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add token, user and transaction endpoints
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`0085b88`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0085b88bbbe7e36f018db79712920f6ef7f5f68f)]:
+  - @tryrolljs/api-client@0.0.5
+
 ## 0.2.2
 
 ### Patch Changes

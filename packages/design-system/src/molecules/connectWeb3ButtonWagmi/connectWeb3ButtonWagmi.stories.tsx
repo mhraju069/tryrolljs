@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { titleBuilder } from '../../../.storybook/utils'
 import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
 import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
@@ -10,12 +10,13 @@ const storyConfig = {
   component: ConnectWeb3ButtonWagmi,
 }
 
-const Template = (props: ConnectWeb3ButtonWagmiProps) => {
+export const Default = (props: ConnectWeb3ButtonWagmiProps) => {
   const [showOptions, setShowOptions] = useState(false)
   return (
     <Web3ProviderWagmi
+      variant="walletConnect"
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <ConnectWeb3ButtonWagmi
         {...props}
@@ -30,8 +31,5 @@ const Template = (props: ConnectWeb3ButtonWagmiProps) => {
     </Web3ProviderWagmi>
   )
 }
-
-export const Default = fromTemplate(Template, {})
-export const Loading = fromTemplate(Template, { activity: true })
 
 export default storyConfig

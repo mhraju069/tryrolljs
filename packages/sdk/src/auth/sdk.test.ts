@@ -1,8 +1,7 @@
 import type { PartialDeep } from 'type-fest'
-import { NoCacheError, NotAuthorizedCacheError } from './errors'
 import { requestToken } from './api'
 import type { Cache, RequestTokenResponseData } from './types'
-import AuthSDK, {
+import SDK, {
   CODE_STORAGE_KEY,
   CODE_VERIFIER_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
@@ -79,7 +78,7 @@ const mockCache = (cache: PartialDeep<Cache> = {}) => {
   })
 }
 
-describe('AuthSDK', () => {
+describe('SDK', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -88,9 +87,9 @@ describe('AuthSDK', () => {
     mockTokenResponse()
     const realStorage = getRealStorage()
     realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new AuthSDK(config, realStorage)
+    const sdk = new SDK(config, realStorage)
 
-    await sdk.makeSession('code')
+    await sdk.exchangeCodeForToken('code')
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({
@@ -106,11 +105,11 @@ describe('AuthSDK', () => {
   it('refreshes and updates token', async () => {
     const realStorage = getRealStorage()
     realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new AuthSDK(config, realStorage)
+    const sdk = new SDK(config, realStorage)
 
     mockTokenResponse({ expires_in: 0 })
 
-    await sdk.makeSession('code')
+    await sdk.exchangeCodeForToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
@@ -128,21 +127,6 @@ describe('AuthSDK', () => {
     })
   })
 
-  it('does not restore from cache when there is no cache', async () => {
-    const sdk = new AuthSDK(config, storage)
-
-    await expect(sdk.restoreFromCache()).rejects.toThrowError(NoCacheError)
-  })
-
-  it('does not restore from cache when there is no authorized cache', async () => {
-    mockCache({ token: { access_token: '' } })
-    const sdk = new AuthSDK(config, storage)
-
-    await expect(sdk.restoreFromCache()).rejects.toThrow(
-      NotAuthorizedCacheError,
-    )
-  })
-
   it('refreshes from cache', async () => {
     mockCache()
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
@@ -153,8 +137,8 @@ describe('AuthSDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new AuthSDK(config, storage)
-    await sdk.restoreFromCache()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreTokenFromCache()
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('new_access_token')
@@ -173,9 +157,9 @@ describe('AuthSDK', () => {
   })
 
   it('refreshes when force', async () => {
-    const sdk = new AuthSDK(config, storage)
+    const sdk = new SDK(config, storage)
     mockTokenResponse()
-    await sdk.makeSession('code')
+    await sdk.exchangeCodeForToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token' })
     await sdk.refreshTokens(true)
@@ -195,12 +179,12 @@ describe('AuthSDK', () => {
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new AuthSDK(config, storage)
-    await sdk.restoreFromCache()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreTokenFromCache()
     await sdk.refreshTokens()
 
     expect(sdk.getAccessToken()).toBe('access_token')
-    expect(storage.setItem).toHaveBeenCalledTimes(2)
+    expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
       TOKEN_STORAGE_KEY,
       JSON.stringify({
@@ -212,6 +196,10 @@ describe('AuthSDK', () => {
       }),
     )
     expect(storage.setItem).toHaveBeenCalledWith(CODE_STORAGE_KEY, 'code')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      CODE_VERIFIER_STORAGE_KEY,
+      'code_verifier',
+    )
 
     mockDateConstructor.mockRestore()
   })
@@ -225,8 +213,8 @@ describe('AuthSDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new AuthSDK(config, storage)
-    await sdk.restoreFromCache()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreTokenFromCache()
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(

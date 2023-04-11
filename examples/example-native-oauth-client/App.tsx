@@ -1,25 +1,26 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { TryrollProvider } from '@tryrolljs/design-system'
+import { NativeSessionManager, useSession } from '@tryrolljs/session-manager'
 import TopNavigation from './src/components/topNavigation'
 import HasBalance from './src/features/hasBalance'
 import UserInfo from './src/components/userInfo'
 import Transfer from './src/features/transfer'
 import LoggedOut from './src/components/loggedOut'
-import { UserContextProvider, useUserContext } from './src/contexts/user'
+import { apiClient, authSdk } from './src/api'
 
 function App() {
   return (
     <TryrollProvider>
-      <UserContextProvider>
+      <NativeSessionManager authSdk={authSdk} apiClient={apiClient}>
         <Entrypoint />
-      </UserContextProvider>
+      </NativeSessionManager>
     </TryrollProvider>
   )
 }
 
 const Entrypoint = () => {
-  const { user } = useUserContext()
+  const { user } = useSession()
 
   return (
     <>

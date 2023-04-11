@@ -1,12 +1,33 @@
 import { useBreakpointValue } from 'native-base'
+import { PropsWithChildren } from 'react'
+import { Platform, ScrollView, View } from 'react-native'
+import { MobileSidebar } from '../sidebar/mobile'
 import { DesktopHeader } from './desktop'
-import { MobileHeader } from './mobile'
 import { HeaderProps } from './types'
 
-export const HeaderV2 = (props: HeaderProps) => {
+export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
+  children,
+  ...props
+}) => {
   const isMobile = useBreakpointValue({ base: true, md: false })
   if (isMobile) {
-    return <MobileHeader {...props} />
+    return (
+      <View>
+        <MobileSidebar
+          {...props}
+          sections={[{ id: 'main', options: props.options }]}
+        />
+        {Platform.select({
+          native: <ScrollView>{children}</ScrollView>,
+          web: children,
+        })}
+      </View>
+    )
   }
-  return <DesktopHeader {...props} />
+  return (
+    <>
+      <DesktopHeader {...props} />
+      {children}
+    </>
+  )
 }

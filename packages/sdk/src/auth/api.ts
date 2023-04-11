@@ -4,9 +4,38 @@ import { getRandomString } from './utils'
 import {
   RequestTokenArgs,
   RequestTokenResponseData,
+  RequestClientTokenArgs,
+  RequestClientTokenResponseData,
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
+  GrantType,
 } from './types'
+
+export const requestClientToken = async ({
+  clientId,
+  clientSecret,
+  issuerUrl,
+}: RequestClientTokenArgs) => {
+  try {
+    const body = {
+      grant_type: GrantType.ClientCredentials,
+    }
+    const options = {
+      method: 'POST',
+      auth: {
+        username: clientId,
+        password: clientSecret,
+      },
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      data: qs.stringify(body),
+      url: `${issuerUrl}/token`,
+    }
+
+    return await axios<RequestClientTokenResponseData>(options)
+  } catch (e) {
+    throw e
+  }
+}
 
 export const requestToken = async ({
   issuerUrl,

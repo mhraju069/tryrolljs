@@ -1,5 +1,40 @@
 # @tryrolljs/session-manager
 
+## 5.0.0
+
+### Minor Changes
+
+- [#215](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/215) [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5) Thanks [@teimurjan](https://github.com/teimurjan)! - - Added native session manager
+  - Upgraded to react-native 0.71.5
+
+### Patch Changes
+
+- Updated dependencies [[`b9853b6`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/b9853b6145b6b8eee2c4936629e2490c45954778), [`8382ee9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8382ee9229bffddef3c16e13289ed6fcdd11b8c5)]:
+  - @tryrolljs/sdk@1.2.0
+
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`a754219`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/a7542197dc0fc3574d22411091ca5f4ebc32fd5a)]:
+  - @tryrolljs/sdk@1.1.0
+
+## 3.0.0
+
+### Patch Changes
+
+- [#196](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/196) [`0085b88`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0085b88bbbe7e36f018db79712920f6ef7f5f68f) Thanks [@teimurjan](https://github.com/teimurjan)! - Added support for client credentials authorization via SDK package
+
+  - Renamed AuthSDK to SDK
+  - Introduced ClientSDK
+  - Allowed API client to accept both SDK
+  - Added an example of usage in Node
+
+- Updated dependencies [[`0085b88`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0085b88bbbe7e36f018db79712920f6ef7f5f68f)]:
+  - @tryrolljs/sdk@1.0.0
+  - @tryrolljs/api-client@0.0.5
+  - @tryrolljs/api@0.2.3
+
 ## 2.0.0
 
 ### Minor Changes

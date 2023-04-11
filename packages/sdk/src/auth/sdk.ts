@@ -2,8 +2,6 @@ import { requestToken, getLogInUrl, getLogOutUrl } from './api'
 import {
   CodeVerifierMissingError,
   IdTokenMissingError,
-  NoCacheError,
-  NotAuthorizedCacheError,
   NotEnoughDataToRefreshError,
 } from './errors'
 import {
@@ -17,13 +15,14 @@ import {
   getRandomString,
   isLastUpdateTimestampExpired,
   pkceChallengeFromVerifier,
+  safeJsonParse,
 } from './utils'
 
 export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_TOKEN'
 export const CODE_STORAGE_KEY = 'ROLL_AUTHSDK_CODE'
 export const CODE_VERIFIER_STORAGE_KEY = 'ROLL_AUTHSDK_CODE_VERIFIER'
 
-class AuthSDK {
+class SDK {
   private readonly config: OauthConfig
   private readonly storage: Storage
   private token?: Token
@@ -45,17 +44,17 @@ class AuthSDK {
       const response = await requestToken({
         issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
-        clientId: this.config?.clientId,
         redirectUri: this.config?.redirectUrl,
+        clientId: this.config?.clientId,
         refreshToken: this.token!.refresh_token!,
         code,
       })
 
-      await this.handleTokenResponse(response.data)
+      await this.saveTokenFromResponse(response.data)
     }
   }
 
-  public makeSession = async (code: string) => {
+  public exchangeCodeForToken = async (code: string) => {
     if (this.getAccessToken()) {
       return
     }
@@ -69,18 +68,18 @@ class AuthSDK {
 
     const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
-      code: code,
       grantType: GrantType.AuthorizationCode,
       redirectUri: this.config?.redirectUrl,
       clientId: this.config?.clientId,
       codeVerifier: cachedCodeVerifier,
+      code,
     })
 
     await this.setCode(code)
-    await this.handleTokenResponse(response.data)
+    await this.saveTokenFromResponse(response.data)
   }
 
-  private handleTokenResponse = async (data: RequestTokenResponseData) => {
+  private saveTokenFromResponse = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.clear()
       throw new Error(data.error)
@@ -92,32 +91,25 @@ class AuthSDK {
     }
   }
 
-  public restoreFromCache = async () => {
+  public restoreTokenFromCache = async () => {
     const cache = await this.getCache()
 
-    const isAuthorized = !!cache?.token?.access_token
-    if (!isAuthorized) {
-      throw new NotAuthorizedCacheError()
-    }
-
-    await Promise.all([this.setCode(cache.code), this.setToken(cache.token)])
+    await Promise.all([
+      cache.code && this.setCode(cache.code),
+      cache.codeVerifier && this.setCodeVerifier(cache.codeVerifier),
+      cache.token && this.setToken(cache.token),
+    ])
   }
 
   private getCache = async () => {
-    try {
-      const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
-      const code = await this.storage.getItem(CODE_STORAGE_KEY)
-      const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
+    const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+    const code = await this.storage.getItem(CODE_STORAGE_KEY)
+    const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
 
-      if (!token || !code || !codeVerifier) {
-        throw new NoCacheError()
-      }
-
-      const cache = { token: JSON.parse(token) as Token, code, codeVerifier }
-      return cache
-    } catch (e) {
-      throw new NoCacheError()
-    }
+    const parsedToken =
+      typeof token === 'string' ? (safeJsonParse(token) as Token) : token
+    const cache = { token: parsedToken, code, codeVerifier }
+    return cache
   }
 
   public clear = async () => {
@@ -153,6 +145,10 @@ class AuthSDK {
 
   public getError = () => {
     return this.token?.error
+  }
+
+  public getConfig = () => {
+    return this.config
   }
 
   public getLogInUrl = async () => {
@@ -208,4 +204,4 @@ class AuthSDK {
   }
 }
 
-export default AuthSDK
+export default SDK
