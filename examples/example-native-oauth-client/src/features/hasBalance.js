@@ -8,11 +8,11 @@ import {
   Caption,
   padding,
 } from '@tryrolljs/design-system'
+import { useSession } from '@tryrolljs/session-manager'
 import { apiClient } from '../api'
-import { useUserContext } from '../contexts/user'
 
 export default function HasBalance() {
-  const { user } = useUserContext()
+  const { user } = useSession()
 
   const [inputState, setInputState] = React.useState({
     amount: '',

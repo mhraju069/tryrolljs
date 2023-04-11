@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.2.4
+
+### Patch Changes
+
+- [#205](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/205) [`52fae30`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/52fae308af977783f50c9d59c048748d296b1820) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add token, user and transaction endpoints
+
 ## 0.2.3
 
 ### Patch Changes
