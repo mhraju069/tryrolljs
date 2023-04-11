@@ -58,6 +58,10 @@
       "sha1": "32ba163e576bc49ecc7f712f0ac2dac3b31001e5"
     },
     {
+      "path": "src/assets/fonts/RobotoMono-Medium.ttf",
+      "sha1": "ba4ac211bbcd66da7712aa059b214155f4f7a93a"
+    },
+    {
       "path": "src/assets/fonts/SourceCodePro-Black.ttf",
       "sha1": "b9be51f46a4dbd71db20dea5f61939944f5f41a4"
     },

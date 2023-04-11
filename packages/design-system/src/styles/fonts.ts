@@ -15,6 +15,7 @@ import manropeBold from '../assets/fonts/Manrope-Bold.ttf'
 import manropeMedium from '../assets/fonts/Manrope-Medium.ttf'
 import manropeRegular from '../assets/fonts/Manrope-Regular.ttf'
 import manropeSemiBold from '../assets/fonts/Manrope-SemiBold.ttf'
+import robotoMonoMedium from '../assets/fonts/RobotoMono-Medium.ttf'
 
 const fontStylesStringV2 = `
   input:focus,
@@ -40,6 +41,10 @@ const fontStylesStringV2 = `
   @font-face {
     src: url(${manropeBold});
     font-family: Manrope-Bold;
+  }
+  @font-face {
+    src: url(${robotoMonoMedium});
+    font-family: RobotoMono-Medium;
   }
 `
 
