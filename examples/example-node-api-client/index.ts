@@ -9,7 +9,6 @@ import {
 } from './users.js'
 
 async function main() {
-  // Show options using inquirer
   inquirer
     .prompt([
       {
@@ -47,11 +46,11 @@ async function main() {
           await hasBalance()
           break
       }
-      showOptionsAgain()
+      promptOptionsAgain()
     })
 }
 
-function showOptionsAgain() {
+function promptOptionsAgain() {
   inquirer
     .prompt([
       {

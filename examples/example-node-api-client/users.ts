@@ -93,10 +93,10 @@ export const hasBalance = async () => {
       clientAuth,
     )) as unknown as {
       data: {
-        hasBalance: boolean
+        hasbalance: boolean
       }
     }
-    if (response.data.hasBalance) {
+    if (response.data.hasbalance) {
       console.log('User has balance')
     } else {
       console.log('User does not have balance')
