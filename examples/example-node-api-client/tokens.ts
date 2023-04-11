@@ -1,8 +1,4 @@
 import { token } from '@tryrolljs/api'
-import {
-  GetTokenCreatorResponseData,
-  GetTokensResponseData,
-} from '@tryrolljs/api/dist/cjs/token/types.js'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { generateApiClient } from './generate-api-client.js'
@@ -36,14 +32,9 @@ export const getTokenList = async () => {
         default: '',
       },
     ])
-    const response = (await token.getTokens(
-      answers,
-      clientAuth,
-    )) as unknown as {
-      data: GetTokensResponseData
-    }
+    const response = await token.getTokens(answers, clientAuth)
     printTable(
-      response.data.rows.map((row) => ({
+      response.rows.map((row) => ({
         id: row.uuid,
         symbol: row.symbol,
         contractAddress: row.contractAddress,
@@ -64,18 +55,13 @@ export const getTokenCreator = async () => {
         message: 'Token ID',
       },
     ])
-    const response = (await token.getTokenCreator(
-      answers,
-      clientAuth,
-    )) as unknown as {
-      data: GetTokenCreatorResponseData
-    }
+    const creator = await token.getTokenCreator(answers, clientAuth)
     printTable([
       {
-        id: response.data.userID,
-        name: response.data.name,
-        username: response.data.username,
-        profilePic: response.data.profilePic,
+        id: creator.userID,
+        name: creator.name,
+        username: creator.username,
+        profilePic: creator.profilePic,
       },
     ])
   } catch (error) {

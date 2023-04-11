@@ -4,9 +4,10 @@ import {
   GetTokenCreatorResponseData,
   GetTokensArgs,
   GetTokensResponseData,
+  Response,
 } from './types'
 
-export const getTokens = (
+export const getTokens = async (
   { symbol = '', contractAddress = '', limit = 10, offset = 0 }: GetTokensArgs,
   client: Client,
 ) => {
@@ -17,20 +18,22 @@ export const getTokens = (
     offset: offset.toString(),
   }
   const params = new URLSearchParams(query).toString()
-  return client.call<GetTokensResponseData>({
+  const response = await client.call<Response<GetTokensResponseData>>({
     url: `/v3/tokens?${params}`,
     method: 'GET',
     authorization: false,
   })
+  return response.data
 }
 
-export const getTokenCreator = (
+export const getTokenCreator = async (
   { tokenId }: GetTokenCreatorArgs,
   client: Client,
 ) => {
-  return client.call<GetTokenCreatorResponseData>({
+  const response = await client.call<Response<GetTokenCreatorResponseData>>({
     url: `/v1/tokens/${tokenId}/creator`,
     method: 'GET',
     authorization: false,
   })
+  return response.data
 }

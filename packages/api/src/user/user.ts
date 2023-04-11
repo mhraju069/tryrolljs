@@ -8,6 +8,7 @@ import {
   GetUserArgs,
   GetUserResponseData,
   GetUserTokenBalanceArgs,
+  Response,
 } from './types'
 
 export const getMe = (client: Client) => {
@@ -18,43 +19,48 @@ export const getMe = (client: Client) => {
   })
 }
 
-export const hasBalance = (
-  { userId, symbol, amount }: HasBalanceArgs,
+export const hasBalance = async (
+  { userId, tokenId, amount }: HasBalanceArgs,
   client: Client,
 ) => {
-  return client.call<HasBalanceResponseData>({
-    url: `/v2/users/${userId}/hasbalance/${symbol}/${amount}`,
+  const response = await client.call<Response<HasBalanceResponseData>>({
+    url: `/v2/users/${userId}/hasbalance/${tokenId}/${amount}`,
     method: 'GET',
     authorization: true,
   })
+  return response.data
 }
 
-export const getUserBalances = (
+export const getUserBalances = async (
   { userId }: GetUserBalancesArgs,
   client: Client,
 ) => {
-  return client.call<GetUserBalancesResponseData[]>({
+  const response = await client.call<Response<GetUserBalancesResponseData[]>>({
     url: `/v2/users/${userId}/balances`,
     method: 'GET',
     authorization: true,
   })
+
+  return response.data
 }
 
-export const getUserTokenBalance = (
+export const getUserTokenBalance = async (
   { userId, tokenId }: GetUserTokenBalanceArgs,
   client: Client,
 ) => {
-  return client.call<GetUserBalancesResponseData>({
+  const response = await client.call<Response<GetUserBalancesResponseData>>({
     url: `/v2/users/${userId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
   })
+  return response.data
 }
 
-export const getUser = ({ userId }: GetUserArgs, client: Client) => {
-  return client.call<GetUserResponseData>({
+export const getUser = async ({ userId }: GetUserArgs, client: Client) => {
+  const response = await client.call<Response<GetUserResponseData>>({
     url: `/v2/users/${userId}`,
     method: 'GET',
     authorization: true,
   })
+  return response.data
 }

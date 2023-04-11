@@ -1,6 +1,9 @@
+export interface Response<T> {
+  data: T
+}
 export interface HasBalanceArgs {
   userId: string
-  symbol: string
+  tokenId: string
   amount: string
 }
 

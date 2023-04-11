@@ -99,11 +99,15 @@ export default class Client extends EventEmitter {
   }
 
   private parseResponseError = (response: AxiosResponse) => {
-    if (typeof response.data === 'object') {
+    if (
+      typeof response.data === 'object' &&
+      Array.isArray(response.data.errors)
+    ) {
+      const error = response.data.errors[0]
       return {
-        message: response.data.message ?? '',
-        details: response.data.details ?? '',
-        errorCode: response.data.errorCode ?? 0,
+        message: error.message ?? '',
+        details: error.details ?? '',
+        errorCode: error.errorCode ?? 0,
         status: response.status,
       }
     }

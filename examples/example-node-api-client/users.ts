@@ -1,8 +1,4 @@
 import { user } from '@tryrolljs/api'
-import {
-  GetUserBalancesResponseData,
-  GetUserResponseData,
-} from '@tryrolljs/api/dist/cjs/user/types.js'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { generateApiClient } from './generate-api-client.js'
@@ -17,17 +13,12 @@ export const getUserBalances = async () => {
         message: 'User ID',
       },
     ])
-    const response = (await user.getUserBalances(
-      answers,
-      clientAuth,
-    )) as unknown as {
-      data: GetUserBalancesResponseData[]
-    }
+    const balances = await user.getUserBalances(answers, clientAuth)
     printTable(
-      response.data.map((row) => ({
-        tokenId: row.token.uuid,
-        symbol: row.token.symbol,
-        balance: row.amount,
+      balances.map((balance) => ({
+        tokenId: balance.token.uuid,
+        symbol: balance.token.symbol,
+        balance: balance.amount,
       })),
     )
   } catch (error) {
@@ -50,17 +41,12 @@ export const getUserTokenBalance = async () => {
         message: 'Token ID',
       },
     ])
-    const response = (await user.getUserTokenBalance(
-      answers,
-      clientAuth,
-    )) as unknown as {
-      data: GetUserBalancesResponseData
-    }
+    const balance = await user.getUserTokenBalance(answers, clientAuth)
     printTable([
       {
-        tokenId: response.data.token.uuid,
-        symbol: response.data.token.symbol,
-        balance: response.data.amount,
+        tokenId: balance.token.uuid,
+        symbol: balance.token.symbol,
+        balance: balance.amount,
       },
     ])
   } catch (error) {
@@ -79,8 +65,8 @@ export const hasBalance = async () => {
       },
       {
         type: 'input',
-        name: 'symbol',
-        message: 'Token symbol',
+        name: 'tokenId',
+        message: 'Token ID',
       },
       {
         type: 'input',
@@ -88,15 +74,8 @@ export const hasBalance = async () => {
         message: 'Amount',
       },
     ])
-    const response = (await user.hasBalance(
-      answers,
-      clientAuth,
-    )) as unknown as {
-      data: {
-        hasbalance: boolean
-      }
-    }
-    if (response.data.hasbalance) {
+    const response = await user.hasBalance(answers, clientAuth)
+    if (response.hasbalance) {
       console.log('User has balance')
     } else {
       console.log('User does not have balance')
@@ -116,15 +95,13 @@ export const getUser = async () => {
         message: 'User ID',
       },
     ])
-    const response = (await user.getUser(answers, clientAuth)) as unknown as {
-      data: GetUserResponseData
-    }
+    const userResponse = await user.getUser(answers, clientAuth)
     printTable([
       {
-        id: response.data.userID,
-        name: response.data.name,
-        username: response.data.username,
-        profilePic: response.data.profilePic,
+        id: userResponse.userID,
+        name: userResponse.name,
+        username: userResponse.username,
+        profilePic: userResponse.profilePic,
       },
     ])
   } catch (error) {

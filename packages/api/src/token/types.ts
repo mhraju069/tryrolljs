@@ -1,3 +1,7 @@
+export interface Response<T> {
+  data: T
+}
+
 export interface GetTokensArgs {
   symbol?: string
   limit?: number
