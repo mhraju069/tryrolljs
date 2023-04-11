@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text, Pressable } from 'react-native'
+import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
 import { CircleImg, Icon } from '../../atoms'
 import { useClipboardWithToast, useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
-import BlurText from '../../assets/svg/blur-text.svg'
+// import BlurText from '../../assets/svg/blur-text.svg'
 import { container, margin, padding, roboto } from '../../styles'
 import { getEtherscanLink, shortenAddress, openLink } from '../../utils'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
@@ -152,7 +152,10 @@ export const TokenCard: React.FC<TokenCardProps> = ({
               </Pressable>
             </>
           ) : (
-            <BlurText width={BLUR_TEXT_WIDTH} height={BLUR_TEXT_HEIGHT} />
+            <Image
+              source={require('../../assets/images/card-blur-text.png')}
+              style={{ width: BLUR_TEXT_WIDTH, height: BLUR_TEXT_HEIGHT }}
+            />
           )}
         </View>
       </View>
