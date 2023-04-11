@@ -7,11 +7,11 @@ import {
   padding,
 } from '@tryrolljs/design-system'
 import { View } from 'react-native'
-import { useUserContext } from '../contexts/user'
+import { useSession } from '@tryrolljs/session-manager'
 import { authSdk } from '../api'
 
 export default function UserInfo() {
-  const { user } = useUserContext()
+  const { user } = useSession()
 
   const userImage = user.media && user.media[0] ? user.media[0].link : undefined
 

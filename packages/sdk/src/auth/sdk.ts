@@ -147,6 +147,10 @@ class SDK {
     return this.token?.error
   }
 
+  public getConfig = () => {
+    return this.config
+  }
+
   public getLogInUrl = async () => {
     const minVerifierLength = 43
     const codeVerifier = getRandomString(minVerifierLength)
