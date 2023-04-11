@@ -24,6 +24,11 @@ export enum GrantType {
   ClientCredentials = 'client_credentials',
 }
 
+export enum ScopeType {
+  Offline = 'offline',
+  ReadTx = 'read-tx',
+}
+
 export interface RequestClientTokenArgs {
   issuerUrl: string
   clientId: string

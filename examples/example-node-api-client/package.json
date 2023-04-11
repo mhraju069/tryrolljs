@@ -1,0 +1,48 @@
+{
+  "name": "@tryrolljs/example-node-api-client",
+  "description": "Example of using Client Auth SDK to connect to Roll API in Node",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tryrolljs/api": "workspace:*",
+    "@tryrolljs/api-client": "workspace:*",
+    "@tryrolljs/sdk": "workspace:*",
+    "axios": "^1.3.4",
+    "console-table-printer": "^2.11.1",
+    "dotenv": "^16.0.3",
+    "inquirer": "^9.1.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "start": "ts-node ./index.ts",
+    "get-token-list": "node get-token-list.js",
+    "test": "echo \"Tests are disabled for example repos\" && exit 0",
+    "build": "echo \"Build is disabled for example repos\" && exit 0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+  },
+  "engines": {
+    "npm": "~8.3.1",
+    "node": "^16"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3"
+  }
+}

@@ -10,7 +10,7 @@ export interface GetUserBalancesArgs {
 
 export interface GetUserTokenBalanceArgs {
   userId: string
-  symbol: string
+  tokenId: string
 }
 
 export interface GetUserArgs {
@@ -18,7 +18,8 @@ export interface GetUserArgs {
 }
 
 export interface GetUserResponseData {
-  uuid: string
+  userID: string
+  name: string
   username: string
   profilePic: string
 }
@@ -32,7 +33,7 @@ export interface GetUserBalancesResponseData {
     currentSupply: string
     creatorUserID: string
   }
-  value: string
+  amount: string
 }
 
 export interface GetUserTokenBalanceResponseData {
@@ -45,7 +46,7 @@ export interface GetUserTokenBalanceResponseData {
     currentSupply: string
     creatorUserID: string
   }
-  value: string
+  amount: string
 }
 
 export interface GetMeResponseData {

@@ -7,6 +7,7 @@ import {
   GetUserBalancesResponseData,
   GetUserArgs,
   GetUserResponseData,
+  GetUserTokenBalanceArgs,
 } from './types'
 
 export const getMe = (client: Client) => {
@@ -34,6 +35,17 @@ export const getUserBalances = (
 ) => {
   return client.call<GetUserBalancesResponseData[]>({
     url: `/v2/users/${userId}/balances`,
+    method: 'GET',
+    authorization: true,
+  })
+}
+
+export const getUserTokenBalance = (
+  { userId, tokenId }: GetUserTokenBalanceArgs,
+  client: Client,
+) => {
+  return client.call<GetUserBalancesResponseData>({
+    url: `/v2/users/${userId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
   })
