@@ -9,11 +9,11 @@ import {
   Result,
 } from '@tryrolljs/design-system'
 import { transaction } from '@tryrolljs/api'
+import { useSession } from '@tryrolljs/session-manager'
 import { apiClient } from '../api'
-import { useUserContext } from '../contexts/user'
 
 export default function Transfer() {
-  const { user } = useUserContext()
+  const { user } = useSession()
 
   const [inputState, setInputState] = React.useState({
     symbol: '',

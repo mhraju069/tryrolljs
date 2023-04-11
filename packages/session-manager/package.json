@@ -14,7 +14,8 @@
     "@tryrolljs/api": "^0.2.3",
     "@tryrolljs/api-client": "^0.0.5",
     "@tryrolljs/sdk": "^1.1.0",
-    "react": "18.1.0"
+    "react": "18.1.0",
+    "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",
@@ -31,6 +32,7 @@
     "jest-environment-jsdom": "^29.0.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-native-inappbrowser-reborn": "^3.7.0",
     "rollup": "^2.78.1",
     "rollup-plugin-delete": "^2.0.0"
   },
