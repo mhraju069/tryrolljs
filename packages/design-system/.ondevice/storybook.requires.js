@@ -41,6 +41,7 @@ const getStories = () => {
     require('../src/molecules/banner/banner.stories.tsx'),
     require('../src/organisms/modal/modal.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
+    require('../src/molecules/walletInfo/walletInfo.stories.tsx'),
     require('../src/molecules/inputLayout/inputLayout.stories.tsx'),
     require('../src/molecules/tokenCard/tokenCard.stories.tsx'),
   ]

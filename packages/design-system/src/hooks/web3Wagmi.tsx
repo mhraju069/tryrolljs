@@ -38,3 +38,8 @@ export const useWeb3Conntectors = () => {
     isActivating: isConnecting,
   }
 }
+
+export const useActiveConnector = () => {
+  const { connector } = useAccount()
+  return connector
+}

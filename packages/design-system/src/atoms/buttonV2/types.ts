@@ -19,6 +19,7 @@ export const iconBasedOnSize: Record<Size, number> = {
   large: 24,
 } as const
 export interface ButtonV2Props {
+  testID?: string
   variant: Variant
   size: Size
   title: string
