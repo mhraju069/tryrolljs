@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.1.0
+
+### Minor Changes
+
+- [#219](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/219) [`f0ea5a9`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f0ea5a9172b439e8c5bee8d93caaf8a1e8b9a2e4) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix image processing & move wagmi to peer
+
 ## 1.0.1
 
 ### Patch Changes
