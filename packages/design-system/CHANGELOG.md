@@ -1,5 +1,16 @@
 # @tryrolljs/design-system
 
+## 1.0.1
+
+### Patch Changes
+
+- [#218](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/218) [`4f3b914`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4f3b9148abb756469a4b1678cdbf23b3a1c68389) Thanks [@teimurjan](https://github.com/teimurjan)! - Add missing wagmi core lib
+
+- [#209](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/209) [`403d715`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/403d7155082f0a43e81e3235cf6af9d85a508112) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - feat: Add card components:
+
+  - Add TokenCard component
+  - Add FeatureCard component
+
 ## 1.0.0
 
 ### Major Changes
