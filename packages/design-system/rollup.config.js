@@ -4,6 +4,7 @@ import { babel } from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import url from '@rollup/plugin-url'
+import image from '@rollup/plugin-image'
 import svgr from '@svgr/rollup'
 import copy from 'rollup-plugin-copy'
 import del from 'rollup-plugin-delete'
@@ -96,6 +97,7 @@ const getConfig = (format, target = 'web', visualize = false) => {
         include: ['**/*.ttf'],
         limit: Infinity,
       }),
+      image(),
       svgr({
         native: true,
         icon: true,

@@ -5868,15 +5868,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-image@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@rollup/plugin-image@npm:2.1.1"
+"@rollup/plugin-image@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@rollup/plugin-image@npm:3.0.2"
   dependencies:
-    "@rollup/pluginutils": ^3.1.0
-    mini-svg-data-uri: ^1.2.3
+    "@rollup/pluginutils": ^5.0.1
+    mini-svg-data-uri: ^1.4.4
   peerDependencies:
-    rollup: ^1.20.0 || ^2.0.0
-  checksum: a629c8f22233ca159c23655fdbc3449dab3c939372178ed4462fc9c525cc4ecd8b11fae359eb94be4f769d26f48b85fb18eb16ce1fbc33ed16b6a7c1f84391f6
+    rollup: ^1.20.0||^2.0.0||^3.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: f9d8f587f10c51398fa8c23f1543e3073f969cf7e4acd7f401e02a3e3752702a9eb289ddb14009733ce37d04474c549aba9e7d13ebf50e26226266ba51546b69
   languageName: node
   linkType: hard
 
@@ -8864,7 +8867,7 @@ __metadata:
     "@rollup/plugin-alias": ^3.1.9
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-image": ^2.1.1
+    "@rollup/plugin-image": ^3.0.2
     "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^14.0.1
     "@rollup/plugin-typescript": ^11.0.0
@@ -8944,12 +8947,16 @@ __metadata:
     wagmi: 0.12.6
   peerDependencies:
     "@ethersproject/providers": ^5.4.5
+    "@wagmi/core": ^0.10.9
     "@web3-react/core": ^6.0.9
     "@web3-react/fortmatic-connector": ^6.1.6
     "@web3-react/injected-connector": ^6.0.7
     "@web3-react/network-connector": ^6.2.9
     "@web3-react/portis-connector": ^6.2.11
     "@web3-react/walletconnect-connector": ^6.2.10
+    "@web3modal/ethereum": ^2.2.2
+    "@web3modal/react": ^2.2.2
+    ethers: ^5.5.4
     react: 18.1.0
     react-dom: 18.1.0
     react-native: 0.71.5
@@ -8957,6 +8964,7 @@ __metadata:
     react-native-safe-area-context: ^3.3.2
     react-native-svg: ^12.1.1
     react-native-web: ^0.17.7
+    wagmi: 0.12.6
   languageName: unknown
   linkType: soft
 
@@ -25852,7 +25860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-svg-data-uri@npm:^1.2.3":
+"mini-svg-data-uri@npm:^1.4.4":
   version: 1.4.4
   resolution: "mini-svg-data-uri@npm:1.4.4"
   bin:
