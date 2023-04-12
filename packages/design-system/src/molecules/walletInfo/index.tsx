@@ -1,8 +1,7 @@
-import { useClipboard } from 'native-base'
-import { useCallback } from 'react'
 import { View } from 'react-native'
-import { ButtonV2, CircleImg, Toast } from '../../atoms'
+import { ButtonV2, CircleImg } from '../../atoms'
 import { TypographyV2 } from '../../atoms/typographyV2'
+import { useClipboardWithToast } from '../../hooks'
 import {
   useActiveConnector,
   useChainID,
@@ -17,26 +16,25 @@ export const WalletInfo: React.FC = () => {
   const activeConnector = useActiveConnector()
   const userAddress = useEthAddress()
   const chainId = useChainID()
-  const shortAddress = shortenAddress(userAddress || '')
-  const { onCopy } = useClipboard()
+  const shortAddress = userAddress ? shortenAddress(userAddress) : ''
+  const clipboardWithToast = useClipboardWithToast()
 
-  const handleCopy = useCallback(async () => {
-    await onCopy(userAddress || '')
-    Toast.show({
-      title: 'Copied to clipboard',
-      variant: 'success',
-    })
-  }, [userAddress, onCopy])
+  const onPressCopyAddress = () => {
+    if (!userAddress) return
+    clipboardWithToast(userAddress)
+  }
 
-  const handleRedirect = useCallback(() => {
-    if (!chainId || !userAddress) return
-    const link = getEtherscanLink({
-      chainId,
+  const onPressEtherscanLink = () => {
+    if (!userAddress || !chainId) return
+    const etherscanLink = getEtherscanLink({
       address: userAddress,
       type: 'address',
+      chainId,
     })
-    openLink(link, true)
-  }, [chainId, userAddress])
+    openLink(etherscanLink, true)
+  }
+
+  if (!shortAddress) return null
 
   return (
     <View style={[container.row, container.alignCenter]}>
@@ -49,19 +47,21 @@ export const WalletInfo: React.FC = () => {
       </View>
       <View style={[margin.mr8]}>
         <ButtonV2
-          namedIcon="copy"
+          testID="copyIcon"
+          iconVariant="copy"
           size="small"
           variant="icon"
           title=""
-          onPress={handleCopy}
+          onPress={onPressCopyAddress}
         />
       </View>
       <ButtonV2
-        namedIcon="external"
+        testID="etherscanIcon"
+        iconVariant="external"
         size="small"
         variant="icon"
         title=""
-        onPress={handleRedirect}
+        onPress={onPressEtherscanLink}
       />
     </View>
   )

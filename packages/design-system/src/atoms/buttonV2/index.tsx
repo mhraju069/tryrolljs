@@ -24,6 +24,7 @@ import {
 } from './types'
 
 const BaseButton = ({
+  testID,
   variant,
   title,
   rest,
@@ -107,6 +108,7 @@ const BaseButton = ({
   return (
     <View style={[container.alignCenter]}>
       <Pressable
+        testID={testID}
         isDisabled={isLoading || isDisabled}
         onHoverIn={() => setIsHover(true)}
         onHoverOut={() => setIsHover(false)}

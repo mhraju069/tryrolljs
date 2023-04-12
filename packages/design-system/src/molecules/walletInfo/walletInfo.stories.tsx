@@ -3,8 +3,7 @@ import { View } from 'react-native'
 import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
 import { Web3ProviderWagmi } from '../../providers'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { ConnectWeb3ButtonWagmi } from '../connectWeb3ButtonWagmi'
+import { Web3Button } from '../web3Button'
 import { WalletInfo } from '.'
 
 const storyConfig = {
@@ -16,14 +15,10 @@ const Template = () => {
   const [showOptions, setShowOptions] = useState(false)
   return (
     <Web3ProviderWagmi
-      supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID}
+      variant="web3Modal"
+      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
-      <ConnectWeb3ButtonWagmi
-        onPress={() => {
-          setShowOptions(true)
-        }}
-      />
+      <Web3Button connectedVariant="button" />
       <View style={{ maxWidth: 300 }}>
         <WalletInfo />
       </View>
