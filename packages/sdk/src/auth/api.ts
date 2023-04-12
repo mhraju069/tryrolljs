@@ -9,6 +9,7 @@ import {
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
   GrantType,
+  ScopeType,
 } from './types'
 
 export const requestClientToken = async ({
@@ -19,6 +20,7 @@ export const requestClientToken = async ({
   try {
     const body = {
       grant_type: GrantType.ClientCredentials,
+      scope: ScopeType.ReadTx,
     }
     const options = {
       method: 'POST',
