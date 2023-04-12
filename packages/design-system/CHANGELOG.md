@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.1.1
+
+### Patch Changes
+
+- [#186](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/186) [`73527dc`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/73527dc48dc4ec4d82bdef7fa8ddf7229cca8330) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add WalletInfo component
+
 ## 1.1.0
 
 ### Minor Changes
