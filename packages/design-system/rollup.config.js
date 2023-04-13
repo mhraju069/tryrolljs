@@ -97,7 +97,7 @@ const getConfig = (format, target = 'web', visualize = false) => {
         include: ['**/*.ttf'],
         limit: Infinity,
       }),
-      image(),
+      image({ exclude: ['**/*.svg'] }),
       svgr({
         native: true,
         icon: true,
