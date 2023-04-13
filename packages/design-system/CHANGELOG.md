@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.1.2
+
+### Patch Changes
+
+- [#223](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/223) [`4ffabbe`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4ffabbe40942cf810f71a91cf646f9e616aafa2d) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix SVG rendering
+
 ## 1.1.1
 
 ### Patch Changes

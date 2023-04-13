@@ -1,5 +1,15 @@
 # @tryrolljs/sdk
 
+## 1.2.1
+
+### Patch Changes
+
+- [#216](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/216) [`e5de661`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e5de661c5ddcc3f657eb72446cc3af2ba5e755ad) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added get user token balance endpoint on api package
+  - Created an enum for scope property on sdk packge
+  - Included the scope propery when requesting a client token.
+  - Unwrap response un api call
+  - Get correct error information from the response on the api-client
+
 ## 1.2.0
 
 ### Minor Changes
