@@ -6,14 +6,18 @@ import {
   useCallback,
   createContext,
   useContext,
-  useRef,
 } from 'react'
-import { SessionContextValue, SessionProviderProps } from './types'
+import {
+  SessionContextValue,
+  SessionProviderProps,
+  SessionStatus,
+} from './types'
 
 export const SessionContext = createContext<SessionContextValue>({
   logIn: Promise.resolve,
   logOut: Promise.resolve,
   refresh: Promise.resolve,
+  status: 'initializing',
 })
 
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
@@ -23,18 +27,16 @@ const SessionProvider = ({
   authSdk,
   children,
 }: SessionProviderProps) => {
-  const isInitializedRef = useRef(false)
+  const [status, setStatus] = useState<SessionStatus>('initializing')
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
-    const listener = async () => {
-      await authSdk.clear()
-    }
-    apiClient.on(types.Event.Unauthorized, listener)
+    const unauthorizedListener = () => authSdk.clear()
+    apiClient.on(types.Event.Unauthorized, unauthorizedListener)
 
     return () => {
-      apiClient.off(types.Event.Unauthorized, listener)
+      apiClient.off(types.Event.Unauthorized, unauthorizedListener)
     }
   }, [apiClient, authSdk])
 
@@ -61,7 +63,6 @@ const SessionProvider = ({
           await loadUserData()
         }
       } catch (e) {
-        await authSdk.clear()
         setError(e)
         setUser(undefined)
       }
@@ -69,6 +70,7 @@ const SessionProvider = ({
 
     const initialize = async () => {
       try {
+        setStatus('initializing')
         await authSdk.restoreTokenFromCache()
         if (authSdk.getAccessToken()) {
           await loadUserData()
@@ -78,18 +80,20 @@ const SessionProvider = ({
       } catch (e) {
         await initializeNewSession()
       } finally {
-        isInitializedRef.current = true
+        setStatus('stale')
       }
     }
 
-    if (!isInitializedRef.current) {
+    if (!user) {
       initialize()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const refresh = useCallback(async () => {
+    setStatus('refreshing')
     await authSdk.refreshTokens(true)
+    setStatus('stale')
   }, [authSdk])
 
   const logIn = useCallback(async () => {
@@ -101,7 +105,9 @@ const SessionProvider = ({
   }, [authSdk])
 
   return (
-    <SessionContext.Provider value={{ user, logIn, logOut, refresh, error }}>
+    <SessionContext.Provider
+      value={{ status, user, logIn, logOut, refresh, error }}
+    >
       {children}
     </SessionContext.Provider>
   )

@@ -10,5 +10,5 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@tryrolljs/example-oauth-client", "@tryrolljs/example-native-oauth-client", "@tryrolljs/example-node-client", "@tryrolljs/example-node-api-client"]
+  "ignore": ["@tryrolljs/example-web-oauth-client", "@tryrolljs/example-native-oauth-client", "@tryrolljs/example-node-client", "@tryrolljs/example-node-api-client"]
 }
