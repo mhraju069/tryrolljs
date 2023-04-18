@@ -6,6 +6,7 @@ import {
   useCallback,
   createContext,
   useContext,
+  useRef,
 } from 'react'
 import {
   SessionContextValue,
@@ -27,6 +28,7 @@ const SessionProvider = ({
   authSdk,
   children,
 }: SessionProviderProps) => {
+  const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>('initializing')
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
@@ -41,6 +43,10 @@ const SessionProvider = ({
   }, [apiClient, authSdk])
 
   useEffect(() => {
+    if (isMountedRef.current) {
+      return
+    }
+
     const loadUserData = async () => {
       try {
         const user_ = await userAPI.getMe(apiClient)
@@ -84,9 +90,8 @@ const SessionProvider = ({
       }
     }
 
-    if (!user) {
-      initialize()
-    }
+    initialize()
+    isMountedRef.current = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

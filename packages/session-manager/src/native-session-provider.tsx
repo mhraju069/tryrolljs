@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import * as qs from 'qs'
 import { user as userAPI } from '@tryrolljs/api'
@@ -12,6 +11,7 @@ const NativeSessionProvider = ({
   apiClient,
   children,
 }: SessionProviderProps) => {
+  const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>('initializing')
   const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
   const [error, setError] = useState<unknown>()
@@ -25,7 +25,11 @@ const NativeSessionProvider = ({
     }
   }, [apiClient, authSdk])
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (isMountedRef.current) {
+      return
+    }
+
     const initialize = async () => {
       try {
         setStatus('initializing')
@@ -39,12 +43,11 @@ const NativeSessionProvider = ({
       }
     }
 
-    if (!user) {
-      initialize()
-    }
-  }, [apiClient, authSdk, user])
+    initialize()
+    isMountedRef.current = true
+  }, [apiClient, authSdk])
 
-  const exchangeCode = React.useCallback(
+  const exchangeCode = useCallback(
     async (url: string) => {
       try {
         const [_, query] = url.split('?')
@@ -61,7 +64,7 @@ const NativeSessionProvider = ({
     [apiClient, authSdk],
   )
 
-  const logIn = React.useCallback(async () => {
+  const logIn = useCallback(async () => {
     const url = await authSdk.getLogInUrl()
 
     try {
@@ -89,7 +92,7 @@ const NativeSessionProvider = ({
     }
   }, [authSdk, exchangeCode])
 
-  const logOut = React.useCallback(async () => {
+  const logOut = useCallback(async () => {
     try {
       await fetch(await authSdk.getLogOutUrl())
     } catch (e) {
