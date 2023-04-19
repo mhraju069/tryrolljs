@@ -40,7 +40,11 @@ class SDK {
       throw new NotEnoughDataToRefreshError()
     }
 
-    if (this.isTokenExpired() || force) {
+    if (!this.isTokenExpired() && !force) {
+      return
+    }
+
+    try {
       const response = await requestToken({
         issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
@@ -51,6 +55,8 @@ class SDK {
       })
 
       await this.saveTokenFromResponse(response.data)
+    } catch (e) {
+      await this.clear()
     }
   }
 
@@ -66,17 +72,21 @@ class SDK {
       throw new CodeVerifierMissingError()
     }
 
-    const response = await requestToken({
-      issuerUrl: this.config.issuerUrl,
-      grantType: GrantType.AuthorizationCode,
-      redirectUri: this.config?.redirectUrl,
-      clientId: this.config?.clientId,
-      codeVerifier: cachedCodeVerifier,
-      code,
-    })
+    try {
+      const response = await requestToken({
+        issuerUrl: this.config.issuerUrl,
+        grantType: GrantType.AuthorizationCode,
+        redirectUri: this.config?.redirectUrl,
+        clientId: this.config?.clientId,
+        codeVerifier: cachedCodeVerifier,
+        code,
+      })
 
-    await this.setCode(code)
-    await this.saveTokenFromResponse(response.data)
+      await this.setCode(code)
+      await this.saveTokenFromResponse(response.data)
+    } catch (e) {
+      await this.clear()
+    }
   }
 
   private saveTokenFromResponse = async (data: RequestTokenResponseData) => {

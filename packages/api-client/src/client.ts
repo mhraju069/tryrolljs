@@ -69,15 +69,26 @@ export default class Client extends EventEmitter {
     return options
   }
 
+  private queueTokenExpirationChecker = (request: Request) => {
+    const isExpired =
+      'isTokenExpired' in this.authSdk && this.authSdk.isTokenExpired()
+
+    if (request.authorization && isExpired) {
+      this.queue.push(async () => {
+        if ('refreshTokens' in this.authSdk) {
+          try {
+            await this.authSdk.refreshTokens()
+          } catch (e) {
+            this.queue.destroy(() => {})
+          }
+        }
+      })
+    }
+  }
+
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
-      if (
-        request.authorization &&
-        'isTokenExpired' in this.authSdk &&
-        this.authSdk.isTokenExpired()
-      ) {
-        this.queue.push(this.authSdk.refreshTokens)
-      }
+      this.queueTokenExpirationChecker(request)
 
       this.queue.push(async () => {
         try {
