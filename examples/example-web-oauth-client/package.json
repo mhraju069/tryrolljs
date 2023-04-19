@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "test": "echo \"Tests are disabled for example repos\" && exit 0",
+    "build": "echo \"Build is disabled for example repos\" && exit 0"
   },
   "dependencies": {
     "@tryrolljs/api": "workspace:*",
