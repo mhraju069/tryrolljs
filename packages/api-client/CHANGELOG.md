@@ -1,5 +1,16 @@
 # @tryrolljs/api-client
 
+## 0.1.0
+
+### Minor Changes
+
+- [#226](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/226) [`bd99ac0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bd99ac011b2824ee66f6fa17bf5c496d53f25bc6) Thanks [@teimurjan](https://github.com/teimurjan)! - Improved error handling, added session status
+
+### Patch Changes
+
+- Updated dependencies [[`bd99ac0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bd99ac011b2824ee66f6fa17bf5c496d53f25bc6)]:
+  - @tryrolljs/sdk@1.3.0
+
 ## 0.0.5
 
 ### Patch Changes

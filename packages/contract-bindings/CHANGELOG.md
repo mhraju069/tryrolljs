@@ -1,5 +1,11 @@
 # @tryrolljs/contract-bindings
 
+## 0.2.0
+
+### Minor Changes
+
+- [#224](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/224) [`2dda202`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2dda2022a5ab07879c36798fa11fe11b191d6a83) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add Manager contract bindings
+
 ## 0.1.2
 
 ### Patch Changes
