@@ -15,7 +15,7 @@ export default function HasBalance() {
 
   const [inputState, setInputState] = React.useState({
     amount: '',
-    symbol: '',
+    tokenId: '',
   })
 
   const [validationError, setValidationError] = React.useState<string>()
@@ -40,7 +40,7 @@ export default function HasBalance() {
       .hasBalance(
         {
           userId: session.user!.userID,
-          symbol: inputState.symbol,
+          tokenId: inputState.tokenId,
           amount: `${amount}`,
         },
         apiClient,
@@ -64,11 +64,11 @@ export default function HasBalance() {
       <br />
       <Input
         placeholder="Symbol"
-        value={inputState.symbol}
+        value={inputState.tokenId}
         onChange={(e) =>
           setInputState({
             ...inputState,
-            symbol: e.nativeEvent.text.toUpperCase(),
+            tokenId: e.nativeEvent.text.toUpperCase(),
           })
         }
       />
