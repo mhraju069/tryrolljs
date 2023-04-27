@@ -14,8 +14,12 @@ export const getUserBalances = async () => {
       },
     ])
     const balances = await user.getUserBalances(answers, clientAuth)
+    if (!balances || balances.length === 0) {
+      console.log('User has no balances')
+      return
+    }
     printTable(
-      balances.map((balance) => ({
+      balances?.map((balance) => ({
         tokenId: balance.token.uuid,
         symbol: balance.token.symbol,
         balance: balance.amount,
