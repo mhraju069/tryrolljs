@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.2.0
+
+### Minor Changes
+
+- [#228](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/228) [`fe9b36a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/fe9b36ac8bbf964343e6f5a5759f5923ef9ec554) Thanks [@teimurjan](https://github.com/teimurjan)! - Add AnalyticsCard component
+
 ## 1.1.2
 
 ### Patch Changes
