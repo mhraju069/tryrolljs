@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.2.1
+
+### Patch Changes
+
+- [#230](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/230) [`675b73c`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/675b73c05db856a7e2d31b724558a34ab4c21d40) Thanks [@teimurjan](https://github.com/teimurjan)! - Add style prop to cards
+
 ## 1.2.0
 
 ### Minor Changes
