@@ -1,4 +1,12 @@
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Image,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import { CircleImg, Icon } from '../../atoms'
 import { useClipboardWithToast, useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
@@ -69,6 +77,7 @@ export interface TokenCardProps {
   name: string
   symbol: string
   chainId?: number
+  style?: StyleProp<ViewStyle>
 }
 
 export const TokenCard: React.FC<TokenCardProps> = ({
@@ -77,6 +86,7 @@ export const TokenCard: React.FC<TokenCardProps> = ({
   name,
   symbol,
   chainId = CHAIN_ID_MAIN_NET,
+  style,
 }) => {
   const theme = useThemeV2()
   const hasAddress = !!address
@@ -95,7 +105,15 @@ export const TokenCard: React.FC<TokenCardProps> = ({
   }
 
   return (
-    <View style={[styles.container, padding.pt16, padding.ph24, padding.pb24]}>
+    <View
+      style={[
+        styles.container,
+        padding.pt16,
+        padding.ph24,
+        padding.pb24,
+        style,
+      ]}
+    >
       <View style={[styles.cardDecorator]} />
       <View
         style={[

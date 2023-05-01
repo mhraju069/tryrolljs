@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
@@ -20,6 +20,7 @@ export interface FeatureCardProps {
   description: string
   image: React.ReactNode
   onPress?: () => void
+  style?: StyleProp<ViewStyle>
 }
 
 export const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -27,6 +28,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
   image,
   onPress,
+  style,
 }) => {
   const theme = useThemeV2()
   return (
@@ -37,6 +39,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
         padding.pb16,
         styles.container,
         { backgroundColor: theme.background.white },
+        style,
       ]}
     >
       <View style={[margin.mb16]}>{image}</View>

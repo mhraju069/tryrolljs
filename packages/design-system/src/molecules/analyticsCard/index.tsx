@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { Icon, IconVariant, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
@@ -24,6 +24,7 @@ export interface AnalyticsCardProps {
   value: string
   change: number
   changeHint: string
+  style?: StyleProp<ViewStyle>
 }
 
 export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
@@ -32,6 +33,7 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   value,
   change,
   changeHint,
+  style,
 }) => {
   const theme = useThemeV2()
   const isSuccessful = change >= 0
@@ -42,6 +44,7 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
         padding.ph24,
         styles.container,
         { backgroundColor: theme.background.white },
+        style,
       ]}
     >
       <View style={[container.row, container.alignCenter]}>
