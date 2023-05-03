@@ -43,6 +43,7 @@ const BaseButton = ({
   iconColor,
   iconBackgroundColor,
   onPress,
+  style,
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -106,7 +107,7 @@ const BaseButton = ({
       : fontsBasedOnSize[size]
 
   return (
-    <View style={[container.alignCenter]}>
+    <View style={[container.alignCenter, style]}>
       <Pressable
         testID={testID}
         isDisabled={isLoading || isDisabled}

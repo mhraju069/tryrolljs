@@ -1,4 +1,4 @@
-import { GestureResponderEvent } from 'react-native'
+import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
 import { IconVariant } from '../icon'
 import { TypographyVariant } from '../typographyV2'
 
@@ -30,6 +30,7 @@ export interface ButtonV2Props {
   iconVariant?: IconVariant
   iconColor?: string
   iconBackgroundColor?: string
+  style?: StyleProp<ViewStyle>
 }
 
 type States = 'rest' | 'hover' | 'active' | 'disabled'
