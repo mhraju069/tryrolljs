@@ -19,10 +19,11 @@ export const getTokens = async (
   }
   const params = new URLSearchParams(query).toString()
   const response = await client.call<Response<GetTokensResponseData>>({
-    url: `/v3/tokens?${params}`,
+    url: `/v1/tokens?${params}`,
     method: 'GET',
     authorization: false,
   })
+  console.log(response)
   return response.data
 }
 

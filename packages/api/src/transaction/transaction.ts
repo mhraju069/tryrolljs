@@ -37,7 +37,7 @@ export const internalSend = (
     tokenID: tokenId,
   }
   return client.call<TransactionResponseData>({
-    url: '/v2/transactions/send',
+    url: '/v1/transactions/send',
     method: 'POST',
     authorization: true,
     body,
@@ -49,7 +49,7 @@ export const getTransactionById = (
   client: Client,
 ) => {
   return client.call<TransactionResponseData>({
-    url: `/v3/transactions/${transactionId}`,
+    url: `/v1/transactions/${transactionId}`,
     method: 'GET',
     authorization: true,
   })
