@@ -18,8 +18,10 @@ export const getTokens = async (
     offset: offset.toString(),
   }
   const params = new URLSearchParams(query).toString()
+  const filteredParams = params.replaceAll(/\w+=&/g, '')
+
   const response = await client.call<Response<GetTokensResponseData>>({
-    url: `/v1/tokens?${params}`,
+    url: `/v1/tokens?${filteredParams}`,
     method: 'GET',
     authorization: false,
   })
