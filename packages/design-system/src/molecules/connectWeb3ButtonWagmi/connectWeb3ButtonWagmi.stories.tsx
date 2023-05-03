@@ -16,7 +16,7 @@ export const Default = (props: ConnectWeb3ButtonWagmiProps) => {
     <Web3ProviderWagmi
       variant="walletConnect"
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
+      walletConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <ConnectWeb3ButtonWagmi
         {...props}

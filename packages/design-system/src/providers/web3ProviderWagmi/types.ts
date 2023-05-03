@@ -4,10 +4,10 @@ interface Web3ProviderWagmiSharedProps {
 }
 export type Web3ProviderWagmiProps =
   | (Web3ProviderWagmiSharedProps & {
-      wallectConnectProjectId: string
+      walletConnectProjectId: string
       variant: 'walletConnect' | 'web3Modal'
     })
   | (Web3ProviderWagmiSharedProps & {
-      wallectConnectProjectId?: string
+      walletConnectProjectId?: string
       variant: 'injected'
     })

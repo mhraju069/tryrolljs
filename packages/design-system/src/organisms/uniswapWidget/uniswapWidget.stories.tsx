@@ -17,7 +17,7 @@ const Template = () => {
     <Web3ProviderWagmi
       variant="web3Modal"
       supportedChainIds={[CHAIN_ID_MAIN_NET]}
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
+      walletConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <ConnectWeb3ButtonWagmi
         onPress={() => {
