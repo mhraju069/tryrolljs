@@ -1,44 +1,21 @@
 import { useBreakpointValue } from 'native-base'
-import { PropsWithChildren } from 'react'
-import { Platform, ScrollView, View } from 'react-native'
-import { useThemeV2 } from '../../hooks'
-import { container } from '../../styles'
+import { Platform } from 'react-native'
 import { DesktopSidebar } from './desktop'
 import { MobileSidebar } from './mobile'
 import { SidebarProps } from './types'
 
-export const Sidebar: React.FC<SidebarProps & PropsWithChildren> = ({
-  children,
-  ...props
-}) => {
+export const Sidebar: React.FC<SidebarProps> = (props) => {
   const isMobile = useBreakpointValue({ base: true, xl: false })
-  const theme = useThemeV2()
   return (
     <>
       {Platform.select({
-        native: (
-          <View>
-            <MobileSidebar {...props} />
-            <ScrollView>{children}</ScrollView>
-          </View>
-        ),
+        native: <MobileSidebar {...props} />,
         web: (
           <>
             {isMobile ? (
-              <View>
-                <MobileSidebar {...props} />
-                {children}
-              </View>
+              <MobileSidebar {...props} />
             ) : (
-              <View
-                style={[
-                  container.row,
-                  { backgroundColor: theme.background.grey },
-                ]}
-              >
-                <DesktopSidebar {...props} />
-                <View style={[container.flex1]}>{children}</View>
-              </View>
+              <DesktopSidebar {...props} />
             )}
           </>
         ),
@@ -46,3 +23,5 @@ export const Sidebar: React.FC<SidebarProps & PropsWithChildren> = ({
     </>
   )
 }
+
+export * from './types'
