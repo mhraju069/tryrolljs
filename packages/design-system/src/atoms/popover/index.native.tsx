@@ -14,7 +14,7 @@ export const Popover = ({
   ...rest
 }: PopoverProps) => {
   const theme = useTheme()
-  const { x, y, reference, floating } = useFloating({
+  const { x, y, refs } = useFloating({
     placement,
     middleware: [flip(), shift()],
   })
@@ -32,8 +32,8 @@ export const Popover = ({
   )
 
   const referenceNode = useMemo(
-    () => renderReference({ reference, getReferenceProps }),
-    [reference, renderReference, getReferenceProps],
+    () => renderReference({ reference: refs.setReference, getReferenceProps }),
+    [refs, renderReference, getReferenceProps],
   )
 
   return (
@@ -54,7 +54,7 @@ export const Popover = ({
               backgroundColor: theme.background.primary,
             },
           ]}
-          ref={floating}
+          ref={refs.setFloating}
           {...rest}
         >
           {children}

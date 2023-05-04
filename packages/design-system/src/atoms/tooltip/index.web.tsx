@@ -10,7 +10,7 @@ import {
   FloatingPortal,
   shift,
   size,
-} from '@floating-ui/react-dom-interactions'
+} from '@floating-ui/react'
 import { useState } from 'react'
 import { View } from 'native-base'
 import {
@@ -37,7 +37,7 @@ export const Tooltip = ({
   renderInPortal = true,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
-  const { context, x, y, reference, floating, strategy } = useFloating({
+  const { context, x, y, refs, strategy } = useFloating({
     placement,
     open,
     onOpenChange: setIsOpen,
@@ -70,7 +70,7 @@ export const Tooltip = ({
 
   return (
     <>
-      <div ref={reference} {...getReferenceProps()}>
+      <div ref={refs.setReference} {...getReferenceProps()}>
         {children}
       </div>
       <ConditionalWrapper condition={renderInPortal} wrapper={wrapper}>
@@ -91,7 +91,7 @@ export const Tooltip = ({
                 position: strategy,
               },
             ]}
-            ref={floating}
+            ref={refs.setFloating}
             {...getFloatingProps()}
           >
             {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}

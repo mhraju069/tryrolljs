@@ -29,7 +29,7 @@ export const Tooltip = ({
   placement,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
-  const { x, y, reference, floating } = useFloating({
+  const { x, y, refs } = useFloating({
     placement,
     middleware: [shift()],
   })
@@ -44,7 +44,7 @@ export const Tooltip = ({
     <View>
       <Pressable onPress={handlePress}>
         <View
-          ref={reference}
+          ref={refs.setReference}
           onLayout={Platform.select({
             android: onLayout,
             default: undefined,
@@ -55,7 +55,7 @@ export const Tooltip = ({
       </Pressable>
       {isOpen && (
         <View
-          ref={floating}
+          ref={refs.setFloating}
           style={[
             styles.tooltip,
             container.borderRadius,
