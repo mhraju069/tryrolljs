@@ -107,10 +107,7 @@ export const Select = ({
   return (
     <Popover
       open={isOpen}
-      onOpenChange={(value) => {
-        setIsOpen(value)
-        console.log(value)
-      }}
+      onOpenChange={setIsOpen}
       renderReference={renderReference}
       openOnHover={false}
       matchReferenceWidth
