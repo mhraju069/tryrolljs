@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.1
+
+### Patch Changes
+
+- [#236](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/236) [`e00c094`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e00c094cf53982905a132dc99f5e08141a126039) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow popover to open not only on keyboard focus, but also on click
+
 ## 1.3.0
 
 ### Minor Changes
