@@ -25,7 +25,6 @@ export const getTokens = async (
     method: 'GET',
     authorization: false,
   })
-  console.log(response)
   return response.data
 }
 

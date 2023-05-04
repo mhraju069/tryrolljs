@@ -1,33 +1,12 @@
 import Client from '@tryrolljs/api-client'
 import {
-  InternalSendArgs,
-  TransactionResponseData,
   SendArgs,
+  TransactionResponseData,
   GetTransactionByIdArgs,
 } from './types'
 
 export const send = (
-  { fromUserId, toUsername, amount, symbol, message }: SendArgs,
-  client: Client,
-) => {
-  const body = {
-    amount,
-    toUser: toUsername,
-    message,
-    type: 'transfer',
-    symbol,
-    fromUser: fromUserId,
-  }
-  return client.call({
-    url: '/v3/transactions',
-    method: 'POST',
-    authorization: true,
-    body,
-  })
-}
-
-export const internalSend = (
-  { amount, note, toUserId, tokenId }: InternalSendArgs,
+  { amount, note, toUserId, tokenId }: SendArgs,
   client: Client,
 ) => {
   const body = {

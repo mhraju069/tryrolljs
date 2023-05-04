@@ -12,8 +12,8 @@ import {
 } from './types'
 
 export const getMe = (client: Client) => {
-  return client.call<GetMeResponseData>({
-    url: '/v4/users/session',
+  return client.call<Response<GetMeResponseData>>({
+    url: '/v1/users/session',
     method: 'GET',
     authorization: true,
   })
