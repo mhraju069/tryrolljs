@@ -16,7 +16,7 @@ const Template = () => {
   return (
     <Web3ProviderWagmi
       variant="web3Modal"
-      wallectConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
+      walletConnectProjectId={process.env.WALLET_CONNECT_PROJECT_ID as string}
     >
       <Web3Button connectedVariant="button" />
       <View style={{ maxWidth: 300 }}>

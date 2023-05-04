@@ -21,7 +21,7 @@ const Web3ProviderWebWagmi: React.FC<
   React.PropsWithChildren<Web3ProviderWagmiProps>
 > = ({
   supportedChainIds,
-  wallectConnectProjectId,
+  walletConnectProjectId,
   alchemyApiKey,
   variant,
   children,
@@ -30,7 +30,7 @@ const Web3ProviderWebWagmi: React.FC<
     const chains = getChainsById(supportedChainIds ?? SUPPORTED_CHAIN_IDS)
     if (variant === 'web3Modal') {
       return configureChains(chains, [
-        w3mProvider({ projectId: wallectConnectProjectId }),
+        w3mProvider({ projectId: walletConnectProjectId }),
       ])
     }
     const providers = alchemyApiKey
@@ -43,7 +43,7 @@ const Web3ProviderWebWagmi: React.FC<
   const connectors = useMemo(() => {
     if (variant === 'web3Modal') {
       return w3mConnectors({
-        projectId: wallectConnectProjectId,
+        projectId: walletConnectProjectId,
         version: 1,
         chains: config.chains,
       })
@@ -55,7 +55,7 @@ const Web3ProviderWebWagmi: React.FC<
           chains: config.chains,
           options: {
             showQrModal: true,
-            projectId: wallectConnectProjectId,
+            projectId: walletConnectProjectId,
           },
         }),
       ]
@@ -81,7 +81,7 @@ const Web3ProviderWebWagmi: React.FC<
       <WagmiConfig client={client}>{children}</WagmiConfig>
       {variant === 'web3Modal' && (
         <Web3Modal
-          projectId={wallectConnectProjectId}
+          projectId={walletConnectProjectId}
           ethereumClient={ethereumClient}
         />
       )}
