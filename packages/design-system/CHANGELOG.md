@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.2
+
+### Patch Changes
+
+- [#238](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/238) [`1755a5b`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1755a5b01e1b0949bf5119408340b8a5bc676def) Thanks [@teimurjan](https://github.com/teimurjan)! - Add layout to export
+
 ## 1.3.1
 
 ### Patch Changes
