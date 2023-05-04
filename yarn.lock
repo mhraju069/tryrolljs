@@ -2931,56 +2931,57 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/core@npm:^1.0.4, @floating-ui/core@npm:^1.0.5":
-  version: 1.1.0
-  resolution: "@floating-ui/core@npm:1.1.0"
-  checksum: ac48969915247320e52d173480c224e2ded94d557ba4cc504547bb314d126348dcc0aeef05686673e1b289596e6ce15118edc84900dd310c613d805f83b4e27d
+"@floating-ui/core@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@floating-ui/core@npm:1.2.6"
+  checksum: e4aa96c435277f1720d4bc939e17a79b1e1eebd589c20b622d3c646a5273590ff889b8c6e126f7be61873cf8c4d7db7d418895986ea19b8b0d0530de32504c3a
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@floating-ui/dom@npm:1.1.0"
+"@floating-ui/dom@npm:^1.2.7":
+  version: 1.2.7
+  resolution: "@floating-ui/dom@npm:1.2.7"
   dependencies:
-    "@floating-ui/core": ^1.0.5
-  checksum: 717551da6f470101cd1de0edc449b229fade7f94c2ff98d09e14ced041e27092aac94bd78756c4247a42b57129f187292f145f0001a81ece399a89b20b4be60b
+    "@floating-ui/core": ^1.2.6
+  checksum: f330228b909ecf241fea1db780a97c842acaea74d2a5ce99456040f9932a80d12c6a77e1c7d56a2700fe6bc85f961f76a7f3bd2640c3a5b2bc497ccc65074519
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom-interactions@npm:^0.9.3":
-  version: 0.9.3
-  resolution: "@floating-ui/react-dom-interactions@npm:0.9.3"
+"@floating-ui/react-dom@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@floating-ui/react-dom@npm:2.0.0"
   dependencies:
-    "@floating-ui/react-dom": ^1.0.0
-    aria-hidden: ^1.1.3
+    "@floating-ui/dom": ^1.2.7
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: 0c58bada5011357b850ccab9b7e6061fa7dcc83455f72f2afa3ae4c71ad180faa343175f43ad020059a3adfca57fbaf342ae01724f234832bd86a34009adc240
+  checksum: c5dd02b7babf9c26d5e11b8ebe58411131b37844f7d6362a767cd1eedfb506ca6db3228fb192e0a5822c9289a5b500e2ef31e069dce28a0fbec4722f22bcdd95
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom@npm:^1.0.0":
-  version: 1.1.2
-  resolution: "@floating-ui/react-dom@npm:1.1.2"
+"@floating-ui/react-native@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@floating-ui/react-native@npm:0.10.0"
   dependencies:
-    "@floating-ui/dom": ^1.1.0
-  peerDependencies:
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-  checksum: 4de92b1935489d54c244dfe1115ae9bfcd1c5ca4b07f53bba2603ce123b2319cc1835447f9191fd46bc2f5795002cc6ac4f6f59e80d3ef12ea7ecbb43760f770
-  languageName: node
-  linkType: hard
-
-"@floating-ui/react-native@npm:^0.8.0":
-  version: 0.8.2
-  resolution: "@floating-ui/react-native@npm:0.8.2"
-  dependencies:
-    "@floating-ui/core": ^1.0.4
+    "@floating-ui/core": ^1.2.6
   peerDependencies:
     react: ">=16.8.0"
     react-native: ">=0.64.0"
-  checksum: ccef4674520a6ece6ef12af72480fa38310b84b210fb24d92ecc1e071a47c0998f29b835c61f26b30bda972601a930fba17b437987fdb9659131576efa03c0dc
+  checksum: cc4d7a31d913452ccc240b629238d657dccd3906da2763a829e2d1e3a00c82c417cf306ea1b6efe549ce0e10965553186cef72e380a718b3f536fba26528cda9
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "@floating-ui/react@npm:0.24.0"
+  dependencies:
+    "@floating-ui/react-dom": ^2.0.0
+    aria-hidden: ^1.1.3
+    tabbable: ^6.0.1
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 9a3a3aaad0a583d692c319434c923239a164e5b58ce6c0a95169c4e47231b66a9df7cb68cb9aeb09a129777a5416f0f2b046bef7cf59a7b82a18deeaf4839771
   languageName: node
   linkType: hard
 
@@ -8381,9 +8382,9 @@ __metadata:
     "@babel/core": ^7.12.9
     "@babel/runtime": ^7.19.4
     "@ethersproject/providers": ^5.4.5
-    "@floating-ui/react-dom": ^1.0.0
-    "@floating-ui/react-dom-interactions": ^0.9.3
-    "@floating-ui/react-native": ^0.8.0
+    "@floating-ui/react": ^0.24.0
+    "@floating-ui/react-dom": ^2.0.0
+    "@floating-ui/react-native": ^0.10.0
     "@react-native-async-storage/async-storage": ^1.17.3
     "@react-native-community/datetimepicker": ^6.1.2
     "@react-native-community/slider": ^4.2.1
@@ -29582,6 +29583,13 @@ __metadata:
     "@pkgr/utils": ^2.3.1
     tslib: ^2.4.0
   checksum: 83e054fe4494dab42114fc4ed36a11b85e18742d304ade3f40d3afb4ba4145d76183adba1f29e2c36e9a0a453b93a83e2387505f96a0efd901f562927a968c44
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:^6.0.1":
+  version: 6.1.2
+  resolution: "tabbable@npm:6.1.2"
+  checksum: 1e2d9af4f172a3793f491bab10263c26903c2be6a5c4ab723d69d1ba2054828d22a50add9ba7fc42735468871d40054d906fa4f0a9dc2fbd4feff875e84c1a89
   languageName: node
   linkType: hard
 

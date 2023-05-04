@@ -8,7 +8,7 @@ import {
   useHover,
   safePolygon,
   useInteractions,
-} from '@floating-ui/react-dom-interactions'
+} from '@floating-ui/react'
 import { View } from 'native-base'
 import { useTheme } from '../../hooks'
 import { container } from '../../styles'
@@ -25,7 +25,7 @@ export const Popover = ({
   ...rest
 }: PopoverProps) => {
   const theme = useTheme()
-  const { x, y, reference, floating, strategy, context } = useFloating({
+  const { x, y, refs, strategy, context } = useFloating({
     placement,
     open,
     onOpenChange,
@@ -64,7 +64,7 @@ export const Popover = ({
 
   return (
     <>
-      {renderReference({ reference, getReferenceProps })}
+      {renderReference({ reference: refs.setReference, getReferenceProps })}
       {open && (
         <View
           style={[
@@ -80,7 +80,7 @@ export const Popover = ({
               position: strategy,
             },
           ]}
-          ref={floating}
+          ref={refs.setFloating}
           {...getFloatingProps()}
           {...rest}
         >
