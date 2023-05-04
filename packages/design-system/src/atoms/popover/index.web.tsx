@@ -59,7 +59,7 @@ export const Popover = ({
       move: false,
       enabled: openOnHover,
     }),
-    useFocus(context),
+    useFocus(context, { keyboardOnly: false }),
   ])
 
   return (
