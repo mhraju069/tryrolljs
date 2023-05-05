@@ -36,10 +36,12 @@ export const generateApiClient = async () => {
     )
 
     await clientAuthSdk.generateToken()
+
     const apiClient = new Client.default(
       { baseUrl: process.env.API_URL },
       clientAuthSdk,
     )
+
     return apiClient
   } catch (e) {
     console.error(e)
