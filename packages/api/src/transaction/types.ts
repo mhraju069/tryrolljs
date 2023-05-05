@@ -1,12 +1,4 @@
 export interface SendArgs {
-  fromUserId: string
-  symbol: string
-  amount: string
-  toUsername: string
-  message: string
-}
-
-export interface InternalSendArgs {
   toUserId: string
   tokenId: string
   amount: string

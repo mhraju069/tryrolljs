@@ -40,6 +40,7 @@ export const getTokenList = async () => {
         contractAddress: row.contractAddress,
       })),
     )
+    console.log(`Total rows: ${response.totalRows}`)
   } catch (error) {
     console.error(error)
   }
