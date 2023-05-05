@@ -13,7 +13,7 @@ export const getUserBalances = async () => {
         message: 'User ID',
       },
     ])
-    const balances = await user.getUserBalances(answers, clientAuth)
+    const balances = await user.getUserBalances(clientAuth, answers)
     if (!balances || balances.length === 0) {
       console.log('User has no balances')
       return
@@ -45,7 +45,7 @@ export const getUserTokenBalance = async () => {
         message: 'Token ID',
       },
     ])
-    const balance = await user.getUserTokenBalance(answers, clientAuth)
+    const balance = await user.getUserTokenBalance(clientAuth, answers)
     printTable([
       {
         tokenId: balance.token.uuid,
@@ -78,7 +78,7 @@ export const hasBalance = async () => {
         message: 'Amount',
       },
     ])
-    const response = await user.hasBalance(answers, clientAuth)
+    const response = await user.hasBalance(clientAuth, answers)
     if (response.hasbalance) {
       console.log('User has balance')
     } else {
@@ -99,7 +99,7 @@ export const getUser = async () => {
         message: 'User ID',
       },
     ])
-    const userResponse = await user.getUser(answers, clientAuth)
+    const userResponse = await user.getUser(clientAuth, answers)
     printTable([
       {
         id: userResponse.userID,
@@ -110,5 +110,32 @@ export const getUser = async () => {
     ])
   } catch (error) {
     console.error(error)
+  }
+}
+
+export const createPlatformUser = async () => {
+  try {
+    const clientAuth = await generateApiClient()
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userType',
+        message: 'User Type (discord, telegram)',
+      },
+      {
+        type: 'input',
+        name: 'externalUserID',
+        message: 'User ID from the external platform',
+      },
+    ])
+
+    const resp = await user.createPlatformUser(clientAuth, {
+      userType: answers.userType,
+      externalUserID: answers.externalUserID,
+    })
+
+    printTable([resp])
+  } catch (err) {
+    console.error(err)
   }
 }

@@ -6,8 +6,8 @@ import {
 } from './types'
 
 export const send = (
-  { amount, note, toUserId, tokenId }: SendArgs,
   client: Client,
+  { amount, note, toUserId, tokenId }: SendArgs,
 ) => {
   const body = {
     amount,
@@ -24,8 +24,8 @@ export const send = (
 }
 
 export const getTransactionById = (
-  { transactionId }: GetTransactionByIdArgs,
   client: Client,
+  { transactionId }: GetTransactionByIdArgs,
 ) => {
   return client.call<TransactionResponseData>({
     url: `/v1/transactions/${transactionId}`,

@@ -32,7 +32,7 @@ export const getTokenList = async () => {
         default: '',
       },
     ])
-    const response = await token.getTokens(answers, clientAuth)
+    const response = await token.getTokens(clientAuth, answers)
     printTable(
       response.rows.map((row) => ({
         id: row.uuid,
@@ -56,7 +56,7 @@ export const getTokenCreator = async () => {
         message: 'Token ID',
       },
     ])
-    const creator = await token.getTokenCreator(answers, clientAuth)
+    const creator = await token.getTokenCreator(clientAuth, answers)
     printTable([
       {
         id: creator.userID,

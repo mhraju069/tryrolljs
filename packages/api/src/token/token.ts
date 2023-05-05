@@ -8,8 +8,8 @@ import {
 } from './types'
 
 export const getTokens = async (
-  { symbol = '', contractAddress = '', limit = 10, offset = 0 }: GetTokensArgs,
   client: Client,
+  { symbol = '', contractAddress = '', limit = 10, offset = 0 }: GetTokensArgs,
 ) => {
   const query = {
     symbol,
@@ -29,8 +29,8 @@ export const getTokens = async (
 }
 
 export const getTokenCreator = async (
-  { tokenId }: GetTokenCreatorArgs,
   client: Client,
+  { tokenId }: GetTokenCreatorArgs,
 ) => {
   const response = await client.call<Response<GetTokenCreatorResponseData>>({
     url: `/v1/tokens/${tokenId}/creator`,

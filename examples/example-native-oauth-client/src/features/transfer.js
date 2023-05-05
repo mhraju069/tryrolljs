@@ -49,16 +49,13 @@ export default function Transfer() {
     }
 
     try {
-      const response_ = await transaction.send(
-        {
-          fromUserId: user.userID,
-          symbol: inputState.symbol,
-          amount,
-          toUsername: inputState.username,
-          message: 'This was a third party transfer',
-        },
-        apiClient,
-      )
+      const response_ = await transaction.send(apiClient, {
+        fromUserId: user.userID,
+        symbol: inputState.symbol,
+        amount,
+        toUsername: inputState.username,
+        message: 'This was a third party transfer',
+      })
 
       setResponse(response_)
     } catch (e) {

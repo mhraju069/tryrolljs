@@ -37,14 +37,11 @@ export default function HasBalance() {
     // pass in the user's userID, the token symbol, and the amount.
     // the amount does not need to be converted. The user input amount can be passed in directly (must be a number type)
     user
-      .hasBalance(
-        {
-          userId: session.user!.userID,
-          tokenId: inputState.tokenId,
-          amount: `${amount}`,
-        },
-        apiClient,
-      )
+      .hasBalance(apiClient, {
+        userId: session.user!.userID,
+        tokenId: inputState.tokenId,
+        amount: `${amount}`,
+      })
       .then((response_) => setResponse(response_))
       .catch((e) => setError(e))
   }

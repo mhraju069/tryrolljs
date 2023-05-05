@@ -57,16 +57,12 @@ export default function Transfer() {
     try {
       // pass in the user's userID, the token symbol, the converted amount to be sent, the token decimals, and the recipient username
       // this will perform an internal transaction on roll
-      const response_ = await transaction.send(
-        {
-          fromUserId: session.user!.userID,
-          symbol: inputState.symbol,
-          amount: `${amount}`,
-          toUsername: inputState.username,
-          message: 'This was a third party transfer',
-        },
-        apiClient,
-      )
+      const response_ = await transaction.send(apiClient, {
+        toUserId: session.user!.userID,
+        tokenId: inputState.symbol,
+        amount: `${amount}`,
+        note: 'This was a third party transfer',
+      })
 
       setResponse(response_)
     } catch (e) {

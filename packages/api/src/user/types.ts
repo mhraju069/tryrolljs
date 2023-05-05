@@ -75,3 +75,13 @@ export interface GetMeResponseData {
 export interface HasBalanceResponseData {
   hasbalance: boolean
 }
+
+export interface ExternalUserArgs {
+  userType: string
+  externalUserId: string
+}
+export interface ExternalUserResponseData {
+  userID: string
+  externalUserID: string
+  userType: string
+}
