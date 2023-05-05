@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 0.3.0
+
+### Minor Changes
+
+- [#240](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/240) [`ff92108`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ff92108e86dd67a0241b6d2155f0d05c6fd66f55) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Update api endpoints version
+
 ## 0.2.6
 
 ### Patch Changes
