@@ -1,5 +1,5 @@
 import { FlatList } from 'native-base'
-import { Dimensions, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, spacing } from '../../styles'
 import { SidebarOption } from '../sidebarOption'
@@ -9,11 +9,11 @@ const DESKTOP_SIDEBAR_WIDTH = 240
 const DIVIDER_HEIGHT = 1
 const SEPARATOR_HEIGHT = 24
 
-const styles: Record<string, React.CSSProperties> = {
+const styles = StyleSheet.create({
   container: {
     width: DESKTOP_SIDEBAR_WIDTH,
     display: 'flex',
-    position: 'fixed',
+    position: 'fixed' as any,
     flexDirection: 'column',
     alignItems: 'center',
     paddingRight: spacing[20],
@@ -31,7 +31,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: DESKTOP_SIDEBAR_WIDTH,
     marginRight: spacing[40],
   },
-}
+})
 
 const Divider: React.FC = () => {
   const theme = useThemeV2()
@@ -61,12 +61,14 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
   const { height } = Dimensions.get('window')
   return (
     <>
-      <div
-        style={{
-          ...styles.container,
-          height,
-          backgroundColor: theme.background.white,
-        }}
+      <View
+        style={[
+          styles.container,
+          {
+            height,
+            backgroundColor: theme.background.white,
+          },
+        ]}
       >
         {logo.desktop && (
           <View
@@ -104,8 +106,8 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
             {footerOnDesktop}
           </View>
         )}
-      </div>
-      <div style={styles.spacer} />
+      </View>
+      <View style={styles.spacer} />
     </>
   )
 }
