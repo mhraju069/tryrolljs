@@ -37,6 +37,7 @@ class SDK {
     const hasEnoughDataToRefresh = !!this.token?.refresh_token && !!code
 
     if (!hasEnoughDataToRefresh) {
+      await this.clear()
       throw new NotEnoughDataToRefreshError()
     }
 

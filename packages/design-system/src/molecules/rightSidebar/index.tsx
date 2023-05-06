@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
     paddingTop: spacing[24],
     paddingBottom: spacing[16],
   },
+  spacer: {
+    width: RIGHT_SIDEBAR_WIDTH,
+    marginLeft: spacing[40],
+  },
 })
 
 export const RightSidebar: React.FC<RightSidebarProps> = ({
@@ -57,6 +61,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
         </View>
       )}
       {children}
+      <div style={styles.spacer} />
     </View>
   )
 }
