@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.4
+
+### Patch Changes
+
+- [#247](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/247) [`7e2d43d`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7e2d43d07ab3fc92767089444837b91e4dfbbf52) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix layout children overflows right sidebar
+
 ## 1.3.3
 
 ### Patch Changes
