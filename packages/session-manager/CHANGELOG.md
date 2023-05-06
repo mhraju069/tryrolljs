@@ -1,5 +1,13 @@
 # @tryrolljs/session-manager
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`68d67e5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68d67e5a3ab41ff9c55f4e18b8fedc95daf9bf89), [`bf6c1fd`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bf6c1fd5fd5187a660140615f02876e274171ea7)]:
+  - @tryrolljs/api@1.0.0
+  - @tryrolljs/sdk@1.3.1
+
 ## 7.0.0
 
 ### Patch Changes

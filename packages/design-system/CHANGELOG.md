@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.3
+
+### Patch Changes
+
+- [#241](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/241) [`0f6c506`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/0f6c50651c26b40ca4d5e01b67a0eb4e516e29d5) Thanks [@teimurjan](https://github.com/teimurjan)! - Add right sidebar spacer
+
 ## 1.3.2
 
 ### Patch Changes
