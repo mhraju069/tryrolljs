@@ -42,26 +42,28 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   const { height } = Dimensions.get('window')
 
   return (
-    <View
-      style={[
-        { backgroundColor: theme.background.white, height },
-        styles.container,
-      ]}
-    >
-      {showWeb3Button && (
-        <View
-          style={[
-            container.fullWidth,
-            container.justifyStart,
-            container.alignStart,
-            margin.mb16,
-          ]}
-        >
-          <Web3Button />
-        </View>
-      )}
-      {children}
-      <div style={styles.spacer} />
-    </View>
+    <>
+      <View
+        style={[
+          { backgroundColor: theme.background.white, height },
+          styles.container,
+        ]}
+      >
+        {showWeb3Button && (
+          <View
+            style={[
+              container.fullWidth,
+              container.justifyStart,
+              container.alignStart,
+              margin.mb16,
+            ]}
+          >
+            <Web3Button />
+          </View>
+        )}
+        {children}
+      </View>
+      <View style={styles.spacer} />
+    </>
   )
 }
