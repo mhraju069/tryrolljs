@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 1.0.0
+
+### Major Changes
+
+- [#243](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/243) [`68d67e5`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68d67e5a3ab41ff9c55f4e18b8fedc95daf9bf89) Thanks [@marlon-wiprud](https://github.com/marlon-wiprud)! - Updating function signatures to make optional parameters more ergonomic
+
 ## 0.3.0
 
 ### Minor Changes

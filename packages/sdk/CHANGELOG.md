@@ -1,5 +1,11 @@
 # @tryrolljs/sdk
 
+## 1.3.1
+
+### Patch Changes
+
+- [#241](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/241) [`bf6c1fd`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/bf6c1fd5fd5187a660140615f02876e274171ea7) Thanks [@teimurjan](https://github.com/teimurjan)! - Clear sdk when not enough data to refresh
+
 ## 1.3.0
 
 ### Minor Changes
