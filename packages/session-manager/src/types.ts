@@ -17,4 +17,5 @@ export interface SessionContextValue {
 export type SessionProviderProps = PropsWithChildren<{
   apiClient: Client
   authSdk: auth.SDK
+  getMe?: typeof userAPI.getMe
 }>

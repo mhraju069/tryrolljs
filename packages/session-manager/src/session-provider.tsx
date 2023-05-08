@@ -26,6 +26,7 @@ const OAUTH_CODE_URL_PARAM_KEY = 'code'
 const SessionProvider = ({
   apiClient,
   authSdk,
+  getMe = userAPI.getMe,
   children,
 }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
@@ -49,8 +50,8 @@ const SessionProvider = ({
 
     const loadUserData = async () => {
       try {
-        const user_ = await userAPI.getMe(apiClient)
-        setUser(user_)
+        const user_ = await getMe(apiClient)
+        setUser(user_.data)
       } catch (e) {
         setError(e)
       }
