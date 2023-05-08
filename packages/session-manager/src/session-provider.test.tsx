@@ -51,7 +51,7 @@ describe('useSession', () => {
         apiClient: {
           on: jest.fn(),
           off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
+          call: jest.fn().mockResolvedValue({ data: user }),
         } as any,
       }),
     })
@@ -79,7 +79,7 @@ describe('useSession', () => {
         apiClient: {
           on: jest.fn(),
           off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
+          call: jest.fn().mockResolvedValue({ data: user }),
         } as any,
       }),
     })
