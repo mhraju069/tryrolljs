@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   spacer: {
     width: RIGHT_SIDEBAR_WIDTH,
     marginLeft: spacing[40],
+    zIndex: -1,
   },
 })
 

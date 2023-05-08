@@ -1,5 +1,5 @@
 const config = {
-  apiURL: 'https://api.tryroll.com',
+  apiURL: 'https://internal-api.tryroll.com',
   clientID: 'example',
   issuerURL: 'https://oauth.tryroll.com/oauth2',
   redirectURL: window.location.origin,
