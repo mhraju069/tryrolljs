@@ -124,14 +124,14 @@ export const createPlatformUser = async () => {
       },
       {
         type: 'input',
-        name: 'externalUserID',
+        name: 'externalUserId',
         message: 'User ID from the external platform',
       },
     ])
 
     const resp = await user.createPlatformUser(clientAuth, {
       userType: answers.userType,
-      externalUserID: answers.externalUserID,
+      externalUserId: answers.externalUserId,
     })
 
     printTable([resp])

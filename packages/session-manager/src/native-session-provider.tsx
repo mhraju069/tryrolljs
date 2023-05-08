@@ -9,6 +9,7 @@ import { SessionContext } from './session-provider'
 const NativeSessionProvider = ({
   authSdk,
   apiClient,
+  getMe = userAPI.getMe,
   children,
 }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
@@ -34,8 +35,8 @@ const NativeSessionProvider = ({
       try {
         setStatus('initializing')
         await authSdk.restoreTokenFromCache()
-        const user_ = await userAPI.getMe(apiClient)
-        setUser(user_)
+        const user_ = await getMe(apiClient)
+        setUser(user_.data)
       } catch (e) {
         setUser(undefined)
       } finally {
@@ -45,7 +46,7 @@ const NativeSessionProvider = ({
 
     initialize()
     isMountedRef.current = true
-  }, [apiClient, authSdk])
+  }, [apiClient, authSdk, getMe])
 
   const exchangeCode = useCallback(
     async (url: string) => {
@@ -55,7 +56,7 @@ const NativeSessionProvider = ({
         if (typeof code === 'string') {
           await authSdk.exchangeCodeForToken(code)
           const me = await userAPI.getMe(apiClient)
-          setUser(me)
+          setUser(me.data)
         }
       } catch (e) {
         setError(e)
