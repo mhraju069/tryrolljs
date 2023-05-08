@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.5
+
+### Patch Changes
+
+- [#249](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/249) [`807ef12`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/807ef12193c12aa0a3a0a067dd6aa5e591b62f63) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix Layout sidebars are not clickable
+
 ## 1.3.4
 
 ### Patch Changes

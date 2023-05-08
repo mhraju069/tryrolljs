@@ -1,5 +1,16 @@
 # @tryrolljs/session-manager
 
+## 8.1.0
+
+### Minor Changes
+
+- [#249](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/249) [`f146c45`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f146c4580ff47a0622b096a91f23a708b46e65e1) Thanks [@teimurjan](https://github.com/teimurjan)! - Make getMe customizable
+
+### Patch Changes
+
+- Updated dependencies [[`f146c45`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f146c4580ff47a0622b096a91f23a708b46e65e1)]:
+  - @tryrolljs/api-client@0.1.1
+
 ## 8.0.0
 
 ### Patch Changes
