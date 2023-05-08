@@ -8303,7 +8303,7 @@ __metadata:
     "@rollup/plugin-typescript": ^11.0.0
     "@swc/core": ^1.3.1
     "@swc/jest": ^0.2.23
-    "@tryrolljs/sdk": ^1.3.0
+    "@tryrolljs/sdk": ^1.3.1
     "@types/better-queue": ^3.8.3
     "@types/jest": ^29.0.2
     "@types/qs": ^6.9.7
@@ -8660,7 +8660,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/sdk@^1.3.0, @tryrolljs/sdk@^1.3.1, @tryrolljs/sdk@workspace:*, @tryrolljs/sdk@workspace:packages/sdk":
+"@tryrolljs/sdk@^1.3.1, @tryrolljs/sdk@workspace:*, @tryrolljs/sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/sdk@workspace:packages/sdk"
   dependencies:

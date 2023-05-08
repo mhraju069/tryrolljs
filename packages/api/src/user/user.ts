@@ -15,7 +15,7 @@ import {
 
 export const getMe = (client: Client) => {
   return client.call<Response<GetMeResponseData>>({
-    url: '/v4/users/session',
+    url: '/v1/users/session',
     method: 'GET',
     authorization: true,
   })
