@@ -8320,7 +8320,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/api@^1.0.0, @tryrolljs/api@workspace:*, @tryrolljs/api@workspace:packages/api":
+"@tryrolljs/api@^1.0.1, @tryrolljs/api@workspace:*, @tryrolljs/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@tryrolljs/api@workspace:packages/api"
   dependencies:
@@ -8693,7 +8693,7 @@ __metadata:
     "@swc/core": ^1.3.1
     "@swc/jest": ^0.2.23
     "@testing-library/react": ^13.4.0
-    "@tryrolljs/api": ^1.0.0
+    "@tryrolljs/api": ^1.0.1
     "@tryrolljs/api-client": ^0.1.1
     "@tryrolljs/sdk": ^1.3.1
     "@types/jest": ^29.0.2
@@ -8705,7 +8705,7 @@ __metadata:
     rollup: ^2.78.1
     rollup-plugin-delete: ^2.0.0
   peerDependencies:
-    "@tryrolljs/api": ^1.0.0
+    "@tryrolljs/api": ^1.0.1
     "@tryrolljs/api-client": ^0.1.1
     "@tryrolljs/sdk": ^1.3.1
     react: 18.1.0
