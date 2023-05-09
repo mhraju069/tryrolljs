@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 1.0.1
+
+### Patch Changes
+
+- [#251](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/251) [`9ada63a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9ada63aeab3f101747729359b97e169a10b436cf) Thanks [@teimurjan](https://github.com/teimurjan)! - Update api client
+
 ## 1.0.0
 
 ### Major Changes
