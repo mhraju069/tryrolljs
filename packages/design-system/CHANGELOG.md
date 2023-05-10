@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.7
+
+### Patch Changes
+
+- [#257](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/257) [`e252319`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e2523198ec528b044f25555ce67e230a9fb165b5) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove uniswap widget css import & add native fallback
+
 ## 1.3.6
 
 ### Patch Changes
