@@ -4,7 +4,7 @@ import { ConnectWeb3OptionsWagmi } from '../../molecules/connectWeb3OptionsWagmi
 import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { ConnectWeb3ButtonWagmi } from '../../molecules/connectWeb3ButtonWagmi'
-import { UniswapWidget } from '.'
+import { UniswapWidget } from './index'
 
 const storyConfig = {
   title: titleBuilder.organisms('UniswapWidget'),

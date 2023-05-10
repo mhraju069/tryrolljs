@@ -1,6 +1,5 @@
 import { SwapWidget, SwapWidgetProps } from '@uniswap/widgets'
 import { useWebSocketProvider } from '../../hooks/web3Wagmi'
-import '@uniswap/widgets/fonts.css'
 
 // Default token list from Uniswap
 const UNISWAP_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
