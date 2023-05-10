@@ -1,5 +1,11 @@
 # @tryrolljs/design-system
 
+## 1.3.6
+
+### Patch Changes
+
+- [#255](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/255) [`babc5a0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/babc5a0a057237c26553be4fa2bf59154aaec6cc) Thanks [@teimurjan](https://github.com/teimurjan)! - Update uniswap widget
+
 ## 1.3.5
 
 ### Patch Changes
