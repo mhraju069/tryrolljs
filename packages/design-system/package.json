@@ -32,7 +32,7 @@
     "@floating-ui/react": "^0.24.0",
     "@floating-ui/react-dom": "^2.0.0",
     "@floating-ui/react-native": "^0.10.0",
-    "@uniswap/widgets": "^2.24.0",
+    "@uniswap/widgets": "^2.51.2",
     "boring-avatars": "^1.6.3",
     "color": "^4.2.3",
     "native-base": "^3.4.25",
