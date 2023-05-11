@@ -101,7 +101,6 @@ export default class Client extends EventEmitter {
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
       const onDestroy = () => {
-        this.emit(Event.Unauthorized)
         this.queue = this.makeNewQueue()
         reject(new CouldntRefreshTokens())
       }
