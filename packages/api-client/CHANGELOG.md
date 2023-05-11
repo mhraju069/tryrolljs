@@ -1,5 +1,11 @@
 # @tryrolljs/api-client
 
+## 0.2.0
+
+### Minor Changes
+
+- [#262](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/262) [`1552153`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1552153f90a47c65dcce96f891dbf05a2fa735f8) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix api client never resolves requests because of queue destroy
+
 ## 0.1.1
 
 ### Patch Changes
