@@ -1,5 +1,11 @@
 # @tryrolljs/api-client
 
+## 0.3.0
+
+### Minor Changes
+
+- [#264](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/264) [`7948eb2`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7948eb25265f4ebfc17a3cf41754845f336d2e2c) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove unauthorized event fire on queue destroy
+
 ## 0.2.0
 
 ### Minor Changes
