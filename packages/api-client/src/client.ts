@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from 'axios'
 import { auth } from '@tryrolljs/sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
+import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
@@ -17,7 +18,11 @@ export default class Client extends EventEmitter {
 
     this.config = config
     this.authSdk = authSdk
-    this.queue = new Queue(
+    this.queue = this.makeNewQueue()
+  }
+
+  private makeNewQueue = () => {
+    return new Queue(
       async (call, cb) => {
         try {
           const response = await call()
@@ -69,7 +74,10 @@ export default class Client extends EventEmitter {
     return options
   }
 
-  private queueTokenExpirationChecker = (request: Request) => {
+  private queueTokenExpirationChecker = (
+    request: Request,
+    onDestroy: () => void,
+  ) => {
     const isExpired =
       'isTokenExpired' in this.authSdk && this.authSdk.isTokenExpired()
 
@@ -78,8 +86,12 @@ export default class Client extends EventEmitter {
         if ('refreshTokens' in this.authSdk) {
           try {
             await this.authSdk.refreshTokens()
+            const isRefreshUnsuccessful = !this.authSdk.getAccessToken()
+            if (isRefreshUnsuccessful) {
+              this.queue.destroy(onDestroy)
+            }
           } catch (e) {
-            this.queue.destroy(() => {})
+            this.queue.destroy(onDestroy)
           }
         }
       })
@@ -88,7 +100,12 @@ export default class Client extends EventEmitter {
 
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
-      this.queueTokenExpirationChecker(request)
+      const onDestroy = () => {
+        this.emit(Event.Unauthorized)
+        this.queue = this.makeNewQueue()
+        reject(new CouldntRefreshTokens())
+      }
+      this.queueTokenExpirationChecker(request, onDestroy)
 
       this.queue.push(async () => {
         try {

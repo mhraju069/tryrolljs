@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Client from './client'
 import { Event } from './types'
+import { CouldntRefreshTokens } from './errors'
 
 jest.mock('axios', () => jest.fn())
 
@@ -225,5 +226,28 @@ describe('client', () => {
         'X-Client-Version': '0.0.0',
       },
     })
+  })
+
+  it('resets queue when refresh fails', async () => {
+    const authSdk_ = {
+      ...authSdk,
+      isTokenExpired: jest.fn().mockReturnValue(true),
+      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+    }
+    const client = new Client(defaultConfig, authSdk_)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await expect(client.call(request)).rejects.toBeInstanceOf(
+      CouldntRefreshTokens,
+    )
+
+    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(mockAxios).toHaveBeenCalledTimes(0)
   })
 })
