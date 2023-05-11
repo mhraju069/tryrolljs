@@ -7,10 +7,10 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Icon } from '../../atoms'
 import { ButtonV2 } from '../../atoms/buttonV2'
 import { TypographyV2 } from '../../atoms/typographyV2'
-
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 import { openLink } from '../../utils'
@@ -44,6 +44,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
   sections,
   selectedOptionId,
 }) => {
+  const { top } = useSafeAreaInsets()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const height = Dimensions.get('window').height
   const width = Dimensions.get('window').width
@@ -79,7 +80,11 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
         padding.pv8,
         padding.ph20,
         headerStyles,
-        { backgroundColor: theme.background.white, zIndex: HEADER_Z_INDEX },
+        {
+          backgroundColor: theme.background.white,
+          zIndex: HEADER_Z_INDEX,
+          marginTop: top,
+        },
       ]}
     >
       {logo.mobileHeader}
@@ -119,7 +124,16 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                 },
               ]}
             >
-              <View style={[padding.ph20, padding.pv16, dividerStyles]}>
+              <View
+                style={[
+                  padding.ph20,
+                  padding.pv16,
+                  dividerStyles,
+                  {
+                    marginTop: top,
+                  },
+                ]}
+              >
                 {logo.mobileSidebar}
               </View>
               <View style={[padding.pv24, padding.ph20, dividerStyles]}>
