@@ -40,7 +40,6 @@ const getStories = () => {
     require('../src/molecules/inputLayout/inputLayout.stories.tsx'),
     require('../src/molecules/inputV2/inputV2.stories.tsx'),
     require('../src/molecules/select/select.stories.tsx'),
-    require('../src/molecules/sidebar/sidebar.stories.tsx'),
     require('../src/molecules/tokenCard/tokenCard.stories.tsx'),
     require('../src/molecules/walletInfo/walletInfo.stories.tsx'),
     require('../src/organisms/formStepHeader/formStepHeader.stories.tsx'),
