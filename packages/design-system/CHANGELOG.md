@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 1.3.8
+
+### Patch Changes
+
+- [#260](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/260) [`7e08ae3`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7e08ae39dc1a26185582641d41abd24390a47929) Thanks [@teimurjan](https://github.com/teimurjan)! - Add safe area insets to layout
+
+- [#260](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/260) [`891974a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/891974ab4d3a6b4f3ad55d05946839b18c9ed4ad) Thanks [@teimurjan](https://github.com/teimurjan)! - Add useBreakpointValue hook
+
 ## 1.3.7
 
 ### Patch Changes
