@@ -73,7 +73,7 @@ describe('client', () => {
     })
   })
 
-  it.only('calls refresh before authorized request', async () => {
+  it('calls refresh before authorized request', async () => {
     const authSdk_ = {
       ...authSdk,
       isTokenExpired: jest.fn().mockReturnValue(true),
