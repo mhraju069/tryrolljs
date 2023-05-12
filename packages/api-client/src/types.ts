@@ -14,3 +14,8 @@ export interface Config {
   baseUrl?: string
   extraHeaders?: Record<string, unknown>
 }
+
+export enum BlockState {
+  Blocked = 'blocked',
+  Idle = 'idle',
+}

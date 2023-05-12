@@ -86,8 +86,23 @@ describe('client', () => {
       authorization: true,
       body: { foo: 'bar' },
     }
+    const calls = [
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+    ]
 
-    await client.call(request)
+    await Promise.all(calls)
 
     expect(authSdk_.refreshTokens).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledWith({
@@ -101,8 +116,11 @@ describe('client', () => {
       },
     })
 
+    expect(mockAxios.mock.calls).toHaveLength(calls.length)
+    const firstAxiosCallOrder = Math.min(...mockAxios.mock.invocationCallOrder)
+    expect(authSdk_.refreshTokens.mock.calls).toHaveLength(1)
     expect(authSdk_.refreshTokens.mock.invocationCallOrder[0]).toBeLessThan(
-      mockAxios.mock.invocationCallOrder[0],
+      firstAxiosCallOrder,
     )
   })
 
