@@ -1,5 +1,11 @@
 # @tryrolljs/api-client
 
+## 0.4.0
+
+### Minor Changes
+
+- [#266](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/266) [`6898121`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68981213bb7815291cd89764c6588b262144a13c) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow up-to 10 concurrent requests
+
 ## 0.3.0
 
 ### Minor Changes
