@@ -10,19 +10,22 @@ import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private authSdk: auth.SDK | auth.ClientSDK
+  private sdk: auth.SDK | auth.ClientSDK
   private queue: Queue
 
-  constructor(config: Config, authSdk: auth.SDK | auth.ClientSDK) {
+  private isRefreshScheduled: boolean = false
+  private isBlocked: boolean = false
+
+  constructor(config: Config, sdk: auth.SDK | auth.ClientSDK) {
     super()
 
     this.config = config
-    this.authSdk = authSdk
-    this.queue = this.makeNewQueue()
+    this.sdk = sdk
+    this.queue = this.makeQueue()
   }
 
-  private makeNewQueue = () => {
-    return new Queue(
+  makeQueue = () =>
+    new Queue(
       async (call, cb) => {
         try {
           const response = await call()
@@ -31,9 +34,18 @@ export default class Client extends EventEmitter {
           cb(e, undefined)
         }
       },
-      { concurrent: 1, store: new MemoryStore() },
+      {
+        concurrent: 10,
+        store: new MemoryStore(),
+        precondition: (cb) => {
+          if (this.isBlocked) {
+            cb(null, false)
+          } else {
+            cb(null, true)
+          }
+        },
+      },
     )
-  }
 
   private getHeaders = (authorization = false) => {
     const headers = {
@@ -42,8 +54,8 @@ export default class Client extends EventEmitter {
       Authorization: undefined as string | undefined,
     }
 
-    const accessToken = this.authSdk.getAccessToken()
-    if (authorization && this.authSdk.getAccessToken()) {
+    const accessToken = this.sdk.getAccessToken()
+    if (authorization && accessToken) {
       headers.Authorization = `Bearer ${accessToken}`
     }
     return headers
@@ -74,54 +86,61 @@ export default class Client extends EventEmitter {
     return options
   }
 
-  private queueTokenExpirationChecker = (
-    request: Request,
-    onDestroy: () => void,
-  ) => {
-    const isExpired =
-      'isTokenExpired' in this.authSdk && this.authSdk.isTokenExpired()
+  private makeRefreshTask = (onDestroy: () => void) => async () => {
+    this.isBlocked = true
 
-    if (request.authorization && isExpired) {
-      this.queue.push(async () => {
-        if ('refreshTokens' in this.authSdk) {
-          try {
-            await this.authSdk.refreshTokens()
-            const isRefreshUnsuccessful = !this.authSdk.getAccessToken()
-            if (isRefreshUnsuccessful) {
-              this.queue.destroy(onDestroy)
-            }
-          } catch (e) {
-            this.queue.destroy(onDestroy)
-          }
+    if ('refreshTokens' in this.sdk) {
+      try {
+        await this.sdk.refreshTokens()
+        const isRefreshUnsuccessful = !this.sdk.getAccessToken()
+        if (isRefreshUnsuccessful) {
+          this.queue.destroy(onDestroy)
         }
-      })
+      } catch (e) {
+        this.queue.destroy(onDestroy)
+      }
     }
+
+    this.isRefreshScheduled = false
+    this.isBlocked = false
   }
+
+  private makeRequestTask =
+    <T>(
+      request: Request,
+      resolve: (value: T) => void,
+      reject: (reason?: any) => void,
+    ) =>
+    async () => {
+      try {
+        const response = await axios<T>(this.getOptions(request))
+        return resolve(response.data)
+      } catch (e: any) {
+        if (e.response) {
+          if (e.response.status === 401) {
+            this.emit(Event.Unauthorized, e.response)
+          }
+
+          reject(this.parseResponseError(e.response))
+        }
+
+        reject(e)
+      }
+    }
 
   public call = <T = any>(request: Request) => {
     return new Promise<T>((resolve, reject) => {
       const onDestroy = () => {
-        this.queue = this.makeNewQueue()
+        this.queue = this.makeQueue()
         reject(new CouldntRefreshTokens())
       }
-      this.queueTokenExpirationChecker(request, onDestroy)
-
-      this.queue.push(async () => {
-        try {
-          const response = await axios<T>(this.getOptions(request))
-          return resolve(response.data)
-        } catch (e: any) {
-          if (e.response) {
-            if (e.response.status === 401) {
-              this.emit(Event.Unauthorized, e.response)
-            }
-
-            reject(this.parseResponseError(e.response))
-          }
-
-          reject(e)
-        }
-      })
+      const isExpired =
+        'isTokenExpired' in this.sdk && this.sdk.isTokenExpired()
+      if (request.authorization && isExpired && !this.isRefreshScheduled) {
+        this.isRefreshScheduled = true
+        this.queue.push(this.makeRefreshTask(onDestroy))
+      }
+      this.queue.push(this.makeRequestTask(request, resolve, reject))
     })
   }
 
