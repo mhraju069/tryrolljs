@@ -7,7 +7,7 @@ import {
   getUserTokenBalance,
   hasBalance,
   createPlatformUser,
-  getAutoLoginToken,
+  loginPlatformUser,
 } from './users.js'
 
 async function main() {
@@ -25,7 +25,7 @@ async function main() {
           'Get user token balance',
           'Check user has token balance',
           'Create platform user',
-          'Get secondary user auto login token',
+          'Login Platform User',
         ],
       },
     ])
@@ -53,8 +53,8 @@ async function main() {
           case 'Create platform user':
             await createPlatformUser()
             break
-          case 'Get secondary user auto login token':
-            await getAutoLoginToken()
+          case 'Login Platform User':
+            await loginPlatformUser()
         }
       } catch (error) {
         console.error(error)

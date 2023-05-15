@@ -85,3 +85,7 @@ export interface ExternalUserResponseData {
   externalUserID: string
   userType: string
 }
+
+export interface RedirectToResponse {
+  redirect_to: string
+}

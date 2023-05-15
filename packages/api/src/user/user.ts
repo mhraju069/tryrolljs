@@ -14,6 +14,7 @@ import {
   Response,
   ExternalUserResponseData,
   ExternalUserArgs,
+  RedirectToResponse,
 } from './types'
 
 export const getMe = (client: Client) => {
@@ -130,15 +131,11 @@ const haltRedirect = (url: string, cookies?: string) => {
   })
 }
 
-export interface RedirectToResponse {
-  redirect_to: string
-}
-
 export const autoLogin = async (
   apiUrl: string,
   autoLoginToken: string,
   loginChallenge: string,
-  cookies?: string,
+  cookies: string,
 ): Promise<string> => {
   const resp = await axios.post<RedirectToResponse>(
     `${apiUrl}/v2/oauth2/login?token=${autoLoginToken}&login_challenge=${loginChallenge}`,

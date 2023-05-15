@@ -89,7 +89,3 @@ export type Cache = Partial<{
 export type ClientCache = Partial<{
   token: ClientToken
 }>
-
-export interface RedirectToResponse {
-  redirect_to: string
-}

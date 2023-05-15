@@ -64,7 +64,7 @@ class SDK {
 
   public requestAuthToken = async (
     code: string,
-    codeVerifier?: string,
+    codeVerifier: string,
   ): Promise<RequestTokenResponseData> => {
     const args: RequestTokenArgs = {
       issuerUrl: this.config.issuerUrl,
@@ -72,13 +72,8 @@ class SDK {
       redirectUri: this.config?.redirectUrl,
       clientId: this.config?.clientId,
       code,
+      codeVerifier,
     }
-
-    if (codeVerifier) {
-      args.codeVerifier = codeVerifier
-    }
-
-    console.log('request ath token args: ', args)
 
     const { data } = await requestToken(args)
 

@@ -73,8 +73,8 @@ export const newAuthSDK = () => {
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
-      redirectUrl: 'https://localhost:3000',
-      logoutRedirectUrl: 'https://localhost:3000',
+      redirectUrl: process.env.REDIRECT_URL || '',
+      logoutRedirectUrl: process.env.REDIRECT_URL || '',
       scopes: ['openid', 'offline_access'],
     },
     makeMockStorage(),
@@ -89,8 +89,8 @@ export const generateAuthClient = async (): Promise<
       {
         issuerUrl: process.env.ISSUER_URL || '',
         clientId: process.env.CLIENT_ID || '',
-        redirectUrl: 'https://localhost:3000',
-        logoutRedirectUrl: 'https://localhost:3000',
+        redirectUrl: process.env.REDIRECT_URL || '',
+        logoutRedirectUrl: process.env.REDIRECT_URL || '',
         scopes: ['openid', 'offline_access'],
       },
       makeMockStorage(),

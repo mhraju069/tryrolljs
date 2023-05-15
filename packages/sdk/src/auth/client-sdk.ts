@@ -24,8 +24,11 @@ class ClientSDK {
     return this.config.issuerUrl
   }
 
-  public getClientUserToken = async (code: string, codeVerifier: string) => {
-    console.log('ISSUER URL:', this.config.issuerUrl)
+  public getClientUserToken = async (
+    code: string,
+    codeVerifier: string,
+    redirectUri: string,
+  ) => {
     const response = await requestClientUserToken({
       issuerUrl: this.config.issuerUrl,
       clientId: this.config.clientId,
@@ -33,7 +36,7 @@ class ClientSDK {
       code,
       codeVerifier,
       grantType: GrantType.AuthorizationCode,
-      redirectUri: 'https://localhost:3000',
+      redirectUri,
     })
 
     return response

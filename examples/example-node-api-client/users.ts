@@ -145,13 +145,11 @@ export const createPlatformUser = async () => {
   }
 }
 
-export const getAutoLoginToken = async () => {
+export const loginPlatformUser = async () => {
   try {
-    const userSdk = newAuthSDK() // need userAuthSDK to retrieve loginUrl
+    const userSdk = newAuthSDK()
     const clientSdk = await newClientSDK()
     const client = newApiClient(clientSdk)
-
-    // const clientAuth = await generateApiClient()
 
     const answers = await inquirer.prompt([
       {
