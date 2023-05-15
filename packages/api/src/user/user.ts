@@ -201,6 +201,7 @@ export const secondaryUserLogin = async (
   authSdk: auth.SDK,
   clientSdk: auth.ClientSDK,
   userID: string,
+  redirectUri: string,
 ) => {
   const autoLoginToken = await getExternalUserAutoLoginToken(client, {
     userId: userID,
@@ -245,7 +246,11 @@ export const secondaryUserLogin = async (
   const codeRedirect = mustGetRedirectUrl(initExchangeCode)
   const code = mustGetParam(codeRedirect, 'code')
 
-  const token = await clientSdk.getClientUserToken(code, codeVerifier)
+  const token = await clientSdk.getClientUserToken(
+    code,
+    codeVerifier,
+    redirectUri,
+  )
 
   return token
 }

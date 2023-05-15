@@ -159,7 +159,13 @@ export const loginPlatformUser = async () => {
       },
     ])
 
-    user.secondaryUserLogin(client, userSdk, clientSdk, answers.userId)
+    user.secondaryUserLogin(
+      client,
+      userSdk,
+      clientSdk,
+      answers.userId,
+      process.env.REDIRECT_URL || '',
+    )
   } catch (err) {
     console.error(err)
   }
