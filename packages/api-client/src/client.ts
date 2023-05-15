@@ -30,6 +30,10 @@ export default class Client extends EventEmitter {
     )
   }
 
+  public getBaseUrl = (): string => {
+    return this.config.baseUrl || '' // why is base url optional?
+  }
+
   private getHeaders = (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',

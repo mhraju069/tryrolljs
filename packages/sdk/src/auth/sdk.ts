@@ -10,6 +10,7 @@ import {
   Token,
   GrantType,
   RequestTokenResponseData,
+  RequestTokenArgs,
 } from './types'
 import {
   getRandomString,
@@ -61,6 +62,29 @@ class SDK {
     }
   }
 
+  public requestAuthToken = async (
+    code: string,
+    codeVerifier?: string,
+  ): Promise<RequestTokenResponseData> => {
+    const args: RequestTokenArgs = {
+      issuerUrl: this.config.issuerUrl,
+      grantType: GrantType.AuthorizationCode,
+      redirectUri: this.config?.redirectUrl,
+      clientId: this.config?.clientId,
+      code,
+    }
+
+    if (codeVerifier) {
+      args.codeVerifier = codeVerifier
+    }
+
+    console.log('request ath token args: ', args)
+
+    const { data } = await requestToken(args)
+
+    return data
+  }
+
   public exchangeCodeForToken = async (code: string) => {
     if (this.getAccessToken()) {
       return
@@ -74,17 +98,9 @@ class SDK {
     }
 
     try {
-      const response = await requestToken({
-        issuerUrl: this.config.issuerUrl,
-        grantType: GrantType.AuthorizationCode,
-        redirectUri: this.config?.redirectUrl,
-        clientId: this.config?.clientId,
-        codeVerifier: cachedCodeVerifier,
-        code,
-      })
-
+      const resp = await this.requestAuthToken(code, cachedCodeVerifier)
       await this.setCode(code)
-      await this.saveTokenFromResponse(response.data)
+      await this.saveTokenFromResponse(resp)
     } catch (e) {
       await this.clear()
     }
@@ -162,14 +178,15 @@ class SDK {
     return this.config
   }
 
-  public getLogInUrl = async () => {
+  public getLogInUrl = async (): Promise<[string, string]> => {
     const minVerifierLength = 43
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
     await this.setCodeVerifier(codeVerifier)
 
-    return getLogInUrl({ ...this.config, codeChallenge })
+    const loginUrl = getLogInUrl({ ...this.config, codeChallenge })
+    return [loginUrl, codeVerifier]
   }
 
   public getLogOutUrl = async () => {

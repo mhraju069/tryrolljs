@@ -1,7 +1,12 @@
 import { user } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { generateApiClient } from './generate-api-client.js'
+import {
+  generateApiClient,
+  newApiClient,
+  newAuthSDK,
+  newClientSDK,
+} from './generate-api-client.js'
 
 export const getUserBalances = async () => {
   try {
@@ -19,7 +24,7 @@ export const getUserBalances = async () => {
       return
     }
     printTable(
-      balances?.map((balance) => ({
+      balances?.map((balance: any) => ({
         tokenId: balance.token.uuid,
         symbol: balance.token.symbol,
         balance: balance.amount,
@@ -135,6 +140,28 @@ export const createPlatformUser = async () => {
     })
 
     printTable([resp])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getAutoLoginToken = async () => {
+  try {
+    const userSdk = newAuthSDK() // need userAuthSDK to retrieve loginUrl
+    const clientSdk = await newClientSDK()
+    const client = newApiClient(clientSdk)
+
+    // const clientAuth = await generateApiClient()
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userId',
+        message: 'Roll UserID',
+      },
+    ])
+
+    user.secondaryUserLogin(client, userSdk, clientSdk, answers.userId)
   } catch (err) {
     console.error(err)
   }

@@ -1,9 +1,10 @@
-import { requestClientToken } from './api'
+import { requestClientToken, requestClientUserToken } from './api'
 import {
   Storage,
   ClientConfig,
   ClientToken,
   RequestClientTokenResponseData,
+  GrantType,
 } from './types'
 import { safeJsonParse } from './utils'
 
@@ -17,6 +18,25 @@ class ClientSDK {
   constructor(config: ClientConfig, storage: Storage) {
     this.config = config
     this.storage = storage
+  }
+
+  public issuerUrl = (): string => {
+    return this.config.issuerUrl
+  }
+
+  public getClientUserToken = async (code: string, codeVerifier: string) => {
+    console.log('ISSUER URL:', this.config.issuerUrl)
+    const response = await requestClientUserToken({
+      issuerUrl: this.config.issuerUrl,
+      clientId: this.config.clientId,
+      clientSecret: this.config.clientSecret,
+      code,
+      codeVerifier,
+      grantType: GrantType.AuthorizationCode,
+      redirectUri: 'https://localhost:3000',
+    })
+
+    return response
   }
 
   public generateToken = async () => {

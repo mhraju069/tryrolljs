@@ -39,6 +39,47 @@ export const requestClientToken = async ({
   }
 }
 
+export const requestClientUserToken = async ({
+  issuerUrl,
+  refreshToken,
+  code,
+  grantType,
+  redirectUri,
+  clientId,
+  codeVerifier,
+  clientSecret,
+}: RequestTokenArgs & {
+  clientSecret: string
+}) => {
+  try {
+    const body = {
+      code,
+      refresh_token: refreshToken,
+      grant_type: grantType,
+      redirect_uri: redirectUri,
+      client_id: clientId,
+      code_verifier: codeVerifier,
+    }
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        origin: 'http://localhost:8001', // TODO try remove
+      },
+      data: qs.stringify(body),
+      url: `${issuerUrl}/token`,
+      auth: {
+        username: clientId,
+        password: clientSecret,
+      },
+    }
+
+    return await axios<RequestTokenResponseData>(options)
+  } catch (e) {
+    throw e
+  }
+}
+
 export const requestToken = async ({
   issuerUrl,
   refreshToken,
@@ -59,7 +100,10 @@ export const requestToken = async ({
     }
     const options = {
       method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        origin: 'http://localhost:8001', // TODO try remove
+      },
       data: qs.stringify(body),
       url: `${issuerUrl}/token`,
     }

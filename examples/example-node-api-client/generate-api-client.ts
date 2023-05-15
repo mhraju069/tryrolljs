@@ -48,3 +48,62 @@ export const generateApiClient = async () => {
     throw e
   }
 }
+
+export const newApiClient = (sdkInst: auth.SDK | auth.ClientSDK) => {
+  return new Client.default({ baseUrl: process.env.API_URL }, sdkInst)
+}
+
+export const newClientSDK = async () => {
+  const clientAuthSdk = new auth.ClientSDK(
+    {
+      issuerUrl: process.env.ISSUER_URL || '',
+      clientId: process.env.CLIENT_ID || '',
+      clientSecret: process.env.CLIENT_SECRET || '',
+    },
+    makeMockStorage(),
+  )
+
+  await clientAuthSdk.generateToken()
+
+  return clientAuthSdk
+}
+
+export const newAuthSDK = () => {
+  return new auth.SDK(
+    {
+      issuerUrl: process.env.ISSUER_URL || '',
+      clientId: process.env.CLIENT_ID || '',
+      redirectUrl: 'https://localhost:3000',
+      logoutRedirectUrl: 'https://localhost:3000',
+      scopes: ['openid', 'offline_access'],
+    },
+    makeMockStorage(),
+  )
+}
+
+export const generateAuthClient = async (): Promise<
+  [Client.default, auth.SDK]
+> => {
+  try {
+    const authSdk = new auth.SDK(
+      {
+        issuerUrl: process.env.ISSUER_URL || '',
+        clientId: process.env.CLIENT_ID || '',
+        redirectUrl: 'https://localhost:3000',
+        logoutRedirectUrl: 'https://localhost:3000',
+        scopes: ['openid', 'offline_access'],
+      },
+      makeMockStorage(),
+    )
+
+    const apiClient = new Client.default(
+      { baseUrl: process.env.API_URL },
+      authSdk,
+    )
+
+    return [apiClient, authSdk]
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
