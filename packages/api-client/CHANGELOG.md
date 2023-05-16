@@ -1,5 +1,11 @@
 # @tryrolljs/api-client
 
+## 0.5.0
+
+### Minor Changes
+
+- [#272](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/272) [`da5b653`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/da5b65342a0c662d8fe3f777e21286013494af66) Thanks [@teimurjan](https://github.com/teimurjan)! - Disabled refresh attempt for non-logged in users
+
 ## 0.4.0
 
 ### Minor Changes
