@@ -246,7 +246,38 @@ describe('client', () => {
     })
   })
 
-  it('resets queue when refresh fails', async () => {
+  it('does not refresg when a non-logged in user', async () => {
+    const authSdk_ = {
+      ...authSdk,
+      getAccessToken: jest.fn().mockReturnValue(undefined),
+      isTokenExpired: jest.fn().mockReturnValue(true),
+      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+    }
+    const client = new Client(defaultConfig, authSdk_)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await client.call(request)
+
+    expect(mockAxios).toHaveBeenCalledWith({
+      url: request.url,
+      method: request.method,
+      data: { foo: 'bar' },
+      headers: {
+        Authorization: undefined,
+        'Content-Type': 'application/json',
+        'X-Client-Version': '0.0.0',
+      },
+    })
+    expect(authSdk_.refreshTokens).not.toHaveBeenCalled()
+  })
+
+  it('resets queue when refresh fails for logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
       isTokenExpired: jest.fn().mockReturnValue(true),
