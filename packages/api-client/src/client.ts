@@ -134,9 +134,15 @@ export default class Client extends EventEmitter {
         this.queue = this.makeQueue()
         reject(new CouldntRefreshTokens())
       }
+      const isLoggedIn = !!this.sdk.getAccessToken()
       const isExpired =
         'isTokenExpired' in this.sdk && this.sdk.isTokenExpired()
-      if (request.authorization && isExpired && !this.isRefreshScheduled) {
+      if (
+        request.authorization &&
+        isLoggedIn &&
+        isExpired &&
+        !this.isRefreshScheduled
+      ) {
         this.isRefreshScheduled = true
         this.queue.push(this.makeRefreshTask(onDestroy))
       }
