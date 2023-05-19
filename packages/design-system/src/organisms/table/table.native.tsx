@@ -20,14 +20,10 @@ const styles = StyleSheet.create({
     paddingTop: spacing[16],
     paddingBottom: spacing[16],
     paddingRight: spacing[8],
-    justifyContent: 'center',
     alignItems: 'center',
   },
   row: {
     borderBottomWidth: 1,
-  },
-  scrollView: {
-    flexDirection: 'column',
   },
 })
 

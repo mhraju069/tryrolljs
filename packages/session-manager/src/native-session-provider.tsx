@@ -104,9 +104,13 @@ const NativeSessionProvider = ({
   }, [authSdk])
 
   const refresh = useCallback(async () => {
-    setStatus('refreshing')
-    await authSdk.refreshTokens(true)
-    setStatus('stale')
+    try {
+      setStatus('refreshing')
+      await authSdk.refreshTokens(true)
+    } catch (e) {
+    } finally {
+      setStatus('stale')
+    }
   }, [authSdk])
 
   return (
