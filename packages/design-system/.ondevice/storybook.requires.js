@@ -45,6 +45,7 @@ const getStories = () => {
     require('../src/organisms/formStepHeader/formStepHeader.stories.tsx'),
     require('../src/organisms/modal/modal.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
+    require('../src/organisms/table/table.stories.tsx'),
   ]
 }
 

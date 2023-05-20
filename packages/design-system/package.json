@@ -32,6 +32,7 @@
     "@floating-ui/react": "^0.24.0",
     "@floating-ui/react-dom": "^2.0.0",
     "@floating-ui/react-native": "^0.10.0",
+    "@tanstack/react-table": "^8.9.1",
     "@uniswap/widgets": "^2.51.2",
     "boring-avatars": "^1.6.3",
     "color": "^4.2.3",
@@ -102,6 +103,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.71.5",
+    "react-native-asset": "^2.1.1",
     "react-native-crypto": "^2.2.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-randombytes": "^3.6.1",
@@ -129,7 +131,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start:native": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "link:assets": "react-native-asset"
   },
   "publishConfig": {
     "access": "public"
