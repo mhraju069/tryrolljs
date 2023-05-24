@@ -2,6 +2,7 @@ import http from 'http'
 import axios from 'axios'
 import Client from '@tryrolljs/api-client'
 import { auth } from '@tryrolljs/sdk'
+import { RequestTokenResponseData } from '@tryrolljs/sdk/dist/cjs/auth/types'
 import {
   HasBalanceArgs,
   GetMeResponseData,
@@ -85,15 +86,17 @@ export const createPlatformUser = async (
   return response.data
 }
 
-export const getExternalUserAutoLoginToken = async (
+export const getUserMasqueradeToken = async (
   client: Client,
   { userId }: GetUserArgs,
 ) => {
   const response = await client.call<Response<{ token: string }>>({
-    url: `/v1/users/${userId}/autoLoginToken`,
+    url: `/v1/users/${userId}/masquerade`,
     method: 'GET',
     authorization: true,
   })
+
+  console.log('response.data', response.data)
 
   return response.data
 }
@@ -202,10 +205,12 @@ export const secondaryUserLogin = async (
   clientSdk: auth.ClientSDK,
   userID: string,
   redirectUri: string,
-) => {
-  const autoLoginToken = await getExternalUserAutoLoginToken(client, {
+): Promise<RequestTokenResponseData> => {
+  const autoLoginToken = await getUserMasqueradeToken(client, {
     userId: userID,
   })
+
+  console.log('got auto login token: ', autoLoginToken)
 
   const [loginUrl, codeVerifier] = await authSdk.getLogInUrl()
 
@@ -252,5 +257,5 @@ export const secondaryUserLogin = async (
     redirectUri,
   )
 
-  return token
+  return token.data
 }

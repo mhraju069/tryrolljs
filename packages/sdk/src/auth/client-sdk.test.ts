@@ -1,12 +1,18 @@
 import type { PartialDeep } from 'type-fest'
 import { requestClientToken } from './api'
-import type { ClientCache, RequestClientTokenResponseData } from './types'
+import {
+  ClientCache,
+  ClientConfig,
+  RequestClientTokenResponseData,
+  ScopeType,
+} from './types'
 import ClientSDK, { TOKEN_STORAGE_KEY } from './client-sdk'
 
-const config = {
+const config: ClientConfig = {
   clientId: 'clientId',
   clientSecret: 'clientSecret',
   issuerUrl: 'http://localhost:3000/oauth2',
+  scopes: [ScopeType.ReadTx, ScopeType.Offline],
 }
 
 const storage = {

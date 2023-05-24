@@ -10,6 +10,7 @@ export interface ClientConfig {
   clientId: string
   clientSecret: string
   issuerUrl: string
+  scopes: string[]
 }
 
 export interface Storage {
@@ -27,12 +28,14 @@ export enum GrantType {
 export enum ScopeType {
   Offline = 'offline',
   ReadTx = 'read-tx',
+  Masquerade = 'masquerade',
 }
 
 export interface RequestClientTokenArgs {
   issuerUrl: string
   clientId: string
   clientSecret: string
+  scopes: string[]
 }
 
 export interface RequestClientTokenResponseData {

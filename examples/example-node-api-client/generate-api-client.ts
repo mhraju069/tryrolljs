@@ -1,5 +1,6 @@
 import Client from '@tryrolljs/api-client'
 import { auth } from '@tryrolljs/sdk'
+import { ScopeType } from '@tryrolljs/sdk/dist/cjs/auth/types.js'
 
 function makeMockStorage() {
   let storage: Record<string, string> = {}
@@ -31,6 +32,7 @@ export const generateApiClient = async () => {
         issuerUrl: process.env.ISSUER_URL || '',
         clientId: process.env.CLIENT_ID || '',
         clientSecret: process.env.CLIENT_SECRET || '',
+        scopes: [ScopeType.ReadTx, ScopeType.Offline, ScopeType.Masquerade],
       },
       makeMockStorage(),
     )
@@ -54,11 +56,13 @@ export const newApiClient = (sdkInst: auth.SDK | auth.ClientSDK) => {
 }
 
 export const newClientSDK = async () => {
+  console.log('client sdk with clientID: ', process.env.CLIENT_ID)
   const clientAuthSdk = new auth.ClientSDK(
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
       clientSecret: process.env.CLIENT_SECRET || '',
+      scopes: [ScopeType.ReadTx, ScopeType.Offline, ScopeType.Masquerade],
     },
     makeMockStorage(),
   )

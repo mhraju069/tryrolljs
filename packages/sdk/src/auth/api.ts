@@ -9,18 +9,18 @@ import {
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
   GrantType,
-  ScopeType,
 } from './types'
 
 export const requestClientToken = async ({
   clientId,
   clientSecret,
   issuerUrl,
+  scopes,
 }: RequestClientTokenArgs) => {
   try {
     const body = {
       grant_type: GrantType.ClientCredentials,
-      scope: ScopeType.ReadTx,
+      scope: scopes.join(' '), // a string with space seperated scopes
     }
     const options = {
       method: 'POST',

@@ -159,14 +159,16 @@ export const loginPlatformUser = async () => {
       },
     ])
 
-    user.secondaryUserLogin(
+    const tokenData = await user.secondaryUserLogin(
       client,
       userSdk,
       clientSdk,
       answers.userId,
       process.env.REDIRECT_URL || '',
     )
+
+    printTable([tokenData])
   } catch (err) {
-    console.error(err)
+    console.error('failed to login with platform user: ', err)
   }
 }
