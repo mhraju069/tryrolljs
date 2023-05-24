@@ -8750,7 +8750,7 @@ __metadata:
   peerDependencies:
     "@tryrolljs/api": ^1.0.5
     "@tryrolljs/api-client": ^0.5.0
-    "@tryrolljs/auth-web-sdk": ^1.3.1
+    "@tryrolljs/auth-web-sdk": ^0.0.0
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
   languageName: unknown
