@@ -159,7 +159,7 @@ export const loginPlatformUser = async () => {
       },
     ])
 
-    const tokenData = await user.secondaryUserLogin(
+    const tokenData = await user.loginPlatformUser(
       client,
       userSdk,
       clientSdk,

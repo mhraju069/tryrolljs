@@ -96,8 +96,6 @@ export const getUserMasqueradeToken = async (
     authorization: true,
   })
 
-  console.log('response.data', response.data)
-
   return response.data
 }
 
@@ -199,7 +197,7 @@ const provideConsent = async (
   return data.redirect_to
 }
 
-export const secondaryUserLogin = async (
+export const loginPlatformUser = async (
   client: Client,
   authSdk: auth.SDK,
   clientSdk: auth.ClientSDK,
@@ -209,8 +207,6 @@ export const secondaryUserLogin = async (
   const autoLoginToken = await getUserMasqueradeToken(client, {
     userId: userID,
   })
-
-  console.log('got auto login token: ', autoLoginToken)
 
   const [loginUrl, codeVerifier] = await authSdk.getLogInUrl()
 
