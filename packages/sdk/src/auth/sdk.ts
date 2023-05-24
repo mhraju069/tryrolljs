@@ -80,6 +80,10 @@ class SDK {
     return data
   }
 
+  public redirectUri = () => {
+    return this.config.redirectUrl
+  }
+
   public exchangeCodeForToken = async (code: string) => {
     if (this.getAccessToken()) {
       return

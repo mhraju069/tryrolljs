@@ -164,7 +164,7 @@ export const loginPlatformUser = async () => {
       userSdk,
       clientSdk,
       answers.userId,
-      process.env.REDIRECT_URL || '',
+      userSdk.redirectUri(),
     )
 
     printTable([tokenData])

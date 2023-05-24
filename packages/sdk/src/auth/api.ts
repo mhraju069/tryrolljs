@@ -101,7 +101,6 @@ export const requestToken = async ({
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        origin: 'http://localhost:8001', // TODO try remove
       },
       data: qs.stringify(body),
       url: `${issuerUrl}/token`,
