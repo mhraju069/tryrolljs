@@ -1,20 +1,15 @@
-import { requestClientToken } from './api'
-import {
-  Storage,
-  ClientConfig,
-  ClientToken,
-  RequestClientTokenResponseData,
-} from './types'
+import { requestToken } from './api'
+import { Storage, Config, Token, RequestTokenResponseData } from './types'
 import { safeJsonParse } from './utils'
 
-export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_CLIENT_TOKEN'
+export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_CLIENT_CREDENTIALS_TOKEN'
 
-class ClientSDK {
-  private readonly config: ClientConfig
+class SDK {
+  private readonly config: Config
   private readonly storage: Storage
-  private token?: ClientToken
+  private token?: Token
 
-  constructor(config: ClientConfig, storage: Storage) {
+  constructor(config: Config, storage: Storage) {
     this.config = config
     this.storage = storage
   }
@@ -24,7 +19,7 @@ class ClientSDK {
       return
     }
 
-    const response = await requestClientToken({
+    const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret,
@@ -33,9 +28,7 @@ class ClientSDK {
     await this.saveTokenFromResponse(response.data)
   }
 
-  private saveTokenFromResponse = async (
-    data: RequestClientTokenResponseData,
-  ) => {
+  private saveTokenFromResponse = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.clear()
       throw new Error(data.error)
@@ -53,9 +46,7 @@ class ClientSDK {
   private getCache = async () => {
     const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
     const parsedToken =
-      typeof token === 'string'
-        ? (safeJsonParse(token) as ClientToken)
-        : undefined
+      typeof token === 'string' ? (safeJsonParse(token) as Token) : undefined
     const cache = { token: parsedToken }
     return cache
   }
@@ -76,7 +67,7 @@ class ClientSDK {
     return this.token?.error
   }
 
-  private setToken = async (token?: ClientToken) => {
+  private setToken = async (token?: Token) => {
     this.token = token
     if (token) {
       await this.storage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token))
@@ -86,4 +77,4 @@ class ClientSDK {
   }
 }
 
-export default ClientSDK
+export default SDK

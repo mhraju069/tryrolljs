@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { auth } = require('@tryrolljs/sdk')
+const SDK = require('@tryrolljs/auth-client-credentials-sdk')
 
 function makeMockStorage() {
   let storage = {}
@@ -26,7 +26,7 @@ function makeMockStorage() {
 
 const generateToken = async () => {
   try {
-    const clientAuthSdk = new auth.ClientSDK(
+    const clientAuthSdk = new SDK(
       {
         issuerUrl: process.env.ISSUER_URL,
         clientId: process.env.CLIENT_ID,

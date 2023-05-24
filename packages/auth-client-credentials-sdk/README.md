@@ -1,4 +1,4 @@
-# @tryrolljs/sdk
+# @tryrolljs/auth-client-credentials-sdk
 
 ## About
 
@@ -7,11 +7,11 @@ This package is intended to help applications that depend on the Roll API to man
 ## Install
 
 ```sh
-yarn add @tryrolljs/sdk @tryrolljs/api-client
+yarn add @tryrolljs/auth-client-credentials-sdk @tryrolljs/api-client
 ```
 
 ```sh
-npm i @tryrolljs/sdk @tryrolljs/api-client`
+npm i @tryrolljs/auth-client-credentials-sdk @tryrolljs/api-client`
 ```
 
 ## Quick Start
@@ -20,7 +20,7 @@ npm i @tryrolljs/sdk @tryrolljs/api-client`
 
    import { token } from '@tryrolljs/api'
    import Client from '@tryrolljs/api-client'
-   import { auth } from '@tryrolljs/sdk'
+   import SDK from '@tryrolljs/auth-client-credentials-sdk'
 
 
 
@@ -37,7 +37,7 @@ npm i @tryrolljs/sdk @tryrolljs/api-client`
     const storage = new YourStorageImplementation() (an implementation of a storage mechanism that suits your needs)
 
     // initialize an instance of the Roll API SDK, backed by client credentials
-    const clientAuthSdk = new auth.ClientSDK(
+    const sdk = new SDK(
       {
         issuerUrl: "https://oauth.tryroll.com/oauth2",
         clientId: process.env.YOUR_CLIENT_ID,
@@ -47,22 +47,18 @@ npm i @tryrolljs/sdk @tryrolljs/api-client`
     )
 
     // generate an auth token for your api client
-    await clientAuthSdk.generateToken()
+    await sdk.generateToken()
 
     // initialize an apiClient with your authentication manager
     const apiClient = new Client.default(
       { baseUrl: "https://api.tryroll.com" },
-      clientAuthSdk,
+      sdk,
     )
 
     // invoke an api function while passing in the api client
     const tokenList = await token.getTokens(apiClient, { limit: 10, offset: 0})
-
-
 ```
 
 ## Examples
 
-- [React](/examples/example-web-oauth-client/)
-- [React Native](/examples/example-native-oauth-client/)
 - [Node](/examples/example-node-client/)
