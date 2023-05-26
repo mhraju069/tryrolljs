@@ -37,7 +37,6 @@ const BaseButton = ({
   paddingVertical,
   borderRadius,
   size,
-  // textSize,
   icon,
   iconVariant,
   isDisabled = false,
