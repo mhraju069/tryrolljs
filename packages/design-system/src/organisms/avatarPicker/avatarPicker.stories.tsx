@@ -15,4 +15,11 @@ export const Default = fromTemplate(Template, {
   maxImageSize: 1000 * 1000,
 })
 
+export const WithInitialValue = fromTemplate(Template, {
+  onAvatarChange: action('onAvatarChange'),
+  maxImageSize: 1000 * 1000,
+  value:
+    'https://tryroll.com/wp-content/uploads/2019/07/roll_logo_horizontal.svg',
+})
+
 export default storyConfig
