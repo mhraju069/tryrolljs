@@ -1,5 +1,20 @@
 # @tryrolljs/session-manager
 
+## 13.0.0
+
+### Major Changes
+
+- [#278](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/278) [`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029) Thanks [@teimurjan](https://github.com/teimurjan)! - Extract SDKs to separate packages
+
+### Patch Changes
+
+- [#274](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/274) [`451598b`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/451598b34f2df885789a4cacd3c735e852f8b72d) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix refresh never resolves to stale state
+
+- Updated dependencies [[`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029)]:
+  - @tryrolljs/api-client@1.0.0
+  - @tryrolljs/auth-web-sdk@1.0.0
+  - @tryrolljs/api@1.0.6
+
 ## 12.0.0
 
 ### Patch Changes

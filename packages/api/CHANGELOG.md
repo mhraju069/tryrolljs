@@ -1,5 +1,12 @@
 # @tryrolljs/api
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029)]:
+  - @tryrolljs/api-client@1.0.0
+
 ## 1.0.5
 
 ### Patch Changes

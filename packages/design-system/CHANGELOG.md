@@ -1,5 +1,20 @@
 # @tryrolljs/design-system
 
+## 1.4.0
+
+### Minor Changes
+
+- [#281](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/281) [`2be6761`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2be676146d0e59a173c737ae0c75b01bb65b2519) Thanks [@teimurjan](https://github.com/teimurjan)! - Add value prop to avatar picker
+
+- [#274](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/274) [`8845ba1`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8845ba1c13ed13759192266bd50d014441b6d434) Thanks [@teimurjan](https://github.com/teimurjan)! - Add Table component
+
+- [#279](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/279) [`9359d12`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9359d127c9888064590f88c60513ed51ea9e55c3) Thanks [@teimurjan](https://github.com/teimurjan)! - Add AvatarPicker component
+
+### Patch Changes
+
+- [#280](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/280) [`4678453`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/467845360aa31d0a2cbf7ffd25e235ca69665ea2) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Use percentage on InputLayout component
+  - Change responsive breakpoint from 178px to 1280px
+
 ## 1.3.8
 
 ### Patch Changes
