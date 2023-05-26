@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 const AvatarPicker: FC<AvatarPickerProps> = ({
   onAvatarChange,
   maxImageSize,
+  value,
 }) => {
   const [image, setImage] = useState<string | null>(null)
   const theme = useThemeV2()
@@ -70,7 +71,7 @@ const AvatarPicker: FC<AvatarPickerProps> = ({
         >
           {image ? (
             <Image
-              source={{ uri: image.toString() }}
+              source={{ uri: image?.toString() ?? value }}
               style={styles.previewContainer}
             />
           ) : (
