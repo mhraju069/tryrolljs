@@ -3,20 +3,21 @@ import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
-import { auth } from '@tryrolljs/sdk'
+import AuthWebSDK from '@tryrolljs/auth-web-sdk'
+import AuthClientCredentialsSDK from '@tryrolljs/auth-client-credentials-sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: auth.SDK | auth.ClientSDK
+  private sdk: AuthWebSDK | AuthClientCredentialsSDK
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
   private isBlocked: boolean = false
 
-  constructor(config: Config, sdk: auth.SDK | auth.ClientSDK) {
+  constructor(config: Config, sdk: AuthWebSDK | AuthClientCredentialsSDK) {
     super()
 
     this.config = config

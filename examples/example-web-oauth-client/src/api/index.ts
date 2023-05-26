@@ -1,8 +1,8 @@
-import { auth } from '@tryrolljs/sdk'
+import SDK from '@tryrolljs/auth-web-sdk'
 import Client from '@tryrolljs/api-client'
 import config from '../config'
 
-const authSdk = new auth.SDK(
+const authSdk = new SDK(
   {
     clientId: config.clientID,
     issuerUrl: config.issuerURL,
