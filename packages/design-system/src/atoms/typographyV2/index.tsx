@@ -40,7 +40,7 @@ export const TypographyV2 = ({
 }: PropsWithChildren<TypographyV2Props>) => {
   const styles = useBreakpointValue({
     base: responsiveFontStyles,
-    md: fontStyles,
+    xl: fontStyles,
   })
   return (
     <Text

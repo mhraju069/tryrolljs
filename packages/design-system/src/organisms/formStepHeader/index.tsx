@@ -108,7 +108,7 @@ export const FormStepHeader: React.FC<FormStepHeaderProps> = ({
 }) => {
   const isSmallScreen = useBreakpointValue({
     base: true,
-    md: false,
+    xl: false,
   })
   const stepsWidth = useRef<Record<string, number>>({})
 

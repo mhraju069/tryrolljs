@@ -9,7 +9,7 @@ export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
   children,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false })
+  const isMobile = useBreakpointValue({ base: true, xl: false })
   if (isMobile) {
     return (
       <View>

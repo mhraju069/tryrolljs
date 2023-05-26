@@ -27,11 +27,11 @@ export const InputLayout: React.FC<InputLayoutProps & PropsWithChildren> = ({
 }) => {
   const theme = useThemeV2()
   const containerResponsiveStyles = useBreakpointValue({
-    md: [container.row, container.justifySpaceBetween, container.alignStart],
+    xl: [container.row, container.justifySpaceBetween, container.alignStart],
   })
   const contentResponsiveStyles = useBreakpointValue({
     base: [margin.mb16],
-    md: [margin.mr24],
+    xl: [margin.mr24, { width: '60%' }],
   })
   return (
     <View style={[containerResponsiveStyles]}>
