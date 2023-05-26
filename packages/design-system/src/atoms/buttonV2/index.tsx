@@ -1,12 +1,14 @@
 import { Pressable, useBreakpointValue } from 'native-base'
-import { useState } from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { useMemo, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import {
   container,
   FONT_SIZE_BUTTON_LARGE,
   FONT_SIZE_BUTTON_MEDIUM,
   FONT_SIZE_BUTTON_TEXT,
+  lineHeights,
+  responsiveLineHeights,
 } from '../../styles'
 import { Icon } from '../icon'
 import { Spinner } from '../spinner'
@@ -35,7 +37,7 @@ const BaseButton = ({
   paddingVertical,
   borderRadius,
   size,
-  textSize,
+  // textSize,
   icon,
   iconVariant,
   isDisabled = false,
@@ -47,6 +49,10 @@ const BaseButton = ({
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
+  const lineHeights_ = useBreakpointValue({
+    base: responsiveLineHeights,
+    xl: lineHeights,
+  })
 
   const getStylesBasedOnState = (): StateVariantProps => {
     if (isDisabled || isLoading) return disabled
@@ -60,37 +66,10 @@ const BaseButton = ({
   const isUnderlined = variant === 'text' && isHover && !isDisabled
 
   const styles = StyleSheet.create({
-    container: {
-      position: 'relative',
-      itemsCenter: 'center',
-      justContent: 'center',
-      paddingHorizontal:
-        variant === 'icon' ? paddingVertical : paddingHorizontal,
-      paddingVertical,
-      borderRadius,
-      backgroundColor:
-        iconBackgroundColor || stylesBasedOnState.backgroundColor,
-      ...Platform.select({
-        native: {
-          borderWidth: stylesBasedOnState.borderWidth,
-          borderColor: stylesBasedOnState.borderColor,
-        },
-      }),
-    },
-    borderContainer: {
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      borderWidth: stylesBasedOnState.borderWidth,
-      borderColor: stylesBasedOnState.borderColor,
-      borderRadius,
-    },
     title: {
       fontWeight: '600',
       color: stylesBasedOnState.textColor,
-      borderBottomWidth: 1,
+      borderBottomWidth: variant === 'text' ? 1 : 0,
       borderBottomColor: isUnderlined
         ? stylesBasedOnState.textColor
         : 'transparent',
@@ -101,10 +80,35 @@ const BaseButton = ({
     },
   })
 
+  const paddingY = useMemo(() => {
+    if (isActive)
+      return paddingVertical - (active.borderWidth - rest.borderWidth)
+    if (isHover) return paddingVertical - (hover.borderWidth - rest.borderWidth)
+    return paddingVertical
+  }, [paddingVertical, isActive, isHover, active, hover, rest])
+
+  const paddingX = useMemo(() => {
+    let padding = paddingHorizontal
+    if (variant === 'icon') padding = paddingVertical
+    if (isActive) return padding - (active.borderWidth - rest.borderWidth)
+    if (isHover) return padding - (hover.borderWidth - rest.borderWidth)
+    return padding
+  }, [
+    paddingHorizontal,
+    isActive,
+    isHover,
+    active,
+    hover,
+    variant,
+    paddingVertical,
+    rest,
+  ])
+
   const fontBasedOnVariantAndSize: TypographyVariant =
     variant === 'text' && size === 'large'
       ? 'buttonText'
       : fontsBasedOnSize[size]
+  const lineHeight: number = lineHeights_[fontBasedOnVariantAndSize]
 
   return (
     <View style={[container.alignCenter, style]}>
@@ -117,25 +121,34 @@ const BaseButton = ({
         onPressOut={() => setIsActive(false)}
         onPress={onPress}
         isHovered={isHover}
-        isFocused={isActive}
-        style={[
-          styles.container,
-          container.row,
-          container.alignCenter,
-          container.justifyCenter,
-        ]}
+        // Styles
+        position="relative"
+        alignItems="center"
+        justifyContent="center"
+        paddingX={`${paddingX}px`}
+        paddingY={`${paddingY}px`}
+        borderRadius={borderRadius}
+        borderColor={stylesBasedOnState.borderColor}
+        borderWidth={rest.borderWidth}
+        backgroundColor={
+          iconBackgroundColor || stylesBasedOnState.backgroundColor
+        }
+        flexDirection="row"
+        _hover={{
+          borderColor: hover.borderColor,
+          borderWidth: hover.borderWidth,
+        }}
+        _focus={{
+          backgroundColor: iconBackgroundColor || active.backgroundColor,
+        }}
+        _pressed={{
+          borderColor: active.borderColor,
+          borderWidth: active.borderWidth,
+          backgroundColor: iconBackgroundColor || active.backgroundColor,
+        }}
       >
-        {Platform.OS === 'web' && (
-          <View
-            style={[
-              container.fullWidth,
-              container.fullHeight,
-              styles.borderContainer,
-            ]}
-          />
-        )}
         {isLoading ? (
-          <Spinner size={textSize} color={stylesBasedOnState.textColor} />
+          <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
         ) : (
           <>
             {iconVariant && variant !== 'text' && (
@@ -154,6 +167,7 @@ const BaseButton = ({
             {variant !== 'icon' && (
               <TypographyV2
                 variant={fontBasedOnVariantAndSize}
+                selectable={false}
                 color={stylesBasedOnState.textColor}
                 style={[styles.title]}
               >

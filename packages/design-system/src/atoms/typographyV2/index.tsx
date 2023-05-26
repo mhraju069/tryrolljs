@@ -27,6 +27,8 @@ export interface TypographyV2Props {
   underline?: boolean
   numberOfLines?: number
   onPress?: (event: GestureResponderEvent) => void
+  selectable?: boolean
+  testID?: string
 }
 
 export const TypographyV2 = ({
@@ -36,6 +38,8 @@ export const TypographyV2 = ({
   color,
   numberOfLines,
   underline = false,
+  selectable = true,
+  testID,
   onPress,
 }: PropsWithChildren<TypographyV2Props>) => {
   const styles = useBreakpointValue({
@@ -46,6 +50,8 @@ export const TypographyV2 = ({
     <Text
       numberOfLines={numberOfLines}
       onPress={onPress}
+      testID={testID}
+      selectable={selectable}
       style={[
         styles[variant],
         style,
