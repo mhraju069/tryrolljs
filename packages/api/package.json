@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/api",
   "description": "API request functions for Roll",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/api-client": "^0.5.0",
+    "@tryrolljs/api-client": "^1.0.0",
     "axios": "^1.2.2",
     "events": "^3.3.0"
   },
