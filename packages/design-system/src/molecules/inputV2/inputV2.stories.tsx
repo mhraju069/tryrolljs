@@ -5,6 +5,7 @@ import { container, padding } from '../../styles'
 import { InputV2ActionSuffix } from '../../atoms/inputV2ActionSuffix'
 import { InputV2TextSuffix } from '../../atoms/inputV2TextSuffix'
 import { useThemeV2 } from '../../hooks'
+import { InputV2SelectSuffix } from '../../atoms'
 import { InputPropsV2, InputV2 } from '.'
 
 const storyConfig = {
@@ -51,6 +52,23 @@ export const WithData = fromTemplate(Template, {
   disabled: false,
   suffix: (
     <InputV2TextSuffix title="Lots" description="Total lots to distribute" />
+  ),
+})
+
+export const WithSelect = fromTemplate(Template, {
+  label: 'With select',
+  placeholder: 'this has a select',
+  disabled: false,
+  suffix: (
+    <InputV2SelectSuffix
+      placeholder="nothing"
+      defaultValue="1"
+      options={[
+        { name: 'Option #1', value: '1' },
+        { name: 'Option #2', value: '2' },
+        { name: 'Option #3', value: '3' },
+      ]}
+    />
   ),
 })
 

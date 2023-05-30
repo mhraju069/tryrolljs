@@ -14,6 +14,7 @@ export interface PopoverProps {
   placement?: Placement
   openOnHover?: boolean
   matchReferenceWidth?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 export const Popover: ComponentType<PopoverProps>

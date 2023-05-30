@@ -21,6 +21,7 @@ export const Popover = ({
   renderReference,
   openOnHover,
   placement = 'bottom-start',
+  style,
   matchReferenceWidth,
   ...rest
 }: PopoverProps) => {
@@ -79,6 +80,7 @@ export const Popover = ({
               backgroundColor: theme.background.primary,
               position: strategy,
             },
+            style,
           ]}
           ref={refs.setFloating}
           {...getFloatingProps()}
