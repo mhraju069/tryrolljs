@@ -85,6 +85,7 @@ describe('SDK', () => {
       issuerUrl: 'http://localhost:3000/oauth2',
       clientId: 'clientId',
       clientSecret: 'clientSecret',
+      scopes: [ScopeType.ReadTx, ScopeType.Offline],
     })
   })
 

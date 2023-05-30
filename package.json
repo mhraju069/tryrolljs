@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build:api": "yarn workspace @tryrolljs/api  build",
-    "build:sdk": "yarn workspace @tryrolljs/sdk  build",
+    "build:auth-web-sdk": "yarn workspace @tryrolljs/sdk  build",
+    "build:auth-client-credentials-sdk": "yarn workspace @tryrolljs/auth-client-credentials-sdk  build",
     "build": "yarn workspaces foreach -t run build",
     "test": "yarn workspaces foreach run test",
     "lint": "./packages/cli/bin/roll.js lint",
