@@ -1,5 +1,40 @@
 # @tryrolljs/design-system
 
+## 1.4.0
+
+### Minor Changes
+
+- [#281](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/281) [`2be6761`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/2be676146d0e59a173c737ae0c75b01bb65b2519) Thanks [@teimurjan](https://github.com/teimurjan)! - Add value prop to avatar picker
+
+- [#274](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/274) [`8845ba1`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/8845ba1c13ed13759192266bd50d014441b6d434) Thanks [@teimurjan](https://github.com/teimurjan)! - Add Table component
+
+- [#279](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/279) [`9359d12`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9359d127c9888064590f88c60513ed51ea9e55c3) Thanks [@teimurjan](https://github.com/teimurjan)! - Add AvatarPicker component
+
+### Patch Changes
+
+- [#280](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/280) [`4678453`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/467845360aa31d0a2cbf7ffd25e235ca69665ea2) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Use percentage on InputLayout component
+  - Change responsive breakpoint from 178px to 1280px
+
+## 1.3.8
+
+### Patch Changes
+
+- [#260](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/260) [`7e08ae3`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7e08ae39dc1a26185582641d41abd24390a47929) Thanks [@teimurjan](https://github.com/teimurjan)! - Add safe area insets to layout
+
+- [#260](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/260) [`891974a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/891974ab4d3a6b4f3ad55d05946839b18c9ed4ad) Thanks [@teimurjan](https://github.com/teimurjan)! - Add useBreakpointValue hook
+
+## 1.3.7
+
+### Patch Changes
+
+- [#257](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/257) [`e252319`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e2523198ec528b044f25555ce67e230a9fb165b5) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove uniswap widget css import & add native fallback
+
+## 1.3.6
+
+### Patch Changes
+
+- [#255](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/255) [`babc5a0`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/babc5a0a057237c26553be4fa2bf59154aaec6cc) Thanks [@teimurjan](https://github.com/teimurjan)! - Update uniswap widget
+
 ## 1.3.5
 
 ### Patch Changes

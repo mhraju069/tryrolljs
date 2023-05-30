@@ -20,7 +20,7 @@ const FooterOption = ({ title, link, isLast = false }: FooterOptionProps) => {
   }, [link])
   const containerStlyes = useBreakpointValue({
     base: [!isLast && margin.mb16],
-    md: [!isLast && margin.mr16],
+    xl: [!isLast && margin.mr16],
   })
   return (
     <View style={containerStlyes}>
@@ -69,11 +69,11 @@ export const FooterV2 = ({
 }: FooterV2Props) => {
   const theme = useThemeV2()
   const contentResponsiveStyles = useBreakpointValue({
-    md: [container.alignCenter, container.row],
+    xl: [container.alignCenter, container.row],
   })
   const linksContainerResponsiveStyles = useBreakpointValue({
     base: [container.justifyStart, margin.mt16],
-    md: [
+    xl: [
       container.justifySpaceBetween,
       container.flex1,
       margin.ml16,
@@ -81,15 +81,15 @@ export const FooterV2 = ({
     ],
   })
   const socialContainerResponsiveStyles = useBreakpointValue({
-    md: [container.row],
+    xl: [container.row],
   })
   const navigationContainerResponsiveStyles = useBreakpointValue({
     base: [margin.ml40],
-    md: [container.row, { marginLeft: 0 }],
+    xl: [container.row, { marginLeft: 0 }],
   })
   const tradeMarkResponsiveStyles = useBreakpointValue({
     base: [margin.mt16],
-    md: [{ marginTop: 0 }, margin.ml16],
+    xl: [{ marginTop: 0 }, margin.ml16],
   })
 
   return (

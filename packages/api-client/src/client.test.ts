@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Client from './client'
 import { Event } from './types'
+import { CouldntRefreshTokens } from './errors'
 
 jest.mock('axios', () => jest.fn())
 
@@ -85,8 +86,23 @@ describe('client', () => {
       authorization: true,
       body: { foo: 'bar' },
     }
+    const calls = [
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+      client.call(request),
+    ]
 
-    await client.call(request)
+    await Promise.all(calls)
 
     expect(authSdk_.refreshTokens).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledWith({
@@ -100,8 +116,11 @@ describe('client', () => {
       },
     })
 
+    expect(mockAxios.mock.calls).toHaveLength(calls.length)
+    const firstAxiosCallOrder = Math.min(...mockAxios.mock.invocationCallOrder)
+    expect(authSdk_.refreshTokens.mock.calls).toHaveLength(1)
     expect(authSdk_.refreshTokens.mock.invocationCallOrder[0]).toBeLessThan(
-      mockAxios.mock.invocationCallOrder[0],
+      firstAxiosCallOrder,
     )
   })
 
@@ -225,5 +244,59 @@ describe('client', () => {
         'X-Client-Version': '0.0.0',
       },
     })
+  })
+
+  it('does not refresg when a non-logged in user', async () => {
+    const authSdk_ = {
+      ...authSdk,
+      getAccessToken: jest.fn().mockReturnValue(undefined),
+      isTokenExpired: jest.fn().mockReturnValue(true),
+      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+    }
+    const client = new Client(defaultConfig, authSdk_)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await client.call(request)
+
+    expect(mockAxios).toHaveBeenCalledWith({
+      url: request.url,
+      method: request.method,
+      data: { foo: 'bar' },
+      headers: {
+        Authorization: undefined,
+        'Content-Type': 'application/json',
+        'X-Client-Version': '0.0.0',
+      },
+    })
+    expect(authSdk_.refreshTokens).not.toHaveBeenCalled()
+  })
+
+  it('resets queue when refresh fails for logged in user', async () => {
+    const authSdk_ = {
+      ...authSdk,
+      isTokenExpired: jest.fn().mockReturnValue(true),
+      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+    }
+    const client = new Client(defaultConfig, authSdk_)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await expect(client.call(request)).rejects.toBeInstanceOf(
+      CouldntRefreshTokens,
+    )
+
+    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(mockAxios).toHaveBeenCalledTimes(0)
   })
 })

@@ -1,5 +1,46 @@
 # @tryrolljs/api
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029)]:
+  - @tryrolljs/api-client@1.0.0
+
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`da5b653`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/da5b65342a0c662d8fe3f777e21286013494af66)]:
+  - @tryrolljs/api-client@0.5.0
+
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`6898121`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68981213bb7815291cd89764c6588b262144a13c)]:
+  - @tryrolljs/api-client@0.4.0
+
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`7948eb2`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7948eb25265f4ebfc17a3cf41754845f336d2e2c)]:
+  - @tryrolljs/api-client@0.3.0
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1552153`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1552153f90a47c65dcce96f891dbf05a2fa735f8)]:
+  - @tryrolljs/api-client@0.2.0
+
+## 1.0.1
+
+### Patch Changes
+
+- [#251](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/251) [`9ada63a`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9ada63aeab3f101747729359b97e169a10b436cf) Thanks [@teimurjan](https://github.com/teimurjan)! - Update api client
+
 ## 1.0.0
 
 ### Major Changes

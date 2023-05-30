@@ -6,7 +6,7 @@
   "dependencies": {
     "@tryrolljs/api": "workspace:*",
     "@tryrolljs/api-client": "workspace:*",
-    "@tryrolljs/sdk": "workspace:*",
+    "@tryrolljs/auth-client-credentials-sdk": "workspace:*",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3"
   },

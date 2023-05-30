@@ -353,7 +353,7 @@ const useSizeProps = (size: Size): SizeProps => {
 export const ButtonV2 = ({ variant, size, ...props }: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
     base: size === 'large' ? 'medium' : size,
-    md: size,
+    xl: size,
   })
   const variantProps = useVariantsProps(variant)
   const sizeProps = useSizeProps(responsiveSize)

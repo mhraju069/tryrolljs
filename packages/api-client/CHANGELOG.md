@@ -1,5 +1,41 @@
 # @tryrolljs/api-client
 
+## 1.0.0
+
+### Major Changes
+
+- [#278](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/278) [`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029) Thanks [@teimurjan](https://github.com/teimurjan)! - Extract SDKs to separate packages
+
+### Patch Changes
+
+- Updated dependencies [[`e092184`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/e092184c6838c4063e1fdc58cf4c5d51a6162029)]:
+  - @tryrolljs/auth-client-credentials-sdk@1.0.0
+  - @tryrolljs/auth-web-sdk@1.0.0
+
+## 0.5.0
+
+### Minor Changes
+
+- [#272](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/272) [`da5b653`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/da5b65342a0c662d8fe3f777e21286013494af66) Thanks [@teimurjan](https://github.com/teimurjan)! - Disabled refresh attempt for non-logged in users
+
+## 0.4.0
+
+### Minor Changes
+
+- [#266](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/266) [`6898121`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/68981213bb7815291cd89764c6588b262144a13c) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow up-to 10 concurrent requests
+
+## 0.3.0
+
+### Minor Changes
+
+- [#264](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/264) [`7948eb2`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/7948eb25265f4ebfc17a3cf41754845f336d2e2c) Thanks [@teimurjan](https://github.com/teimurjan)! - Remove unauthorized event fire on queue destroy
+
+## 0.2.0
+
+### Minor Changes
+
+- [#262](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/262) [`1552153`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1552153f90a47c65dcce96f891dbf05a2fa735f8) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix api client never resolves requests because of queue destroy
+
 ## 0.1.1
 
 ### Patch Changes

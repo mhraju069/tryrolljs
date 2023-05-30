@@ -1,5 +1,5 @@
 import Client from '@tryrolljs/api-client'
-import { auth } from '@tryrolljs/sdk'
+import SDK from '@tryrolljs/auth-client-credentials-sdk'
 
 function makeMockStorage() {
   let storage: Record<string, string> = {}
@@ -26,7 +26,7 @@ function makeMockStorage() {
 
 export const generateApiClient = async () => {
   try {
-    const clientAuthSdk = new auth.ClientSDK(
+    const clientAuthSdk = new SDK.default(
       {
         issuerUrl: process.env.ISSUER_URL || '',
         clientId: process.env.CLIENT_ID || '',

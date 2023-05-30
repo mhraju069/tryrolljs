@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import { container, margin, padding } from '../../styles'
+import { container, margin, padding, spacing } from '../../styles'
 import { lightTheme } from '../../styles/themeV2'
 import { InputV2 } from '../inputV2'
 import { TypographyV2 } from '../../atoms/typographyV2'
@@ -15,8 +15,10 @@ const storyConfig = {
 const Template = (props: InputLayoutProps) => {
   const [maxSupply, setMaxSupply] = useState('')
   const [referral, setReferral] = useState('')
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
   return (
-    <View style={[padding.p20]}>
+    <View style={[padding.p20, { gap: spacing[20] }]}>
       <InputLayout {...props}>
         <View style={container.fullWidth}>
           <InputV2
@@ -31,6 +33,26 @@ const Template = (props: InputLayoutProps) => {
             placeholder="Enter wallet address"
             value={referral}
             onChangeText={setReferral}
+          />
+        </View>
+      </InputLayout>
+      <InputLayout
+        title="Title for a name"
+        description="Small description for a name"
+      >
+        <View style={container.fullWidth}>
+          <InputV2
+            label="Name"
+            placeholder="this is the name"
+            value={name}
+            onChangeText={setName}
+          />
+          <View style={[margin.mv8]} />
+          <InputV2
+            label="Last name"
+            placeholder="This is the last name"
+            value={lastName}
+            onChangeText={setLastName}
           />
         </View>
       </InputLayout>

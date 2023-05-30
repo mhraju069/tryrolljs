@@ -1,6 +1,6 @@
 import { user as userAPI } from '@tryrolljs/api'
 import Client from '@tryrolljs/api-client'
-import { auth } from '@tryrolljs/sdk'
+import SDK from '@tryrolljs/auth-web-sdk'
 import { PropsWithChildren } from 'react'
 
 export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
@@ -16,6 +16,6 @@ export interface SessionContextValue {
 
 export type SessionProviderProps = PropsWithChildren<{
   apiClient: Client
-  authSdk: auth.SDK
+  authSdk: SDK
   getMe?: typeof userAPI.getMe
 }>
