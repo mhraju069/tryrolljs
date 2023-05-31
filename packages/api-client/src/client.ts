@@ -49,7 +49,7 @@ export default class Client extends EventEmitter {
     )
 
   public getBaseUrl = (): string => {
-    return this.config.baseUrl || '' // why is base url optional?
+    return this.config.baseUrl || ''
   }
 
   private getHeaders = (authorization = false) => {

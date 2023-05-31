@@ -24,7 +24,7 @@ export const getUserBalances = async () => {
       return
     }
     printTable(
-      balances?.map((balance: any) => ({
+      balances?.map((balance) => ({
         tokenId: balance.token.uuid,
         symbol: balance.token.symbol,
         balance: balance.amount,

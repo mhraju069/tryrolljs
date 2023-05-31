@@ -59,7 +59,6 @@ export const newApiClient = (sdkInst: auth.SDK | auth.ClientSDK) => {
 }
 
 export const newClientSDK = async () => {
-  console.log('client sdk with clientID: ', process.env.CLIENT_ID)
   const clientAuthSdk = new auth.ClientSDK(
     {
       issuerUrl: process.env.ISSUER_URL || '',
