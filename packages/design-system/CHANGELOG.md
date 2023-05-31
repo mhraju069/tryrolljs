@@ -1,5 +1,15 @@
 # @tryrolljs/design-system
 
+## 1.5.0
+
+### Minor Changes
+
+- [#283](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/283) [`f2d3e47`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/f2d3e4732ba0ceeab8916e0cf86dc9910dd5d865) Thanks [@teimurjan](https://github.com/teimurjan)! - Move crop picker dependencies to peer
+
+### Patch Changes
+
+- [#284](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/284) [`9324d09`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9324d09af65b71e6ebf230e573b9de5c935c7d4b) Thanks [@teimurjan](https://github.com/teimurjan)! - Export Table
+
 ## 1.4.0
 
 ### Minor Changes

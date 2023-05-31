@@ -35,6 +35,7 @@ export const Tooltip = ({
   title,
   placement,
   renderInPortal = true,
+  style,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
   const { context, x, y, refs, strategy } = useFloating({
@@ -90,6 +91,7 @@ export const Tooltip = ({
                 backgroundColor: variant === 'dark' ? darkNavy : white,
                 position: strategy,
               },
+              style,
             ]}
             ref={refs.setFloating}
             {...getFloatingProps()}

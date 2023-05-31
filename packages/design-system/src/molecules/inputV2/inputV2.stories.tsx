@@ -72,6 +72,13 @@ export const WithSelect = fromTemplate(Template, {
   ),
 })
 
+export const WithTooltip = fromTemplate(Template, {
+  label: 'With tooltip',
+  placeholder: 'this has a tooltip',
+  disabled: false,
+  tooltip: 'This is a tooltip',
+})
+
 export const WithLocked = () => {
   const [disabled, setDisabled] = useState(true)
   const [value, setValue] = useState('')

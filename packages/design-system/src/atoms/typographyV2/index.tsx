@@ -27,6 +27,7 @@ export interface TypographyV2Props {
   underline?: boolean
   numberOfLines?: number
   onPress?: (event: GestureResponderEvent) => void
+  selectable?: boolean
   testID?: string
 }
 
@@ -37,6 +38,7 @@ export const TypographyV2 = ({
   color,
   numberOfLines,
   underline = false,
+  selectable = true,
   testID,
   onPress,
 }: PropsWithChildren<TypographyV2Props>) => {
@@ -48,13 +50,14 @@ export const TypographyV2 = ({
     <Text
       numberOfLines={numberOfLines}
       onPress={onPress}
+      testID={testID}
+      selectable={selectable}
       style={[
         styles[variant],
         style,
         // eslint-disable-next-line react-native/no-inline-styles
         { color, textDecorationLine: underline ? 'underline' : 'none' },
       ]}
-      testID={testID}
     >
       {children}
     </Text>

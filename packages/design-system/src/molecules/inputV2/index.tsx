@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, fontStyles, margin, padding, spacing } from '../../styles'
 import { TypographyV2 } from '../../atoms/typographyV2'
+import { Icon, TooltipV2 } from '../../atoms'
 
 export interface InputPropsV2 extends TextInputProps {
   value: string
@@ -13,6 +14,7 @@ export interface InputPropsV2 extends TextInputProps {
   label?: string
   counter?: boolean
   info?: string
+  tooltip?: string
   disabled?: boolean
 }
 
@@ -59,6 +61,7 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
       error,
       value = '',
       info = '',
+      tooltip = '',
       disabled = false,
       counter = false,
       prefix,
@@ -87,13 +90,23 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
     return (
       <View>
         {label && (
-          <TypographyV2
-            variant="caption1"
-            color={theme.text.black[100]}
-            style={[margin.mb8]}
-          >
-            {label}
-          </TypographyV2>
+          <View style={[margin.mb8, container.row, container.alignCenter]}>
+            <TypographyV2 variant="caption1" color={theme.text.black[100]}>
+              {label}
+            </TypographyV2>
+            {tooltip && (
+              <TooltipV2 title={tooltip} placement="bottom">
+                <View style={[margin.ml8]}>
+                  <Icon
+                    variant="infoCircle"
+                    width={16}
+                    height={16}
+                    color={theme.text.black[100]}
+                  />
+                </View>
+              </TooltipV2>
+            )}
+          </View>
         )}
         <View style={[styles.inputContainer]}>
           {prefix && <View style={[styles.prefix]}>{prefix}</View>}
