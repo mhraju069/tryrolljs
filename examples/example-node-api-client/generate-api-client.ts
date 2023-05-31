@@ -1,5 +1,6 @@
 import Client from '@tryrolljs/api-client'
-import SDK from '@tryrolljs/auth-client-credentials-sdk'
+import ClientSDK from '@tryrolljs/auth-client-credentials-sdk'
+import SDK, { types } from '@tryrolljs/auth-web-sdk'
 
 function makeMockStorage() {
   let storage: Record<string, string> = {}
@@ -26,15 +27,15 @@ function makeMockStorage() {
 
 export const generateApiClient = async () => {
   try {
-    const clientAuthSdk = new SDK.default(
+    const clientAuthSdk = new ClientSDK.default(
       {
         issuerUrl: process.env.ISSUER_URL || '',
         clientId: process.env.CLIENT_ID || '',
         clientSecret: process.env.CLIENT_SECRET || '',
         scopes: [
-          auth.types.ScopeType.ReadTx,
-          auth.types.ScopeType.Offline,
-          auth.types.ScopeType.Masquerade,
+          types.ScopeType.ReadTx,
+          types.ScopeType.Offline,
+          types.ScopeType.Masquerade,
         ],
       },
       makeMockStorage(),
@@ -54,20 +55,20 @@ export const generateApiClient = async () => {
   }
 }
 
-export const newApiClient = (sdkInst: auth.SDK | auth.ClientSDK) => {
+export const newApiClient = (sdkInst: SDK.default | ClientSDK.default) => {
   return new Client.default({ baseUrl: process.env.API_URL }, sdkInst)
 }
 
 export const newClientSDK = async () => {
-  const clientAuthSdk = new auth.ClientSDK(
+  const clientAuthSdk = new ClientSDK.default(
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
       clientSecret: process.env.CLIENT_SECRET || '',
       scopes: [
-        auth.types.ScopeType.ReadTx,
-        auth.types.ScopeType.Offline,
-        auth.types.ScopeType.Masquerade,
+        types.ScopeType.ReadTx,
+        types.ScopeType.Offline,
+        types.ScopeType.Masquerade,
       ],
     },
     makeMockStorage(),
@@ -79,7 +80,7 @@ export const newClientSDK = async () => {
 }
 
 export const newAuthSDK = () => {
-  return new auth.SDK(
+  return new SDK.default(
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
@@ -92,10 +93,10 @@ export const newAuthSDK = () => {
 }
 
 export const generateAuthClient = async (): Promise<
-  [Client.default, auth.SDK]
+  [Client.default, SDK.default]
 > => {
   try {
-    const authSdk = new auth.SDK(
+    const authSdk = new SDK.default(
       {
         issuerUrl: process.env.ISSUER_URL || '',
         clientId: process.env.CLIENT_ID || '',
