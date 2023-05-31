@@ -20,6 +20,7 @@ export const Popover = ({
   open,
   renderReference,
   openOnHover,
+  selectedValue,
   placement = 'bottom-start',
   style,
   matchReferenceWidth,
@@ -65,7 +66,13 @@ export const Popover = ({
 
   return (
     <>
-      {renderReference({ reference: refs.setReference, getReferenceProps })}
+      {renderReference({
+        reference: refs.setReference,
+        getReferenceProps,
+        selectedValue,
+        onOpenChange,
+        open,
+      })}
       {open && (
         <View
           style={[

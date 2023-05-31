@@ -1,56 +1,38 @@
-import { Platform, StyleSheet, View } from 'react-native'
-import { useCallback, useRef, useState } from 'react'
+import { Platform, View } from 'react-native'
+import { useCallback, useRef } from 'react'
 import { Pressable } from 'native-base'
-import { SelectProps } from '../../molecules'
-import { Popover, PopoverProps } from '../popover'
+import { PopoverProps } from '../popover'
 import { useThemeV2 } from '../../hooks'
 import { TypographyV2 } from '../typographyV2'
-import { container, padding, spacing } from '../../styles'
+import { container, spacing } from '../../styles'
 import { Icon } from '../icon'
+import { SelectV2, SelectV2Props } from '../../molecules/selectV2'
 
-const styles = StyleSheet.create({
-  popover: {
-    borderRadius: 16,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    ...Platform.select({
-      web: {
-        width: 'max-content',
-        overflow: 'hidden',
-      },
-      native: {
-        elevation: 4,
-      },
-    }),
-  },
-  divider: {
-    height: 1,
-    width: '100%',
-  },
-})
+export type InputV2SelectSuffixProps = Omit<SelectV2Props, 'renderReference'>
 
-export const InputV2SelectSuffix: React.FC<SelectProps> = ({
-  options = [],
-  defaultValue,
+export const InputV2SelectSuffix: React.FC<InputV2SelectSuffixProps> = ({
   onChange,
+  ...props
 }) => {
   const viewRef = useRef<View>(null)
   const theme = useThemeV2()
-  const [isOpen, setIsOpen] = useState(false)
-  const [value, setValue] = useState(defaultValue)
 
-  const selectedOption = options.find((option) => option.value === value)
-  const inputValue = selectedOption?.name
+  const onPressOption = (value: string) => {
+    viewRef?.current?.blur()
+    onChange?.(value)
+  }
 
   const renderReference: PopoverProps['renderReference'] = useCallback(
-    ({ reference, getReferenceProps }) => {
+    ({ reference, getReferenceProps, selectedValue, onOpenChange, open }) => {
       const referenceProps = getReferenceProps()
       const inputProps = Platform.select({
         web: referenceProps,
         native: {
-          onFocus: () => setIsOpen(true),
-          onBlur: () => setIsOpen(false),
+          onFocus: () => {
+            console.warn('onFocus')
+            onOpenChange?.(true)
+          },
+          onBlur: () => onOpenChange?.(false),
           onLayout: referenceProps.onLayout,
         },
       })
@@ -64,68 +46,33 @@ export const InputV2SelectSuffix: React.FC<SelectProps> = ({
             reference(node)
           }}
           style={[container.row]}
-          onPress={() => setIsOpen(true)}
+          onPress={Platform.select({
+            native: () => onOpenChange?.(!open),
+          })}
           {...inputProps}
         >
           <TypographyV2
             variant="caption1"
-            color={isOpen ? theme.base.highlight1 : theme.text.black[100]}
+            color={open ? theme.base.highlight1 : theme.text.black[100]}
           >
-            {inputValue}
+            {selectedValue}
           </TypographyV2>
           <View style={{ width: spacing[8] }} />
           <Icon
             variant="arrowDown2"
-            color={isOpen ? theme.base.highlight1 : theme.text.black[100]}
+            color={open ? theme.base.highlight1 : theme.text.black[100]}
           />
         </Pressable>
       )
     },
-    [inputValue, isOpen, theme],
+    [theme, viewRef],
   )
 
   return (
-    <Popover
-      open={isOpen}
+    <SelectV2
       renderReference={renderReference}
-      openOnHover={false}
-      onOpenChange={setIsOpen}
-      matchReferenceWidth={false}
-      style={styles.popover}
-    >
-      {options.map((option, index) => (
-        <Pressable
-          key={option.value}
-          onPress={() => {
-            setValue(option.value)
-            onChange?.(option.value)
-            setIsOpen(false)
-          }}
-          _hover={{
-            style: [{ backgroundColor: theme.base.highlight2[10] }],
-          }}
-          _focusVisible={{
-            style: [{ backgroundColor: theme.base.highlight2[10] }],
-          }}
-          testID={`selectOption__${option.value}`}
-        >
-          <TypographyV2
-            variant="caption1"
-            color={theme.text.black[100]}
-            style={[padding.ph24, padding.pv12]}
-          >
-            {option.name}
-          </TypographyV2>
-          {index !== options.length - 1 && (
-            <View
-              style={[
-                styles.divider,
-                { backgroundColor: theme.background.silver },
-              ]}
-            />
-          )}
-        </Pressable>
-      ))}
-    </Popover>
+      onChange={onPressOption}
+      {...props}
+    />
   )
 }

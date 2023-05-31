@@ -10,6 +10,7 @@ export const Popover = ({
   onOpenChange,
   open,
   renderReference,
+  selectedValue,
   placement = 'bottom-start',
   style,
   ...rest
@@ -33,8 +34,22 @@ export const Popover = ({
   )
 
   const referenceNode = useMemo(
-    () => renderReference({ reference: refs.setReference, getReferenceProps }),
-    [refs, renderReference, getReferenceProps],
+    () =>
+      renderReference({
+        reference: refs.setReference,
+        getReferenceProps,
+        onOpenChange,
+        selectedValue,
+        open,
+      }),
+    [
+      refs,
+      renderReference,
+      getReferenceProps,
+      onOpenChange,
+      selectedValue,
+      open,
+    ],
   )
 
   return (

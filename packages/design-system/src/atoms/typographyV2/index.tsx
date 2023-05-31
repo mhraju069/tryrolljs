@@ -27,6 +27,7 @@ export interface TypographyV2Props {
   underline?: boolean
   numberOfLines?: number
   onPress?: (event: GestureResponderEvent) => void
+  testID?: string
 }
 
 export const TypographyV2 = ({
@@ -36,6 +37,7 @@ export const TypographyV2 = ({
   color,
   numberOfLines,
   underline = false,
+  testID,
   onPress,
 }: PropsWithChildren<TypographyV2Props>) => {
   const styles = useBreakpointValue({
@@ -52,6 +54,7 @@ export const TypographyV2 = ({
         // eslint-disable-next-line react-native/no-inline-styles
         { color, textDecorationLine: underline ? 'underline' : 'none' },
       ]}
+      testID={testID}
     >
       {children}
     </Text>
