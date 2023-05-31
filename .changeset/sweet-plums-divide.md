@@ -2,4 +2,5 @@
 '@tryrolljs/design-system': patch
 ---
 
-Created a select component to use as a suffix on InputV2
+- Create SelectV2 component
+- Create a suffix for inputs to use SelectV2 component
