@@ -8,6 +8,7 @@ export type TooltipProps = {
   open?: boolean
   variant?: TooltipVariant
   renderInPortal?: boolean
+  style?: StyleProp<ViewStyle>
   placement?:
     | 'top'
     | 'right'
