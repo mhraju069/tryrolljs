@@ -47,6 +47,8 @@ const getStories = () => {
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
     require('../src/organisms/table/table.stories.tsx'),
     require('../src/organisms/avatarPicker/avatarPicker.stories.tsx'),
+    require('../src/atoms/toastV2/toastv2.stories.tsx'),
+    require('../src/atoms/tooltipV2/tooltipV2.stories.tsx'),
   ]
 }
 
