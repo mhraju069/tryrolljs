@@ -27,6 +27,7 @@ export const Tooltip = ({
   children,
   title,
   placement,
+  style,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(open)
   const { x, y, refs } = useFloating({
@@ -67,6 +68,7 @@ export const Tooltip = ({
               left: xy[0],
               backgroundColor: variant === 'dark' ? darkNavy : white,
             },
+            style,
           ]}
         >
           {asTextNode(title, variant === 'dark' ? white : charcoalBlack)}

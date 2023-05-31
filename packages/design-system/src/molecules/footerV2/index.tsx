@@ -8,6 +8,8 @@ import { container, margin, padding } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 import { TypographyV2 } from '../../atoms/typographyV2'
 
+const LOGO_SIZE = 16
+
 interface FooterOptionProps {
   title: string
   isLast?: boolean
@@ -110,7 +112,7 @@ export const FooterV2 = ({
           { borderTopColor: theme.background.silver },
         ]}
       >
-        <LogoIso />
+        <LogoIso width={LOGO_SIZE} height={LOGO_SIZE} />
         <View style={[styles.linksContainer, linksContainerResponsiveStyles]}>
           <View style={[socialContainerResponsiveStyles]}>
             {social.map((item, index) => (

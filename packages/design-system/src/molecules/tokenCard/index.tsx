@@ -195,7 +195,7 @@ export const TokenCard: React.FC<TokenCardProps> = ({
             {name}
           </Text>
           <Text style={[styles.bottomText, { color: theme.text.black[100] }]}>
-            <Text style={[{ color: theme.text.black[80] }]}>$</Text> {symbol}
+            <Text style={[{ color: theme.text.black[30] }]}>$</Text> {symbol}
           </Text>
         </View>
         <View style={[container.alignSelfEnd]}>

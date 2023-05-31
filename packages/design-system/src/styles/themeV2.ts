@@ -3,7 +3,7 @@ interface PaletteBase {
   primary: Record<PaletteBaseOpacity, string>
   highlight1: string
   highlight2: Record<PaletteBaseOpacity, string>
-  sucess: string
+  success: string
   danger: string
   warning: string
   transparent: string
@@ -47,7 +47,7 @@ export const lightTheme: Theme = {
     },
     danger: '#EB5757',
     warning: '#FF9900',
-    sucess: '#1BC47D',
+    success: '#1BC47D',
     transparent: 'transparent',
   },
   text: {
