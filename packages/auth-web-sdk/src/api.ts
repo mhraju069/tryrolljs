@@ -20,7 +20,7 @@ export const requestClientToken = async ({
   try {
     const body = {
       grant_type: GrantType.ClientCredentials,
-      scope: scopes.join(' '), // a string with space seperated scopes
+      scope: scopes.join(' '), // despite "scope" being singular, we can pass multiple scopes as a space-separated string
     }
     const options = {
       method: 'POST',

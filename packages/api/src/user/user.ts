@@ -1,8 +1,8 @@
 import http from 'http'
 import axios from 'axios'
 import Client from '@tryrolljs/api-client'
-import { auth } from '@tryrolljs/sdk'
-import { RequestTokenResponseData } from '@tryrolljs/sdk/dist/cjs/auth/types'
+import ClientSDK from '@tryrolljs/auth-client-credentials-sdk'
+import SDK, { types as authWebTypes } from '@tryrolljs/auth-web-sdk'
 import {
   HasBalanceArgs,
   GetMeResponseData,
@@ -146,8 +146,8 @@ export const autoLogin = async (
   return resp.data.redirect_to
 }
 
-const mustGetRedirectUrl = (resp: http.IncomingMessage): string => {
-  const location = resp.headers.location
+const mustGetRedirectUrl = (response: http.IncomingMessage): string => {
+  const location = response.headers.location
   if (!location) {
     throw new Error('No redirect location found')
   }
@@ -199,11 +199,11 @@ const provideConsent = async (
 
 export const loginPlatformUser = async (
   client: Client,
-  authSdk: auth.SDK,
-  clientSdk: auth.ClientSDK,
+  authSdk: SDK,
+  clientSdk: ClientSDK,
   userID: string,
   redirectUri: string,
-): Promise<RequestTokenResponseData> => {
+): Promise<authWebTypes.RequestTokenResponseData> => {
   const autoLoginToken = await getUserMasqueradeToken(client, {
     userId: userID,
   })
@@ -212,10 +212,10 @@ export const loginPlatformUser = async (
 
   let cookies: string[] = []
 
-  const initLoginRedirect = await haltRedirect(loginUrl)
+  const initLoginResp = await haltRedirect(loginUrl)
 
-  const loginRedirect = mustGetRedirectUrl(initLoginRedirect)
-  cookies = cookies.concat(mustGetCookies(initLoginRedirect))
+  const loginRedirect = mustGetRedirectUrl(initLoginResp)
+  cookies = cookies.concat(mustGetCookies(initLoginResp))
   const loginChallenge = mustGetParam(loginRedirect, 'login_challenge')
 
   const loginRedirectUrl = await autoLogin(
@@ -239,12 +239,12 @@ export const loginPlatformUser = async (
     joinCookies(cookies),
   )
 
-  const initExchangeCode = await haltRedirect(
+  const initExchangeCodeResp = await haltRedirect(
     consentRedirectUrl,
     joinCookies(cookies),
   )
 
-  const codeRedirect = mustGetRedirectUrl(initExchangeCode)
+  const codeRedirect = mustGetRedirectUrl(initExchangeCodeResp)
   const code = mustGetParam(codeRedirect, 'code')
 
   const token = await clientSdk.getClientUserToken(
