@@ -1,16 +1,16 @@
 import { View } from 'native-base'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import { Select, SelectProps } from '.'
+import { SelectV2, SelectV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Select'),
-  component: Select,
+  title: titleBuilder.molecules('SelectV2'),
+  component: SelectV2,
 }
 
-const Template = (props: SelectProps) => (
+const Template = (props: SelectV2Props) => (
   // eslint-disable-next-line react-native/no-inline-styles
   <View style={{ maxWidth: 300 }}>
-    <Select {...props} />
+    <SelectV2 {...props} />
   </View>
 )
 
