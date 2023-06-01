@@ -2,7 +2,9 @@ export interface Config {
   clientId: string
   issuerUrl: string
   redirectUrl: string
+  apiUrl: string
   logoutRedirectUrl: string
+  clientSecret: string
   scopes: string[]
 }
 
@@ -32,6 +34,7 @@ export interface RequestTokenArgs {
   redirectUrl?: string
   code: string
   codeVerifier?: string
+  clientSecret: string
 }
 
 export interface RequestTokenResponseData {
@@ -56,27 +59,14 @@ export interface GetLogOutUrlArgs {
   redirectUrl?: string
 }
 
-export type Token = RequestTokenResponseData & {
-  last_update_at?: number
-}
-
 export type Cache = Partial<{
   token: Token
   code: string
   codeVerifier: string
 }>
 
-interface TokenInteractorArgs {
-  storage: Storage
-  config: Config
-  token?: Token
+export interface RedirectToResponse {
+  redirect_to: string
 }
 
-export interface TokenInteractor {
-  generate: (args: TokenInteractorArgs) => Promise<RequestTokenResponseData>
-  refresh: (
-    args: TokenInteractorArgs,
-    force?: boolean,
-  ) => Promise<RequestTokenResponseData>
-  isExpired: (args: TokenInteractorArgs) => boolean
-}
+export type Token = RequestTokenResponseData

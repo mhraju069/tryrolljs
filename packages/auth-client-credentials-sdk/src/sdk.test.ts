@@ -1,10 +1,5 @@
 import type { PartialDeep } from 'type-fest'
-import {
-  ClientCache,
-  Config,
-  ScopeType,
-  RequestTokenResponseData,
-} from './types'
+import { Cache, Config, ScopeType, RequestTokenResponseData } from './types'
 import { requestToken } from './api'
 import SDK, { TOKEN_STORAGE_KEY } from './sdk'
 
@@ -55,7 +50,7 @@ const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   })
 }
 
-const mockCache = (cache: PartialDeep<ClientCache> = {}) => {
+const mockCache = (cache: PartialDeep<Cache> = {}) => {
   storage.getItem.mockImplementation(async (key: string) => {
     if (key === TOKEN_STORAGE_KEY) {
       return JSON.stringify({

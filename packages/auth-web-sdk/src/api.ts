@@ -1,90 +1,19 @@
 import axios from 'axios'
-import * as qs from 'qs'
+import { stringify } from 'qs'
 import { getRandomString } from './utils'
 import {
   RequestTokenArgs,
   RequestTokenResponseData,
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
-  GrantType,
-  RequestClientTokenArgs,
-  RequestClientTokenResponseData,
 } from './types'
-
-export const requestClientToken = async ({
-  clientId,
-  clientSecret,
-  issuerUrl,
-  scopes,
-}: RequestClientTokenArgs) => {
-  try {
-    const body = {
-      grant_type: GrantType.ClientCredentials,
-      scope: scopes.join(' '), // despite "scope" being singular, we can pass multiple scopes as a space-separated string
-    }
-    const options = {
-      method: 'POST',
-      auth: {
-        username: clientId,
-        password: clientSecret,
-      },
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: qs.stringify(body),
-      url: `${issuerUrl}/token`,
-    }
-
-    return await axios<RequestClientTokenResponseData>(options)
-  } catch (e) {
-    throw e
-  }
-}
-
-export const requestClientUserToken = async ({
-  issuerUrl,
-  refreshToken,
-  code,
-  grantType,
-  redirectUri,
-  clientId,
-  codeVerifier,
-  clientSecret,
-}: RequestTokenArgs & {
-  clientSecret: string
-}) => {
-  try {
-    const body = {
-      code,
-      refresh_token: refreshToken,
-      grant_type: grantType,
-      redirect_uri: redirectUri,
-      client_id: clientId,
-      code_verifier: codeVerifier,
-    }
-    const options = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      data: qs.stringify(body),
-      url: `${issuerUrl}/token`,
-      auth: {
-        username: clientId,
-        password: clientSecret,
-      },
-    }
-
-    return await axios<RequestTokenResponseData>(options)
-  } catch (e) {
-    throw e
-  }
-}
 
 export const requestToken = async ({
   issuerUrl,
   refreshToken,
   code,
   grantType,
-  redirectUri,
+  redirectUrl,
   clientId,
   codeVerifier,
 }: RequestTokenArgs) => {
@@ -93,7 +22,7 @@ export const requestToken = async ({
       code,
       refresh_token: refreshToken,
       grant_type: grantType,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectUrl,
       client_id: clientId,
       code_verifier: codeVerifier,
     }
@@ -102,7 +31,7 @@ export const requestToken = async ({
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
-      data: qs.stringify(body),
+      data: stringify(body),
       url: `${issuerUrl}/token`,
     }
 
@@ -130,7 +59,7 @@ export const getLogInUrl = ({
     code_challenge_method: 'S256',
   }
 
-  return `${issuerUrl}/auth?${qs.stringify(params, { arrayFormat: 'comma' })}`
+  return `${issuerUrl}/auth?${stringify(params, { arrayFormat: 'comma' })}`
 }
 
 export const getLogOutUrl = ({

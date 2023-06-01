@@ -5,7 +5,7 @@ import {
   NotEnoughDataToRefreshError,
 } from './errors'
 import {
-  OauthConfig,
+  Config,
   Storage,
   Token,
   GrantType,
@@ -24,11 +24,11 @@ export const CODE_STORAGE_KEY = 'ROLL_AUTHSDK_CODE'
 export const CODE_VERIFIER_STORAGE_KEY = 'ROLL_AUTHSDK_CODE_VERIFIER'
 
 class SDK {
-  private readonly config: OauthConfig
+  private readonly config: Config
   private readonly storage: Storage
   private token?: Token
 
-  constructor(config: OauthConfig, storage: Storage) {
+  constructor(config: Config, storage: Storage) {
     this.config = config
     this.storage = storage
   }
@@ -50,7 +50,7 @@ class SDK {
       const response = await requestToken({
         issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
-        redirectUri: this.config?.redirectUrl,
+        redirectUrl: this.config?.redirectUrl,
         clientId: this.config?.clientId,
         refreshToken: this.token!.refresh_token!,
         code,
@@ -62,14 +62,14 @@ class SDK {
     }
   }
 
-  public requestAuthToken = async (
+  private requestToken = async (
     code: string,
     codeVerifier: string,
   ): Promise<RequestTokenResponseData> => {
     const args: RequestTokenArgs = {
       issuerUrl: this.config.issuerUrl,
       grantType: GrantType.AuthorizationCode,
-      redirectUri: this.config?.redirectUrl,
+      redirectUrl: this.config?.redirectUrl,
       clientId: this.config?.clientId,
       code,
       codeVerifier,
@@ -78,10 +78,6 @@ class SDK {
     const { data } = await requestToken(args)
 
     return data
-  }
-
-  public redirectUri = () => {
-    return this.config.redirectUrl
   }
 
   public exchangeCodeForToken = async (code: string) => {
@@ -97,9 +93,9 @@ class SDK {
     }
 
     try {
-      const resp = await this.requestAuthToken(code, cachedCodeVerifier)
+      const response = await this.requestToken(code, cachedCodeVerifier)
       await this.setCode(code)
-      await this.saveTokenFromResponse(resp)
+      await this.saveTokenFromResponse(response)
     } catch (e) {
       await this.clear()
     }
@@ -177,15 +173,14 @@ class SDK {
     return this.config
   }
 
-  public getLogInUrl = async (): Promise<[string, string]> => {
+  public getLogInUrl = async () => {
     const minVerifierLength = 43
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
     await this.setCodeVerifier(codeVerifier)
 
-    const loginUrl = getLogInUrl({ ...this.config, codeChallenge })
-    return [loginUrl, codeVerifier]
+    return getLogInUrl({ ...this.config, codeChallenge })
   }
 
   public getLogOutUrl = async () => {

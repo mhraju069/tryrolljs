@@ -11,7 +11,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@tryrolljs/auth-web-sdk": "^1.0.0",
     "qs": "^6.11.0",
     "type-fest": "^3.1.0"
   },

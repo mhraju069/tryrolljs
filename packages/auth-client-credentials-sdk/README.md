@@ -11,7 +11,7 @@ yarn add @tryrolljs/auth-client-credentials-sdk @tryrolljs/api-client
 ```
 
 ```sh
-npm i @tryrolljs/auth-client-credentials-sdk @tryrolljs/api-client`
+npm i @tryrolljs/auth-client-credentials-sdk @tryrolljs/api-client
 ```
 
 ## Quick Start

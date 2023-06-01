@@ -1,13 +1,7 @@
-import { requestClientUserToken } from '@tryrolljs/auth-web-sdk'
 import { requestToken } from './api'
-import {
-  Storage,
-  Config,
-  Token,
-  RequestTokenResponseData,
-  GrantType,
-} from './types'
+import { Storage, Config, Token, RequestTokenResponseData } from './types'
 import { safeJsonParse } from './utils'
+
 export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_CLIENT_CREDENTIALS_TOKEN'
 
 class SDK {
@@ -18,28 +12,6 @@ class SDK {
   constructor(config: Config, storage: Storage) {
     this.config = config
     this.storage = storage
-  }
-
-  public issuerUrl = (): string => {
-    return this.config.issuerUrl
-  }
-
-  public getClientUserToken = async (
-    code: string,
-    codeVerifier: string,
-    redirectUri: string,
-  ) => {
-    const response = await requestClientUserToken({
-      issuerUrl: this.config.issuerUrl,
-      clientId: this.config.clientId,
-      clientSecret: this.config.clientSecret,
-      code,
-      codeVerifier,
-      grantType: GrantType.AuthorizationCode,
-      redirectUri,
-    })
-
-    return response
   }
 
   public generateToken = async () => {

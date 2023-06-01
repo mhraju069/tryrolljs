@@ -43,7 +43,3 @@ export type Cache = Partial<{
   code: string
   codeVerifier: string
 }>
-
-export type ClientCache = Partial<{
-  token: Token
-}>

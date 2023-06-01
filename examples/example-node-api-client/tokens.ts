@@ -1,11 +1,13 @@
 import { token } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { generateApiClient } from './generate-api-client.js'
+import { generateApiClient, generateAuthClientCredentialsSDK } from './utils.js'
 
 export const getTokenList = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const clientAuth = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -48,7 +50,9 @@ export const getTokenList = async () => {
 
 export const getTokenCreator = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const clientAuth = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
