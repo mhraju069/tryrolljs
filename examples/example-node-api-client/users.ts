@@ -143,12 +143,12 @@ export const createPlatformUser = async () => {
       },
     ])
 
-    const resp = await user.createPlatformUser(apiClient, {
+    const response = await user.createPlatformUser(apiClient, {
       userType: answers.userType,
       externalUserId: answers.externalUserId,
     })
 
-    printTable([resp])
+    printTable([response])
   } catch (err) {
     console.error(err)
   }
