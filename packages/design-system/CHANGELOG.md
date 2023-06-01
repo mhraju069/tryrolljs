@@ -1,5 +1,21 @@
 # @tryrolljs/design-system
 
+## 1.5.1
+
+### Patch Changes
+
+- [#282](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/282) [`4c76a93`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/4c76a93e158e63ceab09d37e132c1c8e1d047ed3) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Fix button state styles on mobile and web
+
+- [#287](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/287) [`c897f5f`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/c897f5fd6a64db232726257cf759912e5710be11) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Add TooltipV2 component
+
+  - Add ToastV2 component
+  - Set size for roll logo on footer
+  - Change dolar sign color on on token card component
+  - Add tooltip on InputV2
+
+- [#285](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/285) [`3a1e8ef`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/3a1e8ef90aad12a7e2b0db75c2baf0b15822eb27) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Create SelectV2 component
+  - Create a suffix for inputs to use SelectV2 component
+
 ## 1.5.0
 
 ### Minor Changes
