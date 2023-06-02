@@ -35,7 +35,7 @@ const SessionProvider = ({
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
-    const unauthorizedListener = () => authSdk.clear()
+    const unauthorizedListener = () => authSdk.clearCache()
     apiClient.on(types.Event.Unauthorized, unauthorizedListener)
 
     return () => {
@@ -66,7 +66,7 @@ const SessionProvider = ({
       try {
         const oauthCode = getOauthCode()
         if (oauthCode) {
-          await authSdk.exchangeCodeForToken(oauthCode)
+          await authSdk.generateToken(oauthCode)
           await loadUserData()
         }
       } catch (e) {
@@ -78,7 +78,7 @@ const SessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreTokenFromCache()
+        await authSdk.restoreCachedToken()
         if (authSdk.getAccessToken()) {
           await loadUserData()
         } else {
@@ -99,7 +99,7 @@ const SessionProvider = ({
   const refresh = useCallback(async () => {
     try {
       setStatus('refreshing')
-      await authSdk.refreshTokens(true)
+      await authSdk.refreshToken(true)
     } catch (e) {
     } finally {
       setStatus('stale')

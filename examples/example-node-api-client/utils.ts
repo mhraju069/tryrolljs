@@ -1,6 +1,9 @@
 import Client from '@tryrolljs/api-client'
-import AuthNodeSDK, { types } from '@tryrolljs/auth-node-sdk'
-import AuthClientCredentialsSDK from '@tryrolljs/auth-client-credentials-sdk'
+import SDK, {
+  types,
+  ClientCredentialsTokenInteraction,
+  NodeTokenInteraction,
+} from '@tryrolljs/auth-sdk'
 
 function makeMockStorage() {
   let storage: Record<string, string> = {}
@@ -26,7 +29,7 @@ function makeMockStorage() {
 }
 
 export const generateAuthClientCredentialsSDK = () => {
-  return new AuthClientCredentialsSDK.default(
+  return new SDK.default(
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
@@ -37,13 +40,16 @@ export const generateAuthClientCredentialsSDK = () => {
         types.ScopeType.Masquerade,
         types.ScopeType.PlatformUser,
       ],
+      redirectUrl: '',
+      logoutRedirectUrl: '',
     },
     makeMockStorage(),
+    ClientCredentialsTokenInteraction,
   )
 }
 
 export const generateAuthNodeSDK = () => {
-  return new AuthNodeSDK.default(
+  return new SDK.default(
     {
       apiUrl: process.env.API_URL || '',
       issuerUrl: process.env.ISSUER_URL || '',
@@ -59,14 +65,13 @@ export const generateAuthNodeSDK = () => {
       ],
     },
     makeMockStorage(),
+    NodeTokenInteraction,
   )
 }
 
-export const generateApiClient = async (
-  sdk: AuthClientCredentialsSDK.default,
-) => {
+export const generateApiClient = async (sdk: SDK.default) => {
   try {
-    await sdk.generateToken()
+    await sdk.generateToken(undefined)
 
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 

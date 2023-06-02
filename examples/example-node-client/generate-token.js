@@ -1,5 +1,5 @@
 require('dotenv').config()
-const SDK = require('@tryrolljs/auth-client-credentials-sdk')
+const SDK = require('@tryrolljs/auth-sdk')
 
 function makeMockStorage() {
   let storage = {}

@@ -3,25 +3,20 @@ import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
-import AuthWebSDK from '@tryrolljs/auth-web-sdk'
-import AuthClientCredentialsSDK from '@tryrolljs/auth-client-credentials-sdk'
-import AuthNodeSDK from '@tryrolljs/auth-node-sdk'
+import SDK from '@tryrolljs/auth-sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK
+  private sdk: SDK<any, any>
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
   private isBlocked: boolean = false
 
-  constructor(
-    config: Config,
-    sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK,
-  ) {
+  constructor(config: Config, sdk: SDK<any, any>) {
     super()
 
     this.config = config
@@ -100,7 +95,7 @@ export default class Client extends EventEmitter {
 
     if ('refreshTokens' in this.sdk) {
       try {
-        await this.sdk.refreshTokens()
+        await this.sdk.refreshToken()
         const isRefreshUnsuccessful = !this.sdk.getAccessToken()
         if (isRefreshUnsuccessful) {
           this.queue.destroy(onDestroy)

@@ -18,7 +18,7 @@ const NativeSessionProvider = ({
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
-    const unauthorizedListener = () => authSdk.clear()
+    const unauthorizedListener = () => authSdk.clearCache()
     apiClient.on(types.Event.Unauthorized, unauthorizedListener)
 
     return () => {
@@ -34,7 +34,7 @@ const NativeSessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreTokenFromCache()
+        await authSdk.restoreCachedToken()
         const user_ = await getMe(apiClient)
         setUser(user_.data)
       } catch (e) {
@@ -54,7 +54,7 @@ const NativeSessionProvider = ({
         const [_, query] = url.split('?')
         const { code } = parse(query)
         if (typeof code === 'string') {
-          await authSdk.exchangeCodeForToken(code)
+          await authSdk.generateToken(code)
           const me = await userAPI.getMe(apiClient)
           setUser(me.data)
         }
@@ -106,7 +106,7 @@ const NativeSessionProvider = ({
   const refresh = useCallback(async () => {
     try {
       setStatus('refreshing')
-      await authSdk.refreshTokens(true)
+      await authSdk.refreshToken(true)
     } catch (e) {
     } finally {
       setStatus('stale')

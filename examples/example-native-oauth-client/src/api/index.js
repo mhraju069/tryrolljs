@@ -1,4 +1,4 @@
-import SDK from '@tryrolljs/auth-web-sdk'
+import SDK, { BrowserTokenInteraction } from '@tryrolljs/auth-sdk'
 import Client from '@tryrolljs/api-client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import config from '../config'
@@ -12,6 +12,7 @@ const authSdk = new SDK(
     scopes: config.scopes,
   },
   AsyncStorage,
+  BrowserTokenInteraction,
 )
 
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)

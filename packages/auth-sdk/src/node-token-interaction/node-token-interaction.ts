@@ -1,0 +1,92 @@
+import BrowserTokenInteraction from '../browser-token-interaction'
+import { CODE_VERIFIER_STORAGE_KEY } from '../browser-token-interaction/constants'
+import { Storage, GrantType, TokenInteraction, Token } from '../types'
+import { autoLogin, provideConsent, requestToken } from './api'
+import { Config } from './types'
+import {
+  haltRedirect,
+  mustGetRedirectUrl,
+  mustGetCookies,
+  mustGetParam,
+  joinCookies,
+} from './utils'
+
+class NodeTokenInteraction implements TokenInteraction<string> {
+  private readonly browserTokenInteraction: BrowserTokenInteraction
+
+  constructor(
+    private readonly config: Config,
+    private readonly storage: Storage,
+  ) {
+    this.storage = storage
+    this.config = config
+    this.browserTokenInteraction = new BrowserTokenInteraction(config, storage)
+  }
+
+  public generateToken = async (autoLoginToken: string) => {
+    const loginUrl = await this.getLogInUrl()
+    const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
+
+    let cookies: string[] = []
+
+    const loginRedirectReponse = await haltRedirect(loginUrl)
+
+    const loginRedirectUrl = mustGetRedirectUrl(loginRedirectReponse)
+    cookies = cookies.concat(mustGetCookies(loginRedirectReponse))
+    const loginChallenge = mustGetParam(loginRedirectUrl, 'login_challenge')
+
+    const autoLoginUrl = await autoLogin(
+      this.config.apiUrl,
+      autoLoginToken,
+      loginChallenge,
+      joinCookies(cookies),
+    )
+
+    const autoLoginRedirectUrl = await haltRedirect(
+      autoLoginUrl,
+      joinCookies(cookies),
+    )
+    const consentUrl = mustGetRedirectUrl(autoLoginRedirectUrl)
+    cookies = cookies.concat(mustGetCookies(autoLoginRedirectUrl))
+    const consentChallenge = mustGetParam(consentUrl, 'consent_challenge')
+
+    const consentRedirectUrl = await provideConsent(
+      this.config.apiUrl,
+      consentChallenge,
+      joinCookies(cookies),
+    )
+
+    const consentRedirectREsponse = await haltRedirect(
+      consentRedirectUrl,
+      joinCookies(cookies),
+    )
+
+    const codeRedirectUrl = mustGetRedirectUrl(consentRedirectREsponse)
+    const code = mustGetParam(codeRedirectUrl, 'code')
+
+    const response = await requestToken({
+      issuerUrl: this.config.issuerUrl,
+      clientId: this.config.clientId,
+      clientSecret: this.config.clientSecret,
+      code,
+      codeVerifier,
+      grantType: GrantType.AuthorizationCode,
+      redirectUrl: this.config.redirectUrl,
+    })
+
+    return {
+      ...response.data,
+      last_update_at: new Date().getTime(),
+    }
+  }
+
+  public refreshToken = (token: Token) =>
+    this.browserTokenInteraction.refreshToken(token)
+  public clearCache = () => this.browserTokenInteraction.clearCache()
+  public restoreCache = () => this.browserTokenInteraction.restoreCache()
+  public getLogInUrl = () => this.browserTokenInteraction.getLogInUrl()
+  public getLogOutUrl = (token: Token) =>
+    this.browserTokenInteraction.getLogOutUrl(token)
+}
+
+export default NodeTokenInteraction
