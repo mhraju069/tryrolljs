@@ -65,18 +65,3 @@ export type Cache = Partial<{
   code: string
   codeVerifier: string
 }>
-
-interface TokenInteractorArgs {
-  storage: Storage
-  config: Config
-  token?: Token
-}
-
-export interface TokenInteractor {
-  generate: (args: TokenInteractorArgs) => Promise<RequestTokenResponseData>
-  refresh: (
-    args: TokenInteractorArgs,
-    force?: boolean,
-  ) => Promise<RequestTokenResponseData>
-  isExpired: (args: TokenInteractorArgs) => boolean
-}
