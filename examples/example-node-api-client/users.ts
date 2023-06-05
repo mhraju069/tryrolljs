@@ -138,7 +138,7 @@ export const createPlatformUser = async () => {
       },
       {
         type: 'input',
-        name: 'externalUserId',
+        name: 'platformUserId',
         message: 'User ID from the external platform',
       },
     ])
@@ -147,7 +147,7 @@ export const createPlatformUser = async () => {
 
     const response = await user.createPlatformUser(apiClient, {
       userType: answers.userType,
-      externalUserId: answers.externalUserId,
+      platformUserId: answers.platformUserId,
     })
 
     console.log('response: ', response)
