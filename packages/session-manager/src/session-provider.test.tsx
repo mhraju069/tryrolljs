@@ -20,12 +20,12 @@ describe('useSession', () => {
 
   it('clears auth on unauthorized request', async () => {
     const user = { foo: 'bar' }
-    const clear = jest.fn()
+    const clearCache = jest.fn()
     renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
           restoreCachedToken: jest.fn().mockResolvedValue(undefined),
-          clear,
+          clearCache,
         } as any,
         apiClient: {
           on: jest.fn().mockImplementation((_, listener) => listener()),
@@ -36,7 +36,7 @@ describe('useSession', () => {
     })
 
     await waitFor(() => {
-      expect(clear).toHaveBeenCalled()
+      expect(clearCache).toHaveBeenCalled()
     })
   })
 
@@ -105,7 +105,7 @@ describe('useSession', () => {
         authSdk: {
           restoreCachedToken: jest.fn().mockRejectedValue(error),
           generateToken,
-          clear: jest.fn(),
+          clearCache: jest.fn(),
         } as any,
         apiClient: {
           on: jest.fn(),
