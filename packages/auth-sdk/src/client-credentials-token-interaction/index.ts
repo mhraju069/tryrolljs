@@ -1,1 +1,1 @@
-export { default } from './client-credentils-token-interaction'
+export { default } from './client-credentials-token-interaction'
