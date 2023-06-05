@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "@tryrolljs/auth-client-credentials-sdk": "^1.0.0",
+    "@tryrolljs/auth-node-sdk": "^0.0.0",
     "@tryrolljs/auth-web-sdk": "^1.0.0",
-    "axios": "^1.2.2",
+    "axios": "^1.3.4",
     "better-queue": "^3.8.12",
     "better-queue-memory": "^1.0.4",
     "events": "^3.3.0"

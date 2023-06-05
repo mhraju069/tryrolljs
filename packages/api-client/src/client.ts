@@ -5,19 +5,23 @@ import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
 import AuthWebSDK from '@tryrolljs/auth-web-sdk'
 import AuthClientCredentialsSDK from '@tryrolljs/auth-client-credentials-sdk'
+import AuthNodeSDK from '@tryrolljs/auth-node-sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: AuthWebSDK | AuthClientCredentialsSDK
+  private sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
   private isBlocked: boolean = false
 
-  constructor(config: Config, sdk: AuthWebSDK | AuthClientCredentialsSDK) {
+  constructor(
+    config: Config,
+    sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK,
+  ) {
     super()
 
     this.config = config
@@ -47,6 +51,10 @@ export default class Client extends EventEmitter {
         },
       },
     )
+
+  public getBaseUrl = (): string => {
+    return this.config.baseUrl || ''
+  }
 
   private getHeaders = (authorization = false) => {
     const headers = {

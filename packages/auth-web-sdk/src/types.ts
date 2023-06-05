@@ -1,15 +1,9 @@
-export interface OauthConfig {
+export interface Config {
   clientId: string
   issuerUrl: string
   redirectUrl: string
   logoutRedirectUrl: string
   scopes: string[]
-}
-
-export interface ClientConfig {
-  clientId: string
-  clientSecret: string
-  issuerUrl: string
 }
 
 export interface Storage {
@@ -27,19 +21,7 @@ export enum GrantType {
 export enum ScopeType {
   Offline = 'offline',
   ReadTx = 'read-tx',
-}
-
-export interface RequestClientTokenArgs {
-  issuerUrl: string
-  clientId: string
-  clientSecret: string
-}
-
-export interface RequestClientTokenResponseData {
-  access_token: string
-  expires_in: number
-  token_type: string
-  error?: string
+  Masquerade = 'masquerade',
 }
 
 export interface RequestTokenArgs {
@@ -47,7 +29,7 @@ export interface RequestTokenArgs {
   grantType: GrantType.AuthorizationCode | GrantType.RefreshToken
   clientId: string
   refreshToken?: string
-  redirectUri?: string
+  redirectUrl?: string
   code: string
   codeVerifier?: string
 }
@@ -78,14 +60,8 @@ export type Token = RequestTokenResponseData & {
   last_update_at?: number
 }
 
-export type ClientToken = RequestClientTokenResponseData
-
 export type Cache = Partial<{
   token: Token
   code: string
   codeVerifier: string
-}>
-
-export type ClientCache = Partial<{
-  token: ClientToken
 }>

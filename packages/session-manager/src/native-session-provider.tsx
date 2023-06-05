@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
-import * as qs from 'qs'
+import { parse } from 'qs'
 import { user as userAPI } from '@tryrolljs/api'
 import { types } from '@tryrolljs/api-client'
 import { SessionProviderProps, SessionStatus } from './types'
@@ -52,7 +52,7 @@ const NativeSessionProvider = ({
     async (url: string) => {
       try {
         const [_, query] = url.split('?')
-        const { code } = qs.parse(query)
+        const { code } = parse(query)
         if (typeof code === 'string') {
           await authSdk.exchangeCodeForToken(code)
           const me = await userAPI.getMe(apiClient)

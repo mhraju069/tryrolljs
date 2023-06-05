@@ -107,7 +107,8 @@ const SessionProvider = ({
   }, [authSdk])
 
   const logIn = useCallback(async () => {
-    window.location.href = await authSdk.getLogInUrl()
+    const url = await authSdk.getLogInUrl()
+    window.location.href = url
   }, [authSdk])
 
   const logOut = useCallback(async () => {

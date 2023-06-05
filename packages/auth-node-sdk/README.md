@@ -1,4 +1,4 @@
-# @tryrolljs/auth-web-sdk
+# @tryrolljs/auth-node-sdk
 
 ## About
 
@@ -7,14 +7,13 @@ This package is intended to help applications that depend on the Roll API to man
 ## Install
 
 ```sh
-yarn add @tryrolljs/auth-web-sdk
+yarn add @tryrolljs/auth-node-sdk
 ```
 
 ```sh
-npm i @tryrolljs/auth-web-sdk
+npm i @tryrolljs/auth-node-sdk
 ```
 
 ## Examples
 
-- [React](/examples/example-web-oauth-client/)
-- [React Native](/examples/example-native-oauth-client/)
+- [Node](/examples/example-node-api-client/)

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as qs from 'qs'
+import { stringify } from 'qs'
 import { getRandomString } from './utils'
 import {
   RequestTokenArgs,
@@ -13,7 +13,7 @@ export const requestToken = async ({
   refreshToken,
   code,
   grantType,
-  redirectUri,
+  redirectUrl,
   clientId,
   codeVerifier,
 }: RequestTokenArgs) => {
@@ -22,14 +22,16 @@ export const requestToken = async ({
       code,
       refresh_token: refreshToken,
       grant_type: grantType,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectUrl,
       client_id: clientId,
       code_verifier: codeVerifier,
     }
     const options = {
       method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: qs.stringify(body),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      data: stringify(body),
       url: `${issuerUrl}/token`,
     }
 
@@ -57,7 +59,7 @@ export const getLogInUrl = ({
     code_challenge_method: 'S256',
   }
 
-  return `${issuerUrl}/auth?${qs.stringify(params, { arrayFormat: 'comma' })}`
+  return `${issuerUrl}/auth?${stringify(params, { arrayFormat: 'comma' })}`
 }
 
 export const getLogOutUrl = ({

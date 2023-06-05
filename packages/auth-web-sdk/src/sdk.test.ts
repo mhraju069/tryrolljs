@@ -96,7 +96,7 @@ describe('SDK', () => {
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'authorization_code',
-      redirectUri: 'http://localhost:8000',
+      redirectUrl: 'http://localhost:8000',
       clientId: 'clientId',
       codeVerifier: '123',
     })
@@ -121,7 +121,7 @@ describe('SDK', () => {
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
       grantType: 'refresh_token',
-      redirectUri: 'http://localhost:8000',
+      redirectUrl: 'http://localhost:8000',
       clientId: 'clientId',
       refreshToken: 'refresh_token',
     })

@@ -23,6 +23,7 @@ class SDK {
       issuerUrl: this.config.issuerUrl,
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret,
+      scopes: this.config.scopes,
     })
 
     await this.saveTokenFromResponse(response.data)

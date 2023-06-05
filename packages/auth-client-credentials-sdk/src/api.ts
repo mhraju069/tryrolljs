@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as qs from 'qs'
+import { stringify } from 'qs'
 import {
   RequestTokenArgs,
   RequestTokenResponseData,
@@ -24,7 +24,7 @@ export const requestToken = async ({
         password: clientSecret,
       },
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: qs.stringify(body),
+      data: stringify(body),
       url: `${issuerUrl}/token`,
     }
 

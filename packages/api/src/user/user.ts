@@ -9,8 +9,9 @@ import {
   GetUserResponseData,
   GetUserTokenBalanceArgs,
   Response,
-  ExternalUserResponseData,
-  ExternalUserArgs,
+  CreateExternalUserResponseData,
+  CreateExternalUserArgs,
+  GetUserMasqueradeTokenArgs,
 } from './types'
 
 export const getMe = (client: Client) => {
@@ -67,14 +68,27 @@ export const getUser = async (client: Client, { userId }: GetUserArgs) => {
   return response.data
 }
 
-export const createPlatformUser = async (
+export const createExternalUser = async (
   client: Client,
-  { userType, externalUserId }: ExternalUserArgs,
+  { userType, externalUserId }: CreateExternalUserArgs,
 ) => {
-  const response = await client.call<Response<ExternalUserResponseData>>({
+  const response = await client.call<Response<CreateExternalUserResponseData>>({
     url: `/v1/externalUsers`,
-    method: 'post',
+    method: 'POST',
     body: { userType, externalUserID: externalUserId },
+    authorization: true,
+  })
+
+  return response.data
+}
+
+export const getUserMasqueradeToken = async (
+  client: Client,
+  { userId }: GetUserMasqueradeTokenArgs,
+) => {
+  const response = await client.call<Response<{ token: string }>>({
+    url: `/v1/users/${userId}/masquerade`,
+    method: 'GET',
     authorization: true,
   })
 

@@ -1,7 +1,10 @@
 export interface Config {
   clientId: string
-  clientSecret: string
   issuerUrl: string
+  redirectUrl: string
+  apiUrl: string
+  logoutRedirectUrl: string
+  clientSecret: string
   scopes: string[]
 }
 
@@ -20,26 +23,50 @@ export enum GrantType {
 export enum ScopeType {
   Offline = 'offline',
   ReadTx = 'read-tx',
+  Masquerade = 'masquerade',
 }
 
 export interface RequestTokenArgs {
   issuerUrl: string
+  grantType: GrantType.AuthorizationCode | GrantType.RefreshToken
   clientId: string
+  refreshToken?: string
+  redirectUrl?: string
+  code: string
+  codeVerifier?: string
   clientSecret: string
-  scopes: string[]
 }
 
 export interface RequestTokenResponseData {
   access_token: string
   expires_in: number
-  token_type: string
+  refresh_token: string
+  id_token: string
   error?: string
 }
 
-export type Token = RequestTokenResponseData
+export interface GetLogInUrlArgs {
+  issuerUrl: string
+  clientId: string
+  redirectUrl?: string
+  scopes: string[]
+  codeChallenge: string
+}
+
+export interface GetLogOutUrlArgs {
+  issuerUrl: string
+  idToken: string
+  redirectUrl?: string
+}
 
 export type Cache = Partial<{
   token: Token
   code: string
   codeVerifier: string
 }>
+
+export interface RedirectToResponse {
+  redirect_to: string
+}
+
+export type Token = RequestTokenResponseData

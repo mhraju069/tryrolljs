@@ -5,11 +5,12 @@ import {
   NotEnoughDataToRefreshError,
 } from './errors'
 import {
-  OauthConfig,
+  Config,
   Storage,
   Token,
   GrantType,
   RequestTokenResponseData,
+  RequestTokenArgs,
 } from './types'
 import {
   getRandomString,
@@ -23,11 +24,11 @@ export const CODE_STORAGE_KEY = 'ROLL_AUTHSDK_CODE'
 export const CODE_VERIFIER_STORAGE_KEY = 'ROLL_AUTHSDK_CODE_VERIFIER'
 
 class SDK {
-  private readonly config: OauthConfig
+  private readonly config: Config
   private readonly storage: Storage
   private token?: Token
 
-  constructor(config: OauthConfig, storage: Storage) {
+  constructor(config: Config, storage: Storage) {
     this.config = config
     this.storage = storage
   }
@@ -49,7 +50,7 @@ class SDK {
       const response = await requestToken({
         issuerUrl: this.config.issuerUrl,
         grantType: GrantType.RefreshToken,
-        redirectUri: this.config?.redirectUrl,
+        redirectUrl: this.config?.redirectUrl,
         clientId: this.config?.clientId,
         refreshToken: this.token!.refresh_token!,
         code,
@@ -59,6 +60,24 @@ class SDK {
     } catch (e) {
       await this.clear()
     }
+  }
+
+  private requestToken = async (
+    code: string,
+    codeVerifier: string,
+  ): Promise<RequestTokenResponseData> => {
+    const args: RequestTokenArgs = {
+      issuerUrl: this.config.issuerUrl,
+      grantType: GrantType.AuthorizationCode,
+      redirectUrl: this.config?.redirectUrl,
+      clientId: this.config?.clientId,
+      code,
+      codeVerifier,
+    }
+
+    const { data } = await requestToken(args)
+
+    return data
   }
 
   public exchangeCodeForToken = async (code: string) => {
@@ -74,17 +93,9 @@ class SDK {
     }
 
     try {
-      const response = await requestToken({
-        issuerUrl: this.config.issuerUrl,
-        grantType: GrantType.AuthorizationCode,
-        redirectUri: this.config?.redirectUrl,
-        clientId: this.config?.clientId,
-        codeVerifier: cachedCodeVerifier,
-        code,
-      })
-
+      const response = await this.requestToken(code, cachedCodeVerifier)
       await this.setCode(code)
-      await this.saveTokenFromResponse(response.data)
+      await this.saveTokenFromResponse(response)
     } catch (e) {
       await this.clear()
     }

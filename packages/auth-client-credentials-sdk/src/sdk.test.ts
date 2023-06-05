@@ -1,12 +1,13 @@
 import type { PartialDeep } from 'type-fest'
+import { Cache, Config, ScopeType, RequestTokenResponseData } from './types'
 import { requestToken } from './api'
-import type { ClientCache, RequestTokenResponseData } from './types'
 import SDK, { TOKEN_STORAGE_KEY } from './sdk'
 
-const config = {
+const config: Config = {
   clientId: 'clientId',
   clientSecret: 'clientSecret',
   issuerUrl: 'http://localhost:3000/oauth2',
+  scopes: [ScopeType.ReadTx, ScopeType.Offline],
 }
 
 const storage = {
@@ -49,7 +50,7 @@ const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   })
 }
 
-const mockCache = (cache: PartialDeep<ClientCache> = {}) => {
+const mockCache = (cache: PartialDeep<Cache> = {}) => {
   storage.getItem.mockImplementation(async (key: string) => {
     if (key === TOKEN_STORAGE_KEY) {
       return JSON.stringify({
@@ -79,6 +80,7 @@ describe('SDK', () => {
       issuerUrl: 'http://localhost:3000/oauth2',
       clientId: 'clientId',
       clientSecret: 'clientSecret',
+      scopes: [ScopeType.ReadTx, ScopeType.Offline],
     })
   })
 

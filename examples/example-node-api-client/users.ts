@@ -1,11 +1,17 @@
 import { user } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { generateApiClient } from './generate-api-client.js'
+import {
+  generateApiClient,
+  generateAuthNodeSDK,
+  generateAuthClientCredentialsSDK,
+} from './utils.js'
 
 export const getUserBalances = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -13,7 +19,7 @@ export const getUserBalances = async () => {
         message: 'User ID',
       },
     ])
-    const balances = await user.getUserBalances(clientAuth, answers)
+    const balances = await user.getUserBalances(apiClient, answers)
     if (!balances || balances.length === 0) {
       console.log('User has no balances')
       return
@@ -32,7 +38,9 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -45,7 +53,7 @@ export const getUserTokenBalance = async () => {
         message: 'Token ID',
       },
     ])
-    const balance = await user.getUserTokenBalance(clientAuth, answers)
+    const balance = await user.getUserTokenBalance(apiClient, answers)
     printTable([
       {
         tokenId: balance.token.uuid,
@@ -60,7 +68,9 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -78,7 +88,7 @@ export const hasBalance = async () => {
         message: 'Amount',
       },
     ])
-    const response = await user.hasBalance(clientAuth, answers)
+    const response = await user.hasBalance(apiClient, answers)
     if (response.hasbalance) {
       console.log('User has balance')
     } else {
@@ -91,7 +101,9 @@ export const hasBalance = async () => {
 
 export const getUser = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -99,7 +111,7 @@ export const getUser = async () => {
         message: 'User ID',
       },
     ])
-    const userResponse = await user.getUser(clientAuth, answers)
+    const userResponse = await user.getUser(apiClient, answers)
     printTable([
       {
         id: userResponse.userID,
@@ -115,7 +127,9 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const clientAuth = await generateApiClient()
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -129,12 +143,38 @@ export const createPlatformUser = async () => {
       },
     ])
 
-    const resp = await user.createPlatformUser(clientAuth, {
+    const response = await user.createPlatformUser(apiClient, {
       userType: answers.userType,
       externalUserId: answers.externalUserId,
     })
 
-    printTable([resp])
+    printTable([response])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const loginPlatformUser = async () => {
+  try {
+    const apiClient = await generateApiClient(
+      generateAuthClientCredentialsSDK(),
+    )
+    const nodeAuthSdk = generateAuthNodeSDK()
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userId',
+        message: 'Roll UserID',
+      },
+    ])
+
+    const autoLoginToken = await user.getUserMasqueradeToken(apiClient, {
+      userId: answers.userId,
+    })
+    const data = await nodeAuthSdk.generateToken(autoLoginToken.token)
+
+    printTable([data])
   } catch (err) {
     console.error(err)
   }
