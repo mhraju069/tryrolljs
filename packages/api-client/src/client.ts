@@ -10,13 +10,13 @@ import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: SDK<any, any>
+  private sdk: SDK
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
   private isBlocked: boolean = false
 
-  constructor(config: Config, sdk: SDK<any, any>) {
+  constructor(config: Config, sdk: SDK) {
     super()
 
     this.config = config
@@ -93,16 +93,14 @@ export default class Client extends EventEmitter {
   private makeRefreshTask = (onDestroy: () => void) => async () => {
     this.isBlocked = true
 
-    if ('refreshToken' in this.sdk) {
-      try {
-        await this.sdk.refreshToken()
-        const isRefreshUnsuccessful = !this.sdk.getAccessToken()
-        if (isRefreshUnsuccessful) {
-          this.queue.destroy(onDestroy)
-        }
-      } catch (e) {
+    try {
+      await this.sdk.refreshToken()
+      const isRefreshUnsuccessful = !this.sdk.getAccessToken()
+      if (isRefreshUnsuccessful) {
         this.queue.destroy(onDestroy)
       }
+    } catch (e) {
+      this.queue.destroy(onDestroy)
     }
 
     this.isRefreshScheduled = false
