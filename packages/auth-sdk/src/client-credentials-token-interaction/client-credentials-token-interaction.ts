@@ -19,7 +19,7 @@ class ClientCredentialsTokenInteraction implements TokenInteraction<unknown> {
       scopes: this.config.scopes,
     })
 
-    return { ...response.data, last_updated_at: new Date().getTime }
+    return { ...response.data, last_update_at: new Date().getTime() }
   }
 }
 

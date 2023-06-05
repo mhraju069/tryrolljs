@@ -1,6 +1,7 @@
 require('dotenv').config()
 const SDK = require('@tryrolljs/auth-sdk')
 const { ClientCredentialsTokenInteraction } = require('@tryrolljs/auth-sdk')
+const { ScopeType } = require('@tryrolljs/auth-sdk/dist/cjs/types')
 
 function makeMockStorage() {
   let storage = {}
@@ -32,6 +33,7 @@ const generateToken = async () => {
         issuerUrl: process.env.ISSUER_URL,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
+        scopes: [ScopeType.ReadTx],
       },
       makeMockStorage(),
       ClientCredentialsTokenInteraction,
