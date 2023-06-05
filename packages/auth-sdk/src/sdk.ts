@@ -35,7 +35,9 @@ class SDK<C extends Config = Config, T = unknown> {
     }
 
     const token = await this.interaction.refreshToken?.(this.token)
-    await this.setToken(token)
+    if (token) {
+      await this.saveTokenFromResponse(token)
+    }
   }
 
   public generateToken = async (args: T) => {

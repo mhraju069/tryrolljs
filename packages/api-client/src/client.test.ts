@@ -9,7 +9,7 @@ const mockAxios = axios as unknown as jest.Mock
 const authSdk = {
   isTokenExpired: jest.fn().mockReturnValue(false),
   getAccessToken: jest.fn().mockReturnValue('123'),
-  refreshTokens: jest.fn(),
+  refreshToken: jest.fn(),
 } as any
 
 const defaultConfig = {
@@ -104,7 +104,7 @@ describe('client', () => {
 
     await Promise.all(calls)
 
-    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(authSdk_.refreshToken).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledWith({
       url: request.url,
       method: request.method,
@@ -118,8 +118,8 @@ describe('client', () => {
 
     expect(mockAxios.mock.calls).toHaveLength(calls.length)
     const firstAxiosCallOrder = Math.min(...mockAxios.mock.invocationCallOrder)
-    expect(authSdk_.refreshTokens.mock.calls).toHaveLength(1)
-    expect(authSdk_.refreshTokens.mock.invocationCallOrder[0]).toBeLessThan(
+    expect(authSdk_.refreshToken.mock.calls).toHaveLength(1)
+    expect(authSdk_.refreshToken.mock.invocationCallOrder[0]).toBeLessThan(
       firstAxiosCallOrder,
     )
   })
@@ -251,7 +251,7 @@ describe('client', () => {
       ...authSdk,
       getAccessToken: jest.fn().mockReturnValue(undefined),
       isTokenExpired: jest.fn().mockReturnValue(true),
-      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+      refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -274,14 +274,14 @@ describe('client', () => {
         'X-Client-Version': '0.0.0',
       },
     })
-    expect(authSdk_.refreshTokens).not.toHaveBeenCalled()
+    expect(authSdk_.refreshToken).not.toHaveBeenCalled()
   })
 
   it('resets queue when refresh fails for logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
       isTokenExpired: jest.fn().mockReturnValue(true),
-      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+      refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -296,7 +296,7 @@ describe('client', () => {
       CouldntRefreshTokens,
     )
 
-    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(authSdk_.refreshToken).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledTimes(0)
   })
 })

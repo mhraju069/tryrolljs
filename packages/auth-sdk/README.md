@@ -18,4 +18,4 @@ npm i @tryrolljs/auth-sdk
 
 - [React](/examples/example-web-oauth-client/)
 - [React Native](/examples/example-native-oauth-client/)
-- [React Native](/examples/example-node-client/)
+- [React Native](/examples/example-node-oauth-client/)

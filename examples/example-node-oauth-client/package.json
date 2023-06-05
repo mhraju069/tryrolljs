@@ -1,5 +1,5 @@
 {
-  "name": "@tryrolljs/example-node-client",
+  "name": "@tryrolljs/example-node-oauth-client",
   "description": "Example of using Client Auth SDK to connect to Roll in Node",
   "version": "0.0.0",
   "private": true,

@@ -43,18 +43,18 @@ const SessionProvider = ({
     }
   }, [apiClient, authSdk])
 
+  const loadUserData = useCallback(async () => {
+    try {
+      const user_ = await getMe(apiClient)
+      setUser(user_.data)
+    } catch (e) {
+      setError(e)
+    }
+  }, [apiClient, getMe])
+
   useEffect(() => {
     if (isMountedRef.current) {
       return
-    }
-
-    const loadUserData = async () => {
-      try {
-        const user_ = await getMe(apiClient)
-        setUser(user_.data)
-      } catch (e) {
-        setError(e)
-      }
     }
 
     const getOauthCode = () => {
@@ -100,11 +100,12 @@ const SessionProvider = ({
     try {
       setStatus('refreshing')
       await authSdk.refreshToken(true)
+      await loadUserData()
     } catch (e) {
     } finally {
       setStatus('stale')
     }
-  }, [authSdk])
+  }, [authSdk, loadUserData])
 
   const logIn = useCallback(async () => {
     const url = await authSdk.getLogInUrl()

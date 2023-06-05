@@ -1,5 +1,6 @@
 require('dotenv').config()
 const SDK = require('@tryrolljs/auth-sdk')
+const { ClientCredentialsTokenInteraction } = require('@tryrolljs/auth-sdk')
 
 function makeMockStorage() {
   let storage = {}
@@ -26,18 +27,19 @@ function makeMockStorage() {
 
 const generateToken = async () => {
   try {
-    const clientAuthSdk = new SDK(
+    const sdk = new SDK.default(
       {
         issuerUrl: process.env.ISSUER_URL,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
       },
       makeMockStorage(),
+      ClientCredentialsTokenInteraction,
     )
 
-    await clientAuthSdk.generateToken()
+    await sdk.generateToken()
 
-    console.log(`Your access token is: ${clientAuthSdk.getAccessToken()}.`)
+    console.log(`Your access token is: ${sdk.getAccessToken()}.`)
   } catch (e) {
     console.error(e)
   }

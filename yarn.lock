@@ -8677,9 +8677,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tryrolljs/example-node-client@workspace:examples/example-node-client":
+"@tryrolljs/example-node-oauth-client@workspace:examples/example-node-oauth-client":
   version: 0.0.0-use.local
-  resolution: "@tryrolljs/example-node-client@workspace:examples/example-node-client"
+  resolution: "@tryrolljs/example-node-oauth-client@workspace:examples/example-node-oauth-client"
   dependencies:
     "@tryrolljs/api": "workspace:*"
     "@tryrolljs/api-client": "workspace:*"

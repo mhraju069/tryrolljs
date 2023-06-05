@@ -24,8 +24,6 @@ describe('AnalyticsCard', () => {
     const change = await screen.getByText('13%')
     const changeHint = await screen.getByText('+2M last 24hrs')
 
-    console.log(change)
-
     expect(title).toBeDefined()
     expect(value).toBeDefined()
     expect(change).toBeDefined()

@@ -93,7 +93,7 @@ export default class Client extends EventEmitter {
   private makeRefreshTask = (onDestroy: () => void) => async () => {
     this.isBlocked = true
 
-    if ('refreshTokens' in this.sdk) {
+    if ('refreshToken' in this.sdk) {
       try {
         await this.sdk.refreshToken()
         const isRefreshUnsuccessful = !this.sdk.getAccessToken()
