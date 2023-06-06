@@ -9,16 +9,16 @@ import {
 } from './types'
 import { isLastUpdateTimestampExpired, safeJsonParse } from './utils'
 
-class SDK<C extends Config = Config, T = unknown> {
+class SDK<I extends TokenInteraction<unknown>, C extends Config = Config> {
   private readonly config: C
   private readonly storage: Storage
-  private readonly interaction: TokenInteraction<T>
+  private readonly interaction: I
   private token?: Token
 
   constructor(
     config: C,
     storage: Storage,
-    Interaction: new (config_: C, storage_: Storage) => TokenInteraction<T>,
+    Interaction: new (config_: C, storage_: Storage) => I,
   ) {
     this.config = config
     this.storage = storage
@@ -40,7 +40,7 @@ class SDK<C extends Config = Config, T = unknown> {
     }
   }
 
-  public generateToken = async (args: T) => {
+  public generateToken = async (...args: Parameters<I['generateToken']>) => {
     if (this.token) {
       return
     }

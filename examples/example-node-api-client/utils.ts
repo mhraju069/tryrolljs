@@ -69,9 +69,11 @@ export const generateAutoLoginTokenSDK = () => {
   )
 }
 
-export const generateApiClient = async (sdk: SDK.default) => {
+export const generateApiClient = async (
+  sdk: SDK.default<ClientCredentialsTokenInteraction>,
+) => {
   try {
-    await sdk.generateToken(undefined)
+    await sdk.generateToken()
 
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 

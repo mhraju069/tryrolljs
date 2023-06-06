@@ -10,13 +10,13 @@ import { CouldntRefreshTokens } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: SDK<any, any>
+  private sdk: SDK<any>
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
   private isBlocked: boolean = false
 
-  constructor(config: Config, sdk: SDK<any, any>) {
+  constructor(config: Config, sdk: SDK<any>) {
     super()
 
     this.config = config

@@ -1,11 +1,17 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
 import Client from '@tryrolljs/api-client'
-import SDK from '../../auth-sdk/dist/cjs'
+import SDK, { CodeTokenInteraction } from '@tryrolljs/auth-sdk'
 import SessionProvider, { useSession } from './session-provider'
 
 const getWrapper =
-  ({ apiClient, authSdk }: { apiClient: Client; authSdk: SDK }) =>
+  ({
+    apiClient,
+    authSdk,
+  }: {
+    apiClient: Client
+    authSdk: SDK<CodeTokenInteraction>
+  }) =>
   ({ children }: PropsWithChildren<{}>) =>
     (
       <SessionProvider apiClient={apiClient} authSdk={authSdk}>

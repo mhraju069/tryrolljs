@@ -1,7 +1,7 @@
+import { PropsWithChildren } from 'react'
 import { user as userAPI } from '@tryrolljs/api'
 import Client from '@tryrolljs/api-client'
-import SDK from '../../auth-sdk/dist/cjs'
-import { PropsWithChildren } from 'react'
+import SDK, { CodeTokenInteraction } from '@tryrolljs/auth-sdk'
 
 export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
 
@@ -16,6 +16,6 @@ export interface SessionContextValue {
 
 export type SessionProviderProps = PropsWithChildren<{
   apiClient: Client
-  authSdk: SDK
+  authSdk: SDK<CodeTokenInteraction>
   getMe?: typeof userAPI.getMe
 }>

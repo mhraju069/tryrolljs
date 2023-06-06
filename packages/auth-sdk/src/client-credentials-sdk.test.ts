@@ -82,7 +82,7 @@ describe('Client Credentials Auth SDK', () => {
     const realStorage = getRealStorage()
     const sdk = new SDK(config, realStorage, ClientCredentialsTokenInteraction)
 
-    await sdk.generateToken(undefined)
+    await sdk.generateToken()
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({

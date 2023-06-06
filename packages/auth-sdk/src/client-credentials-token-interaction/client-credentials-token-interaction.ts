@@ -2,7 +2,7 @@ import { Storage, TokenInteraction } from '../types'
 import { Config } from './types'
 import { requestToken } from './api'
 
-class ClientCredentialsTokenInteraction implements TokenInteraction<unknown> {
+class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
   private readonly config: Config
   private readonly storage: Storage
 
