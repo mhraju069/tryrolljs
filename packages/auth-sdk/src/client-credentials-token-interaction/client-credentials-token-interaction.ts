@@ -21,6 +21,10 @@ class ClientCredentialsTokenInteraction implements TokenInteraction<unknown> {
 
     return { ...response.data, last_update_at: new Date().getTime() }
   }
+
+  public refreshToken = async () => {
+    return await this.generateToken()
+  }
 }
 
 export default ClientCredentialsTokenInteraction
