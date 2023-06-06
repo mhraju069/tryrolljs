@@ -68,14 +68,14 @@ export const getUser = async (client: Client, { userId }: GetUserArgs) => {
   return response.data
 }
 
-export const createExternalUser = async (
+export const createPlatformUser = async (
   client: Client,
-  { userType, externalUserId }: CreateExternalUserArgs,
+  { userType, platformUserId }: CreateExternalUserArgs,
 ) => {
   const response = await client.call<Response<CreateExternalUserResponseData>>({
-    url: `/v1/externalUsers`,
+    url: `/v1/platforms/${userType}/users/${platformUserId}}`,
     method: 'POST',
-    body: { userType, externalUserID: externalUserId },
+    body: { userType, externalUserID: platformUserId },
     authorization: true,
   })
 

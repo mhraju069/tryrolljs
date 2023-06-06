@@ -1,21 +1,17 @@
 import axios from 'axios'
 import { stringify } from 'qs'
-import {
-  RequestTokenArgs,
-  RequestTokenResponseData,
-  GrantType,
-  ScopeType,
-} from './types'
+import { RequestTokenArgs, RequestTokenResponseData, GrantType } from './types'
 
 export const requestToken = async ({
   clientId,
   clientSecret,
   issuerUrl,
+  scopes,
 }: RequestTokenArgs) => {
   try {
     const body = {
       grant_type: GrantType.ClientCredentials,
-      scope: ScopeType.ReadTx,
+      scope: scopes.join(' '),
     }
     const options = {
       method: 'POST',

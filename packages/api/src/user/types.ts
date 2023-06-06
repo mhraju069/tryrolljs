@@ -78,12 +78,12 @@ export interface HasBalanceResponseData {
 
 export interface CreateExternalUserArgs {
   userType: string
-  externalUserId: string
+  platformUserId: string
 }
 export interface CreateExternalUserResponseData {
   userID: string
-  externalUserID: string
   userType: string
+  platformUserID: string
 }
 
 export interface GetUserMasqueradeTokenArgs {

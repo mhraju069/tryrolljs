@@ -35,6 +35,7 @@ export const generateAuthClientCredentialsSDK = () => {
         types.ScopeType.ReadTx,
         types.ScopeType.Offline,
         types.ScopeType.Masquerade,
+        types.ScopeType.PlatformUser,
       ],
     },
     makeMockStorage(),

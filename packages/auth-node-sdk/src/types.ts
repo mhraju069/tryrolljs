@@ -24,6 +24,7 @@ export enum ScopeType {
   Offline = 'offline',
   ReadTx = 'read-tx',
   Masquerade = 'masquerade',
+  PlatformUser = 'platform-user',
 }
 
 export interface RequestTokenArgs {
