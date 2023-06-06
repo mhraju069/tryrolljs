@@ -29,10 +29,10 @@ class NodeTokenInteraction implements TokenInteraction<string> {
 
     let cookies: string[] = []
 
-    const loginRedirectReponse = await haltRedirect(loginUrl)
+    const loginRedirectResponse = await haltRedirect(loginUrl)
 
-    const loginRedirectUrl = mustGetRedirectUrl(loginRedirectReponse)
-    cookies = cookies.concat(mustGetCookies(loginRedirectReponse))
+    const loginRedirectUrl = mustGetRedirectUrl(loginRedirectResponse)
+    cookies = cookies.concat(mustGetCookies(loginRedirectResponse))
     const loginChallenge = mustGetParam(loginRedirectUrl, 'login_challenge')
 
     const autoLoginUrl = await autoLogin(
@@ -56,12 +56,12 @@ class NodeTokenInteraction implements TokenInteraction<string> {
       joinCookies(cookies),
     )
 
-    const consentRedirectREsponse = await haltRedirect(
+    const consentRedirectResponse = await haltRedirect(
       consentRedirectUrl,
       joinCookies(cookies),
     )
 
-    const codeRedirectUrl = mustGetRedirectUrl(consentRedirectREsponse)
+    const codeRedirectUrl = mustGetRedirectUrl(consentRedirectResponse)
     const code = mustGetParam(codeRedirectUrl, 'code')
 
     const response = await requestToken({

@@ -56,7 +56,7 @@ export const mustGetCookies = (response: http.IncomingMessage): string[] => {
 
   if (!cookies) {
     throw new Error(
-      `no cookies found for request ${response.method} ${response.url} ${response.statusCode} with redirect ${response.headers.location}`,
+      `No cookies found for request ${response.method} ${response.url} ${response.statusCode} with redirect ${response.headers.location}`,
     )
   }
 
@@ -67,7 +67,7 @@ export const mustGetParam = (url: string, param: string): string => {
   const value = new URLSearchParams(new URL(url).searchParams).get(param)
 
   if (!value) {
-    throw new Error(`cannot find query param ${param} in url ${url}`)
+    throw new Error(`Cannot find query param ${param} in url ${url}`)
   }
 
   return value
