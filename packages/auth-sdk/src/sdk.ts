@@ -9,16 +9,14 @@ import {
 } from './types'
 import { isLastUpdateTimestampExpired, safeJsonParse } from './utils'
 
-class SDK<I extends TokenInteraction<unknown>, C extends Config = Config> {
-  private readonly config: C
-  private readonly storage: Storage
-  private readonly interaction: I
+class SDK<T extends any = void, C extends Config = Config> {
+  private readonly interaction: TokenInteraction<T>
   private token?: Token
 
   constructor(
-    config: C,
-    storage: Storage,
-    Interaction: new (config_: C, storage_: Storage) => I,
+    private readonly config: C,
+    private readonly storage: Storage,
+    Interaction: new (config_: C, storage_: Storage) => TokenInteraction<T>,
   ) {
     this.config = config
     this.storage = storage
@@ -34,18 +32,18 @@ class SDK<I extends TokenInteraction<unknown>, C extends Config = Config> {
       return
     }
 
-    const token = await this.interaction.refreshToken?.(this.token)
+    const token = await this.interaction.refreshToken(this.token)
     if (token) {
       await this.saveTokenFromResponse(token)
     }
   }
 
-  public generateToken = async (...args: Parameters<I['generateToken']>) => {
+  public generateToken = async (options: T) => {
     if (this.token) {
       return
     }
 
-    const token = await this.interaction.generateToken(args)
+    const token = await this.interaction.generateToken(options)
     await this.saveTokenFromResponse(token)
   }
 

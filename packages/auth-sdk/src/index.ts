@@ -1,6 +1,8 @@
 export { default } from './sdk'
 export { default as CodeTokenInteraction } from './code-token-interaction'
+export type { CodeGenerateTokenOptions } from './code-token-interaction'
 export { default as AutoLoginTokenInteraction } from './auto-login-token-interaction'
+export type { AutoLoginGenerateTokenOptions } from './auto-login-token-interaction'
 export { default as ClientCredentialsTokenInteraction } from './client-credentials-token-interaction'
 export * as types from './types'
 export * as errors from './errors'

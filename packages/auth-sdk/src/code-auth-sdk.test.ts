@@ -93,7 +93,7 @@ describe('Browser Auth SDK', () => {
     realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
     const sdk = new SDK(config, realStorage, CodeTokenInteraction)
 
-    await sdk.generateToken('code')
+    await sdk.generateToken({ code: 'code' })
 
     expect(sdk.getAccessToken()).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({
@@ -113,7 +113,7 @@ describe('Browser Auth SDK', () => {
 
     mockTokenResponse({ expires_in: 0 })
 
-    await sdk.generateToken('code')
+    await sdk.generateToken({ code: 'code' })
 
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
@@ -163,7 +163,7 @@ describe('Browser Auth SDK', () => {
   it('refreshes when force', async () => {
     const sdk = new SDK(config, storage, CodeTokenInteraction)
     mockTokenResponse()
-    await sdk.generateToken('code')
+    await sdk.generateToken({ code: 'code' })
 
     mockTokenResponse({ access_token: 'new_access_token' })
     await sdk.refreshToken(true)

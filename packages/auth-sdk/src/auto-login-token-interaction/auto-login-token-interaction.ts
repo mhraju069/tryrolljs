@@ -2,7 +2,7 @@ import CodeTokenInteraction from '../code-token-interaction'
 import { CODE_VERIFIER_STORAGE_KEY } from '../code-token-interaction/constants'
 import { Storage, GrantType, TokenInteraction, Token } from '../types'
 import { autoLogin, provideConsent, requestToken } from './api'
-import { Config } from './types'
+import { AutoLoginGenerateTokenOptions, Config } from './types'
 import {
   haltRedirect,
   mustGetRedirectUrl,
@@ -11,8 +11,10 @@ import {
   joinCookies,
 } from './utils'
 
-class AutoLoginTokenInteraction implements TokenInteraction<string> {
-  private readonly browserTokenInteraction: CodeTokenInteraction
+class AutoLoginTokenInteraction
+  implements TokenInteraction<AutoLoginGenerateTokenOptions>
+{
+  private readonly codeInteraction: CodeTokenInteraction
 
   constructor(
     private readonly config: Config,
@@ -20,10 +22,12 @@ class AutoLoginTokenInteraction implements TokenInteraction<string> {
   ) {
     this.storage = storage
     this.config = config
-    this.browserTokenInteraction = new CodeTokenInteraction(config, storage)
+    this.codeInteraction = new CodeTokenInteraction(config, storage)
   }
 
-  public generateToken = async (autoLoginToken: string) => {
+  public generateToken = async ({
+    autoLoginToken,
+  }: AutoLoginGenerateTokenOptions) => {
     const loginUrl = await this.getLogInUrl()
     const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
 
@@ -81,12 +85,12 @@ class AutoLoginTokenInteraction implements TokenInteraction<string> {
   }
 
   public refreshToken = (token: Token) =>
-    this.browserTokenInteraction.refreshToken(token)
-  public clearCache = () => this.browserTokenInteraction.clearCache()
-  public restoreCache = () => this.browserTokenInteraction.restoreCache()
-  public getLogInUrl = () => this.browserTokenInteraction.getLogInUrl()
+    this.codeInteraction.refreshToken(token)
+  public clearCache = () => this.codeInteraction.clearCache()
+  public restoreCache = () => this.codeInteraction.restoreCache()
+  public getLogInUrl = () => this.codeInteraction.getLogInUrl()
   public getLogOutUrl = (token: Token) =>
-    this.browserTokenInteraction.getLogOutUrl(token)
+    this.codeInteraction.getLogOutUrl(token)
 }
 
 export default AutoLoginTokenInteraction

@@ -69,9 +69,7 @@ export const generateAutoLoginTokenSDK = () => {
   )
 }
 
-export const generateApiClient = async (
-  sdk: SDK.default<ClientCredentialsTokenInteraction>,
-) => {
+export const generateApiClient = async (sdk: SDK.default<void>) => {
   try {
     await sdk.generateToken()
 

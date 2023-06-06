@@ -64,8 +64,8 @@ export type Token = RequestTokenResponseData & {
 }
 
 export interface TokenInteraction<T> {
-  refreshToken?: (token: Token) => Promise<Token>
-  generateToken(arg: T): Promise<Token>
+  generateToken: (options: T) => Promise<Token>
+  refreshToken: (token: Token) => Promise<Token>
   clearCache?: () => Promise<void>
   restoreCache?: () => Promise<void>
   getLogInUrl?: () => Promise<string>

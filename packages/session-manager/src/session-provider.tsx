@@ -66,7 +66,7 @@ const SessionProvider = ({
       try {
         const oauthCode = getOauthCode()
         if (oauthCode) {
-          await authSdk.generateToken(oauthCode)
+          await authSdk.generateToken({ code: oauthCode })
           await loadUserData()
         }
       } catch (e) {

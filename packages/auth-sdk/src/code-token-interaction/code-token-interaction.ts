@@ -12,8 +12,11 @@ import { getLogInUrl, getLogOutUrl, requestToken } from './api'
 import { CODE_STORAGE_KEY, CODE_VERIFIER_STORAGE_KEY } from './constants'
 import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
+import { CodeGenerateTokenOptions } from './types'
 
-class CodeTokenInteraction implements TokenInteraction<string> {
+class CodeTokenInteraction
+  implements TokenInteraction<CodeGenerateTokenOptions>
+{
   constructor(
     private readonly config: Config,
     private readonly storage: Storage,
@@ -49,7 +52,7 @@ class CodeTokenInteraction implements TokenInteraction<string> {
     }
   }
 
-  public generateToken = async (code: string) => {
+  public generateToken = async ({ code }: CodeGenerateTokenOptions) => {
     const cachedCodeVerifier = await this.storage.getItem(
       CODE_VERIFIER_STORAGE_KEY,
     )

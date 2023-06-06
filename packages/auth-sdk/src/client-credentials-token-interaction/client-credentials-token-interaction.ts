@@ -3,10 +3,10 @@ import { Config } from './types'
 import { requestToken } from './api'
 
 class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
-  private readonly config: Config
-  private readonly storage: Storage
-
-  constructor(config: Config, storage: Storage) {
+  constructor(
+    private readonly config: Config,
+    private readonly storage: Storage,
+  ) {
     this.config = config
     this.storage = storage
   }
