@@ -91,7 +91,7 @@ describe('useSession', () => {
     })
 
     await waitFor(() => {
-      expect(generateToken).toHaveBeenCalledWith(oauthCode)
+      expect(generateToken).toHaveBeenCalledWith({ code: oauthCode })
       expect(result.current.user).toBe(user)
     })
   })
@@ -122,7 +122,7 @@ describe('useSession', () => {
     })
 
     await waitFor(() => {
-      expect(generateToken).toHaveBeenCalledWith(oauthCode)
+      expect(generateToken).toHaveBeenCalledWith({ code: oauthCode })
       expect(result.current.user).toBe(undefined)
       expect(result.current.error).toBe(error)
     })
