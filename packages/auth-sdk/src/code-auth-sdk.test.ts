@@ -1,13 +1,13 @@
 import type { PartialDeep } from 'type-fest'
-import { requestToken } from './browser-token-interaction/api'
+import { requestToken } from './code-token-interaction/api'
 import {
   CODE_STORAGE_KEY,
   CODE_VERIFIER_STORAGE_KEY,
-} from './browser-token-interaction/constants'
+} from './code-token-interaction/constants'
 import type { RequestTokenResponseData, Token } from './types'
 import SDK from './sdk'
 import { TOKEN_STORAGE_KEY } from './constants'
-import BrowserTokenInteraction from './browser-token-interaction'
+import CodeTokenInteraction from './code-token-interaction'
 
 const config = {
   clientId: 'clientId',
@@ -37,7 +37,7 @@ const getRealStorage = () => ({
 })
 
 const mockRequestToken = requestToken as jest.Mock
-jest.mock('./browser-token-interaction/api', () => ({
+jest.mock('./code-token-interaction/api', () => ({
   requestToken: jest.fn().mockResolvedValue({
     data: {
       access_token: 'access_token',
@@ -91,7 +91,7 @@ describe('Browser Auth SDK', () => {
     mockTokenResponse()
     const realStorage = getRealStorage()
     realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new SDK(config, realStorage, BrowserTokenInteraction)
+    const sdk = new SDK(config, realStorage, CodeTokenInteraction)
 
     await sdk.generateToken('code')
 
@@ -109,7 +109,7 @@ describe('Browser Auth SDK', () => {
   it('refreshes and updates token', async () => {
     const realStorage = getRealStorage()
     realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new SDK(config, realStorage, BrowserTokenInteraction)
+    const sdk = new SDK(config, realStorage, CodeTokenInteraction)
 
     mockTokenResponse({ expires_in: 0 })
 
@@ -141,7 +141,7 @@ describe('Browser Auth SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage, BrowserTokenInteraction)
+    const sdk = new SDK(config, storage, CodeTokenInteraction)
     await sdk.restoreCachedToken()
     await sdk.refreshToken()
 
@@ -161,7 +161,7 @@ describe('Browser Auth SDK', () => {
   })
 
   it('refreshes when force', async () => {
-    const sdk = new SDK(config, storage, BrowserTokenInteraction)
+    const sdk = new SDK(config, storage, CodeTokenInteraction)
     mockTokenResponse()
     await sdk.generateToken('code')
 
@@ -183,7 +183,7 @@ describe('Browser Auth SDK', () => {
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new SDK(config, storage, BrowserTokenInteraction)
+    const sdk = new SDK(config, storage, CodeTokenInteraction)
     await sdk.restoreCachedToken()
     await sdk.refreshToken()
 
@@ -217,7 +217,7 @@ describe('Browser Auth SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage, BrowserTokenInteraction)
+    const sdk = new SDK(config, storage, CodeTokenInteraction)
     await sdk.restoreCachedToken()
 
     expect(sdk.getAccessToken()).toBe('access_token')

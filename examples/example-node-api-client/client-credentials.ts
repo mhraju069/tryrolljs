@@ -1,13 +1,11 @@
 import { clientCredentials } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { generateApiClient, generateAuthClientCredentialsSDK } from './utils.js'
+import { generateApiClient, generateClientCredentalsAuthSDK } from './utils.js'
 
 export const getClient = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -25,9 +23,7 @@ export const getClient = async () => {
 
 export const getClients = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const clients = await clientCredentials.getClients(apiClient)
 
     printTable(clients)
@@ -38,9 +34,7 @@ export const getClients = async () => {
 
 export const generateClientSecret = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',

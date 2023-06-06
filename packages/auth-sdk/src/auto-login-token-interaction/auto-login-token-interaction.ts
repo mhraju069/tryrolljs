@@ -1,5 +1,5 @@
-import BrowserTokenInteraction from '../browser-token-interaction'
-import { CODE_VERIFIER_STORAGE_KEY } from '../browser-token-interaction/constants'
+import CodeTokenInteraction from '../code-token-interaction'
+import { CODE_VERIFIER_STORAGE_KEY } from '../code-token-interaction/constants'
 import { Storage, GrantType, TokenInteraction, Token } from '../types'
 import { autoLogin, provideConsent, requestToken } from './api'
 import { Config } from './types'
@@ -11,8 +11,8 @@ import {
   joinCookies,
 } from './utils'
 
-class NodeTokenInteraction implements TokenInteraction<string> {
-  private readonly browserTokenInteraction: BrowserTokenInteraction
+class AutoLoginTokenInteraction implements TokenInteraction<string> {
+  private readonly browserTokenInteraction: CodeTokenInteraction
 
   constructor(
     private readonly config: Config,
@@ -20,7 +20,7 @@ class NodeTokenInteraction implements TokenInteraction<string> {
   ) {
     this.storage = storage
     this.config = config
-    this.browserTokenInteraction = new BrowserTokenInteraction(config, storage)
+    this.browserTokenInteraction = new CodeTokenInteraction(config, storage)
   }
 
   public generateToken = async (autoLoginToken: string) => {
@@ -89,4 +89,4 @@ class NodeTokenInteraction implements TokenInteraction<string> {
     this.browserTokenInteraction.getLogOutUrl(token)
 }
 
-export default NodeTokenInteraction
+export default AutoLoginTokenInteraction

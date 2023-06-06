@@ -1,4 +1,4 @@
-import SDK, { BrowserTokenInteraction } from '@tryrolljs/auth-sdk'
+import SDK, { CodeTokenInteraction } from '@tryrolljs/auth-sdk'
 import Client from '@tryrolljs/api-client'
 import config from '../config'
 
@@ -11,7 +11,7 @@ const authSdk = new SDK(
     scopes: config.scopes,
   },
   window.localStorage,
-  BrowserTokenInteraction,
+  CodeTokenInteraction,
 )
 
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)

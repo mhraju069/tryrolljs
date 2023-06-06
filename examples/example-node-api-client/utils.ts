@@ -2,7 +2,7 @@ import Client from '@tryrolljs/api-client'
 import SDK, {
   types,
   ClientCredentialsTokenInteraction,
-  NodeTokenInteraction,
+  AutoLoginTokenInteraction,
 } from '@tryrolljs/auth-sdk'
 
 function makeMockStorage() {
@@ -28,7 +28,7 @@ function makeMockStorage() {
   }
 }
 
-export const generateAuthClientCredentialsSDK = () => {
+export const generateClientCredentalsAuthSDK = () => {
   return new SDK.default(
     {
       issuerUrl: process.env.ISSUER_URL || '',
@@ -48,7 +48,7 @@ export const generateAuthClientCredentialsSDK = () => {
   )
 }
 
-export const generateAuthNodeSDK = () => {
+export const generateAutoLoginTokenSDK = () => {
   return new SDK.default(
     {
       apiUrl: process.env.API_URL || '',
@@ -65,7 +65,7 @@ export const generateAuthNodeSDK = () => {
       ],
     },
     makeMockStorage(),
-    NodeTokenInteraction,
+    AutoLoginTokenInteraction,
   )
 }
 

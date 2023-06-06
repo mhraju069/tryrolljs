@@ -3,15 +3,13 @@ import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import {
   generateApiClient,
-  generateAuthNodeSDK,
-  generateAuthClientCredentialsSDK,
+  generateAutoLoginTokenSDK,
+  generateClientCredentalsAuthSDK,
 } from './utils.js'
 
 export const getUserBalances = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -38,9 +36,7 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -68,9 +64,7 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -101,9 +95,7 @@ export const hasBalance = async () => {
 
 export const getUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -127,9 +119,7 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -156,10 +146,8 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
-    const nodeAuthSdk = generateAuthNodeSDK()
+    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const nodeAuthSdk = generateAutoLoginTokenSDK()
 
     const answers = await inquirer.prompt([
       {

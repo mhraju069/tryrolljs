@@ -13,7 +13,7 @@ import { CODE_STORAGE_KEY, CODE_VERIFIER_STORAGE_KEY } from './constants'
 import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
 
-class BrowserTokenInteraction implements TokenInteraction<string> {
+class CodeTokenInteraction implements TokenInteraction<string> {
   constructor(
     private readonly config: Config,
     private readonly storage: Storage,
@@ -137,4 +137,4 @@ class BrowserTokenInteraction implements TokenInteraction<string> {
   }
 }
 
-export default BrowserTokenInteraction
+export default CodeTokenInteraction
