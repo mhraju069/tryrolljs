@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   },
   spacer: {
     width: DESKTOP_SIDEBAR_WIDTH,
-    marginRight: spacing[40],
     zIndex: -1,
   },
 })

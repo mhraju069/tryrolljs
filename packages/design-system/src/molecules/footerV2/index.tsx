@@ -95,14 +95,7 @@ export const FooterV2 = ({
   })
 
   return (
-    <View
-      style={[
-        container.fullWidth,
-        padding.ph20,
-        padding.pt16,
-        styles.mainContainer,
-      ]}
-    >
+    <View style={[container.fullWidth, padding.pt16, styles.mainContainer]}>
       <View
         style={[
           container.fullWidth,
