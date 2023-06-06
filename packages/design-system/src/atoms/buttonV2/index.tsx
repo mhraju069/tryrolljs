@@ -81,24 +81,24 @@ const BaseButton = ({
 
   const paddingY = useMemo(() => {
     if (isActive) {
-      return paddingVertical - (active.borderWidth - rest.borderWidth)
+      return paddingVertical - active.borderWidth
     }
     if (isHover) {
-      return paddingVertical - (hover.borderWidth - rest.borderWidth)
+      return paddingVertical - hover.borderWidth
     }
-    return paddingVertical
+    return paddingVertical - rest.borderWidth
   }, [paddingVertical, isActive, isHover, active, hover, rest])
 
   const paddingX = useMemo(() => {
     // Icon buttons are always square so we only need to check for paddingVertical
     const padding = variant === 'icon' ? paddingVertical : paddingHorizontal
     if (isActive) {
-      return padding - (active.borderWidth - rest.borderWidth)
+      return padding - active.borderWidth
     }
     if (isHover) {
-      return padding - (hover.borderWidth - rest.borderWidth)
+      return padding - hover.borderWidth
     }
-    return padding
+    return padding - rest.borderWidth
   }, [
     paddingHorizontal,
     isActive,
