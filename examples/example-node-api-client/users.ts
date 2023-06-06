@@ -143,14 +143,10 @@ export const createPlatformUser = async () => {
       },
     ])
 
-    console.log('answers: ', answers)
-
     const response = await user.createPlatformUser(apiClient, {
       userType: answers.userType,
       platformUserId: answers.platformUserId,
     })
-
-    console.log('response: ', response)
 
     printTable([response])
   } catch (err) {
