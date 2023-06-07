@@ -143,14 +143,10 @@ export const createPlatformUser = async () => {
       },
     ])
 
-    console.log('answers: ', answers)
-
     const response = await user.createPlatformUser(apiClient, {
       userType: answers.userType,
       platformUserId: answers.platformUserId,
     })
-
-    console.log('response: ', response)
 
     printTable([response])
   } catch (err) {
@@ -176,9 +172,10 @@ export const loginPlatformUser = async () => {
     const autoLoginToken = await user.getUserMasqueradeToken(apiClient, {
       userId: answers.userId,
     })
-    const data = await nodeAuthSdk.generateToken(autoLoginToken.token)
 
-    printTable([data])
+    await nodeAuthSdk.generateToken(autoLoginToken.token)
+
+    printTable([{ success: true }])
   } catch (err) {
     console.error(err)
   }

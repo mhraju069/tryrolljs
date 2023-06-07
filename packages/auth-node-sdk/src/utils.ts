@@ -1,4 +1,5 @@
 import http from 'http'
+import https from 'https'
 import sha256 from 'crypto-js/sha256'
 import Base64Url from 'crypto-js/enc-base64url'
 
@@ -37,10 +38,18 @@ export const haltRedirect = (url: string, cookies?: string) => {
         }
       }
 
-      http
-        .request(options, (response) => resolve(response))
-        .on('error', (error) => reject(error))
-        .end()
+      // must explicitly use package depending on protocol
+      if (parsedUrl.protocol === 'http:') {
+        http
+          .request(options, async (response) => resolve(response))
+          .on('error', (error) => reject(error))
+          .end()
+      } else {
+        https
+          .request(options, async (response) => resolve(response))
+          .on('error', (error) => reject(error))
+          .end()
+      }
     } catch (err) {
       reject(err)
     }
@@ -61,7 +70,7 @@ export const mustGetCookies = (response: http.IncomingMessage): string[] => {
 
   if (!cookies) {
     throw new Error(
-      `no cookies found for request ${response} with redirect ${location}`,
+      `no cookies found for request ${response.method} ${response.url} ${response.statusCode} with redirect ${response.headers.location}`,
     )
   }
 
@@ -72,7 +81,7 @@ export const mustGetParam = (url: string, param: string): string => {
   const value = new URLSearchParams(new URL(url).searchParams).get(param)
 
   if (!value) {
-    throw new Error('no query parameter found with name: ' + param)
+    throw new Error(`cannot find query param ${param} in url ${url}`)
   }
 
   return value
