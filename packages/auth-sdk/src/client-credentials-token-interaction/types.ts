@@ -1,12 +1,7 @@
 import {
-  Config as BaseConfig,
   Token as BaseToken,
   RequestTokenResponseData as BaseRequestTokenResponseData,
 } from '../types'
-
-export interface Config extends BaseConfig {
-  clientSecret: string
-}
 
 export interface RequestTokenArgs {
   clientSecret: string

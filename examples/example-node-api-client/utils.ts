@@ -1,11 +1,7 @@
 import Client from '@tryrolljs/api-client'
-import SDK, {
-  types,
-  ClientCredentialsTokenInteraction,
-  AutoLoginTokenInteraction,
-} from '@tryrolljs/auth-sdk'
+import SDK, { ScopeType } from '@tryrolljs/auth-sdk'
 
-function makeMockStorage() {
+export const makeMockStorage = () => {
   let storage: Record<string, string> = {}
 
   return {
@@ -28,23 +24,22 @@ function makeMockStorage() {
   }
 }
 
-export const generateClientCredentalsAuthSDK = () => {
+export const makeSDK = () => {
   return new SDK.default(
     {
       issuerUrl: process.env.ISSUER_URL || '',
       clientId: process.env.CLIENT_ID || '',
       clientSecret: process.env.CLIENT_SECRET || '',
       scopes: [
-        types.ScopeType.ReadTx,
-        types.ScopeType.Offline,
-        types.ScopeType.Masquerade,
-        types.ScopeType.PlatformUser,
+        ScopeType.ReadTx,
+        ScopeType.Offline,
+        ScopeType.Masquerade,
+        ScopeType.PlatformUser,
       ],
       redirectUrl: '',
       logoutRedirectUrl: '',
     },
     makeMockStorage(),
-    ClientCredentialsTokenInteraction,
   )
 }
 
@@ -58,18 +53,17 @@ export const generateAutoLoginTokenSDK = () => {
       redirectUrl: process.env.REDIRECT_URL || '',
       logoutRedirectUrl: process.env.REDIRECT_URL || '',
       scopes: [
-        types.ScopeType.ReadTx,
-        types.ScopeType.Offline,
-        types.ScopeType.Masquerade,
-        types.ScopeType.PlatformUser,
+        ScopeType.ReadTx,
+        ScopeType.Offline,
+        ScopeType.Masquerade,
+        ScopeType.PlatformUser,
       ],
     },
     makeMockStorage(),
-    AutoLoginTokenInteraction,
   )
 }
 
-export const generateApiClient = async (sdk: SDK.default<void>) => {
+export const generateApiClient = async (sdk: SDK.default) => {
   try {
     await sdk.generateToken()
 

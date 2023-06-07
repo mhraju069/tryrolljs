@@ -51,21 +51,21 @@ export default class Client extends EventEmitter {
     return this.config.baseUrl || ''
   }
 
-  private getHeaders = (authorization = false) => {
+  private getHeaders = async (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',
       ...(this.config.extraHeaders ?? {}),
       Authorization: undefined as string | undefined,
     }
 
-    const accessToken = this.sdk.getAccessToken()
-    if (authorization && accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`
+    const token = await this.sdk.getToken()
+    if (authorization && token) {
+      headers.Authorization = `Bearer ${token.access_token}`
     }
     return headers
   }
 
-  private getOptions = ({
+  private getOptions = async ({
     url,
     method,
     body,
@@ -75,7 +75,7 @@ export default class Client extends EventEmitter {
     const options = {
       url,
       method,
-      headers: this.getHeaders(authorization),
+      headers: await this.getHeaders(authorization),
       data: body,
     }
 
@@ -95,8 +95,9 @@ export default class Client extends EventEmitter {
 
     try {
       await this.sdk.refreshToken()
-      const isRefreshUnsuccessful = !this.sdk.getAccessToken()
-      if (isRefreshUnsuccessful) {
+      const token = await this.sdk.getToken()
+      // Unsuccessful refresh leads to an empty token in the SDK
+      if (!token) {
         this.queue.destroy(onDestroy)
       }
     } catch (e) {
@@ -115,7 +116,7 @@ export default class Client extends EventEmitter {
     ) =>
     async () => {
       try {
-        const response = await axios<T>(this.getOptions(request))
+        const response = await axios<T>(await this.getOptions(request))
         return resolve(response.data)
       } catch (e: any) {
         if (e.response) {
@@ -131,17 +132,16 @@ export default class Client extends EventEmitter {
     }
 
   public call = <T = any>(request: Request) => {
-    return new Promise<T>((resolve, reject) => {
+    return new Promise<T>(async (resolve, reject) => {
       const onDestroy = () => {
         this.queue = this.makeQueue()
         reject(new CouldntRefreshTokens())
       }
-      const isLoggedIn = !!this.sdk.getAccessToken()
-      const isExpired =
-        'isTokenExpired' in this.sdk && this.sdk.isTokenExpired()
+      const token = await this.sdk.getToken()
+      const isExpired = await this.sdk.isTokenExpired()
       if (
         request.authorization &&
-        isLoggedIn &&
+        token &&
         isExpired &&
         !this.isRefreshScheduled
       ) {

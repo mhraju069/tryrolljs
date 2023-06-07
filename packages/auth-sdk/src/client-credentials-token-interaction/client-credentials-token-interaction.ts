@@ -1,11 +1,10 @@
-import { Storage, TokenInteraction } from '../types'
-import { Config } from './types'
+import { Storage, TokenInteraction, Config } from '../types'
 import { requestToken } from './api'
 
 class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
   constructor(
-    private readonly config: Config,
-    private readonly storage: Storage,
+    protected readonly config: Config,
+    protected readonly storage: Storage,
   ) {
     this.config = config
     this.storage = storage
@@ -15,7 +14,7 @@ class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
     const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
       clientId: this.config.clientId,
-      clientSecret: this.config.clientSecret,
+      clientSecret: this.config.clientSecret ?? '',
       scopes: this.config.scopes,
     })
 

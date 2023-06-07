@@ -1,17 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
 import Client from '@tryrolljs/api-client'
-import SDK, { CodeGenerateTokenOptions } from '@tryrolljs/auth-sdk'
+import SDK from '@tryrolljs/auth-sdk'
 import SessionProvider, { useSession } from './session-provider'
 
 const getWrapper =
-  ({
-    apiClient,
-    authSdk,
-  }: {
-    apiClient: Client
-    authSdk: SDK<CodeGenerateTokenOptions>
-  }) =>
+  ({ apiClient, authSdk }: { apiClient: Client; authSdk: SDK }) =>
   ({ children }: PropsWithChildren<{}>) =>
     (
       <SessionProvider apiClient={apiClient} authSdk={authSdk}>
@@ -30,7 +24,7 @@ describe('useSession', () => {
     renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockResolvedValue(undefined),
+          restoreCache: jest.fn().mockResolvedValue(undefined),
           clearCache,
         } as any,
         apiClient: {
@@ -51,8 +45,8 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockResolvedValue(undefined),
-          getAccessToken: jest.fn().mockReturnValue('token'),
+          restoreCache: jest.fn().mockResolvedValue(undefined),
+          getToken: jest.fn().mockReturnValue({ access_token: 'token' }),
         } as any,
         apiClient: {
           on: jest.fn(),
@@ -79,7 +73,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockRejectedValue(undefined),
+          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
         } as any,
         apiClient: {
@@ -109,7 +103,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockRejectedValue(error),
+          restoreCache: jest.fn().mockRejectedValue(error),
           generateToken,
           clearCache: jest.fn(),
         } as any,
@@ -140,7 +134,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockRejectedValue(undefined),
+          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
         } as any,
         apiClient: {
@@ -171,7 +165,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCachedToken: jest.fn().mockRejectedValue(undefined),
+          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
         } as any,
         apiClient: {

@@ -1,8 +1,12 @@
 import CodeTokenInteraction from '../code-token-interaction'
-import { CODE_VERIFIER_STORAGE_KEY } from '../code-token-interaction/constants'
-import { Storage, GrantType, TokenInteraction, Token } from '../types'
+import {
+  Storage,
+  GrantType,
+  TokenInteraction,
+  Config,
+  StorageKey,
+} from '../types'
 import { autoLogin, provideConsent, requestToken } from './api'
-import { AutoLoginGenerateTokenOptions, Config } from './types'
 import {
   haltRedirect,
   mustGetRedirectUrl,
@@ -12,24 +16,21 @@ import {
 } from './utils'
 
 class AutoLoginTokenInteraction
-  implements TokenInteraction<AutoLoginGenerateTokenOptions>
+  extends CodeTokenInteraction
+  implements TokenInteraction<string>
 {
-  private readonly codeInteraction: CodeTokenInteraction
-
   constructor(
-    private readonly config: Config,
-    private readonly storage: Storage,
+    protected readonly config: Config,
+    protected readonly storage: Storage,
   ) {
+    super(config, storage)
     this.storage = storage
     this.config = config
-    this.codeInteraction = new CodeTokenInteraction(config, storage)
   }
 
-  public generateToken = async ({
-    autoLoginToken,
-  }: AutoLoginGenerateTokenOptions) => {
+  public generateToken = async (autoLoginToken: string) => {
     const loginUrl = await this.getLogInUrl()
-    const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
+    const codeVerifier = await this.storage.getItem(StorageKey.CodeVerifier)
 
     let cookies: string[] = []
 
@@ -40,7 +41,7 @@ class AutoLoginTokenInteraction
     const loginChallenge = mustGetParam(loginRedirectUrl, 'login_challenge')
 
     const autoLoginUrl = await autoLogin(
-      this.config.apiUrl,
+      this.config.apiUrl ?? '',
       autoLoginToken,
       loginChallenge,
       joinCookies(cookies),
@@ -55,7 +56,7 @@ class AutoLoginTokenInteraction
     const consentChallenge = mustGetParam(consentUrl, 'consent_challenge')
 
     const consentRedirectUrl = await provideConsent(
-      this.config.apiUrl,
+      this.config.apiUrl ?? '',
       consentChallenge,
       joinCookies(cookies),
     )
@@ -71,7 +72,7 @@ class AutoLoginTokenInteraction
     const response = await requestToken({
       issuerUrl: this.config.issuerUrl,
       clientId: this.config.clientId,
-      clientSecret: this.config.clientSecret,
+      clientSecret: this.config.clientSecret ?? '',
       code,
       codeVerifier,
       grantType: GrantType.AuthorizationCode,
@@ -83,14 +84,6 @@ class AutoLoginTokenInteraction
       last_update_at: new Date().getTime(),
     }
   }
-
-  public refreshToken = (token: Token) =>
-    this.codeInteraction.refreshToken(token)
-  public clearCache = () => this.codeInteraction.clearCache()
-  public restoreCache = () => this.codeInteraction.restoreCache()
-  public getLogInUrl = () => this.codeInteraction.getLogInUrl()
-  public getLogOutUrl = (token: Token) =>
-    this.codeInteraction.getLogOutUrl(token)
 }
 
 export default AutoLoginTokenInteraction

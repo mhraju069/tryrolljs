@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { parse } from 'qs'
 import { user as userAPI } from '@tryrolljs/api'
-import { types } from '@tryrolljs/api-client'
+import { Event } from '@tryrolljs/api-client'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
 
@@ -19,10 +19,10 @@ const NativeSessionProvider = ({
 
   useEffect(() => {
     const unauthorizedListener = () => authSdk.clearCache()
-    apiClient.on(types.Event.Unauthorized, unauthorizedListener)
+    apiClient.on(Event.Unauthorized, unauthorizedListener)
 
     return () => {
-      apiClient.off(types.Event.Unauthorized, unauthorizedListener)
+      apiClient.off(Event.Unauthorized, unauthorizedListener)
     }
   }, [apiClient, authSdk])
 
@@ -34,7 +34,7 @@ const NativeSessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreCachedToken()
+        await authSdk.restoreCache()
         const user_ = await getMe(apiClient)
         setUser(user_.data)
       } catch (e) {

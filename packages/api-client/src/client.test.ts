@@ -7,8 +7,8 @@ jest.mock('axios', () => jest.fn())
 
 const mockAxios = axios as unknown as jest.Mock
 const authSdk = {
-  isTokenExpired: jest.fn().mockReturnValue(false),
-  getAccessToken: jest.fn().mockReturnValue('123'),
+  isTokenExpired: jest.fn().mockResolvedValue(false),
+  getToken: jest.fn().mockReturnValue({ access_token: '123' }),
   refreshToken: jest.fn(),
 } as any
 
@@ -76,7 +76,7 @@ describe('client', () => {
   it('calls refresh before authorized request', async () => {
     const authSdk_ = {
       ...authSdk,
-      isTokenExpired: jest.fn().mockReturnValue(true),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -249,8 +249,8 @@ describe('client', () => {
   it('does not refresg when a non-logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
-      getAccessToken: jest.fn().mockReturnValue(undefined),
-      isTokenExpired: jest.fn().mockReturnValue(true),
+      getToken: jest.fn().mockReturnValue(undefined),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
       refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)
@@ -280,7 +280,7 @@ describe('client', () => {
   it('resets queue when refresh fails for logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
-      isTokenExpired: jest.fn().mockReturnValue(true),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
       refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)

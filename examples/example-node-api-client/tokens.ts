@@ -1,11 +1,17 @@
 import { token } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
+import Client from '@tryrolljs/api-client'
+import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
 import inquirer from 'inquirer'
-import { generateApiClient, generateClientCredentalsAuthSDK } from './utils.js'
+import { makeMockStorage } from './utils.js'
+import config from './config.js'
 
 export const getTokenList = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -48,7 +54,10 @@ export const getTokenList = async () => {
 
 export const getTokenCreator = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',

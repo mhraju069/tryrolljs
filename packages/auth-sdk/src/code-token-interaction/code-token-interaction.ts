@@ -6,27 +6,24 @@ import {
   Token,
   Storage,
   TokenInteraction,
+  StorageKey,
 } from '../types'
 import { NotEnoughDataToRefreshError } from '../errors'
 import { getLogInUrl, getLogOutUrl, requestToken } from './api'
-import { CODE_STORAGE_KEY, CODE_VERIFIER_STORAGE_KEY } from './constants'
 import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
-import { CodeGenerateTokenOptions } from './types'
 
-class CodeTokenInteraction
-  implements TokenInteraction<CodeGenerateTokenOptions>
-{
+class CodeTokenInteraction implements TokenInteraction<string> {
   constructor(
-    private readonly config: Config,
-    private readonly storage: Storage,
+    protected readonly config: Config,
+    protected readonly storage: Storage,
   ) {
     this.storage = storage
     this.config = config
   }
 
   public refreshToken = async (token: Token) => {
-    const code = await this.storage.getItem(CODE_STORAGE_KEY)
+    const code = await this.storage.getItem(StorageKey.Code)
 
     if (!code) {
       throw new NotEnoughDataToRefreshError()
@@ -52,9 +49,9 @@ class CodeTokenInteraction
     }
   }
 
-  public generateToken = async ({ code }: CodeGenerateTokenOptions) => {
+  public generateToken = async (code: string) => {
     const cachedCodeVerifier = await this.storage.getItem(
-      CODE_VERIFIER_STORAGE_KEY,
+      StorageKey.CodeVerifier,
     )
     if (!cachedCodeVerifier) {
       throw new CodeVerifierMissingError()
@@ -62,7 +59,7 @@ class CodeTokenInteraction
 
     try {
       const newToken = await this.requestToken(code, cachedCodeVerifier)
-      await this.storage.setItem(CODE_STORAGE_KEY, code)
+      await this.storage.setItem(StorageKey.Code, code)
       return { ...newToken, last_update_at: new Date().getTime() }
     } catch (e) {
       await this.clearCache()
@@ -71,8 +68,8 @@ class CodeTokenInteraction
   }
 
   private getCache = async () => {
-    const code = await this.storage.getItem(CODE_STORAGE_KEY)
-    const codeVerifier = await this.storage.getItem(CODE_VERIFIER_STORAGE_KEY)
+    const code = await this.storage.getItem(StorageKey.Code)
+    const codeVerifier = await this.storage.getItem(StorageKey.CodeVerifier)
     const cache = { code, codeVerifier }
     return cache
   }
@@ -81,9 +78,9 @@ class CodeTokenInteraction
     const cache = await this.getCache()
 
     await Promise.all([
-      cache.code && this.storage.setItem(CODE_STORAGE_KEY, cache.code),
+      cache.code && this.storage.setItem(StorageKey.Code, cache.code),
       cache.codeVerifier &&
-        this.storage.setItem(CODE_VERIFIER_STORAGE_KEY, cache.codeVerifier),
+        this.storage.setItem(StorageKey.CodeVerifier, cache.codeVerifier),
     ])
   }
 
@@ -107,8 +104,8 @@ class CodeTokenInteraction
 
   public clearCache = async () => {
     await Promise.all([
-      this.storage.removeItem(CODE_STORAGE_KEY),
-      this.storage.removeItem(CODE_VERIFIER_STORAGE_KEY),
+      this.storage.removeItem(StorageKey.Code),
+      this.storage.removeItem(StorageKey.CodeVerifier),
     ])
   }
 
@@ -117,7 +114,7 @@ class CodeTokenInteraction
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
-    await this.storage.setItem(CODE_VERIFIER_STORAGE_KEY, codeVerifier)
+    await this.storage.setItem(StorageKey.CodeVerifier, codeVerifier)
 
     return getLogInUrl({ ...this.config, codeChallenge })
   }

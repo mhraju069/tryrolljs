@@ -1,13 +1,13 @@
 import type { PartialDeep } from 'type-fest'
 import { requestToken } from './code-token-interaction/api'
 import {
-  CODE_STORAGE_KEY,
-  CODE_VERIFIER_STORAGE_KEY,
-} from './code-token-interaction/constants'
-import type { RequestTokenResponseData, Token } from './types'
+  InteractionType,
+  RequestTokenResponseData,
+  Token,
+  StorageKey,
+} from './types'
 import SDK from './sdk'
-import { TOKEN_STORAGE_KEY } from './constants'
-import CodeTokenInteraction from './code-token-interaction'
+import { getPrefixedStorageKey } from './utils'
 
 const config = {
   clientId: 'clientId',
@@ -17,24 +17,20 @@ const config = {
   scopes: ['offline', 'openid', 'base', 'read-tx', 'write-tx'],
 }
 
-const storage = {
-  setItem: jest.fn(),
-  getItem: jest.fn(),
-  removeItem: jest.fn(),
+const getRealStorage = () => {
+  const storage: Record<string, string> = {}
+  return {
+    getItem: jest.fn().mockImplementation((key: string) => {
+      return storage[key]
+    }),
+    setItem: jest.fn().mockImplementation((key: string, value: string) => {
+      storage[key] = value
+    }),
+    removeItem: jest.fn().mockImplementation((key: string) => {
+      delete storage[key]
+    }),
+  }
 }
-
-const getRealStorage = () => ({
-  storage: {} as Record<string, string>,
-  getItem(key: string) {
-    return this.storage[key]
-  },
-  setItem(key: string, value: string) {
-    this.storage[key] = value
-  },
-  removeItem(key: string) {
-    delete this.storage[key]
-  },
-})
 
 const mockRequestToken = requestToken as jest.Mock
 jest.mock('./code-token-interaction/api', () => ({
@@ -59,30 +55,37 @@ const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   })
 }
 
-const mockCache = (
+const getRealStorageWithData = (
   cache: PartialDeep<{ code: string; codeVerifier: string; token: Token }> = {},
 ) => {
-  storage.getItem.mockImplementation(async (key: string) => {
-    if (key === TOKEN_STORAGE_KEY) {
-      return JSON.stringify({
-        access_token: cache?.token?.access_token ?? 'access_token',
-        expires_in: cache?.token?.expires_in ?? 3600,
-        refresh_token: cache?.token?.refresh_token ?? 'refresh_token',
-        id_token: cache?.token?.id_token ?? 'id_token',
-        last_update_at: cache?.token?.last_update_at ?? undefined,
-      })
-    }
-    if (key === CODE_STORAGE_KEY) {
-      return cache.code ?? 'code'
-    }
-    if (key === CODE_VERIFIER_STORAGE_KEY) {
-      return cache.codeVerifier ?? 'code_verifier'
-    }
-    return undefined
-  })
+  const storage = getRealStorage()
+  storage.setItem(
+    getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
+    JSON.stringify({
+      access_token: cache?.token?.access_token ?? 'access_token',
+      expires_in: cache?.token?.expires_in ?? 3600,
+      refresh_token: cache?.token?.refresh_token ?? 'refresh_token',
+      id_token: cache?.token?.id_token ?? 'id_token',
+      last_update_at: cache?.token?.last_update_at ?? undefined,
+    }),
+  )
+  storage.setItem(
+    getPrefixedStorageKey(InteractionType.Code, StorageKey.Code),
+    cache.code ?? 'code',
+  )
+  storage.setItem(
+    getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
+    cache.code ?? 'code_verifier',
+  )
+
+  storage.getItem.mockClear()
+  storage.setItem.mockClear()
+  storage.removeItem.mockClear()
+
+  return storage
 }
 
-describe('Browser Auth SDK', () => {
+describe('Code SDK', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -90,12 +93,16 @@ describe('Browser Auth SDK', () => {
   it('makes session', async () => {
     mockTokenResponse()
     const realStorage = getRealStorage()
-    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new SDK(config, realStorage, CodeTokenInteraction)
+    realStorage.setItem(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
+      '123',
+    )
+    const sdk = new SDK(config, realStorage)
 
-    await sdk.generateToken({ code: 'code' })
+    await sdk.generateToken('code')
 
-    expect(sdk.getAccessToken()).toBe('access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
       code: 'code',
@@ -108,18 +115,22 @@ describe('Browser Auth SDK', () => {
 
   it('refreshes and updates token', async () => {
     const realStorage = getRealStorage()
-    realStorage.setItem(CODE_VERIFIER_STORAGE_KEY, '123')
-    const sdk = new SDK(config, realStorage, CodeTokenInteraction)
+    realStorage.setItem(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
+      '123',
+    )
+    const sdk = new SDK(config, realStorage)
 
     mockTokenResponse({ expires_in: 0 })
 
-    await sdk.generateToken({ code: 'code' })
+    await sdk.generateToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
     await sdk.refreshToken()
 
-    expect(sdk.getAccessToken()).toBe('new_access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('new_access_token')
     expect(requestToken).toHaveBeenCalledTimes(2)
     expect(requestToken).toHaveBeenLastCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
@@ -132,7 +143,7 @@ describe('Browser Auth SDK', () => {
   })
 
   it('refreshes from cache', async () => {
-    mockCache()
+    const storage = getRealStorageWithData()
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
     const mockSeconds = 1466424490000
@@ -141,13 +152,14 @@ describe('Browser Auth SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage, CodeTokenInteraction)
-    await sdk.restoreCachedToken()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreCache()
     await sdk.refreshToken()
 
-    expect(sdk.getAccessToken()).toBe('new_access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_AUTHSDK_TOKEN',
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -155,20 +167,26 @@ describe('Browser Auth SDK', () => {
         id_token: 'id_token',
       }),
     )
-    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Code),
+      'code',
+    )
 
     mockDateConstructor.mockRestore()
   })
 
   it('refreshes when force', async () => {
-    const sdk = new SDK(config, storage, CodeTokenInteraction)
+    const storage = getRealStorageWithData()
+
+    const sdk = new SDK(config, storage)
     mockTokenResponse()
-    await sdk.generateToken({ code: 'code' })
+    await sdk.generateToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token' })
     await sdk.refreshToken(true)
 
-    expect(sdk.getAccessToken()).toBe('new_access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('new_access_token')
   })
 
   it('skips refresh if tokens are up-to-date', async () => {
@@ -178,19 +196,20 @@ describe('Browser Auth SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    mockCache({
+    const storage = getRealStorageWithData({
       token: { last_update_at: mockSeconds - 3600 * 1000 + 1 },
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new SDK(config, storage, CodeTokenInteraction)
-    await sdk.restoreCachedToken()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreCache()
     await sdk.refreshToken()
 
-    expect(sdk.getAccessToken()).toBe('access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
-      TOKEN_STORAGE_KEY,
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -199,9 +218,12 @@ describe('Browser Auth SDK', () => {
         last_update_at: 1466420890001,
       }),
     )
-    expect(storage.setItem).toHaveBeenCalledWith(CODE_STORAGE_KEY, 'code')
     expect(storage.setItem).toHaveBeenCalledWith(
-      CODE_VERIFIER_STORAGE_KEY,
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Code),
+      'code',
+    )
+    expect(storage.setItem).toHaveBeenCalledWith(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
       'code_verifier',
     )
 
@@ -209,7 +231,7 @@ describe('Browser Auth SDK', () => {
   })
 
   it('clears', async () => {
-    mockCache()
+    const storage = getRealStorageWithData()
 
     const mockSeconds = 1466424490000
     const mockDateInstance = new Date(mockSeconds)
@@ -217,12 +239,13 @@ describe('Browser Auth SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage, CodeTokenInteraction)
-    await sdk.restoreCachedToken()
+    const sdk = new SDK(config, storage)
+    await sdk.restoreCache()
 
-    expect(sdk.getAccessToken()).toBe('access_token')
+    const token = await sdk.getToken()
+    expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      'ROLL_AUTHSDK_TOKEN',
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -230,14 +253,24 @@ describe('Browser Auth SDK', () => {
         id_token: 'id_token',
       }),
     )
-    expect(storage.setItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE', 'code')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Code),
+      'code',
+    )
 
     await sdk.clearCache()
-    expect(sdk.getAccessToken()).toBe(undefined)
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_TOKEN')
-    expect(storage.removeItem).toHaveBeenCalledWith('ROLL_AUTHSDK_CODE')
+
+    const tokenAfterClear = await sdk.getToken()
+    expect(tokenAfterClear?.access_token).toBe(undefined)
+
     expect(storage.removeItem).toHaveBeenCalledWith(
-      'ROLL_AUTHSDK_CODE_VERIFIER',
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
+    )
+    expect(storage.removeItem).toHaveBeenCalledWith(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.Code),
+    )
+    expect(storage.removeItem).toHaveBeenCalledWith(
+      getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
     )
 
     mockDateConstructor.mockRestore()

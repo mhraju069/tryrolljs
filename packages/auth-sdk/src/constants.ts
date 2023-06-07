@@ -1,1 +1,0 @@
-export const TOKEN_STORAGE_KEY = 'ROLL_AUTHSDK_TOKEN'

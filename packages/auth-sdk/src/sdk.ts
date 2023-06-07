@@ -1,4 +1,6 @@
-import { TOKEN_STORAGE_KEY } from './constants'
+import AutoLoginTokenInteraction from './auto-login-token-interaction'
+import ClientCredentialsTokenInteraction from './client-credentials-token-interaction'
+import CodeTokenInteraction from './code-token-interaction'
 import { NotEnoughDataToRefreshError } from './errors'
 import {
   Config,
@@ -6,112 +8,116 @@ import {
   Token,
   RequestTokenResponseData,
   TokenInteraction,
+  InteractionType,
+  StorageKey,
 } from './types'
-import { isLastUpdateTimestampExpired, safeJsonParse } from './utils'
+import {
+  addPrefixToStorage,
+  isLastUpdateTimestampExpired,
+  safeJsonParse,
+} from './utils'
 
-class SDK<T extends any = void, C extends Config = Config> {
-  private readonly interaction: TokenInteraction<T>
-  private token?: Token
+class SDK {
+  private readonly interactions: Record<InteractionType, TokenInteraction<any>>
+  private readonly storages: Record<InteractionType, Storage>
+  private type: InteractionType
 
-  constructor(
-    private readonly config: C,
-    private readonly storage: Storage,
-    Interaction: new (config_: C, storage_: Storage) => TokenInteraction<T>,
-  ) {
+  constructor(private readonly config: Config, storage: Storage) {
     this.config = config
-    this.storage = storage
-    this.interaction = new Interaction(config, storage)
+    this.type = InteractionType.Code
+    this.storages = this.getPrefixedStorages(storage)
+    this.interactions = this.getInitialInteractions()
+  }
+
+  public with = (type: InteractionType) => {
+    this.type = type
+    return this
   }
 
   public refreshToken = async (force?: boolean) => {
-    if (!this.token || !this.token.refresh_token) {
+    const token = await this.getToken()
+    if (!token || !token.refresh_token) {
       throw new NotEnoughDataToRefreshError()
     }
 
-    if (!this.isTokenExpired() && !force) {
+    const isTokenExpired = await this.isTokenExpired()
+    if (!isTokenExpired && !force) {
       return
     }
 
-    const token = await this.interaction.refreshToken(this.token)
+    const newToken = await this.getInteraction().refreshToken(token)
+    if (newToken) {
+      await this.storeToken(newToken)
+    }
+  }
+
+  public generateToken = async (options?: any) => {
+    const token = await this.getToken()
     if (token) {
-      await this.saveTokenFromResponse(token)
-    }
-  }
-
-  public generateToken = async (options: T) => {
-    if (this.token) {
       return
     }
 
-    const token = await this.interaction.generateToken(options)
-    await this.saveTokenFromResponse(token)
+    const newToken = await this.getInteraction().generateToken(options)
+    await this.storeToken(newToken)
   }
 
-  public restoreCachedToken = async () => {
-    const token = await this.getTokenFromCache()
+  public restoreCache = async () => {
+    const token = await this.getToken()
 
     await Promise.all([
-      this.interaction.restoreCache?.(),
+      this.getInteraction().restoreCache?.(),
       token && this.setToken(token),
     ])
   }
 
   public clearCache = async () => {
-    await Promise.all(
-      [this.setToken, this.interaction.clearCache].map((fn) => fn?.(undefined)),
-    )
+    await Promise.all([
+      this.setToken(undefined),
+      this.getInteraction().clearCache?.(),
+    ])
   }
 
-  public isTokenExpired = () => {
+  public isTokenExpired = async () => {
+    const token = await this.getToken()
     return isLastUpdateTimestampExpired(
-      this.token?.last_update_at,
-      this.token?.expires_in,
+      token?.last_update_at,
+      token?.expires_in,
     )
   }
 
-  public getAccessToken = () => {
-    return this.token?.access_token
-  }
-
-  public getIdToken = () => {
-    return this.token?.id_token
-  }
-
-  public getRefreshToken = () => {
-    return this.token?.refresh_token
-  }
-
-  public getExpiresIn = () => {
-    return this.token?.expires_in
-  }
-
-  public getError = () => {
-    return this.token?.error
-  }
-
-  public getConfig = () => {
-    return this.config
-  }
-
-  public getStorage = () => {
-    return this.storage
-  }
-
-  public getLogInUrl = async () => {
-    return this.interaction.getLogInUrl?.() ?? ''
-  }
-
-  public getLogOutUrl = async () => {
-    await this.clearCache()
-
-    if (!this.token) {
-      return ''
+  private getPrefixedStorages = (storage: Storage) => {
+    return {
+      [InteractionType.Code]: addPrefixToStorage(storage, InteractionType.Code),
+      [InteractionType.AutoLoginToken]: addPrefixToStorage(
+        storage,
+        InteractionType.AutoLoginToken,
+      ),
+      [InteractionType.ClientCredentials]: addPrefixToStorage(
+        storage,
+        InteractionType.ClientCredentials,
+      ),
     }
-
-    return this.interaction.getLogOutUrl?.(this.token) ?? ''
   }
 
-  private saveTokenFromResponse = async (data: RequestTokenResponseData) => {
+  private getInitialInteractions = () => {
+    return {
+      [InteractionType.Code]: new CodeTokenInteraction(
+        this.config,
+        this.storages[InteractionType.Code],
+      ),
+      [InteractionType.AutoLoginToken]: new AutoLoginTokenInteraction(
+        this.config,
+        this.storages[InteractionType.AutoLoginToken],
+      ),
+      [InteractionType.ClientCredentials]:
+        new ClientCredentialsTokenInteraction(
+          this.config,
+          this.storages[InteractionType.ClientCredentials],
+        ),
+    }
+  }
+
+  private storeToken = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.clearCache()
       throw new Error(data.error)
@@ -123,20 +129,43 @@ class SDK<T extends any = void, C extends Config = Config> {
     }
   }
 
-  private getTokenFromCache = async () => {
-    const token = await this.storage.getItem(TOKEN_STORAGE_KEY)
+  private setToken = async (token?: Token) => {
+    if (token) {
+      await this.getStorage().setItem(StorageKey.Token, JSON.stringify(token))
+    } else {
+      await this.getStorage().removeItem(StorageKey.Token)
+    }
+  }
 
+  public getConfig = () => {
+    return this.config
+  }
+
+  public getToken = async () => {
+    const token = await this.getStorage().getItem(StorageKey.Token)
     return typeof token === 'string' ? (safeJsonParse(token) as Token) : token
   }
 
-  private setToken = async (token?: Token) => {
-    this.token = token
-    if (token) {
-      await this.storage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token))
-    } else {
-      await this.storage.removeItem(TOKEN_STORAGE_KEY)
-    }
+  public getStorage = () => {
+    return this.storages[this.type]
   }
+
+  public getLogInUrl = async () => {
+    return this.getInteraction().getLogInUrl?.() ?? ''
+  }
+
+  public getLogOutUrl = async () => {
+    const token = await this.getToken()
+    await this.clearCache()
+
+    if (!token) {
+      return ''
+    }
+
+    return this.getInteraction().getLogOutUrl?.(token) ?? ''
+  }
+
+  private getInteraction = () => this.interactions[this.type]
 }
 
 export default SDK

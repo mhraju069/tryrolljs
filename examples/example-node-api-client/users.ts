@@ -1,15 +1,16 @@
 import { user } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import {
-  generateApiClient,
-  generateAutoLoginTokenSDK,
-  generateClientCredentalsAuthSDK,
-} from './utils.js'
+import Client from '@tryrolljs/api-client'
+import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
+import { makeMockStorage } from './utils.js'
+import config from './config.js'
 
 export const getUserBalances = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -36,7 +37,9 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -64,7 +67,9 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -95,7 +100,9 @@ export const hasBalance = async () => {
 
 export const getUser = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -119,7 +126,9 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -146,8 +155,9 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(generateClientCredentalsAuthSDK())
-    const nodeAuthSdk = generateAutoLoginTokenSDK()
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 
     const answers = await inquirer.prompt([
       {
@@ -160,8 +170,9 @@ export const loginPlatformUser = async () => {
     const autoLoginToken = await user.getUserMasqueradeToken(apiClient, {
       userId: answers.userId,
     })
-
-    await nodeAuthSdk.generateToken(autoLoginToken.token)
+    await sdk
+      .with(InteractionType.AutoLoginToken)
+      .generateToken(autoLoginToken.token)
 
     printTable([{ success: true }])
   } catch (err) {

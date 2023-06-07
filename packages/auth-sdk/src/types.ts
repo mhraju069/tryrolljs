@@ -4,6 +4,8 @@ export interface Config {
   redirectUrl: string
   logoutRedirectUrl: string
   scopes: string[]
+  apiUrl?: string
+  clientSecret?: string
 }
 
 export interface Storage {
@@ -63,6 +65,12 @@ export type Token = RequestTokenResponseData & {
   last_update_at?: number
 }
 
+export enum InteractionType {
+  Code = 'code',
+  AutoLoginToken = 'autologintoken',
+  ClientCredentials = 'clientcredentials',
+}
+
 export interface TokenInteraction<T> {
   generateToken: (options: T) => Promise<Token>
   refreshToken: (token: Token) => Promise<Token>
@@ -70,4 +78,10 @@ export interface TokenInteraction<T> {
   restoreCache?: () => Promise<void>
   getLogInUrl?: () => Promise<string>
   getLogOutUrl?: (token: Token) => Promise<string>
+}
+
+export enum StorageKey {
+  Token = 'ROLL_AUTH_SDK_TOKEN',
+  CodeVerifier = 'ROLL_AUTH_SDK_CODE_VERIFIER',
+  Code = 'ROLL_AUTH_SDK_CODE',
 }

@@ -1,12 +1,4 @@
-import {
-  RequestTokenArgs as BaseRequestTokenArgs,
-  Config as BaseConfig,
-} from '../types'
-
-export interface Config extends BaseConfig {
-  apiUrl: string
-  clientSecret: string
-}
+import { RequestTokenArgs as BaseRequestTokenArgs } from '../types'
 
 export interface RequestTokenArgs extends BaseRequestTokenArgs {
   clientSecret: string
@@ -14,8 +6,4 @@ export interface RequestTokenArgs extends BaseRequestTokenArgs {
 
 export interface RedirectToResponse {
   redirect_to: string
-}
-
-export interface AutoLoginGenerateTokenOptions {
-  autoLoginToken: string
 }

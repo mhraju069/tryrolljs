@@ -1,3 +1,3 @@
-export * as types from './types'
-export * as errors from './errors'
+export * from './types'
+export * from './errors'
 export { default } from './client'
