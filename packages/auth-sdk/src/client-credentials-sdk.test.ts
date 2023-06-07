@@ -70,6 +70,10 @@ describe('Client Credentials SDK', () => {
   })
 
   it('clears', async () => {
+    const mockSeconds = 1466424490000
+    const mockDateInstance = new Date(mockSeconds)
+    jest.spyOn(global, 'Date').mockImplementation(() => mockDateInstance)
+
     const realStorage = getRealStorage()
     const sdk = new SDK(config, realStorage).with(
       InteractionType.ClientCredentials,
@@ -81,7 +85,7 @@ describe('Client Credentials SDK', () => {
       access_token: 'access_token',
       expires_in: 3600,
       token_type: 'bearer',
-      last_update_at: new Date().getTime(),
+      last_update_at: 1466424490000,
     })
 
     await sdk.clearCache()
