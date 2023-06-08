@@ -1,4 +1,4 @@
-# @tryrolljs/auth-web-sdk
+# @tryrolljs/auth-sdk
 
 ## About
 
