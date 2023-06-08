@@ -1,5 +1,5 @@
 import { user as userAPI } from '@tryrolljs/api'
-import { types } from '@tryrolljs/api-client'
+import { Event } from '@tryrolljs/api-client'
 import {
   useState,
   useEffect,
@@ -35,26 +35,26 @@ const SessionProvider = ({
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
-    const unauthorizedListener = () => authSdk.clear()
-    apiClient.on(types.Event.Unauthorized, unauthorizedListener)
+    const unauthorizedListener = () => authSdk.clearCache()
+    apiClient.on(Event.Unauthorized, unauthorizedListener)
 
     return () => {
-      apiClient.off(types.Event.Unauthorized, unauthorizedListener)
+      apiClient.off(Event.Unauthorized, unauthorizedListener)
     }
   }, [apiClient, authSdk])
+
+  const loadUserData = useCallback(async () => {
+    try {
+      const user_ = await getMe(apiClient)
+      setUser(user_.data)
+    } catch (e) {
+      setError(e)
+    }
+  }, [apiClient, getMe])
 
   useEffect(() => {
     if (isMountedRef.current) {
       return
-    }
-
-    const loadUserData = async () => {
-      try {
-        const user_ = await getMe(apiClient)
-        setUser(user_.data)
-      } catch (e) {
-        setError(e)
-      }
     }
 
     const getOauthCode = () => {
@@ -66,7 +66,7 @@ const SessionProvider = ({
       try {
         const oauthCode = getOauthCode()
         if (oauthCode) {
-          await authSdk.exchangeCodeForToken(oauthCode)
+          await authSdk.generateToken({ code: oauthCode })
           await loadUserData()
         }
       } catch (e) {
@@ -78,8 +78,9 @@ const SessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreTokenFromCache()
-        if (authSdk.getAccessToken()) {
+        await authSdk.restoreCache()
+        const token = await authSdk.getToken()
+        if (token) {
           await loadUserData()
         } else {
           await initializeNewSession()
@@ -99,12 +100,13 @@ const SessionProvider = ({
   const refresh = useCallback(async () => {
     try {
       setStatus('refreshing')
-      await authSdk.refreshTokens(true)
+      await authSdk.refreshToken(true)
+      await loadUserData()
     } catch (e) {
     } finally {
       setStatus('stale')
     }
-  }, [authSdk])
+  }, [authSdk, loadUserData])
 
   const logIn = useCallback(async () => {
     const url = await authSdk.getLogInUrl()

@@ -12,7 +12,7 @@
   "dependencies": {
     "@tryrolljs/api": "workspace:*",
     "@tryrolljs/api-client": "workspace:*",
-    "@tryrolljs/auth-web-sdk": "workspace:*",
+    "@tryrolljs/auth-sdk": "workspace:*",
     "@tryrolljs/design-system": "workspace:*",
     "@tryrolljs/session-manager": "workspace:*",
     "@web3-react/core": "^6.0.9",

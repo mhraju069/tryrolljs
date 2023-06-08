@@ -1,17 +1,16 @@
 import { user } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import {
-  generateApiClient,
-  generateAuthNodeSDK,
-  generateAuthClientCredentialsSDK,
-} from './utils.js'
+import Client from '@tryrolljs/api-client'
+import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
+import { makeMockStorage } from './utils.js'
+import config from './config.js'
 
 export const getUserBalances = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -19,7 +18,10 @@ export const getUserBalances = async () => {
         message: 'User ID',
       },
     ])
-    const balances = await user.getUserBalances(apiClient, answers)
+    const balances = await user.getUserBalances(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     if (!balances || balances.length === 0) {
       console.log('User has no balances')
       return
@@ -38,9 +40,9 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -53,7 +55,10 @@ export const getUserTokenBalance = async () => {
         message: 'Token ID',
       },
     ])
-    const balance = await user.getUserTokenBalance(apiClient, answers)
+    const balance = await user.getUserTokenBalance(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     printTable([
       {
         tokenId: balance.token.uuid,
@@ -68,9 +73,9 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -88,7 +93,10 @@ export const hasBalance = async () => {
         message: 'Amount',
       },
     ])
-    const response = await user.hasBalance(apiClient, answers)
+    const response = await user.hasBalance(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     if (response.hasbalance) {
       console.log('User has balance')
     } else {
@@ -101,9 +109,9 @@ export const hasBalance = async () => {
 
 export const getUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -111,7 +119,10 @@ export const getUser = async () => {
         message: 'User ID',
       },
     ])
-    const userResponse = await user.getUser(apiClient, answers)
+    const userResponse = await user.getUser(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     printTable([
       {
         id: userResponse.userID,
@@ -127,9 +138,9 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -143,10 +154,13 @@ export const createPlatformUser = async () => {
       },
     ])
 
-    const response = await user.createPlatformUser(apiClient, {
-      userType: answers.userType,
-      platformUserId: answers.platformUserId,
-    })
+    const response = await user.createPlatformUser(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      {
+        userType: answers.userType,
+        platformUserId: answers.platformUserId,
+      },
+    )
 
     printTable([response])
   } catch (err) {
@@ -156,10 +170,9 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const apiClient = await generateApiClient(
-      generateAuthClientCredentialsSDK(),
-    )
-    const nodeAuthSdk = generateAuthNodeSDK()
+    const sdk = new SDK.default(config, makeMockStorage())
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
+    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 
     const answers = await inquirer.prompt([
       {
@@ -169,13 +182,17 @@ export const loginPlatformUser = async () => {
       },
     ])
 
-    const autoLoginToken = await user.getUserMasqueradeToken(apiClient, {
-      userId: answers.userId,
-    })
+    const autoLoginToken = await user.getUserMasqueradeToken(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      {
+        userId: answers.userId,
+      },
+    )
+    const data = await sdk
+      .interactAs(InteractionType.AutoLoginToken)
+      .generateToken(autoLoginToken.token)
 
-    await nodeAuthSdk.generateToken(autoLoginToken.token)
-
-    printTable([{ success: true }])
+    printTable([data])
   } catch (err) {
     console.error(err)
   }
