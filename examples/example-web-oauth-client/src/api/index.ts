@@ -1,4 +1,4 @@
-import SDK from '@tryrolljs/auth-web-sdk'
+import SDK from '@tryrolljs/auth-sdk'
 import Client from '@tryrolljs/api-client'
 import config from '../config'
 
@@ -10,7 +10,7 @@ const authSdk = new SDK(
     logoutRedirectUrl: config.redirectURL,
     scopes: config.scopes,
   },
-  window.localStorage as any,
+  window.localStorage,
 )
 
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)

@@ -1,15 +1,21 @@
 import axios from 'axios'
+import { InteractionType } from '@tryrolljs/auth-sdk'
+import { waitFor } from '@testing-library/react'
 import Client from './client'
 import { Event } from './types'
-import { CouldntRefreshTokens } from './errors'
+import {
+  CouldntRefreshTokensError,
+  InteractionChangeNotPossibleError,
+} from './errors'
 
 jest.mock('axios', () => jest.fn())
 
 const mockAxios = axios as unknown as jest.Mock
 const authSdk = {
-  isTokenExpired: jest.fn().mockReturnValue(false),
-  getAccessToken: jest.fn().mockReturnValue('123'),
-  refreshTokens: jest.fn(),
+  isTokenExpired: jest.fn().mockResolvedValue(false),
+  getToken: jest.fn().mockReturnValue({ access_token: '123' }),
+  refreshToken: jest.fn(),
+  interactAs: jest.fn(),
 } as any
 
 const defaultConfig = {
@@ -76,7 +82,7 @@ describe('client', () => {
   it('calls refresh before authorized request', async () => {
     const authSdk_ = {
       ...authSdk,
-      isTokenExpired: jest.fn().mockReturnValue(true),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -104,7 +110,7 @@ describe('client', () => {
 
     await Promise.all(calls)
 
-    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(authSdk_.refreshToken).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledWith({
       url: request.url,
       method: request.method,
@@ -118,8 +124,8 @@ describe('client', () => {
 
     expect(mockAxios.mock.calls).toHaveLength(calls.length)
     const firstAxiosCallOrder = Math.min(...mockAxios.mock.invocationCallOrder)
-    expect(authSdk_.refreshTokens.mock.calls).toHaveLength(1)
-    expect(authSdk_.refreshTokens.mock.invocationCallOrder[0]).toBeLessThan(
+    expect(authSdk_.refreshToken.mock.calls).toHaveLength(1)
+    expect(authSdk_.refreshToken.mock.invocationCallOrder[0]).toBeLessThan(
       firstAxiosCallOrder,
     )
   })
@@ -249,9 +255,9 @@ describe('client', () => {
   it('does not refresg when a non-logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
-      getAccessToken: jest.fn().mockReturnValue(undefined),
-      isTokenExpired: jest.fn().mockReturnValue(true),
-      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+      getToken: jest.fn().mockReturnValue(undefined),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
+      refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -274,14 +280,14 @@ describe('client', () => {
         'X-Client-Version': '0.0.0',
       },
     })
-    expect(authSdk_.refreshTokens).not.toHaveBeenCalled()
+    expect(authSdk_.refreshToken).not.toHaveBeenCalled()
   })
 
   it('resets queue when refresh fails for logged in user', async () => {
     const authSdk_ = {
       ...authSdk,
-      isTokenExpired: jest.fn().mockReturnValue(true),
-      refreshTokens: jest.fn().mockRejectedValue(new Error()),
+      isTokenExpired: jest.fn().mockResolvedValue(true),
+      refreshToken: jest.fn().mockRejectedValue(new Error()),
     }
     const client = new Client(defaultConfig, authSdk_)
 
@@ -293,10 +299,46 @@ describe('client', () => {
     }
 
     await expect(client.call(request)).rejects.toBeInstanceOf(
-      CouldntRefreshTokens,
+      CouldntRefreshTokensError,
     )
 
-    expect(authSdk_.refreshTokens).toHaveBeenCalled()
+    expect(authSdk_.refreshToken).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledTimes(0)
+  })
+
+  it('throws when interaction type change happens with the non-empty queue', async () => {
+    const client = new Client(defaultConfig, authSdk)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    client.call(request)
+
+    expect(() =>
+      client.sdkInteractAs(InteractionType.ClientCredentials),
+    ).toThrow(InteractionChangeNotPossibleError)
+  })
+
+  it('not throw when interaction type change happens with empty queue', async () => {
+    const client = new Client(defaultConfig, authSdk)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await client.call(request)
+
+    await waitFor(() => {
+      return expect(() =>
+        client.sdkInteractAs(InteractionType.ClientCredentials),
+      ).not.toThrowError()
+    })
   })
 })

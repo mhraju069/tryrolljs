@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { parse } from 'qs'
 import { user as userAPI } from '@tryrolljs/api'
-import { types } from '@tryrolljs/api-client'
+import { Event } from '@tryrolljs/api-client'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
 
@@ -18,11 +18,11 @@ const NativeSessionProvider = ({
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
-    const unauthorizedListener = () => authSdk.clear()
-    apiClient.on(types.Event.Unauthorized, unauthorizedListener)
+    const unauthorizedListener = () => authSdk.clearCache()
+    apiClient.on(Event.Unauthorized, unauthorizedListener)
 
     return () => {
-      apiClient.off(types.Event.Unauthorized, unauthorizedListener)
+      apiClient.off(Event.Unauthorized, unauthorizedListener)
     }
   }, [apiClient, authSdk])
 
@@ -34,7 +34,7 @@ const NativeSessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreTokenFromCache()
+        await authSdk.restoreCache()
         const user_ = await getMe(apiClient)
         setUser(user_.data)
       } catch (e) {
@@ -54,7 +54,7 @@ const NativeSessionProvider = ({
         const [_, query] = url.split('?')
         const { code } = parse(query)
         if (typeof code === 'string') {
-          await authSdk.exchangeCodeForToken(code)
+          await authSdk.generateToken({ code })
           const me = await userAPI.getMe(apiClient)
           setUser(me.data)
         }
@@ -106,7 +106,7 @@ const NativeSessionProvider = ({
   const refresh = useCallback(async () => {
     try {
       setStatus('refreshing')
-      await authSdk.refreshTokens(true)
+      await authSdk.refreshToken(true)
     } catch (e) {
     } finally {
       setStatus('stale')

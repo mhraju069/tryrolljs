@@ -12,8 +12,7 @@ This repo is an entrypoint for all Roll monorepo packages.
 - [@tryrolljs/contract-bindings](./packages/contract-bindings)
 - [@tryrolljs/api](./packages/api)
 - [@tryrolljs/api-client](./packages/api-client)
-- [@tryrolljs/auth-web-sdk](./packages/auth-web-sdk)
-- [@tryrolljs/auth-client-credentials-sdk](./packages/auth-client-credentials-sdk)
+- [@tryrolljs/auth-sdk](./packages/auth-sdk)
 - [@tryrolljs/session-manager](./packages/session-manager)
 
 ### Private packages

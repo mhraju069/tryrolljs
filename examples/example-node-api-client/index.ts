@@ -9,6 +9,31 @@ import {
   createPlatformUser,
   loginPlatformUser,
 } from './users.js'
+import { getClient } from './client-credentials.js'
+
+enum Choice {
+  GetTokenList = 'Get token list',
+  GetTokenCreator = 'Get token creator',
+  GetUser = 'Get user',
+  GetUserBalances = 'Get user balances',
+  GetUserTokenBalance = 'Get user token balance',
+  CheckIfUserHasTokenBalance = 'Check if user has token balance',
+  CreatePlatformUser = 'Create platform user',
+  LoginPlatformUser = 'Login platform user',
+  GetClient = 'Get client',
+}
+
+const actionByChoice: Record<Choice, Function> = {
+  [Choice.GetTokenList]: getTokenList,
+  [Choice.GetTokenCreator]: getTokenCreator,
+  [Choice.GetUser]: getUser,
+  [Choice.GetUserBalances]: getUserBalances,
+  [Choice.GetUserTokenBalance]: getUserTokenBalance,
+  [Choice.CheckIfUserHasTokenBalance]: hasBalance,
+  [Choice.CreatePlatformUser]: createPlatformUser,
+  [Choice.LoginPlatformUser]: loginPlatformUser,
+  [Choice.GetClient]: getClient,
+}
 
 async function main() {
   inquirer
@@ -17,45 +42,12 @@ async function main() {
         type: 'list',
         name: 'option',
         message: 'What do you want to do?',
-        choices: [
-          'Get token list',
-          'Get token creator',
-          'Get user',
-          'Get user balances',
-          'Get user token balance',
-          'Check user has token balance',
-          'Create platform user',
-          'Login Platform User',
-        ],
+        choices: Object.values(Choice),
       },
     ])
     .then(async (answers) => {
       try {
-        switch (answers.option) {
-          case 'Get token list':
-            await getTokenList()
-            break
-          case 'Get token creator':
-            await getTokenCreator()
-            break
-          case 'Get user':
-            await getUser()
-            break
-          case 'Get user balances':
-            await getUserBalances()
-            break
-          case 'Get user token balance':
-            await getUserTokenBalance()
-            break
-          case 'Check user has token balance':
-            await hasBalance()
-            break
-          case 'Create platform user':
-            await createPlatformUser()
-            break
-          case 'Login Platform User':
-            await loginPlatformUser()
-        }
+        await actionByChoice[answers.option as Choice]()
       } catch (error) {
         console.error(error)
       }

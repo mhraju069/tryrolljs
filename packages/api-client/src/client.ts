@@ -3,25 +3,24 @@ import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
-import AuthWebSDK from '@tryrolljs/auth-web-sdk'
-import AuthClientCredentialsSDK from '@tryrolljs/auth-client-credentials-sdk'
-import AuthNodeSDK from '@tryrolljs/auth-node-sdk'
+import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
-import { CouldntRefreshTokens } from './errors'
+import {
+  CouldntRefreshTokensError,
+  InteractionChangeNotPossibleError,
+} from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
-  private sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK
+  private sdk: SDK
   private queue: Queue
 
   private isRefreshScheduled: boolean = false
-  private isBlocked: boolean = false
+  private isRefreshInProgress: boolean = false
+  private isEmpty: boolean = false
 
-  constructor(
-    config: Config,
-    sdk: AuthWebSDK | AuthClientCredentialsSDK | AuthNodeSDK,
-  ) {
+  constructor(config: Config, sdk: SDK) {
     super()
 
     this.config = config
@@ -29,8 +28,42 @@ export default class Client extends EventEmitter {
     this.queue = this.makeQueue()
   }
 
-  makeQueue = () =>
-    new Queue(
+  public sdkInteractAs = (type: InteractionType) => {
+    if (!this.isEmpty) {
+      throw new InteractionChangeNotPossibleError()
+    }
+
+    this.sdk.interactAs(type)
+    return this
+  }
+
+  public call = <T = any>(request: Request) => {
+    return new Promise<T>(async (resolve, reject) => {
+      const onDestroy = () => {
+        this.queue = this.makeQueue()
+        reject(new CouldntRefreshTokensError())
+      }
+      const token = await this.sdk.getToken()
+      const isExpired = await this.sdk.isTokenExpired()
+      if (
+        request.authorization &&
+        token &&
+        isExpired &&
+        !this.isRefreshScheduled
+      ) {
+        this.isRefreshScheduled = true
+        this.queue.push(this.makeRefreshTask(onDestroy))
+      }
+      this.queue.push(this.makeRequestTask(request, resolve, reject))
+    })
+  }
+
+  public getBaseUrl = (): string => {
+    return this.config.baseUrl || ''
+  }
+
+  private makeQueue = () => {
+    const queue = new Queue(
       async (call, cb) => {
         try {
           const response = await call()
@@ -43,7 +76,7 @@ export default class Client extends EventEmitter {
         concurrent: 10,
         store: new MemoryStore(),
         precondition: (cb) => {
-          if (this.isBlocked) {
+          if (this.isRefreshInProgress) {
             cb(null, false)
           } else {
             cb(null, true)
@@ -52,25 +85,31 @@ export default class Client extends EventEmitter {
       },
     )
 
-  public getBaseUrl = (): string => {
-    return this.config.baseUrl || ''
+    queue.on('task_queued', () => {
+      this.isEmpty = false
+    })
+    queue.on('empty', () => {
+      this.isEmpty = true
+    })
+
+    return queue
   }
 
-  private getHeaders = (authorization = false) => {
+  private getHeaders = async (authorization = false) => {
     const headers = {
       'Content-Type': 'application/json',
       ...(this.config.extraHeaders ?? {}),
       Authorization: undefined as string | undefined,
     }
 
-    const accessToken = this.sdk.getAccessToken()
-    if (authorization && accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`
+    const token = await this.sdk.getToken()
+    if (authorization && token) {
+      headers.Authorization = `Bearer ${token.access_token}`
     }
     return headers
   }
 
-  private getOptions = ({
+  private getOptions = async ({
     url,
     method,
     body,
@@ -80,7 +119,7 @@ export default class Client extends EventEmitter {
     const options = {
       url,
       method,
-      headers: this.getHeaders(authorization),
+      headers: await this.getHeaders(authorization),
       data: body,
     }
 
@@ -96,22 +135,21 @@ export default class Client extends EventEmitter {
   }
 
   private makeRefreshTask = (onDestroy: () => void) => async () => {
-    this.isBlocked = true
+    this.isRefreshInProgress = true
 
-    if ('refreshTokens' in this.sdk) {
-      try {
-        await this.sdk.refreshTokens()
-        const isRefreshUnsuccessful = !this.sdk.getAccessToken()
-        if (isRefreshUnsuccessful) {
-          this.queue.destroy(onDestroy)
-        }
-      } catch (e) {
+    try {
+      await this.sdk.refreshToken()
+      const token = await this.sdk.getToken()
+      // Unsuccessful refresh leads to an empty token in the SDK
+      if (!token) {
         this.queue.destroy(onDestroy)
       }
+    } catch (e) {
+      this.queue.destroy(onDestroy)
     }
 
     this.isRefreshScheduled = false
-    this.isBlocked = false
+    this.isRefreshInProgress = false
   }
 
   private makeRequestTask =
@@ -122,7 +160,7 @@ export default class Client extends EventEmitter {
     ) =>
     async () => {
       try {
-        const response = await axios<T>(this.getOptions(request))
+        const response = await axios<T>(await this.getOptions(request))
         return resolve(response.data)
       } catch (e: any) {
         if (e.response) {
@@ -136,28 +174,6 @@ export default class Client extends EventEmitter {
         reject(e)
       }
     }
-
-  public call = <T = any>(request: Request) => {
-    return new Promise<T>((resolve, reject) => {
-      const onDestroy = () => {
-        this.queue = this.makeQueue()
-        reject(new CouldntRefreshTokens())
-      }
-      const isLoggedIn = !!this.sdk.getAccessToken()
-      const isExpired =
-        'isTokenExpired' in this.sdk && this.sdk.isTokenExpired()
-      if (
-        request.authorization &&
-        isLoggedIn &&
-        isExpired &&
-        !this.isRefreshScheduled
-      ) {
-        this.isRefreshScheduled = true
-        this.queue.push(this.makeRefreshTask(onDestroy))
-      }
-      this.queue.push(this.makeRequestTask(request, resolve, reject))
-    })
-  }
 
   private parseResponseError = (response: AxiosResponse) => {
     if (typeof response.data === 'object') {
