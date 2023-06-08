@@ -1,5 +1,16 @@
 # @tryrolljs/api
 
+## 1.2.0
+
+### Minor Changes
+
+- [#290](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/290) [`ae24295`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ae24295170aad11a8090ef50b8fb24151ae2bc69) Thanks [@teimurjan](https://github.com/teimurjan)! - Unified auth SDK by extracting token interaction
+
+### Patch Changes
+
+- Updated dependencies [[`ae24295`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/ae24295170aad11a8090ef50b8fb24151ae2bc69)]:
+  - @tryrolljs/api-client@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes
