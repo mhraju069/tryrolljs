@@ -55,6 +55,7 @@ export const generateAuthNodeSDK = () => {
         types.ScopeType.ReadTx,
         types.ScopeType.Offline,
         types.ScopeType.Masquerade,
+        types.ScopeType.PlatformUser,
       ],
     },
     makeMockStorage(),

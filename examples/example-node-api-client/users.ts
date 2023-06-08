@@ -172,9 +172,10 @@ export const loginPlatformUser = async () => {
     const autoLoginToken = await user.getUserMasqueradeToken(apiClient, {
       userId: answers.userId,
     })
-    const data = await nodeAuthSdk.generateToken(autoLoginToken.token)
 
-    printTable([data])
+    await nodeAuthSdk.generateToken(autoLoginToken.token)
+
+    printTable([{ success: true }])
   } catch (err) {
     console.error(err)
   }

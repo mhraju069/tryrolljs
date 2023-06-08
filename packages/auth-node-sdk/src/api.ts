@@ -21,9 +21,9 @@ export const getLogInUrl = ({
     scopes,
     response_type: 'code',
     response_mode: 'query',
-    state: getRandomString(),
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
+    state: getRandomString(),
   }
 
   return `${issuerUrl}/auth?${stringify(params, { arrayFormat: 'comma' })}`
