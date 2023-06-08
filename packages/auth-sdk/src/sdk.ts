@@ -29,7 +29,7 @@ class SDK {
     this.interactions = this.getInitialInteractions()
   }
 
-  public with = (type: InteractionType) => {
+  public interactAs = (type: InteractionType) => {
     this.type = type
     return this
   }

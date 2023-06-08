@@ -54,7 +54,7 @@ describe('Client Credentials SDK', () => {
   it('generates token', async () => {
     mockTokenResponse()
     const realStorage = getRealStorage()
-    const sdk = new SDK(config, realStorage).with(
+    const sdk = new SDK(config, realStorage).interactAs(
       InteractionType.ClientCredentials,
     )
     await sdk.generateToken()
@@ -75,7 +75,7 @@ describe('Client Credentials SDK', () => {
     jest.spyOn(global, 'Date').mockImplementation(() => mockDateInstance)
 
     const realStorage = getRealStorage()
-    const sdk = new SDK(config, realStorage).with(
+    const sdk = new SDK(config, realStorage).interactAs(
       InteractionType.ClientCredentials,
     )
     await sdk.generateToken()

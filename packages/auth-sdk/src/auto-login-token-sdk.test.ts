@@ -103,7 +103,9 @@ describe('Auto Login Token SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage).with(InteractionType.AutoLoginToken)
+    const sdk = new SDK(config, storage).interactAs(
+      InteractionType.AutoLoginToken,
+    )
     await sdk.restoreCache()
     await sdk.refreshToken()
 
@@ -138,7 +140,9 @@ describe('Auto Login Token SDK', () => {
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new SDK(config, storage).with(InteractionType.AutoLoginToken)
+    const sdk = new SDK(config, storage).interactAs(
+      InteractionType.AutoLoginToken,
+    )
     await sdk.restoreCache()
     await sdk.refreshToken()
 
@@ -179,7 +183,9 @@ describe('Auto Login Token SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage).with(InteractionType.AutoLoginToken)
+    const sdk = new SDK(config, storage).interactAs(
+      InteractionType.AutoLoginToken,
+    )
     await sdk.restoreCache()
 
     const token = await sdk.getToken()

@@ -9,7 +9,7 @@ import config from './config.js'
 export const getTokenList = async () => {
   try {
     const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 
     const answers = await inquirer.prompt([
@@ -38,7 +38,10 @@ export const getTokenList = async () => {
         default: '',
       },
     ])
-    const response = await token.getTokens(apiClient, answers)
+    const response = await token.getTokens(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     printTable(
       response.rows.map((row) => ({
         id: row.uuid,
@@ -55,7 +58,7 @@ export const getTokenList = async () => {
 export const getTokenCreator = async () => {
   try {
     const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
 
     const answers = await inquirer.prompt([
@@ -65,7 +68,10 @@ export const getTokenCreator = async () => {
         message: 'Token ID',
       },
     ])
-    const creator = await token.getTokenCreator(apiClient, answers)
+    const creator = await token.getTokenCreator(
+      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      answers,
+    )
     printTable([
       {
         id: creator.userID,

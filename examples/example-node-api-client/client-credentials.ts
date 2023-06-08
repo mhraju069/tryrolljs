@@ -9,7 +9,7 @@ import config from './config.js'
 export const getClient = async () => {
   try {
     const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
@@ -29,7 +29,7 @@ export const getClient = async () => {
 export const getClients = async () => {
   try {
     const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const clients = await clientCredentials.getClients(apiClient)
 
@@ -42,7 +42,7 @@ export const getClients = async () => {
 export const generateClientSecret = async () => {
   try {
     const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.with(InteractionType.ClientCredentials).generateToken()
+    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
     const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
     const answers = await inquirer.prompt([
       {
