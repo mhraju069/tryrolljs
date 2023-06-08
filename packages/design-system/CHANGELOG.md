@@ -1,5 +1,13 @@
 # @tryrolljs/design-system
 
+## 1.5.2
+
+### Patch Changes
+
+- [#294](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/294) [`1cd8480`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/1cd8480ed300db00f67b1a695cdbfd899e1fc60f) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Fixed sidebar spacing
+  - Fixed padding calculation on buttons based on borders
+  - Fixed footer v2 spacing
+
 ## 1.5.1
 
 ### Patch Changes
