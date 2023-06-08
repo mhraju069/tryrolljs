@@ -1,7 +1,12 @@
 import axios from 'axios'
+import { InteractionType } from '@tryrolljs/auth-sdk'
+import { waitFor } from '@testing-library/react'
 import Client from './client'
 import { Event } from './types'
-import { CouldntRefreshTokens } from './errors'
+import {
+  CouldntRefreshTokensError,
+  InteractionChangeNotPossibleError,
+} from './errors'
 
 jest.mock('axios', () => jest.fn())
 
@@ -10,6 +15,7 @@ const authSdk = {
   isTokenExpired: jest.fn().mockResolvedValue(false),
   getToken: jest.fn().mockReturnValue({ access_token: '123' }),
   refreshToken: jest.fn(),
+  interactAs: jest.fn(),
 } as any
 
 const defaultConfig = {
@@ -293,10 +299,46 @@ describe('client', () => {
     }
 
     await expect(client.call(request)).rejects.toBeInstanceOf(
-      CouldntRefreshTokens,
+      CouldntRefreshTokensError,
     )
 
     expect(authSdk_.refreshToken).toHaveBeenCalled()
     expect(mockAxios).toHaveBeenCalledTimes(0)
+  })
+
+  it('throws when interaction type change happens with the non-empty queue', async () => {
+    const client = new Client(defaultConfig, authSdk)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    client.call(request)
+
+    expect(() =>
+      client.sdkInteractAs(InteractionType.ClientCredentials),
+    ).toThrow(InteractionChangeNotPossibleError)
+  })
+
+  it('not throw when interaction type change happens with empty queue', async () => {
+    const client = new Client(defaultConfig, authSdk)
+
+    const request = {
+      method: 'POST',
+      url: 'https://foo.bar',
+      authorization: true,
+      body: { foo: 'bar' },
+    }
+
+    await client.call(request)
+
+    await waitFor(() => {
+      return expect(() =>
+        client.sdkInteractAs(InteractionType.ClientCredentials),
+      ).not.toThrowError()
+    })
   })
 })
