@@ -1,6 +1,7 @@
 import { ScopeType } from '@tryrolljs/auth-sdk'
 
 export default {
+  apiUrl: process.env.API_URL || '',
   issuerUrl: process.env.ISSUER_URL || '',
   clientId: process.env.CLIENT_ID || '',
   clientSecret: process.env.CLIENT_SECRET || '',
@@ -10,6 +11,6 @@ export default {
     ScopeType.Masquerade,
     ScopeType.PlatformUser,
   ],
-  redirectUrl: '',
-  logoutRedirectUrl: '',
+  redirectUrl: process.env.REDIRECT_URL || '',
+  logoutRedirectUrl: process.env.LOGOUT_REDIRECT_URL || '',
 }

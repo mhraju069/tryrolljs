@@ -187,11 +187,11 @@ export const loginPlatformUser = async () => {
         userId: answers.userId,
       },
     )
-    const data = await sdkPool
+    await sdkPool
       .getSDK(InteractionType.AutoLoginToken)
       .generateToken(autoLoginToken.token)
 
-    printTable([data])
+    printTable([{ success: true }])
   } catch (err) {
     console.error(err)
   }
