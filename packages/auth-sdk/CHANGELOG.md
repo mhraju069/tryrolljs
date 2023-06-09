@@ -1,5 +1,11 @@
 # @tryrolljs/auth-node-sdk
 
+## 1.0.0
+
+### Major Changes
+
+- [#299](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/299) [`9a3a609`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9a3a609df30290a5498f7ca9e135fe12bfb05583) Thanks [@teimurjan](https://github.com/teimurjan)! - Add SDK & Client pools
+
 ## 0.1.0
 
 ### Minor Changes

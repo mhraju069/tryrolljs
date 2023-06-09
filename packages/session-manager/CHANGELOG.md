@@ -1,5 +1,14 @@
 # @tryrolljs/session-manager
 
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`9a3a609`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/9a3a609df30290a5498f7ca9e135fe12bfb05583)]:
+  - @tryrolljs/api-client@2.0.0
+  - @tryrolljs/auth-sdk@1.0.0
+  - @tryrolljs/api@1.2.1
+
 ## 15.0.0
 
 ### Minor Changes
