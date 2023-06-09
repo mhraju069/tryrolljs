@@ -39,3 +39,19 @@ export const addPrefixToStorage = (
       storage.removeItem(getPrefixedStorageKey(prefix, key)),
   }
 }
+
+export const makeInMemoryStorage = (): Storage => {
+  const storage: Record<string, string> = {}
+
+  return {
+    setItem: function (key: string, value: string) {
+      storage[key] = value || ''
+    },
+    getItem: function (key: string) {
+      return key in storage ? storage[key] : undefined
+    },
+    removeItem: function (key: string) {
+      delete storage[key]
+    },
+  }
+}

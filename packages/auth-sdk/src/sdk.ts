@@ -1,6 +1,4 @@
-import AutoLoginTokenInteraction from './auto-login-token-interaction'
-import ClientCredentialsTokenInteraction from './client-credentials-token-interaction'
-import CodeTokenInteraction from './code-token-interaction'
+import CodeTokenInteraction from './code-token-interaction/code-token-interaction'
 import { NotEnoughDataToRefreshError } from './errors'
 import {
   Config,
@@ -8,30 +6,27 @@ import {
   Token,
   RequestTokenResponseData,
   TokenInteraction,
-  InteractionType,
   StorageKey,
 } from './types'
 import {
-  addPrefixToStorage,
   isLastUpdateTimestampExpired,
+  makeInMemoryStorage,
   safeJsonParse,
 } from './utils'
 
 class SDK {
-  private readonly interactions: Record<InteractionType, TokenInteraction<any>>
-  private readonly storages: Record<InteractionType, Storage>
-  private type: InteractionType
+  private readonly interaction: TokenInteraction<any>
+  private readonly storage: Storage
 
-  constructor(private readonly config: Config, storage: Storage) {
+  constructor(
+    private readonly config: Config,
+    storage?: Storage,
+    interaction?: TokenInteraction<any>,
+  ) {
     this.config = config
-    this.type = InteractionType.Code
-    this.storages = this.getPrefixedStorages(storage)
-    this.interactions = this.getInitialInteractions()
-  }
-
-  public interactAs = (type: InteractionType) => {
-    this.type = type
-    return this
+    this.storage = storage ?? makeInMemoryStorage()
+    this.interaction =
+      interaction ?? new CodeTokenInteraction(config, this.storage)
   }
 
   public refreshToken = async (force?: boolean) => {
@@ -85,38 +80,6 @@ class SDK {
     )
   }
 
-  private getPrefixedStorages = (storage: Storage) => {
-    return {
-      [InteractionType.Code]: addPrefixToStorage(storage, InteractionType.Code),
-      [InteractionType.AutoLoginToken]: addPrefixToStorage(
-        storage,
-        InteractionType.AutoLoginToken,
-      ),
-      [InteractionType.ClientCredentials]: addPrefixToStorage(
-        storage,
-        InteractionType.ClientCredentials,
-      ),
-    }
-  }
-
-  private getInitialInteractions = () => {
-    return {
-      [InteractionType.Code]: new CodeTokenInteraction(
-        this.config,
-        this.storages[InteractionType.Code],
-      ),
-      [InteractionType.AutoLoginToken]: new AutoLoginTokenInteraction(
-        this.config,
-        this.storages[InteractionType.AutoLoginToken],
-      ),
-      [InteractionType.ClientCredentials]:
-        new ClientCredentialsTokenInteraction(
-          this.config,
-          this.storages[InteractionType.ClientCredentials],
-        ),
-    }
-  }
-
   private storeToken = async (data: RequestTokenResponseData) => {
     if (data.error) {
       await this.clearCache()
@@ -146,8 +109,8 @@ class SDK {
     return typeof token === 'string' ? (safeJsonParse(token) as Token) : token
   }
 
-  public getStorage = () => {
-    return this.storages[this.type]
+  private getStorage = () => {
+    return this.storage
   }
 
   public getLogInUrl = async () => {
@@ -165,7 +128,7 @@ class SDK {
     return this.getInteraction().getLogOutUrl?.(token) ?? ''
   }
 
-  private getInteraction = () => this.interactions[this.type]
+  private getInteraction = () => this.interaction
 }
 
 export default SDK

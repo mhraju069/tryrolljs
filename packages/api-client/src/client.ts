@@ -3,13 +3,10 @@ import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
-import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
+import SDK from '@tryrolljs/auth-sdk'
 import { Config, Request, Event } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
-import {
-  CouldntRefreshTokensError,
-  InteractionChangeNotPossibleError,
-} from './errors'
+import { CouldntRefreshTokensError } from './errors'
 
 export default class Client extends EventEmitter {
   private config: Config
@@ -18,7 +15,6 @@ export default class Client extends EventEmitter {
 
   private isRefreshScheduled: boolean = false
   private isRefreshInProgress: boolean = false
-  private isEmpty: boolean = false
 
   constructor(config: Config, sdk: SDK) {
     super()
@@ -28,38 +24,41 @@ export default class Client extends EventEmitter {
     this.queue = this.makeQueue()
   }
 
-  public sdkInteractAs = (type: InteractionType) => {
-    if (!this.isEmpty) {
-      throw new InteractionChangeNotPossibleError()
-    }
-
-    this.sdk.interactAs(type)
-    return this
-  }
-
   public call = <T = any>(request: Request) => {
     return new Promise<T>(async (resolve, reject) => {
-      const onDestroy = () => {
-        this.queue = this.makeQueue()
-        reject(new CouldntRefreshTokensError())
-      }
+      const queue = this.getQueue()
       const token = await this.sdk.getToken()
       const isExpired = await this.sdk.isTokenExpired()
-      if (
-        request.authorization &&
-        token &&
-        isExpired &&
-        !this.isRefreshScheduled
-      ) {
+      const shouldScheduleRefresh =
+        request.authorization && token && isExpired && !this.isRefreshScheduled
+
+      if (shouldScheduleRefresh) {
+        // Destory the queue when refresh fail, initialize the new one & throws an error
+        const onRefreshError = () => {
+          queue.destroy(() => {
+            this.resetQueue()
+            reject(new CouldntRefreshTokensError())
+          })
+        }
+
         this.isRefreshScheduled = true
-        this.queue.push(this.makeRefreshTask(onDestroy))
+        queue.push(this.makeRefreshTask(onRefreshError))
       }
-      this.queue.push(this.makeRequestTask(request, resolve, reject))
+
+      queue.push(this.makeRequestTask(request, resolve, reject))
     })
   }
 
   public getBaseUrl = (): string => {
     return this.config.baseUrl || ''
+  }
+
+  private getQueue = () => {
+    return this.queue
+  }
+
+  private resetQueue = () => {
+    this.queue = this.makeQueue()
   }
 
   private makeQueue = () => {
@@ -84,13 +83,6 @@ export default class Client extends EventEmitter {
         },
       },
     )
-
-    queue.on('task_queued', () => {
-      this.isEmpty = false
-    })
-    queue.on('empty', () => {
-      this.isEmpty = true
-    })
 
     return queue
   }
@@ -134,7 +126,7 @@ export default class Client extends EventEmitter {
     return options
   }
 
-  private makeRefreshTask = (onDestroy: () => void) => async () => {
+  private makeRefreshTask = (onError: () => void) => async () => {
     this.isRefreshInProgress = true
 
     try {
@@ -142,10 +134,10 @@ export default class Client extends EventEmitter {
       const token = await this.sdk.getToken()
       // Unsuccessful refresh leads to an empty token in the SDK
       if (!token) {
-        this.queue.destroy(onDestroy)
+        onError()
       }
     } catch (e) {
-      this.queue.destroy(onDestroy)
+      onError()
     }
 
     this.isRefreshScheduled = false
@@ -155,23 +147,23 @@ export default class Client extends EventEmitter {
   private makeRequestTask =
     <T>(
       request: Request,
-      resolve: (value: T) => void,
-      reject: (reason?: any) => void,
+      onSuccess: (value: T) => void,
+      onError: (reason?: any) => void,
     ) =>
     async () => {
       try {
         const response = await axios<T>(await this.getOptions(request))
-        return resolve(response.data)
+        return onSuccess(response.data)
       } catch (e: any) {
         if (e.response) {
           if (e.response.status === 401) {
             this.emit(Event.Unauthorized, e.response)
           }
 
-          reject(this.parseResponseError(e.response))
+          onError(this.parseResponseError(e.response))
         }
 
-        reject(e)
+        onError(e)
       }
     }
 
