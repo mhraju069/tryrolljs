@@ -1,16 +1,15 @@
 import { user } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import Client from '@tryrolljs/api-client'
-import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
-import { makeMockStorage } from './utils.js'
+import { ClientPool } from '@tryrolljs/api-client'
+import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
 import config from './config.js'
 
 export const getUserBalances = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -19,7 +18,7 @@ export const getUserBalances = async () => {
       },
     ])
     const balances = await user.getUserBalances(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     if (!balances || balances.length === 0) {
@@ -40,9 +39,9 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -56,7 +55,7 @@ export const getUserTokenBalance = async () => {
       },
     ])
     const balance = await user.getUserTokenBalance(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     printTable([
@@ -73,9 +72,9 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -94,7 +93,7 @@ export const hasBalance = async () => {
       },
     ])
     const response = await user.hasBalance(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     if (response.hasbalance) {
@@ -109,9 +108,9 @@ export const hasBalance = async () => {
 
 export const getUser = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -120,7 +119,7 @@ export const getUser = async () => {
       },
     ])
     const userResponse = await user.getUser(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     printTable([
@@ -138,9 +137,9 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -155,7 +154,7 @@ export const createPlatformUser = async () => {
     ])
 
     const response = await user.createPlatformUser(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -170,9 +169,9 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
       {
@@ -183,16 +182,16 @@ export const loginPlatformUser = async () => {
     ])
 
     const autoLoginToken = await user.getUserMasqueradeToken(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       {
         userId: answers.userId,
       },
     )
-    const data = await sdk
-      .interactAs(InteractionType.AutoLoginToken)
+    await sdkPool
+      .getSDK(InteractionType.AutoLoginToken)
       .generateToken(autoLoginToken.token)
 
-    printTable([data])
+    printTable([{ success: true }])
   } catch (err) {
     console.error(err)
   }

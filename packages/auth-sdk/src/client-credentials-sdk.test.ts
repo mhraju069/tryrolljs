@@ -1,7 +1,7 @@
 import { InteractionType, ScopeType, Config } from './types'
 import { requestToken } from './client-credentials-token-interaction/api'
 import { RequestTokenResponseData } from './client-credentials-token-interaction/types'
-import SDK from './sdk'
+import SDKPool from './sdk-pool'
 
 const config: Config = {
   clientId: 'clientId',
@@ -46,7 +46,7 @@ const mockTokenResponse = (data: Partial<RequestTokenResponseData> = {}) => {
   })
 }
 
-describe('Client Credentials SDK', () => {
+describe('Client Credentials SDKPool', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -54,12 +54,10 @@ describe('Client Credentials SDK', () => {
   it('generates token', async () => {
     mockTokenResponse()
     const realStorage = getRealStorage()
-    const sdk = new SDK(config, realStorage).interactAs(
-      InteractionType.ClientCredentials,
-    )
-    await sdk.generateToken()
+    const sdk = new SDKPool(config, realStorage)
+    await sdk.getSDK(InteractionType.ClientCredentials).generateToken()
 
-    const token = await sdk.getToken()
+    const token = await sdk.getSDK(InteractionType.ClientCredentials).getToken()
     expect(token?.access_token).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
@@ -75,12 +73,10 @@ describe('Client Credentials SDK', () => {
     jest.spyOn(global, 'Date').mockImplementation(() => mockDateInstance)
 
     const realStorage = getRealStorage()
-    const sdk = new SDK(config, realStorage).interactAs(
-      InteractionType.ClientCredentials,
-    )
-    await sdk.generateToken()
+    const sdk = new SDKPool(config, realStorage)
+    await sdk.getSDK(InteractionType.ClientCredentials).generateToken()
 
-    const token = await sdk.getToken()
+    const token = await sdk.getSDK(InteractionType.ClientCredentials).getToken()
     expect(token).toStrictEqual({
       access_token: 'access_token',
       expires_in: 3600,
@@ -88,8 +84,10 @@ describe('Client Credentials SDK', () => {
       last_update_at: 1466424490000,
     })
 
-    await sdk.clearCache()
-    const tokenAfterClear = await sdk.getToken()
+    await sdk.getSDK(InteractionType.ClientCredentials).clearCache()
+    const tokenAfterClear = await sdk
+      .getSDK(InteractionType.ClientCredentials)
+      .getToken()
     expect(tokenAfterClear?.access_token).toBe(undefined)
   })
 })

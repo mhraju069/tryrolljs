@@ -6,7 +6,7 @@ import {
   Token,
   StorageKey,
 } from './types'
-import SDK from './sdk'
+import SDKPool from './sdk-pool'
 import { getPrefixedStorageKey } from './utils'
 
 const config = {
@@ -88,7 +88,7 @@ const getRealStorageWithData = (
   return storage
 }
 
-describe('Auto Login Token SDK', () => {
+describe('Auto Login Token SDKPool', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -103,13 +103,13 @@ describe('Auto Login Token SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage).interactAs(
-      InteractionType.AutoLoginToken,
-    )
-    await sdk.restoreCache()
-    await sdk.refreshToken()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).refreshToken()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool
+      .getSDK(InteractionType.AutoLoginToken)
+      .getToken()
     expect(token?.access_token).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
@@ -140,13 +140,13 @@ describe('Auto Login Token SDK', () => {
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new SDK(config, storage).interactAs(
-      InteractionType.AutoLoginToken,
-    )
-    await sdk.restoreCache()
-    await sdk.refreshToken()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).refreshToken()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool
+      .getSDK(InteractionType.AutoLoginToken)
+      .getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
@@ -183,12 +183,12 @@ describe('Auto Login Token SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage).interactAs(
-      InteractionType.AutoLoginToken,
-    )
-    await sdk.restoreCache()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool
+      .getSDK(InteractionType.AutoLoginToken)
+      .getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
@@ -204,9 +204,11 @@ describe('Auto Login Token SDK', () => {
       'code',
     )
 
-    await sdk.clearCache()
+    await sdkPool.getSDK(InteractionType.AutoLoginToken).clearCache()
 
-    const tokenAfterClear = await sdk.getToken()
+    const tokenAfterClear = await sdkPool
+      .getSDK(InteractionType.AutoLoginToken)
+      .getToken()
     expect(tokenAfterClear?.access_token).toBe(undefined)
 
     expect(storage.removeItem).toHaveBeenCalledWith(

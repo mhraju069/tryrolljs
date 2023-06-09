@@ -1,16 +1,15 @@
 import { token } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
-import Client from '@tryrolljs/api-client'
-import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
+import { ClientPool } from '@tryrolljs/api-client'
+import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
 import inquirer from 'inquirer'
-import { makeMockStorage } from './utils.js'
 import config from './config.js'
 
 export const getTokenList = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
       {
@@ -39,7 +38,7 @@ export const getTokenList = async () => {
       },
     ])
     const response = await token.getTokens(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     printTable(
@@ -57,9 +56,9 @@ export const getTokenList = async () => {
 
 export const getTokenCreator = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
       {
@@ -69,7 +68,7 @@ export const getTokenCreator = async () => {
       },
     ])
     const creator = await token.getTokenCreator(
-      apiClient.sdkInteractAs(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials),
       answers,
     )
     printTable([

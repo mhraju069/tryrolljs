@@ -6,7 +6,7 @@ import {
   Token,
   StorageKey,
 } from './types'
-import SDK from './sdk'
+import SDKPool from './sdk-pool'
 import { getPrefixedStorageKey } from './utils'
 
 const config = {
@@ -85,7 +85,7 @@ const getRealStorageWithData = (
   return storage
 }
 
-describe('Code SDK', () => {
+describe('Code SDKPool', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -97,11 +97,11 @@ describe('Code SDK', () => {
       getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
       '123',
     )
-    const sdk = new SDK(config, realStorage)
+    const sdkPool = new SDKPool(config, realStorage)
 
-    await sdk.generateToken('code')
+    await sdkPool.getSDK(InteractionType.Code).generateToken('code')
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('access_token')
     expect(requestToken).toHaveBeenCalledWith({
       issuerUrl: 'http://localhost:3000/oauth2',
@@ -119,17 +119,17 @@ describe('Code SDK', () => {
       getPrefixedStorageKey(InteractionType.Code, StorageKey.CodeVerifier),
       '123',
     )
-    const sdk = new SDK(config, realStorage)
+    const sdkPool = new SDKPool(config, realStorage)
 
     mockTokenResponse({ expires_in: 0 })
 
-    await sdk.generateToken('code')
+    await sdkPool.getSDK(InteractionType.Code).generateToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token', expires_in: 0 })
 
-    await sdk.refreshToken()
+    await sdkPool.getSDK(InteractionType.Code).refreshToken()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('new_access_token')
     expect(requestToken).toHaveBeenCalledTimes(2)
     expect(requestToken).toHaveBeenLastCalledWith({
@@ -152,11 +152,11 @@ describe('Code SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage)
-    await sdk.restoreCache()
-    await sdk.refreshToken()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.Code).restoreCache()
+    await sdkPool.getSDK(InteractionType.Code).refreshToken()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
@@ -178,14 +178,14 @@ describe('Code SDK', () => {
   it('refreshes when force', async () => {
     const storage = getRealStorageWithData()
 
-    const sdk = new SDK(config, storage)
+    const sdkPool = new SDKPool(config, storage)
     mockTokenResponse()
-    await sdk.generateToken('code')
+    await sdkPool.getSDK(InteractionType.Code).generateToken('code')
 
     mockTokenResponse({ access_token: 'new_access_token' })
-    await sdk.refreshToken(true)
+    await sdkPool.getSDK(InteractionType.Code).refreshToken(true)
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('new_access_token')
   })
 
@@ -201,11 +201,11 @@ describe('Code SDK', () => {
     })
     mockTokenResponse({ access_token: 'new_access_token' })
 
-    const sdk = new SDK(config, storage)
-    await sdk.restoreCache()
-    await sdk.refreshToken()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.Code).restoreCache()
+    await sdkPool.getSDK(InteractionType.Code).refreshToken()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
@@ -239,10 +239,10 @@ describe('Code SDK', () => {
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDateInstance)
 
-    const sdk = new SDK(config, storage)
-    await sdk.restoreCache()
+    const sdkPool = new SDKPool(config, storage)
+    await sdkPool.getSDK(InteractionType.Code).restoreCache()
 
-    const token = await sdk.getToken()
+    const token = await sdkPool.getSDK(InteractionType.Code).getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(InteractionType.Code, StorageKey.Token),
@@ -258,9 +258,11 @@ describe('Code SDK', () => {
       'code',
     )
 
-    await sdk.clearCache()
+    await sdkPool.getSDK(InteractionType.Code).clearCache()
 
-    const tokenAfterClear = await sdk.getToken()
+    const tokenAfterClear = await sdkPool
+      .getSDK(InteractionType.Code)
+      .getToken()
     expect(tokenAfterClear?.access_token).toBe(undefined)
 
     expect(storage.removeItem).toHaveBeenCalledWith(

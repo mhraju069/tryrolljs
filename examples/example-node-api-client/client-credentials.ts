@@ -1,16 +1,16 @@
 import { clientCredentials } from '@tryrolljs/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import Client from '@tryrolljs/api-client'
-import SDK, { InteractionType } from '@tryrolljs/auth-sdk'
-import { makeMockStorage } from './utils.js'
+import { ClientPool } from '@tryrolljs/api-client'
+import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
 import config from './config.js'
 
 export const getClient = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -18,7 +18,10 @@ export const getClient = async () => {
         message: 'Client ID',
       },
     ])
-    const client = await clientCredentials.getClient(answers, apiClient)
+    const client = await clientCredentials.getClient(
+      answers,
+      clientPool.getClient(InteractionType.ClientCredentials),
+    )
 
     printTable([client])
   } catch (error) {
@@ -28,10 +31,13 @@ export const getClient = async () => {
 
 export const getClients = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
-    const clients = await clientCredentials.getClients(apiClient)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const clients = await clientCredentials.getClients(
+      clientPool.getClient(InteractionType.ClientCredentials),
+    )
 
     printTable(clients)
   } catch (error) {
@@ -41,9 +47,10 @@ export const getClients = async () => {
 
 export const generateClientSecret = async () => {
   try {
-    const sdk = new SDK.default(config, makeMockStorage())
-    await sdk.interactAs(InteractionType.ClientCredentials).generateToken()
-    const apiClient = new Client.default({ baseUrl: process.env.API_URL }, sdk)
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -53,7 +60,7 @@ export const generateClientSecret = async () => {
     ])
     const secret = await clientCredentials.generateClientSecret(
       answers,
-      apiClient,
+      clientPool.getClient(InteractionType.ClientCredentials),
     )
 
     printTable([secret])
