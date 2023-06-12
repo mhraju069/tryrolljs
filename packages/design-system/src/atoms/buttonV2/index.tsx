@@ -27,7 +27,7 @@ import {
 
 const BaseButton = ({
   testID,
-  variant,
+  variant = 'primary',
   title,
   rest,
   hover,
@@ -36,7 +36,7 @@ const BaseButton = ({
   paddingHorizontal,
   paddingVertical,
   borderRadius,
-  size,
+  size = 'medium',
   icon,
   iconVariant,
   isDisabled = false,
@@ -370,7 +370,11 @@ const useSizeProps = (size: Size): SizeProps => {
   }
 }
 
-export const ButtonV2 = ({ variant, size, ...props }: ButtonV2Props) => {
+export const ButtonV2 = ({
+  variant = 'primary',
+  size = 'medium',
+  ...props
+}: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
     base: size === 'large' ? 'medium' : size,
     xl: size,
