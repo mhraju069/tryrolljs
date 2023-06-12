@@ -44,6 +44,7 @@ const getStories = () => {
     require('../src/molecules/walletInfo/walletInfo.stories.tsx'),
     require('../src/organisms/formStepHeader/formStepHeader.stories.tsx'),
     require('../src/organisms/modal/modal.stories.tsx'),
+    require('../src/organisms/modalV2/modalV2.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
     require('../src/organisms/table/table.stories.tsx'),
     require('../src/organisms/avatarPicker/avatarPicker.stories.tsx'),
