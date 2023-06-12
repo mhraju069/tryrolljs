@@ -1,16 +1,16 @@
 {
-  "name": "@tryrolljs/prettier-config",
+  "name": "@roll-network/prettier-config",
   "description": "Prettier configuration for Roll applications",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "main": "./.prettierrc.js",
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/prettier-config",
+  "homepage": "https://github.com/TuringAdvisoryGroup/roll-network/tree/main/packages/prettier-config",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+    "url": "https://github.com/TuringAdvisoryGroup/roll-network.git"
   },
   "engines": {
     "npm": "~8.3.1",

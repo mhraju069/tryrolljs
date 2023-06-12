@@ -1,5 +1,5 @@
-import { TryrollProvider, injectFonts } from '@tryrolljs/design-system'
-import { SessionManager, useSession } from '@tryrolljs/session-manager'
+import { TryrollProvider, injectFonts } from '@roll-network/design-system'
+import { SessionManager, useSession } from '@roll-network/session-manager'
 import TopNavigation from './components/topNavigation'
 import HasBalance from './features/hasBalance'
 import UserInfo from './components/userInfo'

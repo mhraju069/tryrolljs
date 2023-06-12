@@ -5573,6 +5573,424 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@roll-netowrk/root@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@roll-netowrk/root@workspace:."
+  dependencies:
+    "@changesets/changelog-github": ^0.4.8
+    "@changesets/cli": ^2.26.1
+    "@changesets/get-dependents-graph": ^1.3.5
+    "@manypkg/get-packages": ^1.1.3
+    madge: ^6.0.0
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/api-client@^1.0.0, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/api-client@workspace:packages/api-client"
+  dependencies:
+    "@roll-network/auth-sdk": ^1.0.0
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@swc/core": ^1.3.1
+    "@swc/jest": ^0.2.23
+    "@types/better-queue": ^3.8.3
+    "@types/jest": ^29.0.2
+    "@types/qs": ^6.9.7
+    axios: ^1.3.4
+    babel-jest: ^29.3.1
+    better-queue: ^3.8.12
+    better-queue-memory: ^1.0.4
+    events: ^3.3.0
+    jest: ^29.0.3
+    jest-environment-jsdom: ^29.0.3
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+    setimmediate: ^1.0.5
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/api@^1.0.0, @roll-network/api@workspace:*, @roll-network/api@workspace:packages/api":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/api@workspace:packages/api"
+  dependencies:
+    "@roll-network/api-client": ^1.0.0
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@swc/core": ^1.3.1
+    "@swc/jest": ^0.2.23
+    "@types/better-queue": ^3.8.3
+    "@types/jest": ^29.2.0
+    axios: ^1.3.4
+    babel-jest: ^29.3.1
+    events: ^3.3.0
+    jest: ^29.0.3
+    jest-environment-jsdom: ^29.0.3
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+    setimmediate: ^1.0.5
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/auth-sdk@^1.0.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/auth-sdk@workspace:packages/auth-sdk"
+  dependencies:
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@swc/core": ^1.3.1
+    "@swc/jest": ^0.2.23
+    "@types/crypto-js": ^4.1.1
+    "@types/jest": ^29.0.2
+    "@types/qs": ^6.9.7
+    crypto-js: ^4.1.1
+    event-emitter: ^0.3.5
+    jest: ^29.0.3
+    jest-environment-jsdom: ^29.0.3
+    qs: ^6.11.0
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+    type-fest: ^3.1.0
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/cli@workspace:packages/cli":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/cli@workspace:packages/cli"
+  dependencies:
+    "@roll-network/prettier-config": 1.0.0
+    commander: ^9.4.0
+    eslint: ^8.22.0
+    prettier: ^2.7.1
+  bin:
+    roll: ./bin/roll.js
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/contract-bindings@workspace:packages/contract-bindings":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/contract-bindings@workspace:packages/contract-bindings"
+  dependencies:
+    "@ethersproject/abi": ^5.4.3
+    "@ethersproject/bytes": ^5.4.3
+    "@ethersproject/contracts": ^5.4.3
+    "@ethersproject/providers": ^5.4.3
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@typechain/ethers-v5": ^10.1.1
+    "@typechain/web3-v1": ^3.0.0
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+    typechain: ^8.1.1
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/design-system@workspace:*, @roll-network/design-system@workspace:packages/design-system":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/design-system@workspace:packages/design-system"
+  dependencies:
+    "@babel/core": ^7.12.9
+    "@babel/runtime": ^7.19.4
+    "@ethersproject/providers": ^5.4.5
+    "@floating-ui/react": ^0.24.0
+    "@floating-ui/react-dom": ^2.0.0
+    "@floating-ui/react-native": ^0.10.0
+    "@react-native-async-storage/async-storage": ^1.17.3
+    "@react-native-community/datetimepicker": ^6.1.2
+    "@react-native-community/slider": ^4.2.1
+    "@rollup/plugin-alias": ^3.1.9
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-image": ^3.0.2
+    "@rollup/plugin-json": ^4.1.0
+    "@rollup/plugin-node-resolve": ^14.0.1
+    "@rollup/plugin-typescript": ^11.0.0
+    "@rollup/plugin-url": ^7.0.0
+    "@storybook/addon-actions": ^6.4.18
+    "@storybook/addon-controls": 6.3
+    "@storybook/addon-essentials": ^6.4.18
+    "@storybook/addon-links": ^6.4.18
+    "@storybook/addon-ondevice-actions": ^6.0.1-beta.8
+    "@storybook/addon-ondevice-backgrounds": ^6.0.1-beta.8
+    "@storybook/addon-ondevice-controls": ^6.0.1-beta.8
+    "@storybook/addon-ondevice-notes": ^6.0.1-beta.8
+    "@storybook/addon-storysource": ^6.5.10
+    "@storybook/builder-webpack5": ^6.5.10
+    "@storybook/manager-webpack5": ^6.5.10
+    "@storybook/react": ^6.4.18
+    "@storybook/react-native": ^6.0.1-beta.8
+    "@storybook/testing-library": ^0.0.13
+    "@svgr/rollup": ^6.3.1
+    "@svgr/webpack": ^6.3.1
+    "@swc/jest": ^0.2.23
+    "@tanstack/react-table": ^8.9.1
+    "@testing-library/jest-dom": ^5.16.5
+    "@testing-library/jest-native": ^5.1.2
+    "@testing-library/react-native": ^11.3.0
+    "@tsconfig/react-native": ^2.0.2
+    "@types/color": ^3.0.3
+    "@types/jest": ^29.2.0
+    "@types/node": ^12.0.0
+    "@types/react": ^18.0.28
+    "@types/react-avatar-editor": ^13.0.0
+    "@types/react-dom": ^18.0.11
+    "@types/react-native": ^0.71.3
+    "@uniswap/widgets": ^2.51.2
+    "@wagmi/core": ^0.10.9
+    "@web3-react/core": ^6.0.9
+    "@web3-react/fortmatic-connector": ^6.1.6
+    "@web3-react/injected-connector": ^6.0.7
+    "@web3-react/network-connector": ^6.2.9
+    "@web3-react/portis-connector": ^6.2.11
+    "@web3-react/walletconnect-connector": ^6.2.10
+    "@web3modal/ethereum": ^2.2.2
+    "@web3modal/react": ^2.2.2
+    babel-jest: ^29.2.1
+    babel-loader: ^8.2.4
+    babel-plugin-react-native-web: ^0.17.7
+    boring-avatars: ^1.6.3
+    color: ^4.2.3
+    cross-env: ^7.0.3
+    ethers: ^5.5.4
+    http-browserify: ^1.7.0
+    https-browserify: ^1.0.0
+    jest: ^29.0.3
+    jotai-immer: ^0.1.0
+    metro-react-native-babel-preset: 0.72.3
+    native-base: ^3.4.25
+    pretty-bytes: ^6.1.0
+    react: 18.1.0
+    react-avatar-editor: ^13.0.0
+    react-dom: 18.1.0
+    react-native: 0.71.5
+    react-native-asset: ^2.1.1
+    react-native-crypto: ^2.2.0
+    react-native-fs: ^2.20.0
+    react-native-image-crop-picker: ^0.39.0
+    react-native-linear-gradient: ^2.5.6
+    react-native-randombytes: ^3.6.1
+    react-native-safe-area-context: ^3.3.2
+    react-native-svg: ^12.1.1
+    react-native-svg-transformer: ^1.0.0
+    react-native-web: ^0.17.7
+    react-native-web-linear-gradient: ^1.1.2
+    react-refresh: ^0.14.0
+    react-test-renderer: 18.1.0
+    rollup: ^2.78.1
+    rollup-plugin-copy: ^3.4.0
+    rollup-plugin-delete: ^2.0.0
+    rollup-plugin-node-externals: ^5.0.0
+    rollup-plugin-svg: ^2.0.0
+    rollup-plugin-visualizer: ^5.8.1
+    setimmediate: ^1.0.5
+    storybook: ^6.5.10
+    stream-browserify: ^3.0.0
+    type-fest: ^3.1.0
+    typescript: ^4.6.3
+    wagmi: 0.12.6
+  peerDependencies:
+    "@ethersproject/providers": ^5.4.5
+    "@wagmi/core": ^0.10.9
+    "@web3-react/core": ^6.0.9
+    "@web3-react/fortmatic-connector": ^6.1.6
+    "@web3-react/injected-connector": ^6.0.7
+    "@web3-react/network-connector": ^6.2.9
+    "@web3-react/portis-connector": ^6.2.11
+    "@web3-react/walletconnect-connector": ^6.2.10
+    "@web3modal/ethereum": ^2.2.2
+    "@web3modal/react": ^2.2.2
+    ethers: ^5.5.4
+    react: 18.1.0
+    react-dom: 18.1.0
+    react-native: 0.71.5
+    react-native-fs: ^2.20.0
+    react-native-image-crop-picker: ^0.39.0
+    react-native-linear-gradient: ^2.5.6
+    react-native-safe-area-context: ^3.3.2
+    react-native-svg: ^12.1.1
+    react-native-web: ^0.17.7
+    wagmi: 0.12.6
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/eslint-config@workspace:packages/eslint-config":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/eslint-config@workspace:packages/eslint-config"
+  dependencies:
+    "@react-native-community/eslint-config": ^3.1.0
+    "@typescript-eslint/eslint-plugin": ^5.33.1
+    "@typescript-eslint/parser": ^5.33.1
+    eslint-config-prettier: ^8.5.0
+    eslint-import-resolver-typescript: ^3.5.0
+    eslint-plugin-ft-flow: ^2.0.1
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jest: ^26.5.3
+    eslint-plugin-prettier: ^4.2.1
+  peerDependencies:
+    "@react-native-community/eslint-config": ^3.1.0
+    "@typescript-eslint/eslint-plugin": ^5.33.1
+    "@typescript-eslint/parser": ^5.33.1
+    eslint-config-prettier: ^8.5.0
+    eslint-import-resolver-typescript: ^3.5.0
+    eslint-plugin-ft-flow: ^2.0.1
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jest: ^26.5.3
+    eslint-plugin-prettier: ^4.2.1
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/example-native-oauth-client@workspace:examples/example-native-oauth-client":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/example-native-oauth-client@workspace:examples/example-native-oauth-client"
+  dependencies:
+    "@babel/core": ^7.12.9
+    "@babel/runtime": ^7.20.13
+    "@react-native-async-storage/async-storage": ^1.17.11
+    "@roll-network/api": "workspace:*"
+    "@roll-network/api-client": "workspace:*"
+    "@roll-network/auth-sdk": "workspace:*"
+    "@roll-network/design-system": "workspace:*"
+    "@roll-network/session-manager": "workspace:*"
+    "@types/react": ^18.0.21
+    "@types/react-native": ^0.70.6
+    "@web3-react/core": ^6.0.9
+    "@web3-react/fortmatic-connector": ^6.1.6
+    "@web3-react/injected-connector": ^6.0.7
+    "@web3-react/network-connector": ^6.2.9
+    "@web3-react/portis-connector": ^6.2.11
+    "@web3-react/walletconnect-connector": ^6.2.10
+    babel-plugin-module-resolver: ^5.0.0
+    http-browserify: ^1.7.0
+    https-browserify: ^1.0.0
+    metro-react-native-babel-preset: 0.72.3
+    react: 18.1.0
+    react-dom: 18.1.0
+    react-native: 0.71.5
+    react-native-asset: ^2.0.1
+    react-native-crypto: ^2.2.0
+    react-native-get-random-values: ^1.8.0
+    react-native-inappbrowser-reborn: ^3.7.0
+    react-native-linear-gradient: ^2.6.2
+    react-native-safe-area-context: ^3.3.2
+    react-native-svg: ^12.1.1
+    react-native-web: ^0.17.7
+    stream-browserify: ^3.0.0
+    typescript: ^4.8.3
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/example-node-api-client@workspace:examples/example-node-api-client":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/example-node-api-client@workspace:examples/example-node-api-client"
+  dependencies:
+    "@roll-network/api": "workspace:*"
+    "@roll-network/api-client": "workspace:*"
+    "@roll-network/auth-sdk": "workspace:*"
+    "@types/inquirer": ^9.0.3
+    axios: ^1.3.4
+    console-table-printer: ^2.11.1
+    dotenv: ^16.0.3
+    inquirer: ^9.1.5
+    ts-node: ^10.9.1
+    typescript: ^5.0.4
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/example-web-oauth-client@workspace:examples/example-web-oauth-client":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/example-web-oauth-client@workspace:examples/example-web-oauth-client"
+  dependencies:
+    "@bunchtogether/vite-plugin-flow": ^1.0.2
+    "@roll-network/api": "workspace:*"
+    "@roll-network/api-client": "workspace:*"
+    "@roll-network/auth-sdk": "workspace:*"
+    "@roll-network/design-system": "workspace:*"
+    "@roll-network/session-manager": "workspace:*"
+    "@types/react": ^18.0.28
+    "@types/react-dom": ^18.0.11
+    "@vitejs/plugin-react": ^3.1.0
+    "@web3-react/core": ^6.0.9
+    "@web3-react/fortmatic-connector": ^6.1.6
+    "@web3-react/injected-connector": ^6.0.7
+    "@web3-react/network-connector": ^6.2.9
+    "@web3-react/portis-connector": ^6.2.11
+    "@web3-react/walletconnect-connector": ^6.2.10
+    react: 18.1.0
+    react-dom: 18.1.0
+    react-native: 0.71.5
+    react-native-safe-area-context: ^3.3.2
+    react-native-svg: ^12.1.1
+    react-native-web: ^0.17.7
+    typescript: ^4.9.3
+    vite: ^4.2.0
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/feature-flag@workspace:packages/feature-flag":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/feature-flag@workspace:packages/feature-flag"
+  dependencies:
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@swc/core": ^1.3.1
+    "@swc/jest": ^0.2.23
+    "@testing-library/react": ^13.4.0
+    "@types/jest": ^29.0.2
+    "@types/lodash.groupby": ^4.6.7
+    jest: ^29.0.3
+    jest-environment-jsdom: ^29.0.3
+    lodash.groupby: ^4.6.0
+    react: 18.1.0
+    react-dom: 18.1.0
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+    tslib: ^2.5.0
+  peerDependencies:
+    react: 18.1.0
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/prettier-config@1.0.0, @roll-network/prettier-config@workspace:packages/prettier-config":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/prettier-config@workspace:packages/prettier-config"
+  languageName: unknown
+  linkType: soft
+
+"@roll-network/session-manager@workspace:*, @roll-network/session-manager@workspace:packages/session-manager":
+  version: 0.0.0-use.local
+  resolution: "@roll-network/session-manager@workspace:packages/session-manager"
+  dependencies:
+    "@roll-network/api": ^1.0.0
+    "@roll-network/api-client": ^1.0.0
+    "@roll-network/auth-sdk": ^1.0.0
+    "@rollup/plugin-babel": ^5.3.1
+    "@rollup/plugin-commonjs": ^22.0.2
+    "@rollup/plugin-typescript": ^11.0.0
+    "@swc/core": ^1.3.1
+    "@swc/jest": ^0.2.23
+    "@testing-library/react": ^13.4.0
+    "@types/jest": ^29.0.2
+    jest: ^29.0.3
+    jest-environment-jsdom: ^29.0.3
+    react: 18.1.0
+    react-dom: 18.1.0
+    react-native-inappbrowser-reborn: ^3.7.0
+    rollup: ^2.78.1
+    rollup-plugin-delete: ^2.0.0
+  peerDependencies:
+    "@roll-network/api": ^1.0.0
+    "@roll-network/api-client": ^1.0.0
+    "@roll-network/auth-sdk": ^1.0.0
+    react: 18.1.0
+    react-native-inappbrowser-reborn: ^3.7.0
+  languageName: unknown
+  linkType: soft
+
 "@rollup/plugin-alias@npm:^3.1.9":
   version: 3.1.9
   resolution: "@rollup/plugin-alias@npm:3.1.9"
@@ -8361,424 +8779,6 @@ __metadata:
   checksum: ad87447820dd3f24825d2d947ebc03072b20a42bfc96cbafec16bff8bbda6c1a81fcb0be56d5b21968560c5359a0af4038a68ba150c3e1694fe4c109a063bed8
   languageName: node
   linkType: hard
-
-"@tryrolljs/api-client@^2.0.0, @tryrolljs/api-client@workspace:*, @tryrolljs/api-client@workspace:packages/api-client":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/api-client@workspace:packages/api-client"
-  dependencies:
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@swc/core": ^1.3.1
-    "@swc/jest": ^0.2.23
-    "@tryrolljs/auth-sdk": ^1.0.0
-    "@types/better-queue": ^3.8.3
-    "@types/jest": ^29.0.2
-    "@types/qs": ^6.9.7
-    axios: ^1.3.4
-    babel-jest: ^29.3.1
-    better-queue: ^3.8.12
-    better-queue-memory: ^1.0.4
-    events: ^3.3.0
-    jest: ^29.0.3
-    jest-environment-jsdom: ^29.0.3
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-    setimmediate: ^1.0.5
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/api@^1.2.1, @tryrolljs/api@workspace:*, @tryrolljs/api@workspace:packages/api":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/api@workspace:packages/api"
-  dependencies:
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@swc/core": ^1.3.1
-    "@swc/jest": ^0.2.23
-    "@tryrolljs/api-client": ^2.0.0
-    "@types/better-queue": ^3.8.3
-    "@types/jest": ^29.2.0
-    axios: ^1.3.4
-    babel-jest: ^29.3.1
-    events: ^3.3.0
-    jest: ^29.0.3
-    jest-environment-jsdom: ^29.0.3
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-    setimmediate: ^1.0.5
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/auth-sdk@^1.0.0, @tryrolljs/auth-sdk@workspace:*, @tryrolljs/auth-sdk@workspace:packages/auth-sdk":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/auth-sdk@workspace:packages/auth-sdk"
-  dependencies:
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@swc/core": ^1.3.1
-    "@swc/jest": ^0.2.23
-    "@types/crypto-js": ^4.1.1
-    "@types/jest": ^29.0.2
-    "@types/qs": ^6.9.7
-    crypto-js: ^4.1.1
-    event-emitter: ^0.3.5
-    jest: ^29.0.3
-    jest-environment-jsdom: ^29.0.3
-    qs: ^6.11.0
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-    type-fest: ^3.1.0
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/cli@workspace:packages/cli":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/cli@workspace:packages/cli"
-  dependencies:
-    "@tryrolljs/prettier-config": 0.0.5
-    commander: ^9.4.0
-    eslint: ^8.22.0
-    prettier: ^2.7.1
-  bin:
-    roll: ./bin/roll.js
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/contract-bindings@workspace:packages/contract-bindings":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/contract-bindings@workspace:packages/contract-bindings"
-  dependencies:
-    "@ethersproject/abi": ^5.4.3
-    "@ethersproject/bytes": ^5.4.3
-    "@ethersproject/contracts": ^5.4.3
-    "@ethersproject/providers": ^5.4.3
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@typechain/ethers-v5": ^10.1.1
-    "@typechain/web3-v1": ^3.0.0
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-    typechain: ^8.1.1
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/design-system@workspace:*, @tryrolljs/design-system@workspace:packages/design-system":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/design-system@workspace:packages/design-system"
-  dependencies:
-    "@babel/core": ^7.12.9
-    "@babel/runtime": ^7.19.4
-    "@ethersproject/providers": ^5.4.5
-    "@floating-ui/react": ^0.24.0
-    "@floating-ui/react-dom": ^2.0.0
-    "@floating-ui/react-native": ^0.10.0
-    "@react-native-async-storage/async-storage": ^1.17.3
-    "@react-native-community/datetimepicker": ^6.1.2
-    "@react-native-community/slider": ^4.2.1
-    "@rollup/plugin-alias": ^3.1.9
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-image": ^3.0.2
-    "@rollup/plugin-json": ^4.1.0
-    "@rollup/plugin-node-resolve": ^14.0.1
-    "@rollup/plugin-typescript": ^11.0.0
-    "@rollup/plugin-url": ^7.0.0
-    "@storybook/addon-actions": ^6.4.18
-    "@storybook/addon-controls": 6.3
-    "@storybook/addon-essentials": ^6.4.18
-    "@storybook/addon-links": ^6.4.18
-    "@storybook/addon-ondevice-actions": ^6.0.1-beta.8
-    "@storybook/addon-ondevice-backgrounds": ^6.0.1-beta.8
-    "@storybook/addon-ondevice-controls": ^6.0.1-beta.8
-    "@storybook/addon-ondevice-notes": ^6.0.1-beta.8
-    "@storybook/addon-storysource": ^6.5.10
-    "@storybook/builder-webpack5": ^6.5.10
-    "@storybook/manager-webpack5": ^6.5.10
-    "@storybook/react": ^6.4.18
-    "@storybook/react-native": ^6.0.1-beta.8
-    "@storybook/testing-library": ^0.0.13
-    "@svgr/rollup": ^6.3.1
-    "@svgr/webpack": ^6.3.1
-    "@swc/jest": ^0.2.23
-    "@tanstack/react-table": ^8.9.1
-    "@testing-library/jest-dom": ^5.16.5
-    "@testing-library/jest-native": ^5.1.2
-    "@testing-library/react-native": ^11.3.0
-    "@tsconfig/react-native": ^2.0.2
-    "@types/color": ^3.0.3
-    "@types/jest": ^29.2.0
-    "@types/node": ^12.0.0
-    "@types/react": ^18.0.28
-    "@types/react-avatar-editor": ^13.0.0
-    "@types/react-dom": ^18.0.11
-    "@types/react-native": ^0.71.3
-    "@uniswap/widgets": ^2.51.2
-    "@wagmi/core": ^0.10.9
-    "@web3-react/core": ^6.0.9
-    "@web3-react/fortmatic-connector": ^6.1.6
-    "@web3-react/injected-connector": ^6.0.7
-    "@web3-react/network-connector": ^6.2.9
-    "@web3-react/portis-connector": ^6.2.11
-    "@web3-react/walletconnect-connector": ^6.2.10
-    "@web3modal/ethereum": ^2.2.2
-    "@web3modal/react": ^2.2.2
-    babel-jest: ^29.2.1
-    babel-loader: ^8.2.4
-    babel-plugin-react-native-web: ^0.17.7
-    boring-avatars: ^1.6.3
-    color: ^4.2.3
-    cross-env: ^7.0.3
-    ethers: ^5.5.4
-    http-browserify: ^1.7.0
-    https-browserify: ^1.0.0
-    jest: ^29.0.3
-    jotai-immer: ^0.1.0
-    metro-react-native-babel-preset: 0.72.3
-    native-base: ^3.4.25
-    pretty-bytes: ^6.1.0
-    react: 18.1.0
-    react-avatar-editor: ^13.0.0
-    react-dom: 18.1.0
-    react-native: 0.71.5
-    react-native-asset: ^2.1.1
-    react-native-crypto: ^2.2.0
-    react-native-fs: ^2.20.0
-    react-native-image-crop-picker: ^0.39.0
-    react-native-linear-gradient: ^2.5.6
-    react-native-randombytes: ^3.6.1
-    react-native-safe-area-context: ^3.3.2
-    react-native-svg: ^12.1.1
-    react-native-svg-transformer: ^1.0.0
-    react-native-web: ^0.17.7
-    react-native-web-linear-gradient: ^1.1.2
-    react-refresh: ^0.14.0
-    react-test-renderer: 18.1.0
-    rollup: ^2.78.1
-    rollup-plugin-copy: ^3.4.0
-    rollup-plugin-delete: ^2.0.0
-    rollup-plugin-node-externals: ^5.0.0
-    rollup-plugin-svg: ^2.0.0
-    rollup-plugin-visualizer: ^5.8.1
-    setimmediate: ^1.0.5
-    storybook: ^6.5.10
-    stream-browserify: ^3.0.0
-    type-fest: ^3.1.0
-    typescript: ^4.6.3
-    wagmi: 0.12.6
-  peerDependencies:
-    "@ethersproject/providers": ^5.4.5
-    "@wagmi/core": ^0.10.9
-    "@web3-react/core": ^6.0.9
-    "@web3-react/fortmatic-connector": ^6.1.6
-    "@web3-react/injected-connector": ^6.0.7
-    "@web3-react/network-connector": ^6.2.9
-    "@web3-react/portis-connector": ^6.2.11
-    "@web3-react/walletconnect-connector": ^6.2.10
-    "@web3modal/ethereum": ^2.2.2
-    "@web3modal/react": ^2.2.2
-    ethers: ^5.5.4
-    react: 18.1.0
-    react-dom: 18.1.0
-    react-native: 0.71.5
-    react-native-fs: ^2.20.0
-    react-native-image-crop-picker: ^0.39.0
-    react-native-linear-gradient: ^2.5.6
-    react-native-safe-area-context: ^3.3.2
-    react-native-svg: ^12.1.1
-    react-native-web: ^0.17.7
-    wagmi: 0.12.6
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/eslint-config@workspace:packages/eslint-config":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/eslint-config@workspace:packages/eslint-config"
-  dependencies:
-    "@react-native-community/eslint-config": ^3.1.0
-    "@typescript-eslint/eslint-plugin": ^5.33.1
-    "@typescript-eslint/parser": ^5.33.1
-    eslint-config-prettier: ^8.5.0
-    eslint-import-resolver-typescript: ^3.5.0
-    eslint-plugin-ft-flow: ^2.0.1
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.5.3
-    eslint-plugin-prettier: ^4.2.1
-  peerDependencies:
-    "@react-native-community/eslint-config": ^3.1.0
-    "@typescript-eslint/eslint-plugin": ^5.33.1
-    "@typescript-eslint/parser": ^5.33.1
-    eslint-config-prettier: ^8.5.0
-    eslint-import-resolver-typescript: ^3.5.0
-    eslint-plugin-ft-flow: ^2.0.1
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.5.3
-    eslint-plugin-prettier: ^4.2.1
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/example-native-oauth-client@workspace:examples/example-native-oauth-client":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/example-native-oauth-client@workspace:examples/example-native-oauth-client"
-  dependencies:
-    "@babel/core": ^7.12.9
-    "@babel/runtime": ^7.20.13
-    "@react-native-async-storage/async-storage": ^1.17.11
-    "@tryrolljs/api": "workspace:*"
-    "@tryrolljs/api-client": "workspace:*"
-    "@tryrolljs/auth-sdk": "workspace:*"
-    "@tryrolljs/design-system": "workspace:*"
-    "@tryrolljs/session-manager": "workspace:*"
-    "@types/react": ^18.0.21
-    "@types/react-native": ^0.70.6
-    "@web3-react/core": ^6.0.9
-    "@web3-react/fortmatic-connector": ^6.1.6
-    "@web3-react/injected-connector": ^6.0.7
-    "@web3-react/network-connector": ^6.2.9
-    "@web3-react/portis-connector": ^6.2.11
-    "@web3-react/walletconnect-connector": ^6.2.10
-    babel-plugin-module-resolver: ^5.0.0
-    http-browserify: ^1.7.0
-    https-browserify: ^1.0.0
-    metro-react-native-babel-preset: 0.72.3
-    react: 18.1.0
-    react-dom: 18.1.0
-    react-native: 0.71.5
-    react-native-asset: ^2.0.1
-    react-native-crypto: ^2.2.0
-    react-native-get-random-values: ^1.8.0
-    react-native-inappbrowser-reborn: ^3.7.0
-    react-native-linear-gradient: ^2.6.2
-    react-native-safe-area-context: ^3.3.2
-    react-native-svg: ^12.1.1
-    react-native-web: ^0.17.7
-    stream-browserify: ^3.0.0
-    typescript: ^4.8.3
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/example-node-api-client@workspace:examples/example-node-api-client":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/example-node-api-client@workspace:examples/example-node-api-client"
-  dependencies:
-    "@tryrolljs/api": "workspace:*"
-    "@tryrolljs/api-client": "workspace:*"
-    "@tryrolljs/auth-sdk": "workspace:*"
-    "@types/inquirer": ^9.0.3
-    axios: ^1.3.4
-    console-table-printer: ^2.11.1
-    dotenv: ^16.0.3
-    inquirer: ^9.1.5
-    ts-node: ^10.9.1
-    typescript: ^5.0.4
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/example-web-oauth-client@workspace:examples/example-web-oauth-client":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/example-web-oauth-client@workspace:examples/example-web-oauth-client"
-  dependencies:
-    "@bunchtogether/vite-plugin-flow": ^1.0.2
-    "@tryrolljs/api": "workspace:*"
-    "@tryrolljs/api-client": "workspace:*"
-    "@tryrolljs/auth-sdk": "workspace:*"
-    "@tryrolljs/design-system": "workspace:*"
-    "@tryrolljs/session-manager": "workspace:*"
-    "@types/react": ^18.0.28
-    "@types/react-dom": ^18.0.11
-    "@vitejs/plugin-react": ^3.1.0
-    "@web3-react/core": ^6.0.9
-    "@web3-react/fortmatic-connector": ^6.1.6
-    "@web3-react/injected-connector": ^6.0.7
-    "@web3-react/network-connector": ^6.2.9
-    "@web3-react/portis-connector": ^6.2.11
-    "@web3-react/walletconnect-connector": ^6.2.10
-    react: 18.1.0
-    react-dom: 18.1.0
-    react-native: 0.71.5
-    react-native-safe-area-context: ^3.3.2
-    react-native-svg: ^12.1.1
-    react-native-web: ^0.17.7
-    typescript: ^4.9.3
-    vite: ^4.2.0
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/feature-flag@workspace:packages/feature-flag":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/feature-flag@workspace:packages/feature-flag"
-  dependencies:
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@swc/core": ^1.3.1
-    "@swc/jest": ^0.2.23
-    "@testing-library/react": ^13.4.0
-    "@types/jest": ^29.0.2
-    "@types/lodash.groupby": ^4.6.7
-    jest: ^29.0.3
-    jest-environment-jsdom: ^29.0.3
-    lodash.groupby: ^4.6.0
-    react: 18.1.0
-    react-dom: 18.1.0
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-    tslib: ^2.5.0
-  peerDependencies:
-    react: 18.1.0
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/prettier-config@0.0.5, @tryrolljs/prettier-config@workspace:packages/prettier-config":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/prettier-config@workspace:packages/prettier-config"
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/root@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/root@workspace:."
-  dependencies:
-    "@changesets/changelog-github": ^0.4.8
-    "@changesets/cli": ^2.26.1
-    "@changesets/get-dependents-graph": ^1.3.5
-    "@manypkg/get-packages": ^1.1.3
-    madge: ^6.0.0
-  languageName: unknown
-  linkType: soft
-
-"@tryrolljs/session-manager@workspace:*, @tryrolljs/session-manager@workspace:packages/session-manager":
-  version: 0.0.0-use.local
-  resolution: "@tryrolljs/session-manager@workspace:packages/session-manager"
-  dependencies:
-    "@rollup/plugin-babel": ^5.3.1
-    "@rollup/plugin-commonjs": ^22.0.2
-    "@rollup/plugin-typescript": ^11.0.0
-    "@swc/core": ^1.3.1
-    "@swc/jest": ^0.2.23
-    "@testing-library/react": ^13.4.0
-    "@tryrolljs/api": ^1.2.1
-    "@tryrolljs/api-client": ^2.0.0
-    "@tryrolljs/auth-sdk": ^1.0.0
-    "@types/jest": ^29.0.2
-    jest: ^29.0.3
-    jest-environment-jsdom: ^29.0.3
-    react: 18.1.0
-    react-dom: 18.1.0
-    react-native-inappbrowser-reborn: ^3.7.0
-    rollup: ^2.78.1
-    rollup-plugin-delete: ^2.0.0
-  peerDependencies:
-    "@tryrolljs/api": ^1.2.1
-    "@tryrolljs/api-client": ^2.0.0
-    "@tryrolljs/auth-sdk": ^1.0.0
-    react: 18.1.0
-    react-native-inappbrowser-reborn: ^3.7.0
-  languageName: unknown
-  linkType: soft
 
 "@trysound/sax@npm:0.2.0":
   version: 0.2.0

@@ -1,4 +1,4 @@
-import Client from '@tryrolljs/api-client'
+import Client from '@roll-network/api-client'
 import {
   GetClientArgs,
   GetClientResponseData,

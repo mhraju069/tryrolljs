@@ -1,8 +1,8 @@
-import { clientCredentials } from '@tryrolljs/api'
+import { clientCredentials } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { ClientPool } from '@tryrolljs/api-client'
-import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
+import { ClientPool } from '@roll-network/api-client'
+import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config from './config.js'
 
 export const getClient = async () => {

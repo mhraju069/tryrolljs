@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
-import { user as userAPI } from '@tryrolljs/api'
-import Client from '@tryrolljs/api-client'
-import SDK from '@tryrolljs/auth-sdk'
+import { user as userAPI } from '@roll-network/api'
+import Client from '@roll-network/api-client'
+import SDK from '@roll-network/auth-sdk'
 
 export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
 

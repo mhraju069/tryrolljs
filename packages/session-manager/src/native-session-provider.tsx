@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { parse } from 'qs'
-import { user as userAPI } from '@tryrolljs/api'
-import { Event } from '@tryrolljs/api-client'
+import { user as userAPI } from '@roll-network/api'
+import { Event } from '@roll-network/api-client'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
 

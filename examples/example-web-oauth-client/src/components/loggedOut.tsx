@@ -1,4 +1,4 @@
-import { Header } from '@tryrolljs/design-system'
+import { Header } from '@roll-network/design-system'
 
 const LoggedOut = () => (
   <div style={{ padding: 24, textAlign: 'center' }}>

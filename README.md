@@ -1,23 +1,23 @@
-# @tryrolljs/root
+# @roll-network/root
 
 This repo is an entrypoint for all Roll monorepo packages.
 
 ## Packages
 
-- [@tryrolljs/cli](./packages/cli)
-- [@tryrolljs/eslint-config](./packages/eslint-config)
-- [@tryrolljs/prettier-config](./packages/prettier-config)
-- [@tryrolljs/design-system](./packages/design-system)
-- [@tryrolljs/feature-flag](./packages/feature-flag)
-- [@tryrolljs/contract-bindings](./packages/contract-bindings)
-- [@tryrolljs/api](./packages/api)
-- [@tryrolljs/api-client](./packages/api-client)
-- [@tryrolljs/auth-sdk](./packages/auth-sdk)
-- [@tryrolljs/session-manager](./packages/session-manager)
+- [@roll-network/cli](./packages/cli)
+- [@roll-network/eslint-config](./packages/eslint-config)
+- [@roll-network/prettier-config](./packages/prettier-config)
+- [@roll-network/design-system](./packages/design-system)
+- [@roll-network/feature-flag](./packages/feature-flag)
+- [@roll-network/contract-bindings](./packages/contract-bindings)
+- [@roll-network/api](./packages/api)
+- [@roll-network/api-client](./packages/api-client)
+- [@roll-network/auth-sdk](./packages/auth-sdk)
+- [@roll-network/session-manager](./packages/session-manager)
 
 ### Private packages
 
-There are some packages that are not listed above (ex. [@tryrolljs/example-web-oauth-client](./examples/example-web-oauth-client)). These packages should always start with the `example-` prefix & be responsible for showing how a package/set of packages should be used by a consumer.
+There are some packages that are not listed above (ex. [@roll-network/example-web-oauth-client](./examples/example-web-oauth-client)). These packages should always start with the `example-` prefix & be responsible for showing how a package/set of packages should be used by a consumer.
 
 ### Dependants graph
 

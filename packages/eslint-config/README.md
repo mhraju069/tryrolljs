@@ -1,12 +1,12 @@
-# @tryrolljs/eslint-config
+# @roll-network/eslint-config
 
 This folder contains ESLint config file used in Roll.
 
 ## Install
 
 ```sh
-yarn add -D @tryrolljs/eslint-config
-npx install-peerdeps -D @tryrolljs/eslint-config
+yarn add -D @roll-network/eslint-config
+npx install-peerdeps -D @roll-network/eslint-config
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ Create a `.eslintrc.js` file in the root of your project. Add the following cont
 
 ```js
 module.exports = {
-  extends: '@tryrolljs/eslint-config',
+  extends: '@roll-network/eslint-config',
 }
 ```
 

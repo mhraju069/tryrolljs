@@ -1,10 +1,10 @@
-# @tryrolljs/design-system
+# @roll-network/design-system
 
 ## Install
 
 ```sh
-yarn add @tryrolljs/design-system
-npx install-peerdeps @tryrolljs/design-system
+yarn add @roll-network/design-system
+npx install-peerdeps @roll-network/design-system
 ```
 
 ## Setup
@@ -26,7 +26,7 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "@tryrolljs/design-system": "@tryrolljs/design-system/dist/native/esm"
+          "@roll-network/design-system": "@roll-network/design-system/dist/native/esm"
         }
       }
     ]
@@ -39,7 +39,7 @@ module.exports = {
 Wrap the root of your application with the theme provider.
 
 ```js
-import { TryrollProvider } from '@tryrolljs/design-system'
+import { TryrollProvider } from '@roll-network/design-system'
 
 const App = ({ children }) => {
   return (
@@ -53,14 +53,14 @@ const App = ({ children }) => {
 Enjoy using the well-typed package available for ESM & CJS. 🥳
 
 ```js
-import { Text, useTheme } from '@tryrolljs/design-system'
+import { Text, useTheme } from '@roll-network/design-system'
 
 const MyComponent = () => {
   const theme = useTheme();
 
   return (
     <Text style={{ color: theme.text.primary }}>
-      @tryrolljs/design-system is awesome!
+      @roll-network/design-system is awesome!
     </Text>
   )
 }

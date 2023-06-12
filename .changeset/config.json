@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@2.1.1/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "TuringAdvisoryGroup/tryrolljs" }
+    { "repo": "TuringAdvisoryGroup/roll-network" }
   ],
   "commit": false,
   "fixed": [],
@@ -10,5 +10,5 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@tryrolljs/example-web-oauth-client", "@tryrolljs/example-native-oauth-client", "@tryrolljs/example-node-api-client"]
+  "ignore": ["@roll-network/example-web-oauth-client", "@roll-network/example-native-oauth-client", "@roll-network/example-node-api-client"]
 }

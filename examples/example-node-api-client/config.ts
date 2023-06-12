@@ -1,4 +1,4 @@
-import { ScopeType } from '@tryrolljs/auth-sdk'
+import { ScopeType } from '@roll-network/auth-sdk'
 
 export default {
   apiUrl: process.env.API_URL || '',

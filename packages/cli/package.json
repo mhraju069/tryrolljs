@@ -1,13 +1,13 @@
 {
-  "name": "@tryrolljs/cli",
+  "name": "@roll-network/cli",
   "description": "CLI for Roll applications",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "main": "./index.js",
   "bin": {
     "roll": "./bin/roll.js"
   },
   "dependencies": {
-    "@tryrolljs/prettier-config": "0.0.5",
+    "@roll-network/prettier-config": "1.0.0",
     "commander": "^9.4.0",
     "eslint": "^8.22.0",
     "prettier": "^2.7.1"
@@ -15,11 +15,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/cli",
+  "homepage": "https://github.com/TuringAdvisoryGroup/roll-network/tree/main/packages/cli",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+    "url": "https://github.com/TuringAdvisoryGroup/roll-network.git"
   },
   "engines": {
     "npm": "~8.3.1",

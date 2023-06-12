@@ -1,5 +1,5 @@
 {
-  "name": "@tryrolljs/example-web-oauth-client",
+  "name": "@roll-network/example-web-oauth-client",
   "description": "Example of using Auth SDK to connect to Roll on web",
   "private": true,
   "version": "0.0.0",
@@ -10,11 +10,11 @@
     "build": "echo \"Build is disabled for example repos\" && exit 0"
   },
   "dependencies": {
-    "@tryrolljs/api": "workspace:*",
-    "@tryrolljs/api-client": "workspace:*",
-    "@tryrolljs/auth-sdk": "workspace:*",
-    "@tryrolljs/design-system": "workspace:*",
-    "@tryrolljs/session-manager": "workspace:*",
+    "@roll-network/api": "workspace:*",
+    "@roll-network/api-client": "workspace:*",
+    "@roll-network/auth-sdk": "workspace:*",
+    "@roll-network/design-system": "workspace:*",
+    "@roll-network/session-manager": "workspace:*",
     "@web3-react/core": "^6.0.9",
     "@web3-react/fortmatic-connector": "^6.1.6",
     "@web3-react/injected-connector": "^6.0.7",

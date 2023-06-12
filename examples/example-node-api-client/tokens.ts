@@ -1,7 +1,7 @@
-import { token } from '@tryrolljs/api'
+import { token } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
-import { ClientPool } from '@tryrolljs/api-client'
-import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
+import { ClientPool } from '@roll-network/api-client'
+import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import inquirer from 'inquirer'
 import config from './config.js'
 

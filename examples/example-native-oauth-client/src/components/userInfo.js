@@ -5,9 +5,9 @@ import {
   CircleImg,
   Information,
   padding,
-} from '@tryrolljs/design-system'
+} from '@roll-network/design-system'
 import { View } from 'react-native'
-import { useSession } from '@tryrolljs/session-manager'
+import { useSession } from '@roll-network/session-manager'
 
 export default function UserInfo() {
   const { user, refresh } = useSession()

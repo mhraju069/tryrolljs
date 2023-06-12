@@ -1,10 +1,10 @@
-# @tryrolljs/feature-flag
+# @roll-network/feature-flag
 
 ## Install
 
 ```sh
-yarn add @tryrolljs/feature-flag
-npx install-peerdeps @tryrolljs/feature-flag
+yarn add @roll-network/feature-flag
+npx install-peerdeps @roll-network/feature-flag
 ```
 
 ## Usage
@@ -12,7 +12,7 @@ npx install-peerdeps @tryrolljs/feature-flag
 Wrap the root of your application with the provider.
 
 ```js
-import { FeatureFlagProvider } from '@tryrolljs/feature-flag'
+import { FeatureFlagProvider } from '@roll-network/feature-flag'
 
 const flags = [
   {
@@ -34,7 +34,7 @@ const App = ({ children }) => {
 Use hook to retreive a feature flag value.
 
 ```js
-import { useFeatureFlag } from '@tryrolljs/feature-flag'
+import { useFeatureFlag } from '@roll-network/feature-flag'
 
 import Navigation from './navigation'
 import NavigationV2 from './navigationV2'
@@ -53,7 +53,7 @@ This package allows you to inject any feature flag provider. You can make static
 
 ```js
 import * as LDClient from 'launchdarkly-js-client-sdk'
-import { FeatureFlagProvider } from '@tryrolljs/feature-flag'
+import { FeatureFlagProvider } from '@roll-network/feature-flag'
 
 const flags = [
   {

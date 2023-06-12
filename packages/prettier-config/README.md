@@ -1,11 +1,11 @@
-# @tryrolljs/prettier-config
+# @roll-network/prettier-config
 
 This folder contains Prettier config file used in Roll.
 
 ## Install
 
 ```sh
-yarn add -D @tryrolljs/prettier-config
+yarn add -D @roll-network/prettier-config
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ Create a `.prettierrc.js` file in the root of your project. Add the following co
 
 ```js
 module.exports = {
-  ...require('@tryrolljs/prettier-config'),
+  ...require('@roll-network/prettier-config'),
 }
 ```
 
