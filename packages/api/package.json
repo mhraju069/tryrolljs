@@ -1,7 +1,7 @@
 {
   "name": "@tryrolljs/api",
   "description": "API request functions for Roll",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [

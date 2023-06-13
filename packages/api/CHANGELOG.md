@@ -1,5 +1,11 @@
 # @tryrolljs/api
 
+## 1.2.2
+
+### Patch Changes
+
+- [#304](https://github.com/TuringAdvisoryGroup/tryrolljs/pull/304) [`119959c`](https://github.com/TuringAdvisoryGroup/tryrolljs/commit/119959ceefc4f86445336d909ece2549ffa05fa5) Thanks [@marlon-wiprud](https://github.com/marlon-wiprud)! - feat: example send via platform user
+
 ## 1.2.1
 
 ### Patch Changes
