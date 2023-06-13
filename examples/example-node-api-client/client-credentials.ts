@@ -48,7 +48,9 @@ export const getClients = async () => {
 export const generateClientSecret = async () => {
   try {
     const sdkPool = new SDKPool(config)
+
     sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
@@ -58,6 +60,7 @@ export const generateClientSecret = async () => {
         message: 'Client ID',
       },
     ])
+
     const secret = await clientCredentials.generateClientSecret(
       answers,
       clientPool.getClient(InteractionType.ClientCredentials),

@@ -7,14 +7,16 @@ import {
 
 export const send = (
   client: Client,
-  { amount, note, toUserId, tokenId }: SendArgs,
+  { amount, note, toUser, toUsername, tokenId }: SendArgs,
 ) => {
   const body = {
     amount,
     note,
-    toUserID: toUserId,
     tokenID: tokenId,
+    toUser,
+    toUsername,
   }
+
   return client.call<TransactionResponseData>({
     url: '/v1/transactions/send',
     method: 'POST',
