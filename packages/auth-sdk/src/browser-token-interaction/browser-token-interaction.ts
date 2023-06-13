@@ -1,14 +1,8 @@
+import { URL } from 'url'
 import open from 'open'
 import express from 'express'
 import CodeTokenInteraction from '../code-token-interaction'
 import { Storage, TokenInteraction, Config, Token } from '../types'
-
-const SERVER_PORT = 3000
-const SERVER_REDIRECT_URL = '/'
-const BROWSER_REQUIRED_CONFIG = {
-  clientId: 'roll-app',
-  redirectUrl: `http://localhost:${SERVER_PORT}`,
-}
 
 class BrowserTokenInteraction
   extends CodeTokenInteraction
@@ -20,10 +14,14 @@ class BrowserTokenInteraction
   ) {
     super(config, storage)
     this.storage = storage
-    this.config = { ...config, ...BROWSER_REQUIRED_CONFIG }
+    this.config = config
   }
 
   public override generateToken = async (): Promise<Token> => {
+    const parsedUrl = new URL(this.config.redirectUrl)
+    const port = parsedUrl.port
+    const path = parsedUrl.pathname
+
     const loginUrl = await this.getLogInUrl()
     const superGenerateToken = super.generateToken.bind(this)
 
@@ -32,7 +30,7 @@ class BrowserTokenInteraction
 
       const app = express()
 
-      app.get(SERVER_REDIRECT_URL, async (req, res) => {
+      app.get(path, async (req, res) => {
         const code = req.query.code
 
         try {
@@ -47,7 +45,7 @@ class BrowserTokenInteraction
         }
       })
 
-      const server = app.listen(SERVER_PORT)
+      const server = app.listen(port)
     })
 
     return token
