@@ -196,3 +196,105 @@ export const loginPlatformUser = async () => {
     console.error(err)
   }
 }
+
+export const getPlatformUserDepositAddress = async () => {
+  try {
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userType',
+        message: 'User Type (discord, telegram)',
+      },
+      {
+        type: 'input',
+        name: 'platformUserId',
+        message: 'User ID from the external platform',
+      },
+    ])
+
+    const response = await user.getPlatformUserDepositAddress(
+      clientPool.getClient(InteractionType.ClientCredentials),
+      { userType: answers.userType, platformUserId: answers.platformUserId },
+    )
+
+    printTable([response])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getPlatformUserTokenBalance = async () => {
+  try {
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userType',
+        message: 'User Type (discord, telegram)',
+      },
+      {
+        type: 'input',
+        name: 'platformUserId',
+        message: 'User ID from the external platform',
+      },
+      {
+        type: 'input',
+        name: 'tokenId',
+        message: 'Token UUID',
+      },
+    ])
+
+    const response = await user.getPlatformUserBalance(
+      clientPool.getClient(InteractionType.ClientCredentials),
+      {
+        userType: answers.userType,
+        platformUserId: answers.platformUserId,
+        tokenId: answers.tokenId,
+      },
+    )
+
+    printTable([response])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getPlatformUserTokenBalances = async () => {
+  try {
+    const sdkPool = new SDKPool(config)
+    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userType',
+        message: 'User Type (discord, telegram)',
+      },
+      {
+        type: 'input',
+        name: 'platformUserId',
+        message: 'User ID from the external platform',
+      },
+    ])
+
+    const response = await user.getPlatformUserBalances(
+      clientPool.getClient(InteractionType.ClientCredentials),
+      {
+        userType: answers.userType,
+        platformUserId: answers.platformUserId,
+      },
+    )
+
+    printTable([response])
+  } catch (err) {
+    console.error(err)
+  }
+}

@@ -62,7 +62,11 @@ export const sendFromPlatformUser = async () => {
       clientPool.getClient(InteractionType.AutoLoginToken),
       {
         amount: answers.amount,
+<<<<<<< HEAD
         toUsername: answers.toUsername,
+=======
+        toUserId: answers.toUserId,
+>>>>>>> feat: example send via platform user
         tokenId: answers.tokenId,
         note: 'test transaction',
       },
