@@ -23,7 +23,7 @@ class BrowserTokenInteraction
     const path = parsedUrl.pathname
 
     const loginUrl = await this.getLogInUrl()
-    const superGenerateToken = super.generateToken.bind(this)
+    const generateTokenWithCode = super.generateToken.bind(this)
 
     const token = await new Promise<Token>(async (resolve, reject) => {
       await open(loginUrl, { wait: false })
@@ -34,7 +34,7 @@ class BrowserTokenInteraction
         const code = req.query.code
 
         try {
-          const generatedToken = await superGenerateToken(code as string)
+          const generatedToken = await generateTokenWithCode(code as string)
           res.json({ success: true })
           server.close()
           resolve(generatedToken)
