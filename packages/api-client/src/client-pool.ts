@@ -23,6 +23,10 @@ export default class ClientPool {
         config,
         sdkPool.getSDK(InteractionType.Server),
       ),
+      [InteractionType.Browser]: new Client(
+        config,
+        sdkPool.getSDK(InteractionType.Browser),
+      ),
     }
   }
 
