@@ -3,7 +3,7 @@ import { Button } from '../../atoms'
 import { margin } from '../../styles'
 import { Modal } from '../modal'
 
-export type ConfirmationModalAction = {
+type Action = {
   title: string
   onPress: () => void
 }
@@ -11,8 +11,8 @@ export type ConfirmationModalAction = {
 export interface ConfirmationModalContentProps {
   title: string
   description?: string
-  confirmAction: ConfirmationModalAction
-  cancelAction: ConfirmationModalAction
+  confirmAction: Action
+  cancelAction: Action
   children: ReactNode
 }
 
