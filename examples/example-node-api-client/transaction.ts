@@ -8,7 +8,7 @@ import config from './config.js'
 export const sendFromPlatformUser = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
@@ -62,11 +62,7 @@ export const sendFromPlatformUser = async () => {
       clientPool.getClient(InteractionType.AutoLoginToken),
       {
         amount: answers.amount,
-<<<<<<< HEAD
-        toUsername: answers.toUsername,
-=======
         toUserId: answers.toUserId,
->>>>>>> feat: example send via platform user
         tokenId: answers.tokenId,
         note: 'test transaction',
       },
