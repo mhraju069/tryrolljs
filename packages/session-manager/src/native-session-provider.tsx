@@ -54,7 +54,7 @@ const NativeSessionProvider = ({
         const [_, query] = url.split('?')
         const { code } = parse(query)
         if (typeof code === 'string') {
-          await authSdk.generateToken({ code })
+          await authSdk.generateToken(code)
           const me = await userAPI.getMe(apiClient)
           setUser(me.data)
         }
