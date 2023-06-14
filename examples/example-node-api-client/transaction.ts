@@ -1,14 +1,14 @@
-import { user, transaction } from '@tryrolljs/api'
+import { user, transaction } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { ClientPool } from '@tryrolljs/api-client'
-import { SDKPool, InteractionType } from '@tryrolljs/auth-sdk'
+import { ClientPool } from '@roll-network/api-client'
+import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config from './config.js'
 
 export const sendFromPlatformUser = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
@@ -62,11 +62,7 @@ export const sendFromPlatformUser = async () => {
       clientPool.getClient(InteractionType.AutoLoginToken),
       {
         amount: answers.amount,
-<<<<<<< HEAD
-        toUsername: answers.toUsername,
-=======
         toUserId: answers.toUserId,
->>>>>>> feat: example send via platform user
         tokenId: answers.tokenId,
         note: 'test transaction',
       },
