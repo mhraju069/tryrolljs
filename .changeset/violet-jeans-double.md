@@ -1,5 +1,5 @@
 ---
-"@tryrolljs/api": patch
+'@roll-network/api': patch
 ---
 
 Platform user balances
