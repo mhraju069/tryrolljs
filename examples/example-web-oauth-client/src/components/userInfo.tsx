@@ -1,5 +1,10 @@
-import { Body, Button, CircleImg, Information } from '@tryrolljs/design-system'
-import { useSession } from '@tryrolljs/session-manager'
+import {
+  Body,
+  Button,
+  CircleImg,
+  Information,
+} from '@roll-network/design-system'
+import { useSession } from '@roll-network/session-manager'
 
 export default function UserInfo() {
   const session = useSession()

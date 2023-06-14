@@ -1,13 +1,13 @@
 {
-  "name": "@tryrolljs/example-node-api-client",
+  "name": "@roll-network/example-node-api-client",
   "description": "Example of using Client Auth SDK to connect to Roll API in Node",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@tryrolljs/api": "workspace:*",
-    "@tryrolljs/api-client": "workspace:*",
-    "@tryrolljs/auth-sdk": "workspace:*",
+    "@roll-network/api": "workspace:*",
+    "@roll-network/api-client": "workspace:*",
+    "@roll-network/auth-sdk": "workspace:*",
     "axios": "^1.3.4",
     "console-table-printer": "^2.11.1",
     "dotenv": "^16.0.3",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+    "url": "https://github.com/TuringAdvisoryGroup/roll-network.git"
   },
   "engines": {
     "npm": "~8.3.1",

@@ -1,4 +1,4 @@
-import { InteractionType, SDKPool } from '@tryrolljs/auth-sdk'
+import { InteractionType, SDKPool } from '@roll-network/auth-sdk'
 import { Config } from './types'
 import Client from './client'
 

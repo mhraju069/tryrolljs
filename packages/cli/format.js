@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 const prettier = require('prettier')
-const config = require('@tryrolljs/prettier-config')
+const config = require('@roll-network/prettier-config')
 
 const format = async (files) => {
   try {

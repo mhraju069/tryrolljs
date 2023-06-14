@@ -1,9 +1,9 @@
-# @tryrolljs/api
+# @roll-network/api
 
 ## Install
 
 ```sh
-yarn add @tryrolljs/api
+yarn add @roll-network/api
 ```
 
 ## Setup

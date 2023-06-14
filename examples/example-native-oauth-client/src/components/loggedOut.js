@@ -1,4 +1,4 @@
-import { Header, padding, text } from '@tryrolljs/design-system'
+import { Header, padding, text } from '@roll-network/design-system'
 import { View } from 'react-native'
 
 const LoggedOut = () => (

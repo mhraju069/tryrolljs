@@ -1,4 +1,4 @@
-# @tryrolljs/auth-sdk
+# @roll-network/auth-sdk
 
 ## About
 
@@ -7,11 +7,11 @@ This package is intended to help applications that depend on the Roll API to man
 ## Install
 
 ```sh
-yarn add @tryrolljs/auth-sdk
+yarn add @roll-network/auth-sdk
 ```
 
 ```sh
-npm i @tryrolljs/auth-sdk
+npm i @roll-network/auth-sdk
 ```
 
 ## Examples

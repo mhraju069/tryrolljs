@@ -7,8 +7,8 @@ import {
   Result,
   Caption,
   padding,
-} from '@tryrolljs/design-system'
-import { useSession } from '@tryrolljs/session-manager'
+} from '@roll-network/design-system'
+import { useSession } from '@roll-network/session-manager'
 import { apiClient } from '../api'
 
 export default function HasBalance() {

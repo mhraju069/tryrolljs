@@ -7,8 +7,8 @@ import {
   padding,
   Surface,
   Toast,
-} from '@tryrolljs/design-system'
-import { useSession } from '@tryrolljs/session-manager'
+} from '@roll-network/design-system'
+import { useSession } from '@roll-network/session-manager'
 import config from '../config'
 
 const isProduction = (url) => url.indexOf('api.tryroll.com') !== -1

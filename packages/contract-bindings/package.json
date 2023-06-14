@@ -1,7 +1,7 @@
 {
-  "name": "@tryrolljs/contract-bindings",
+  "name": "@roll-network/contract-bindings",
   "description": "Contract bindings for Roll's smart contracts",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [

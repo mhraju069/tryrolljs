@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { user } from '@tryrolljs/api'
-import { useSession } from '@tryrolljs/session-manager'
+import { user } from '@roll-network/api'
+import { useSession } from '@roll-network/session-manager'
 import {
   Button,
   Input,
   Header,
   Result,
   Caption,
-} from '@tryrolljs/design-system'
+} from '@roll-network/design-system'
 import { apiClient } from '../api'
 
 export default function HasBalance() {

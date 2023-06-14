@@ -5,8 +5,8 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@tryrolljs/design-system':
-            '@tryrolljs/design-system/dist/native/esm',
+          '@roll-network/design-system':
+            '@roll-network/design-system/dist/native/esm',
         },
       },
     ],

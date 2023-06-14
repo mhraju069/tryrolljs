@@ -7,9 +7,9 @@ import {
   Input,
   padding,
   Result,
-} from '@tryrolljs/design-system'
-import { transaction } from '@tryrolljs/api'
-import { useSession } from '@tryrolljs/session-manager'
+} from '@roll-network/design-system'
+import { transaction } from '@roll-network/api'
+import { useSession } from '@roll-network/session-manager'
 import { apiClient } from '../api'
 
 export default function Transfer() {

@@ -5,9 +5,9 @@ import {
   Header,
   Input,
   Result,
-} from '@tryrolljs/design-system'
-import { transaction } from '@tryrolljs/api'
-import { useSession } from '@tryrolljs/session-manager'
+} from '@roll-network/design-system'
+import { transaction } from '@roll-network/api'
+import { useSession } from '@roll-network/session-manager'
 import { apiClient } from '../api'
 
 // IMPORTANT - currently all roll production tokens have 4 decimals. Do not assume this in production. Use the decimal value of a particular token to perform any conversions.

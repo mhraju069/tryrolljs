@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { TryrollProvider } from '@tryrolljs/design-system'
-import { NativeSessionManager, useSession } from '@tryrolljs/session-manager'
+import { TryrollProvider } from '@roll-network/design-system'
+import { NativeSessionManager, useSession } from '@roll-network/session-manager'
 import TopNavigation from './src/components/topNavigation'
 import HasBalance from './src/features/hasBalance'
 import UserInfo from './src/components/userInfo'

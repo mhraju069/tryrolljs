@@ -1,5 +1,5 @@
 {
-  "name": "@tryrolljs/root",
+  "name": "@roll-netowrk/root",
   "description": "Entrypoint for Roll monorepo packages",
   "version": "0.0.0",
   "private": true,
