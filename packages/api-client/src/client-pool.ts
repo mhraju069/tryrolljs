@@ -23,9 +23,9 @@ export default class ClientPool {
         config,
         sdkPool.getSDK(InteractionType.Server),
       ),
-      [InteractionType.Browser]: new Client(
+      [InteractionType.ServerBrowser]: new Client(
         config,
-        sdkPool.getSDK(InteractionType.Browser),
+        sdkPool.getSDK(InteractionType.ServerBrowser),
       ),
     }
   }

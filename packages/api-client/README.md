@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # @roll-network/api-client
+=======
+# `@roll-network/api-client` 
+>>>>>>> 22f4033 (Change interaction type name, keep server up until the process exits)
 
 The `@roll-network/api-client` is a JavaScript package that offers an easy and efficient way to interact with the Roll Network's API services. It provides a convenient and maintainable method to make HTTP requests and manage API tokens. 
 
