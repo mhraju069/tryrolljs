@@ -1,4 +1,4 @@
-# @roll-network/auth-sdk
+# `@roll-network/auth-sdk`
 
 `@roll-network/auth-sdk` is a library that provides functionalities for handling token interactions in Node.js and Browser environments, making it easier for developers to perform OAuth operations. The SDK provides various types of interactions based on the context, with each type corresponding to a specific OAuth flow. 
 
@@ -26,7 +26,13 @@ The interaction types include:
 
 - `ClientCredentials`: Implements the client credentials flow, suitable for server-to-server authentication where a client acts on its own behalf.
 
+<<<<<<< HEAD
 - `Server`: Implements a flow that uses the user's browser to perform OAuth but with all logic executed server-side in a Node.js environment. This flow starts an express server, generates the login URL and opens it in a default browser. Once the authorization code is obtained, it is exchanged for tokens.
+=======
+- `AutoLoginToken`: Implements a flow that allows automatic login without user interaction.
+
+- `ServerBrowser`: Implements a flow that uses the user's browser to perform OAuth but with all logic executed server-side in a Node.js environment. This flow starts an express server, generates the login URL and opens it in a default browser. Once the authorization code is obtained, it is exchanged for tokens.
+>>>>>>> 22f4033 (Change interaction type name, keep server up until the process exits)
 
 Of course! Here's a more detailed example for the usage section:
 
