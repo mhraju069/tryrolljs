@@ -31,7 +31,7 @@ class SDK {
 
   public refreshToken = async (force?: boolean) => {
     const token = await this.getToken()
-    if (!token || !token.refresh_token) {
+    if (!token) {
       throw new NotEnoughDataToRefreshError()
     }
 
