@@ -20,6 +20,8 @@ class CodeTokenInteraction implements TokenInteraction<string> {
   ) {
     this.storage = storage
     this.config = config
+
+    this.generateToken.bind(this)
   }
 
   public refreshToken = async (token: Token) => {
@@ -49,7 +51,7 @@ class CodeTokenInteraction implements TokenInteraction<string> {
     }
   }
 
-  public generateToken = async (code: string) => {
+  public async generateToken(code: string): Promise<Token> {
     const cachedCodeVerifier = await this.storage.getItem(
       StorageKey.CodeVerifier,
     )
@@ -106,17 +108,22 @@ class CodeTokenInteraction implements TokenInteraction<string> {
     await Promise.all([
       this.storage.removeItem(StorageKey.Code),
       this.storage.removeItem(StorageKey.CodeVerifier),
+      this.storage.removeItem(StorageKey.State),
     ])
   }
 
   public getLogInUrl = async () => {
     const minVerifierLength = 43
+    const state = getRandomString()
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
-    await this.storage.setItem(StorageKey.CodeVerifier, codeVerifier)
+    await Promise.all([
+      this.storage.setItem(StorageKey.CodeVerifier, codeVerifier),
+      this.storage.setItem(StorageKey.State, state),
+    ])
 
-    return getLogInUrl({ ...this.config, codeChallenge })
+    return getLogInUrl({ ...this.config, state, codeChallenge })
   }
 
   public getLogOutUrl = async (token: Token) => {

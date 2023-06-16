@@ -1,19 +1,26 @@
-import AutoLoginTokenInteraction from './auto-login-token-interaction'
+import MasqueradeTokenInteraction from './masquerade-token-interaction'
+import ServerTokenInteraction from './server-token-interaction'
 import ClientCredentialsTokenInteraction from './client-credentials-token-interaction'
 import CodeTokenInteraction from './code-token-interaction'
 import SDK from './sdk'
 import { Config, Storage, TokenInteraction, InteractionType } from './types'
-import { addPrefixToStorage, makeInMemoryStorage } from './utils'
+import {
+  addPrefixToStorage,
+  makeInMemoryStorage,
+  throwIfNotNode,
+} from './utils'
 
 class SDKPool {
   private readonly sdks: Record<InteractionType, SDK>
 
   constructor(private readonly config: Config, storage?: Storage) {
+    throwIfNotNode()
+
     this.config = config
 
     const storages = this.makeStorages(storage ?? makeInMemoryStorage())
     const interactions = this.makeInteractions(storages)
-    this.sdks = this.makeTokenManagers(storages, interactions)
+    this.sdks = this.makeSdks(storages, interactions)
   }
 
   public getSDK = (type: InteractionType) => {
@@ -23,13 +30,17 @@ class SDKPool {
   private makeStorages = (storage: Storage) => {
     return {
       [InteractionType.Code]: addPrefixToStorage(storage, InteractionType.Code),
-      [InteractionType.AutoLoginToken]: addPrefixToStorage(
+      [InteractionType.MasqueradeToken]: addPrefixToStorage(
         storage,
-        InteractionType.AutoLoginToken,
+        InteractionType.MasqueradeToken,
       ),
       [InteractionType.ClientCredentials]: addPrefixToStorage(
         storage,
         InteractionType.ClientCredentials,
+      ),
+      [InteractionType.Server]: addPrefixToStorage(
+        storage,
+        InteractionType.Server,
       ),
     }
   }
@@ -40,19 +51,23 @@ class SDKPool {
         this.config,
         storages[InteractionType.Code],
       ),
-      [InteractionType.AutoLoginToken]: new AutoLoginTokenInteraction(
+      [InteractionType.MasqueradeToken]: new MasqueradeTokenInteraction(
         this.config,
-        storages[InteractionType.AutoLoginToken],
+        storages[InteractionType.MasqueradeToken],
       ),
       [InteractionType.ClientCredentials]:
         new ClientCredentialsTokenInteraction(
           this.config,
           storages[InteractionType.ClientCredentials],
         ),
+      [InteractionType.Server]: new ServerTokenInteraction(
+        this.config,
+        storages[InteractionType.Server],
+      ),
     }
   }
 
-  private makeTokenManagers = (
+  private makeSdks = (
     storages: Record<InteractionType, Storage>,
     interactions: Record<InteractionType, TokenInteraction<any>>,
   ) => {
@@ -62,15 +77,20 @@ class SDKPool {
         storages[InteractionType.Code],
         interactions[InteractionType.Code],
       ),
-      [InteractionType.AutoLoginToken]: new SDK(
+      [InteractionType.MasqueradeToken]: new SDK(
         this.config,
-        storages[InteractionType.AutoLoginToken],
-        interactions[InteractionType.AutoLoginToken],
+        storages[InteractionType.MasqueradeToken],
+        interactions[InteractionType.MasqueradeToken],
       ),
       [InteractionType.ClientCredentials]: new SDK(
         this.config,
         storages[InteractionType.ClientCredentials],
         interactions[InteractionType.ClientCredentials],
+      ),
+      [InteractionType.Server]: new SDK(
+        this.config,
+        storages[InteractionType.Server],
+        interactions[InteractionType.Server],
       ),
     }
   }

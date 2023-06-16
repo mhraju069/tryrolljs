@@ -47,6 +47,7 @@ export const getLogInUrl = ({
   scopes,
   issuerUrl,
   codeChallenge,
+  state,
 }: GetLogInUrlArgs) => {
   const params = {
     client_id: clientId,
@@ -54,7 +55,7 @@ export const getLogInUrl = ({
     scopes,
     response_type: 'code',
     response_mode: 'query',
-    state: getRandomString(),
+    state,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
   }

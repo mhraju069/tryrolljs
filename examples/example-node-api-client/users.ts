@@ -2,13 +2,13 @@ import { user } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
+import { SDKPool, InteractionType, ScopeType } from '@roll-network/auth-sdk'
 import config from './config.js'
 
 export const getUserBalances = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
@@ -40,7 +40,7 @@ export const getUserBalances = async () => {
 export const getUserTokenBalance = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
@@ -73,7 +73,7 @@ export const getUserTokenBalance = async () => {
 export const hasBalance = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
@@ -109,7 +109,7 @@ export const hasBalance = async () => {
 export const getUser = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
@@ -135,10 +135,15 @@ export const getUser = async () => {
   }
 }
 
+const platformUserConfig = {
+  ...config,
+  scopes: [...config.scopes, ScopeType.Masquerade, ScopeType.PlatformUser],
+}
+
 export const createPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const sdkPool = new SDKPool(platformUserConfig)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
     const answers = await inquirer.prompt([
       {
@@ -169,8 +174,8 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const sdkPool = new SDKPool(platformUserConfig)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
@@ -188,7 +193,7 @@ export const loginPlatformUser = async () => {
       },
     )
     await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
+      .getSDK(InteractionType.MasqueradeToken)
       .generateToken(autoLoginToken.token)
 
     printTable([{ success: true }])
@@ -199,7 +204,7 @@ export const loginPlatformUser = async () => {
 
 export const getPlatformUserDepositAddress = async () => {
   try {
-    const sdkPool = new SDKPool(config)
+    const sdkPool = new SDKPool(platformUserConfig)
     sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
@@ -229,7 +234,7 @@ export const getPlatformUserDepositAddress = async () => {
 
 export const getPlatformUserTokenBalance = async () => {
   try {
-    const sdkPool = new SDKPool(config)
+    const sdkPool = new SDKPool(platformUserConfig)
     sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
@@ -268,7 +273,7 @@ export const getPlatformUserTokenBalance = async () => {
 
 export const getPlatformUserTokenBalances = async () => {
   try {
-    const sdkPool = new SDKPool(config)
+    const sdkPool = new SDKPool(platformUserConfig)
     sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 

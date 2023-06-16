@@ -15,7 +15,7 @@ import {
   joinCookies,
 } from './utils'
 
-class AutoLoginTokenInteraction
+class MasqueradeTokenInteraction
   extends CodeTokenInteraction
   implements TokenInteraction<string>
 {
@@ -86,4 +86,4 @@ class AutoLoginTokenInteraction
   }
 }
 
-export default AutoLoginTokenInteraction
+export default MasqueradeTokenInteraction

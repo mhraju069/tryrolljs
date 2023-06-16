@@ -60,7 +60,7 @@ const getRealStorageWithData = (
 ) => {
   const storage = getRealStorage()
   storage.setItem(
-    getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
+    getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Token),
     JSON.stringify({
       access_token: cache?.token?.access_token ?? 'access_token',
       expires_in: cache?.token?.expires_in ?? 3600,
@@ -70,12 +70,12 @@ const getRealStorageWithData = (
     }),
   )
   storage.setItem(
-    getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Code),
+    getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Code),
     cache.code ?? 'code',
   )
   storage.setItem(
     getPrefixedStorageKey(
-      InteractionType.AutoLoginToken,
+      InteractionType.MasqueradeToken,
       StorageKey.CodeVerifier,
     ),
     cache.code ?? 'code_verifier',
@@ -88,7 +88,7 @@ const getRealStorageWithData = (
   return storage
 }
 
-describe('Auto Login Token SDKPool', () => {
+describe('Masquerade Token SDKPool', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -104,15 +104,15 @@ describe('Auto Login Token SDKPool', () => {
       .mockImplementation(() => mockDateInstance)
 
     const sdkPool = new SDKPool(config, storage)
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).refreshToken()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).restoreCache()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).refreshToken()
 
     const token = await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
+      .getSDK(InteractionType.MasqueradeToken)
       .getToken()
     expect(token?.access_token).toBe('new_access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -121,7 +121,7 @@ describe('Auto Login Token SDKPool', () => {
       }),
     )
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Code),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Code),
       'code',
     )
 
@@ -141,16 +141,16 @@ describe('Auto Login Token SDKPool', () => {
     mockTokenResponse({ access_token: 'new_access_token' })
 
     const sdkPool = new SDKPool(config, storage)
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).refreshToken()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).restoreCache()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).refreshToken()
 
     const token = await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
+      .getSDK(InteractionType.MasqueradeToken)
       .getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledTimes(3)
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -160,12 +160,12 @@ describe('Auto Login Token SDKPool', () => {
       }),
     )
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Code),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Code),
       'code',
     )
     expect(storage.setItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(
-        InteractionType.AutoLoginToken,
+        InteractionType.MasqueradeToken,
         StorageKey.CodeVerifier,
       ),
       'code_verifier',
@@ -184,14 +184,14 @@ describe('Auto Login Token SDKPool', () => {
       .mockImplementation(() => mockDateInstance)
 
     const sdkPool = new SDKPool(config, storage)
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).restoreCache()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).restoreCache()
 
     const token = await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
+      .getSDK(InteractionType.MasqueradeToken)
       .getToken()
     expect(token?.access_token).toBe('access_token')
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Token),
       JSON.stringify({
         access_token: 'access_token',
         expires_in: 3600,
@@ -200,26 +200,26 @@ describe('Auto Login Token SDKPool', () => {
       }),
     )
     expect(storage.setItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Code),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Code),
       'code',
     )
 
-    await sdkPool.getSDK(InteractionType.AutoLoginToken).clearCache()
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).clearCache()
 
     const tokenAfterClear = await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
+      .getSDK(InteractionType.MasqueradeToken)
       .getToken()
     expect(tokenAfterClear?.access_token).toBe(undefined)
 
     expect(storage.removeItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Token),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Token),
     )
     expect(storage.removeItem).toHaveBeenCalledWith(
-      getPrefixedStorageKey(InteractionType.AutoLoginToken, StorageKey.Code),
+      getPrefixedStorageKey(InteractionType.MasqueradeToken, StorageKey.Code),
     )
     expect(storage.removeItem).toHaveBeenCalledWith(
       getPrefixedStorageKey(
-        InteractionType.AutoLoginToken,
+        InteractionType.MasqueradeToken,
         StorageKey.CodeVerifier,
       ),
     )

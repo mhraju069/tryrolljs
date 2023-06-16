@@ -1,3 +1,6 @@
+export interface Response<T> {
+  data: T
+}
 export interface SendArgs {
   toUsername?: string
   toUser?: {
@@ -19,20 +22,26 @@ export interface TransactionResponseData {
     name: string
     symbol: string
     decimals: number
-    creatorUserID: string
+    logo: string
+    userID: string
+    status: string
+    contractAddress: string
   }
-  fromUser: {
-    uuid: string
+  from: {
+    userID: string
     username: string
     profilePic: string
   }
-  toUser: {
-    uuid: string
+  fromType: string
+  to: {
+    userID: string
     username: string
+    name: string
     profilePic: string
   }
+  toType: string
   amount: string
-  status: 'pending' | 'confirmed' | 'failed'
+  status: 'pending' | 'confirmed' | 'failed' | 'pending/ledger'
   type: string
   createdAt: string
 }

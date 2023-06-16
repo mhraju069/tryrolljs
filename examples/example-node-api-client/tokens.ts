@@ -8,7 +8,7 @@ import config from './config.js'
 export const getTokenList = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([
@@ -57,7 +57,7 @@ export const getTokenList = async () => {
 export const getTokenCreator = async () => {
   try {
     const sdkPool = new SDKPool(config)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
     const answers = await inquirer.prompt([

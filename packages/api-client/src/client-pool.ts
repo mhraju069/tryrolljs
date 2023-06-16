@@ -15,9 +15,13 @@ export default class ClientPool {
         config,
         sdkPool.getSDK(InteractionType.ClientCredentials),
       ),
-      [InteractionType.AutoLoginToken]: new Client(
+      [InteractionType.MasqueradeToken]: new Client(
         config,
-        sdkPool.getSDK(InteractionType.AutoLoginToken),
+        sdkPool.getSDK(InteractionType.MasqueradeToken),
+      ),
+      [InteractionType.Server]: new Client(
+        config,
+        sdkPool.getSDK(InteractionType.Server),
       ),
     }
   }

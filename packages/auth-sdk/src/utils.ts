@@ -1,3 +1,4 @@
+import { NonNodeEnvironmentError } from './errors'
 import { Storage } from './types'
 
 export const isLastUpdateTimestampExpired = (
@@ -53,5 +54,15 @@ export const makeInMemoryStorage = (): Storage => {
     removeItem: function (key: string) {
       delete storage[key]
     },
+  }
+}
+
+export const throwIfNotNode = () => {
+  const isNode =
+    typeof process !== 'undefined' &&
+    process.versions != null &&
+    process.versions.node != null
+  if (!isNode) {
+    throw new NonNodeEnvironmentError()
   }
 }

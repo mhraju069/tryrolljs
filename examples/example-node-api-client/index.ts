@@ -12,8 +12,12 @@ import {
   getPlatformUserTokenBalance,
   getPlatformUserTokenBalances,
 } from './users.js'
-import { getClient } from './client-credentials.js'
 import { sendFromPlatformUser } from './transaction.js'
+import {
+  generateClientSecret,
+  getClient,
+  getClients,
+} from './client-credentials.js'
 
 enum Choice {
   GetTokenList = 'Get token list',
@@ -29,6 +33,8 @@ enum Choice {
   GetPlatformUserDepositAddress = 'Get platform user deposit address',
   GetPlatformUserBalance = 'Get platform user balance',
   GetPlatformUserBalances = 'Get platform user balances',
+  GetClients = 'Get clients',
+  GenerateClientSecret = 'Generate client secret',
 }
 
 const actionByChoice: Record<Choice, Function> = {
@@ -45,6 +51,8 @@ const actionByChoice: Record<Choice, Function> = {
   [Choice.GetPlatformUserDepositAddress]: getPlatformUserDepositAddress,
   [Choice.GetPlatformUserBalances]: getPlatformUserTokenBalances,
   [Choice.GetPlatformUserBalance]: getPlatformUserTokenBalance,
+  [Choice.GetClients]: getClients,
+  [Choice.GenerateClientSecret]: generateClientSecret,
 }
 
 async function main() {
@@ -80,6 +88,8 @@ function promptOptionsAgain() {
     .then((answers) => {
       if (answers.again) {
         main()
+      } else {
+        process.exit(0)
       }
     })
 }

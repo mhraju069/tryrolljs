@@ -53,6 +53,7 @@ export interface GetLogInUrlArgs {
   redirectUrl?: string
   scopes: string[]
   codeChallenge: string
+  state: string
 }
 
 export interface GetLogOutUrlArgs {
@@ -67,8 +68,9 @@ export type Token = RequestTokenResponseData & {
 
 export enum InteractionType {
   Code = 'code',
-  AutoLoginToken = 'autologintoken',
+  MasqueradeToken = 'masquerade',
   ClientCredentials = 'clientcredentials',
+  Server = 'server',
 }
 
 export interface TokenInteraction<T> {
@@ -83,5 +85,6 @@ export interface TokenInteraction<T> {
 export enum StorageKey {
   Token = 'ROLL_AUTH_SDK_TOKEN',
   CodeVerifier = 'ROLL_AUTH_SDK_CODE_VERIFIER',
+  State = 'ROLL_AUTH_SDK_STATE',
   Code = 'ROLL_AUTH_SDK_CODE',
 }

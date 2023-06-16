@@ -3,9 +3,10 @@ import {
   SendArgs,
   TransactionResponseData,
   GetTransactionByIdArgs,
+  Response,
 } from './types'
 
-export const send = (
+export const send = async (
   client: Client,
   { amount, note, toUser, toUsername, tokenId }: SendArgs,
 ) => {
@@ -17,12 +18,13 @@ export const send = (
     toUsername,
   }
 
-  return client.call<TransactionResponseData>({
+  const response = await client.call<Response<TransactionResponseData>>({
     url: '/v1/transactions/send',
     method: 'POST',
     authorization: true,
     body,
   })
+  return response.data
 }
 
 export const getTransactionById = (

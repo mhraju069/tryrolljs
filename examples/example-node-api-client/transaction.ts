@@ -25,7 +25,7 @@ export const sendFromPlatformUser = async () => {
       {
         type: 'input',
         name: 'toUsername',
-        message: 'Roll User to send to',
+        message: 'Roll Username to send to',
       },
       {
         type: 'input',
@@ -47,7 +47,7 @@ export const sendFromPlatformUser = async () => {
       },
     )
 
-    const autoLoginToken = await user.getUserMasqueradeToken(
+    const masqueradeToken = await user.getUserMasqueradeToken(
       clientPool.getClient(InteractionType.ClientCredentials),
       {
         userId: userResp.userID,
@@ -55,20 +55,28 @@ export const sendFromPlatformUser = async () => {
     )
 
     await sdkPool
-      .getSDK(InteractionType.AutoLoginToken)
-      .generateToken(autoLoginToken.token)
+      .getSDK(InteractionType.MasqueradeToken)
+      .generateToken(masqueradeToken.token)
 
     const tx = await transaction.send(
-      clientPool.getClient(InteractionType.AutoLoginToken),
+      clientPool.getClient(InteractionType.MasqueradeToken),
       {
         amount: answers.amount,
-        toUserId: answers.toUserId,
+        toUsername: answers.toUsername,
         tokenId: answers.tokenId,
         note: 'test transaction',
       },
     )
-
-    printTable([tx])
+    printTable([
+      {
+        from: tx.from.username,
+        to: tx.to.username,
+        token: tx.token.symbol,
+        amount: tx.amount,
+        status: tx.status,
+        type: tx.type,
+      },
+    ])
   } catch (err) {
     console.error(err)
   }
