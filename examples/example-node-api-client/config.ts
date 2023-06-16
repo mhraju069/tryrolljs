@@ -1,6 +1,6 @@
 import { ScopeType } from '@roll-network/auth-sdk'
 
-export default {
+const config = {
   apiUrl: process.env.API_URL || '',
   issuerUrl: process.env.ISSUER_URL || '',
   clientId: process.env.CLIENT_ID || '',
@@ -9,3 +9,10 @@ export default {
   redirectUrl: process.env.REDIRECT_URL || '',
   logoutRedirectUrl: process.env.LOGOUT_REDIRECT_URL || '',
 }
+
+export const platformUserConfig = {
+  ...config,
+  scopes: [...config.scopes, ScopeType.Masquerade, ScopeType.PlatformUser],
+}
+
+export default config

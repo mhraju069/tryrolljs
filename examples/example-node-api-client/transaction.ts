@@ -2,12 +2,17 @@ import { user, transaction } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
-import config from './config.js'
+import {
+  SDKPool,
+  InteractionType,
+  encodeClientMasqueradeTokens,
+  safelyGetToken,
+} from '@roll-network/auth-sdk'
+import { platformUserConfig } from './config.js'
 
 export const sendFromPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(config)
+    const sdkPool = new SDKPool(platformUserConfig)
     await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
     const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 
@@ -54,9 +59,18 @@ export const sendFromPlatformUser = async () => {
       },
     )
 
+    const clientToken = await safelyGetToken(
+      sdkPool.getSDK(InteractionType.ClientCredentials),
+    )
+
     await sdkPool
       .getSDK(InteractionType.MasqueradeToken)
-      .generateToken(masqueradeToken.token)
+      .generateToken(
+        encodeClientMasqueradeTokens(
+          clientToken.access_token,
+          masqueradeToken.token,
+        ),
+      )
 
     const tx = await transaction.send(
       clientPool.getClient(InteractionType.MasqueradeToken),

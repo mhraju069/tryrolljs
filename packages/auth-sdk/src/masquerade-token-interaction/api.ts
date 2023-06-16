@@ -5,13 +5,18 @@ import { RedirectToResponse, RequestTokenArgs } from './types'
 
 export const autoLogin = async (
   apiUrl: string,
-  autoLoginToken: string,
+  clientToken: string,
+  masqueradeToken: string,
   loginChallenge: string,
   cookies: string,
 ): Promise<string> => {
   const response = await axios.post<RedirectToResponse>(
-    `${apiUrl}/v2/oauth2/login?token=${autoLoginToken}&login_challenge=${loginChallenge}`,
-    { withcredentials: true, headers: { Cookie: cookies } },
+    `${apiUrl}/v2/oauth2/login?token=${masqueradeToken}&login_challenge=${loginChallenge}`,
+    undefined,
+    {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${clientToken}`, Cookies: cookies },
+    },
   )
 
   return response.data.redirect_to

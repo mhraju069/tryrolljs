@@ -1,5 +1,7 @@
 import http from 'http'
 import https from 'https'
+import SDK from '../sdk'
+import { Token } from '../types'
 
 export const haltRedirect = (url: string, cookies?: string) => {
   return new Promise<http.IncomingMessage>((resolve, reject) => {
@@ -74,3 +76,14 @@ export const mustGetParam = (url: string, param: string): string => {
 }
 
 export const joinCookies = (cookies: string[]) => cookies.join('; ')
+
+export const encodeClientMasqueradeTokens = (
+  clientToken: string,
+  masqueradeToken: string,
+) => `${clientToken}TOKEN_SPLITTER${masqueradeToken}`
+
+export const safelyGetToken = async (sdk: SDK): Promise<Token> => {
+  const token = await sdk.getToken()
+  if (!token) throw new Error('unable to get token from sdk')
+  return token
+}

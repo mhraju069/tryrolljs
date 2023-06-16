@@ -7,3 +7,8 @@ export interface RequestTokenArgs extends BaseRequestTokenArgs {
 export interface RedirectToResponse {
   redirect_to: string
 }
+
+export interface GenerateTokenParams {
+  clientToken: string
+  masqueradeToken: string
+}

@@ -2,8 +2,13 @@ import { user } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType, ScopeType } from '@roll-network/auth-sdk'
-import config from './config.js'
+import {
+  SDKPool,
+  InteractionType,
+  encodeClientMasqueradeTokens,
+  safelyGetToken,
+} from '@roll-network/auth-sdk'
+import config, { platformUserConfig } from './config.js'
 
 export const getUserBalances = async () => {
   try {
@@ -135,11 +140,6 @@ export const getUser = async () => {
   }
 }
 
-const platformUserConfig = {
-  ...config,
-  scopes: [...config.scopes, ScopeType.Masquerade, ScopeType.PlatformUser],
-}
-
 export const createPlatformUser = async () => {
   try {
     const sdkPool = new SDKPool(platformUserConfig)
@@ -192,9 +192,19 @@ export const loginPlatformUser = async () => {
         userId: answers.userId,
       },
     )
+
+    const clientToken = await safelyGetToken(
+      sdkPool.getSDK(InteractionType.ClientCredentials),
+    )
+
     await sdkPool
       .getSDK(InteractionType.MasqueradeToken)
-      .generateToken(autoLoginToken.token)
+      .generateToken(
+        encodeClientMasqueradeTokens(
+          clientToken?.access_token,
+          autoLoginToken.token,
+        ),
+      )
 
     printTable([{ success: true }])
   } catch (err) {
