@@ -5634,7 +5634,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/auth-sdk@^2.0.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
+"@roll-network/auth-sdk@^2.0.0, @roll-network/auth-sdk@^2.1.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
   version: 0.0.0-use.local
   resolution: "@roll-network/auth-sdk@workspace:packages/auth-sdk"
   dependencies:
@@ -5971,7 +5971,7 @@ __metadata:
   dependencies:
     "@roll-network/api": ^1.0.2
     "@roll-network/api-client": ^1.1.0
-    "@roll-network/auth-sdk": ^2.0.0
+    "@roll-network/auth-sdk": ^2.1.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -5989,7 +5989,7 @@ __metadata:
   peerDependencies:
     "@roll-network/api": ^1.0.2
     "@roll-network/api-client": ^1.1.0
-    "@roll-network/auth-sdk": ^2.0.0
+    "@roll-network/auth-sdk": ^2.1.0
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
   languageName: unknown
