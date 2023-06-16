@@ -18,14 +18,17 @@ export default class ClientPool {
       [InteractionType.MasqueradeToken]: new Client(
         config,
         sdkPool.getSDK(InteractionType.MasqueradeToken),
+<<<<<<< HEAD
       ),
       [InteractionType.Server]: new Client(
         config,
         sdkPool.getSDK(InteractionType.Server),
+=======
+>>>>>>> 936b88f (Rename autologin to masquerade & serverbrowser to server)
       ),
-      [InteractionType.ServerBrowser]: new Client(
+      [InteractionType.Server]: new Client(
         config,
-        sdkPool.getSDK(InteractionType.ServerBrowser),
+        sdkPool.getSDK(InteractionType.Server),
       ),
     }
   }
