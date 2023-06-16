@@ -3,4 +3,4 @@
 '@roll-network/api-client': minor
 ---
 
-Add a new ServerBrowser interaction type
+Add a new Server interaction type
