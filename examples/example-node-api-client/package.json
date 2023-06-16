@@ -12,6 +12,7 @@
     "console-table-printer": "^2.11.1",
     "dotenv": "^16.0.3",
     "inquirer": "^9.1.5",
+    "inquirer-search-list": "^1.2.6",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
