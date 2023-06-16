@@ -1,5 +1,14 @@
 # @roll-network/session-manager
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`6876e2f`](https://github.com/roll-network/tryrolljs/commit/6876e2fdf2dec19b8f6978c71d0ea96d45b0570a), [`6876e2f`](https://github.com/roll-network/tryrolljs/commit/6876e2fdf2dec19b8f6978c71d0ea96d45b0570a)]:
+  - @roll-network/api@1.0.2
+  - @roll-network/auth-sdk@2.0.0
+  - @roll-network/api-client@1.1.0
+
 ## 1.1.0
 
 ### Minor Changes

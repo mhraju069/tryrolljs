@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/session-manager",
   "description": "Oauth session manager for Roll applications",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -11,16 +11,16 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@roll-network/api": "^1.0.0",
-    "@roll-network/api-client": "^1.0.0",
-    "@roll-network/auth-sdk": "^1.0.0",
+    "@roll-network/api": "^1.0.2",
+    "@roll-network/api-client": "^1.1.0",
+    "@roll-network/auth-sdk": "^2.0.0",
     "react": "18.1.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "devDependencies": {
-    "@roll-network/api": "^1.0.0",
-    "@roll-network/api-client": "^1.0.0",
-    "@roll-network/auth-sdk": "^1.0.0",
+    "@roll-network/api": "^1.0.2",
+    "@roll-network/api-client": "^1.1.0",
+    "@roll-network/auth-sdk": "^2.0.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-typescript": "^11.0.0",

@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/auth-sdk",
   "description": "Auth SDK for Roll API",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
