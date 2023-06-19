@@ -23,6 +23,7 @@ export interface ButtonV2Props {
   variant?: Variant
   size?: Size
   title: string
+  tooltip?: string
   isDisabled?: boolean
   isLoading?: boolean
   onPress?: (e?: GestureResponderEvent) => void
@@ -39,6 +40,7 @@ export type StateVariantProps = {
   borderColor: string
   backgroundColor: string
   textColor: string
+  setIsTooltipVisible?: boolean
 }
 export type VariantProps = Record<States, StateVariantProps>
 

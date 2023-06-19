@@ -12,6 +12,7 @@ import {
 } from '../../styles'
 import { Icon } from '../icon'
 import { Spinner } from '../spinner'
+import { TooltipV2 } from '../tooltipV2'
 import { TypographyV2, TypographyVariant } from '../typographyV2'
 import {
   BaseButtonProps,
@@ -37,6 +38,7 @@ const BaseButton = ({
   paddingVertical,
   borderRadius,
   size = 'medium',
+  tooltip,
   icon,
   iconVariant,
   isDisabled = false,
@@ -118,71 +120,74 @@ const BaseButton = ({
 
   return (
     <View style={[container.alignCenter, style]}>
-      <Pressable
-        testID={testID}
-        isDisabled={isLoading || isDisabled}
-        onHoverIn={() => setIsHover(true)}
-        onHoverOut={() => setIsHover(false)}
-        onPressIn={() => setIsActive(true)}
-        onPressOut={() => setIsActive(false)}
-        onPress={onPress}
-        isHovered={isHover}
-        // Styles
-        position="relative"
-        alignItems="center"
-        justifyContent="center"
-        paddingX={`${paddingX}px`}
-        paddingY={`${paddingY}px`}
-        borderRadius={borderRadius}
-        borderColor={stylesBasedOnState.borderColor}
-        borderWidth={rest.borderWidth}
-        backgroundColor={
-          iconBackgroundColor || stylesBasedOnState.backgroundColor
-        }
-        flexDirection="row"
-        _hover={{
-          borderColor: hover.borderColor,
-          borderWidth: hover.borderWidth,
-        }}
-        _focus={{
-          backgroundColor: iconBackgroundColor || active.backgroundColor,
-        }}
-        _pressed={{
-          borderColor: active.borderColor,
-          borderWidth: active.borderWidth,
-          backgroundColor: iconBackgroundColor || active.backgroundColor,
-        }}
+      <TooltipV2 title="Click to view your wallet balance"
       >
-        {isLoading ? (
-          <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
-        ) : (
-          <>
-            {iconVariant && variant !== 'text' && (
-              <View style={[styles.iconContainer]}>
-                <Icon
-                  variant={iconVariant}
-                  width={iconBasedOnSize[size]}
-                  height={iconBasedOnSize[size]}
-                  color={iconColor || stylesBasedOnState.textColor}
-                />
-              </View>
-            )}
-            {!iconVariant && icon && variant !== 'text' && (
-              <View style={[styles.iconContainer]}>{icon}</View>
-            )}
-            {variant !== 'icon' && (
-              <TypographyV2
-                variant={fontBasedOnVariantAndSize}
-                selectable={false}
-                color={stylesBasedOnState.textColor}
-                style={[styles.title]}
-              >
-                {title}
-              </TypographyV2>
-            )}
-          </>
-        )}
-      </Pressable>
+        <Pressable
+          testID={testID}
+          isDisabled={isLoading || isDisabled}
+          onHoverIn={() => setIsHover(true)}
+          onHoverOut={() => setIsHover(false)}
+          onPressIn={() => setIsActive(true)}
+          onPressOut={() => setIsActive(false)}
+          onPress={onPress}
+          isHovered={isHover}
+          // Styles
+          position="relative"
+          alignItems="center"
+          justifyContent="center"
+          paddingX={`${paddingX}px`}
+          paddingY={`${paddingY}px`}
+          borderRadius={borderRadius}
+          borderColor={stylesBasedOnState.borderColor}
+          borderWidth={rest.borderWidth}
+          backgroundColor={
+            iconBackgroundColor || stylesBasedOnState.backgroundColor
+          }
+          flexDirection="row"
+          _hover={{
+            borderColor: hover.borderColor,
+            borderWidth: hover.borderWidth,
+          }}
+          _focus={{
+            backgroundColor: iconBackgroundColor || active.backgroundColor,
+          }}
+          _pressed={{
+            borderColor: active.borderColor,
+            borderWidth: active.borderWidth,
+            backgroundColor: iconBackgroundColor || active.backgroundColor,
+          }}
+        >
+          {isLoading ? (
+            <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
+          ) : (
+            <>
+              {iconVariant && variant !== 'text' && (
+                <View style={[styles.iconContainer]}>
+                  <Icon
+                    variant={iconVariant}
+                    width={iconBasedOnSize[size]}
+                    height={iconBasedOnSize[size]}
+                    color={iconColor || stylesBasedOnState.textColor}
+                  />
+                </View>
+              )}
+              {!iconVariant && icon && variant !== 'text' && (
+                <View style={[styles.iconContainer]}>{icon}</View>
+              )}
+              {variant !== 'icon' && (
+                <TypographyV2
+                  variant={fontBasedOnVariantAndSize}
+                  selectable={false}
+                  color={stylesBasedOnState.textColor}
+                  style={[styles.title]}
+                >
+                  {title}
+                </TypographyV2>
+              )}
+            </>
+          )}
+        </Pressable>
+      </TooltipV2>
     </View>
   )
 }
@@ -302,6 +307,7 @@ const useVariantsProps = (variant: Variant): VariantProps => {
         },
       }
     }
+    //Button Icon Variant
     case 'icon': {
       return {
         rest: {
