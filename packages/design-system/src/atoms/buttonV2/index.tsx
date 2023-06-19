@@ -38,7 +38,6 @@ const BaseButton = ({
   paddingVertical,
   borderRadius,
   size = 'medium',
-  tooltip,
   icon,
   iconVariant,
   isDisabled = false,
@@ -50,7 +49,6 @@ const BaseButton = ({
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const lineHeights_ = useBreakpointValue({
     base: responsiveLineHeights,
     xl: lineHeights,
