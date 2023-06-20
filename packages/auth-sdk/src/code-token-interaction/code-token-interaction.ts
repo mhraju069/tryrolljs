@@ -27,7 +27,7 @@ class CodeTokenInteraction implements TokenInteraction<string> {
   public refreshToken = async (token: Token) => {
     const code = await this.storage.getItem(StorageKey.Code)
 
-    if (!code) {
+    if (!token.refresh_token || !code) {
       throw new NotEnoughDataToRefreshError()
     }
 
