@@ -2,12 +2,7 @@ import { user, transaction } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
-import {
-  SDKPool,
-  InteractionType,
-  encodeClientMasqueradeTokens,
-  safelyGetToken,
-} from '@roll-network/auth-sdk'
+import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import { platformUserConfig } from './config.js'
 
 export const sendFromPlatformUser = async () => {
@@ -59,15 +54,16 @@ export const sendFromPlatformUser = async () => {
       },
     )
 
-    const clientToken = await safelyGetToken(
-      sdkPool.getSDK(InteractionType.ClientCredentials),
-    )
+    const clientToken = await sdkPool
+      .getSDK(InteractionType.ClientCredentials)
+      .getToken()
+    if (!clientToken) {
+      throw new Error('Client token is undefined.')
+    }
 
     await sdkPool.getSDK(InteractionType.MasqueradeToken).generateToken({
-      encodedToken: encodeClientMasqueradeTokens(
-        clientToken.access_token,
-        masqueradeToken.token,
-      ),
+      clientToken: clientToken.access_token,
+      masqueradeToken: masqueradeToken.token,
     })
 
     const tx = await transaction.send(
