@@ -40,7 +40,6 @@ export type StateVariantProps = {
   borderColor: string
   backgroundColor: string
   textColor: string
-  setIsTooltipVisible?: boolean
 }
 export type VariantProps = Record<States, StateVariantProps>
 

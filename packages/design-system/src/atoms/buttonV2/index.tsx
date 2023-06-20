@@ -117,214 +117,85 @@ const BaseButton = ({
       : fontsBasedOnSize[size]
   const lineHeight: number = lineHeights_[fontBasedOnVariantAndSize]
 
-  return (
-    <View style={[container.alignCenter, style]}>
-  // Inside `ButtonV2` scope
   const button = (
     <Pressable
-            testID={testID}
-            isDisabled={isLoading || isDisabled}
-            onHoverIn={() => setIsHover(true)}
-            onHoverOut={() => setIsHover(false)}
-            onPressIn={() => setIsActive(true)}
-            onPressOut={() => setIsActive(false)}
-            onPress={onPress}
-            isHovered={isHover}
-            // Styles
-            position="relative"
-            alignItems="center"
-            justifyContent="center"
-            paddingX={`${paddingX}px`}
-            paddingY={`${paddingY}px`}
-            borderRadius={borderRadius}
-            borderColor={stylesBasedOnState.borderColor}
-            borderWidth={rest.borderWidth}
-            backgroundColor={
-              iconBackgroundColor || stylesBasedOnState.backgroundColor
-            }
-            flexDirection="row"
-            _hover={{
-              borderColor: hover.borderColor,
-              borderWidth: hover.borderWidth,
-            }}
-            _focus={{
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-            _pressed={{
-              borderColor: active.borderColor,
-              borderWidth: active.borderWidth,
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-          >
-            {isLoading ? (
-              <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
-            ) : (
-              <>
-                {iconVariant && (
-                  <View style={[styles.iconContainer]}>
-                    <Icon
-                      variant={iconVariant}
-                      width={iconBasedOnSize[size]}
-                      height={iconBasedOnSize[size]}
-                      color={iconColor || stylesBasedOnState.textColor}
-                    />
-                  </View>
-                )}
-                {!iconVariant && icon && (
-                  <View style={[styles.iconContainer]}>{icon}</View>
-                )}
-                {variant !== 'icon' && (
-                  <TypographyV2
-                    variant={fontBasedOnVariantAndSize}
-                    selectable={false}
-                    color={stylesBasedOnState.textColor}
-                    style={[styles.title]}
-                  >
-                    {title}
-                  </TypographyV2>
-                )}
-              </>
-            )}
-          </Pressable>
-    )
-    
-    return variant === 'icon' ? <TooltipV2 title={title}>{button}</TooltipV2> : button
-        <TooltipV2 title='Click here to check your wallet balance'>
-          <Pressable
-            testID={testID}
-            isDisabled={isLoading || isDisabled}
-            onHoverIn={() => setIsHover(true)}
-            onHoverOut={() => setIsHover(false)}
-            onPressIn={() => setIsActive(true)}
-            onPressOut={() => setIsActive(false)}
-            onPress={onPress}
-            isHovered={isHover}
-            // Styles
-            position="relative"
-            alignItems="center"
-            justifyContent="center"
-            paddingX={`${paddingX}px`}
-            paddingY={`${paddingY}px`}
-            borderRadius={borderRadius}
-            borderColor={stylesBasedOnState.borderColor}
-            borderWidth={rest.borderWidth}
-            backgroundColor={
-              iconBackgroundColor || stylesBasedOnState.backgroundColor
-            }
-            flexDirection="row"
-            _hover={{
-              borderColor: hover.borderColor,
-              borderWidth: hover.borderWidth,
-            }}
-            _focus={{
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-            _pressed={{
-              borderColor: active.borderColor,
-              borderWidth: active.borderWidth,
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-          >
-            {isLoading ? (
-              <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
-            ) : (
-              <>
-                {iconVariant && (
-                  <View style={[styles.iconContainer]}>
-                    <Icon
-                      variant={iconVariant}
-                      width={iconBasedOnSize[size]}
-                      height={iconBasedOnSize[size]}
-                      color={iconColor || stylesBasedOnState.textColor}
-                    />
-                  </View>
-                )}
-                {!iconVariant && icon && (
-                  <View style={[styles.iconContainer]}>{icon}</View>
-                )}
-                {variant !== 'icon' && (
-                  <TypographyV2
-                    variant={fontBasedOnVariantAndSize}
-                    selectable={false}
-                    color={stylesBasedOnState.textColor}
-                    style={[styles.title]}
-                  >
-                    {title}
-                  </TypographyV2>
-                )}
-              </>
-            )}
-          </Pressable>
-        </TooltipV2>
-      )
-        :
-        (
-          <Pressable
-            testID={testID}
-            isDisabled={isLoading || isDisabled}
-            onHoverIn={() => setIsHover(true)}
-            onHoverOut={() => setIsHover(false)}
-            onPressIn={() => setIsActive(true)}
-            onPressOut={() => setIsActive(false)}
-            onPress={onPress}
-            isHovered={isHover}
-            // Styles
-            position="relative"
-            alignItems="center"
-            justifyContent="center"
-            paddingX={`${paddingX}px`}
-            paddingY={`${paddingY}px`}
-            borderRadius={borderRadius}
-            borderColor={stylesBasedOnState.borderColor}
-            borderWidth={rest.borderWidth}
-            backgroundColor={
-              iconBackgroundColor || stylesBasedOnState.backgroundColor
-            }
-            flexDirection="row"
-            _hover={{
-              borderColor: hover.borderColor,
-              borderWidth: hover.borderWidth,
-            }}
-            _focus={{
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-            _pressed={{
-              borderColor: active.borderColor,
-              borderWidth: active.borderWidth,
-              backgroundColor: iconBackgroundColor || active.backgroundColor,
-            }}
-          >
-            {isLoading ? (
-              <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
-            ) : (
-              <>
-                {iconVariant && variant !== 'text' && (
-                  <View style={[styles.iconContainer]}>
-                    <Icon
-                      variant={iconVariant}
-                      width={iconBasedOnSize[size]}
-                      height={iconBasedOnSize[size]}
-                      color={iconColor || stylesBasedOnState.textColor}
-                    />
-                  </View>
-                )}
-                {!iconVariant && icon && variant !== 'text' && (
-                  <View style={[styles.iconContainer]}>{icon}</View>
-                )}
-                <TypographyV2
-                  variant={fontBasedOnVariantAndSize}
-                  selectable={false}
-                  color={stylesBasedOnState.textColor}
-                  style={[styles.title]}
-                >
-                  {title}
-                </TypographyV2>
-              </>
-            )}
-          </Pressable>
-        )}
-    </View>
+      testID={testID}
+      isDisabled={isLoading || isDisabled}
+      onHoverIn={() => setIsHover(true)}
+      onHoverOut={() => setIsHover(false)}
+      onPressIn={() => setIsActive(true)}
+      onPressOut={() => setIsActive(false)}
+      onPress={onPress}
+      isHovered={isHover}
+      // Styles
+      position="relative"
+      alignItems="center"
+      justifyContent="center"
+      paddingX={`${paddingX}px`}
+      paddingY={`${paddingY}px`}
+      borderRadius={borderRadius}
+      borderColor={stylesBasedOnState.borderColor}
+      borderWidth={rest.borderWidth}
+      backgroundColor={
+        iconBackgroundColor || stylesBasedOnState.backgroundColor
+      }
+      flexDirection="row"
+      _hover={{
+        borderColor: hover.borderColor,
+        borderWidth: hover.borderWidth,
+      }}
+      _focus={{
+        backgroundColor: iconBackgroundColor || active.backgroundColor,
+      }}
+      _pressed={{
+        borderColor: active.borderColor,
+        borderWidth: active.borderWidth,
+        backgroundColor: iconBackgroundColor || active.backgroundColor,
+      }}
+    >
+      {isLoading ? (
+        <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
+      ) : (
+        <>
+          {iconVariant && variant !== 'text' && (
+            <View style={[styles.iconContainer]}>
+              <Icon
+                variant={iconVariant}
+                width={iconBasedOnSize[size]}
+                height={iconBasedOnSize[size]}
+                color={iconColor || stylesBasedOnState.textColor}
+              />
+            </View>
+          )}
+          {!iconVariant && icon && variant !== 'text' && (
+            <View style={[styles.iconContainer]}>{icon}</View>
+          )}
+          {variant !== 'icon' && (
+            <TypographyV2
+              variant={fontBasedOnVariantAndSize}
+              selectable={false}
+              color={stylesBasedOnState.textColor}
+              style={[styles.title]}
+            >
+              {title}
+            </TypographyV2>
+          )}
+        </>
+      )}
+    </Pressable>
   )
+  return (
+    
+    <View style={[container.alignCenter, style]}> 
+    {variant === 'icon' ?
+    <TooltipV2 title={title}>{button}</TooltipV2>
+    :
+    button
+  }
+    </View>
+
+  )
+
 }
 
 const useVariantsProps = (variant: Variant): VariantProps => {
@@ -442,7 +313,6 @@ const useVariantsProps = (variant: Variant): VariantProps => {
         },
       }
     }
-    //Button Icon Variant
     case 'icon': {
       return {
         rest: {
@@ -523,6 +393,8 @@ export const ButtonV2 = ({
   const variantProps = useVariantsProps(variant)
   const sizeProps = useSizeProps(responsiveSize)
   const baseButtonProps = { ...variantProps, ...sizeProps }
+
+
   return (
     <BaseButton
       variant={variant}
