@@ -4,7 +4,7 @@ import { TypographyV2 } from '../typographyV2'
 
 export interface TooltipV2Props
   extends Omit<TooltipProps, 'title' | 'variant'> {
-  title: string
+  title: string | undefined
 }
 
 export const TooltipV2: React.FC<TooltipV2Props> = ({

@@ -30,6 +30,7 @@ const BaseButton = ({
   testID,
   variant = 'primary',
   title,
+  tooltip,
   rest,
   hover,
   disabled,
@@ -185,17 +186,14 @@ const BaseButton = ({
     </Pressable>
   )
   return (
-    
-    <View style={[container.alignCenter, style]}> 
-    {variant === 'icon' ?
-    <TooltipV2 title={title}>{button}</TooltipV2>
-    :
-    button
-  }
+    <View style={[container.alignCenter, style]}>
+      {variant === 'icon' ? (
+        <TooltipV2 title={tooltip}>{button}</TooltipV2>
+      ) : (
+        button
+      )}
     </View>
-
   )
-
 }
 
 const useVariantsProps = (variant: Variant): VariantProps => {
@@ -393,7 +391,6 @@ export const ButtonV2 = ({
   const variantProps = useVariantsProps(variant)
   const sizeProps = useSizeProps(responsiveSize)
   const baseButtonProps = { ...variantProps, ...sizeProps }
-
 
   return (
     <BaseButton
