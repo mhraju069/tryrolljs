@@ -97,20 +97,6 @@ const response = await token.getTokens(
 )
 ```
 
-## Events
-
-The `Client` instance is an event emitter and can emit the following event:
-
-- `Unauthorized`: This event is emitted when the server responds with a 401 status code. This generally indicates that the provided token has expired or is otherwise invalid.
-
-```javascript
-import { Event } from '@roll-network/api-client'
-
-client.on(Event.Unauthorized, (response) => {
-  console.error('Unauthorized:', response)
-})
-```
-
 ## Errors
 
 The library has custom errors which can be used for precise error handling:

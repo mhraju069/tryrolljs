@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react'
 import { user as userAPI } from '@roll-network/api'
-import Client from '@roll-network/api-client'
 import SDK from '@roll-network/auth-sdk'
 
 export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
@@ -15,7 +14,5 @@ export interface SessionContextValue {
 }
 
 export type SessionProviderProps = PropsWithChildren<{
-  apiClient: Client
   authSdk: SDK
-  getMe?: typeof userAPI.getMe
 }>

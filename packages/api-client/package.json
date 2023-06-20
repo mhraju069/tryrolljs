@@ -14,8 +14,7 @@
     "@roll-network/auth-sdk": "^2.0.0",
     "axios": "^1.3.4",
     "better-queue": "^3.8.12",
-    "better-queue-memory": "^1.0.4",
-    "events": "^3.3.0"
+    "better-queue-memory": "^1.0.4"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",

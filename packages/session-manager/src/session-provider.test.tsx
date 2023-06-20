@@ -1,17 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
-import Client from '@roll-network/api-client'
 import SDK from '@roll-network/auth-sdk'
 import SessionProvider, { useSession } from './session-provider'
 
 const getWrapper =
-  ({ apiClient, authSdk }: { apiClient: Client; authSdk: SDK }) =>
+  ({ authSdk }: { authSdk: SDK }) =>
   ({ children }: PropsWithChildren<{}>) =>
-    (
-      <SessionProvider apiClient={apiClient} authSdk={authSdk}>
-        {children}
-      </SessionProvider>
-    )
+    <SessionProvider authSdk={authSdk}>{children}</SessionProvider>
 
 describe('useSession', () => {
   afterEach(() => {
@@ -19,18 +14,11 @@ describe('useSession', () => {
   })
 
   it('clears auth on unauthorized request', async () => {
-    const user = { foo: 'bar' }
     const clearCache = jest.fn()
     renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockResolvedValue(undefined),
           clearCache,
-        } as any,
-        apiClient: {
-          on: jest.fn().mockImplementation((_, listener) => listener()),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
         } as any,
       }),
     })
@@ -45,13 +33,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockResolvedValue(undefined),
           getToken: jest.fn().mockReturnValue({ access_token: 'token' }),
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue({ data: user }),
         } as any,
       }),
     })
@@ -73,13 +55,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue({ data: user }),
         } as any,
       }),
     })
@@ -91,7 +67,6 @@ describe('useSession', () => {
   })
 
   it('clears user & sets error when new session initialization fails', async () => {
-    const user = { foo: 'bar' }
     const oauthCode = '123'
 
     jest
@@ -103,14 +78,8 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(error),
           generateToken,
           clearCache: jest.fn(),
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
         } as any,
       }),
     })
@@ -134,13 +103,7 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call,
         } as any,
       }),
     })
@@ -165,17 +128,10 @@ describe('useSession', () => {
     const { result } = renderHook(() => useSession(), {
       wrapper: getWrapper({
         authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
           generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call,
         } as any,
       }),
     })
-
     await waitFor(() => {
       expect(generateToken).toHaveBeenCalled()
       expect(call).toHaveBeenCalled()

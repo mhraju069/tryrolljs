@@ -6,3 +6,4 @@ export {
   encodeClientMasqueradeTokens,
   safelyGetToken,
 } from './masquerade-token-interaction'
+export * from './store'

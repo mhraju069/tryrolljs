@@ -63,14 +63,12 @@ export const sendFromPlatformUser = async () => {
       sdkPool.getSDK(InteractionType.ClientCredentials),
     )
 
-    await sdkPool
-      .getSDK(InteractionType.MasqueradeToken)
-      .generateToken(
-        encodeClientMasqueradeTokens(
-          clientToken.access_token,
-          masqueradeToken.token,
-        ),
-      )
+    await sdkPool.getSDK(InteractionType.MasqueradeToken).generateToken({
+      encodedToken: encodeClientMasqueradeTokens(
+        clientToken.access_token,
+        masqueradeToken.token,
+      ),
+    })
 
     const tx = await transaction.send(
       clientPool.getClient(InteractionType.MasqueradeToken),

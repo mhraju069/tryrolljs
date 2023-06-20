@@ -4,16 +4,8 @@ export interface Config {
   redirectUrl: string
   logoutRedirectUrl: string
   scopes: string[]
-  apiUrl?: string
+  apiUrl: string
   clientSecret?: string
-}
-
-export interface Storage {
-  setItem(key: string, value: string): void | Promise<void>
-  getItem(
-    key: string,
-  ): string | undefined | null | Promise<string | undefined | null>
-  removeItem(key: string): void | Promise<void>
 }
 
 export enum GrantType {
@@ -35,7 +27,7 @@ export interface RequestTokenArgs {
   clientId: string
   refreshToken?: string
   redirectUrl?: string
-  code: string
+  code?: string
   codeVerifier?: string | null
 }
 
@@ -77,14 +69,40 @@ export interface TokenInteraction<T> {
   generateToken: (options: T) => Promise<Token>
   refreshToken: (token: Token) => Promise<Token>
   clearCache?: () => Promise<void>
-  restoreCache?: () => Promise<void>
   getLogInUrl?: () => Promise<string>
   getLogOutUrl?: (token: Token) => Promise<string>
 }
 
-export enum StorageKey {
-  Token = 'ROLL_AUTH_SDK_TOKEN',
-  CodeVerifier = 'ROLL_AUTH_SDK_CODE_VERIFIER',
-  State = 'ROLL_AUTH_SDK_STATE',
-  Code = 'ROLL_AUTH_SDK_CODE',
+export interface GetUserArgs {
+  accessToken: string
+  apiUrl: string
+}
+
+export interface GetUserResponseData {
+  data: {
+    userID: string
+    primaryUserID: string
+    username: string
+    name: string
+    role: string
+    userType: string
+    profilePic: string
+    media: {
+      name: string
+      link: string
+      type: string
+    }[]
+    status: string
+    isPhoneVerified: boolean
+    isEmailVerified: boolean
+    MFAEnabled: boolean
+    email: string
+  }
+}
+
+export type User = GetUserResponseData['data'] & { id: string; token?: Token }
+
+export enum Event {
+  UserUpdated = 'userupdated',
+  UserCreated = 'usercreated',
 }

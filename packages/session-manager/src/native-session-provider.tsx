@@ -1,30 +1,15 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { parse } from 'qs'
-import { user as userAPI } from '@roll-network/api'
-import { Event } from '@roll-network/api-client'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
+import { useAuthSdkUser } from './hooks'
 
-const NativeSessionProvider = ({
-  authSdk,
-  apiClient,
-  getMe = userAPI.getMe,
-  children,
-}: SessionProviderProps) => {
+const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>('initializing')
-  const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
+  const user = useAuthSdkUser(authSdk)
   const [error, setError] = useState<unknown>()
-
-  useEffect(() => {
-    const unauthorizedListener = () => authSdk.clearCache()
-    apiClient.on(Event.Unauthorized, unauthorizedListener)
-
-    return () => {
-      apiClient.off(Event.Unauthorized, unauthorizedListener)
-    }
-  }, [apiClient, authSdk])
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -34,11 +19,8 @@ const NativeSessionProvider = ({
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreCache()
-        const user_ = await getMe(apiClient)
-        setUser(user_.data)
       } catch (e) {
-        setUser(undefined)
+        await authSdk.cleanUp()
       } finally {
         setStatus('stale')
       }
@@ -46,23 +28,21 @@ const NativeSessionProvider = ({
 
     initialize()
     isMountedRef.current = true
-  }, [apiClient, authSdk, getMe])
+  }, [authSdk])
 
   const exchangeCode = useCallback(
     async (url: string) => {
       try {
         const [_, query] = url.split('?')
-        const { code } = parse(query)
-        if (typeof code === 'string') {
-          await authSdk.generateToken(code)
-          const me = await userAPI.getMe(apiClient)
-          setUser(me.data)
+        const { code, state } = parse(query)
+        if (typeof code === 'string' && typeof state === 'string') {
+          await authSdk.generateToken({ code, state })
         }
       } catch (e) {
         setError(e)
       }
     },
-    [apiClient, authSdk],
+    [authSdk],
   )
 
   const logIn = useCallback(async () => {
@@ -99,7 +79,7 @@ const NativeSessionProvider = ({
     } catch (e) {
       setError(e)
     } finally {
-      setUser(undefined)
+      await authSdk.cleanUp()
     }
   }, [authSdk])
 

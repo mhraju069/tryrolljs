@@ -1,7 +1,3 @@
-export enum Event {
-  Unauthorized = 'unauthorized',
-}
-
 export interface Request {
   url: string
   method: string

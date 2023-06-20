@@ -1,14 +1,13 @@
 import 'setimmediate'
-import { EventEmitter } from 'events'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
 import axios, { AxiosResponse } from 'axios'
 import SDK from '@roll-network/auth-sdk'
-import { Config, Request, Event } from './types'
+import { Config, Request } from './types'
 import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
 import { CouldntRefreshTokensError } from './errors'
 
-export default class Client extends EventEmitter {
+export default class Client {
   private config: Config
   private sdk: SDK
   private queue: Queue
@@ -17,8 +16,6 @@ export default class Client extends EventEmitter {
   private isRefreshInProgress: boolean = false
 
   constructor(config: Config, sdk: SDK) {
-    super()
-
     this.config = config
     this.sdk = sdk
     this.queue = this.makeQueue()
@@ -157,7 +154,7 @@ export default class Client extends EventEmitter {
       } catch (e: any) {
         if (e.response) {
           if (e.response.status === 401) {
-            this.emit(Event.Unauthorized, e.response)
+            await this.sdk.cleanUp()
           }
 
           onError(this.parseResponseError(e.response))

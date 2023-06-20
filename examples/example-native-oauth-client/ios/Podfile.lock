@@ -421,11 +421,23 @@ PODS:
     - React-perflogger (= 0.71.5)
   - RNCAsyncStorage (1.17.11):
     - React-Core
+  - RNFS (2.20.0):
+    - React-Core
+  - RNImageCropPicker (0.39.0):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.39.0)
+    - TOCropViewController
+  - RNImageCropPicker/QBImagePickerController (0.39.0):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController
   - RNInAppBrowser (3.7.0):
     - React-Core
   - RNSVG (12.5.0):
     - React-Core
   - SocketRocket (0.6.0)
+  - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -493,6 +505,8 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../../../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
@@ -513,6 +527,7 @@ SPEC REPOS:
     - libevent
     - OpenSSL-Universal
     - SocketRocket
+    - TOCropViewController
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -590,6 +605,10 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNSVG:
@@ -648,12 +667,15 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 511f4301d85daf85abface9afb8d2df2d49f87d3
   ReactCommon: 4f43b72066f27bfe1f63838c61763f59e7112536
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+  RNImageCropPicker: 14fe1c29298fb4018f3186f455c475ab107da332
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNSVG: 6adc5c52d2488a476248413064b7f2832e639057
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: cd7d7f509dbfac14ee7f31a6c750acb957cd5022
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 257ed55f339e007726c8ee2a1b6f7899df6d964b
+PODFILE CHECKSUM: 3be50759b379d05dc58e65380bdc70447f1eebe7
 
 COCOAPODS: 1.11.3

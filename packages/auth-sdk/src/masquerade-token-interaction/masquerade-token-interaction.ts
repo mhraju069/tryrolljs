@@ -1,11 +1,7 @@
+import { Store } from '../store'
 import CodeTokenInteraction from '../code-token-interaction'
-import {
-  Storage,
-  GrantType,
-  TokenInteraction,
-  Config,
-  StorageKey,
-} from '../types'
+import { GrantType, TokenInteraction, Config } from '../types'
+import { InvalidGenerateTokenArgumentsError } from '../errors'
 import { autoLogin, provideConsent, requestToken } from './api'
 import {
   haltRedirect,
@@ -14,23 +10,34 @@ import {
   mustGetParam,
   joinCookies,
 } from './utils'
+import { CodeVerifier } from './types'
 
 class MasqueradeTokenInteraction
   extends CodeTokenInteraction
-  implements TokenInteraction<string>
+  implements TokenInteraction<Record<string, string>>
 {
   constructor(
     protected readonly config: Config,
-    protected readonly storage: Storage,
+    protected readonly store: Store,
   ) {
-    super(config, storage)
-    this.storage = storage
+    super(config, store)
+    this.store = store
     this.config = config
   }
 
-  public generateToken = async (encodedToken: string) => {
+  public override generateToken = async ({
+    encodedToken,
+  }: Record<string, string>) => {
+    if (!encodedToken) {
+      throw new InvalidGenerateTokenArgumentsError()
+    }
+
     const loginUrl = await this.getLogInUrl()
-    const codeVerifier = await this.storage.getItem(StorageKey.CodeVerifier)
+    const state = mustGetParam(loginUrl, 'state')
+    const codeVerifier = await this.store.read<CodeVerifier>(
+      'code_verifier',
+      state,
+    )
 
     let cookies: string[] = []
 
@@ -81,7 +88,7 @@ class MasqueradeTokenInteraction
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret ?? '',
       code,
-      codeVerifier,
+      codeVerifier: codeVerifier?.value ?? '',
       grantType: GrantType.AuthorizationCode,
       redirectUrl: this.config.redirectUrl,
     })

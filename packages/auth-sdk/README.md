@@ -90,6 +90,32 @@ const clientCredentialsSdk = sdkPool.getSDK(InteractionType.ClientCredentials);
 
 Then, you can use these SDKs to interact with the OAuth server, just like in the `SDK` example above.
 
+### Using with React Native
+
+If you're using this library with React Native, please be aware that it contains modules specifically designed for the Node.js environment, and these modules are not natively compatible with React Native. However, you can work around this by mapping these Node.js-specific modules to the noop3 package using the extraNodeModules configuration in your Metro config. Here is how you can do that:
+
+```javascript
+const extraNodeModules = {
+  open: require.resolve('noop3'),
+  fs: require.resolve('noop3'),
+  path: require.resolve('noop3'),
+  child_process: require.resolve('noop3'),
+  os: require.resolve('noop3'),
+  net: require.resolve('noop3'),
+  zlib: require.resolve('noop3'),
+};
+```
+
+The noop3 package is a "no operation" (noop) package that simply exports a function which does nothing. It's used here to replace the Node.js-specific modules with a function that does nothing, essentially neutralizing their effect in the React Native environment.
+
+Remember to install the noop3 package before using this configuration:
+
+```
+yarn add noop3
+```
+
+Please note that some functionalities that rely on these Node.js-specific modules might not work as expected in a React Native environment. Always thoroughly test your app when using this workaround.
+
 ## Important Notes
 
 - The library is primarily designed for use in Node.js environments but the `Code`, `ClientCredentials` & `MasqueradeToken` interactions can be used in a browser environment as well. 

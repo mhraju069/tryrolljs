@@ -1,4 +1,4 @@
-import SDK from '@roll-network/auth-sdk'
+import SDK, { KeyValueStoreAdapter } from '@roll-network/auth-sdk'
 import Client from '@roll-network/api-client'
 import config from '../config'
 
@@ -9,8 +9,9 @@ const authSdk = new SDK(
     redirectUrl: config.redirectURL,
     logoutRedirectUrl: config.redirectURL,
     scopes: config.scopes,
+    apiUrl: config.apiURL,
   },
-  window.localStorage,
+  new KeyValueStoreAdapter(window.localStorage),
 )
 
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Client from './client'
-import { Event } from './types'
 import { CouldntRefreshTokensError } from './errors'
 
 jest.mock('axios', () => jest.fn())
@@ -10,6 +9,7 @@ const authSdk = {
   isTokenExpired: jest.fn().mockResolvedValue(false),
   getToken: jest.fn().mockReturnValue({ access_token: '123' }),
   refreshToken: jest.fn(),
+  cleanUp: jest.fn(),
 } as any
 
 const defaultConfig = {
@@ -124,15 +124,12 @@ describe('client', () => {
     )
   })
 
-  it('emits unauthorized', async () => {
+  it('clean SDK when unauthorized', async () => {
     mockAxios.mockRejectedValue({
       response: { status: 401, data: { foo: 'bar' } },
     })
 
-    const unauthorizedListener = jest.fn()
-
     const client = new Client(defaultConfig, authSdk)
-    client.on(Event.Unauthorized, unauthorizedListener)
 
     const request = {
       method: 'GET',
@@ -146,7 +143,7 @@ describe('client', () => {
       errorCode: 0,
     })
 
-    expect(unauthorizedListener).toHaveBeenCalledTimes(1)
+    expect(authSdk.cleanUp).toHaveBeenCalledTimes(1)
   })
 
   it('handles errors', async () => {

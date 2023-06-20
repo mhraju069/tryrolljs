@@ -8,7 +8,7 @@ export interface RedirectToResponse {
   redirect_to: string
 }
 
-export interface GenerateTokenParams {
-  clientToken: string
-  masqueradeToken: string
+export interface CodeVerifier {
+  value: string
+  state: string
 }
