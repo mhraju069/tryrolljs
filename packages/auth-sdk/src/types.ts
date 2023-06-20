@@ -71,38 +71,39 @@ export interface TokenInteraction<T> {
   clearCache?: () => Promise<void>
   getLogInUrl?: () => Promise<string>
   getLogOutUrl?: (token: Token) => Promise<string>
+  getUser?: (token: Token) => Promise<User>
 }
 
-export interface GetUserArgs {
-  accessToken: string
-  apiUrl: string
-}
-
-export interface GetUserResponseData {
-  data: {
-    userID: string
-    primaryUserID: string
-    username: string
+export type User = {
+  userID: string
+  primaryUserID: string
+  username: string
+  name: string
+  role: string
+  userType: string
+  profilePic: string
+  media: {
     name: string
-    role: string
-    userType: string
-    profilePic: string
-    media: {
-      name: string
-      link: string
-      type: string
-    }[]
-    status: string
-    isPhoneVerified: boolean
-    isEmailVerified: boolean
-    MFAEnabled: boolean
-    email: string
-  }
+    link: string
+    type: string
+  }[]
+  status: string
+  isPhoneVerified: boolean
+  isEmailVerified: boolean
+  MFAEnabled: boolean
+  email: string
 }
 
-export type User = GetUserResponseData['data'] & { id: string; token?: Token }
+export type Credentials = {
+  token: Token
+  user?: User
+}
 
 export enum Event {
-  UserUpdated = 'userupdated',
-  UserCreated = 'usercreated',
+  CredentialsUpdated = 'credentialsrupdated',
+  CredentialsCreated = 'credentialscreated',
+}
+
+export interface CodeVerifier {
+  value: string
 }

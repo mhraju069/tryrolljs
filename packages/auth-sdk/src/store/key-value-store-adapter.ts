@@ -13,10 +13,9 @@ class KeyValueStoreAdapter implements Store {
     this.store = store
   }
 
-  async create<T extends object>(namespace: string, item: T) {
+  async create<T extends object>(namespace: string, id: string, item: T) {
     const data = await this.getData()
     const namespaceData = data[namespace] || {}
-    const id = 'id' in item && typeof item.id === 'string' ? item.id : undefined
 
     if (!id) {
       throw new Error(`Item should have an id property.`)

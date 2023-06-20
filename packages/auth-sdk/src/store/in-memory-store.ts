@@ -3,9 +3,8 @@ import { Store } from './types'
 class InMemoryStore implements Store {
   private data: Record<string, Record<string, any>> = {}
 
-  create<T extends object>(namespace: string, item: T): Promise<T> {
+  create<T extends object>(namespace: string, id: string, item: T): Promise<T> {
     const namespaceData = this.data[namespace] || {}
-    const id = 'id' in item && typeof item.id === 'string' ? item.id : undefined
 
     if (!id) {
       throw new Error(`Item should have an id property.`)

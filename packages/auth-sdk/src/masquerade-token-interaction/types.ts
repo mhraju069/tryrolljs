@@ -7,8 +7,3 @@ export interface RequestTokenArgs extends BaseRequestTokenArgs {
 export interface RedirectToResponse {
   redirect_to: string
 }
-
-export interface CodeVerifier {
-  value: string
-  state: string
-}

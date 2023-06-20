@@ -1,6 +1,6 @@
 import { Store } from '../store'
 import CodeTokenInteraction from '../code-token-interaction'
-import { GrantType, TokenInteraction, Config } from '../types'
+import { GrantType, TokenInteraction, Config, CodeVerifier } from '../types'
 import { InvalidGenerateTokenArgumentsError } from '../errors'
 import { autoLogin, provideConsent, requestToken } from './api'
 import {
@@ -10,7 +10,6 @@ import {
   mustGetParam,
   joinCookies,
 } from './utils'
-import { CodeVerifier } from './types'
 
 class MasqueradeTokenInteraction
   extends CodeTokenInteraction

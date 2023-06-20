@@ -1,16 +1,17 @@
 import { EventEmitter } from 'events'
-import { getUser } from './api'
 import CodeTokenInteraction from './code-token-interaction/code-token-interaction'
 import { NotEnoughDataToRefreshError, UserIdRequiredError } from './errors'
 import {
   Config,
+  Credentials,
   Event,
   RequestTokenResponseData,
   TokenInteraction,
-  User,
 } from './types'
 import { isLastUpdateTimestampExpired } from './utils'
 import { InMemoryStore, Store } from './store'
+
+const NO_USER_ID = 'nouser'
 
 class SDK extends EventEmitter {
   private readonly interaction: TokenInteraction<any>
@@ -42,18 +43,20 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.refreshToken(token)
-    const user = await getUser({
-      accessToken: newToken.access_token,
-      apiUrl: this.config.apiUrl,
-    })
+    const user = await this.interaction.getUser?.(newToken)
 
     await this.checkTokenResponse(newToken)
-    const userWithToken = {
-      ...user.data.data,
+
+    const credentials = {
+      user: user,
       token: { ...newToken, last_update_at: new Date().getTime() },
     }
-    await this.store.update('user', user.data.data.userID, userWithToken)
-    this.emit(Event.UserUpdated, userWithToken)
+    await this.store.update(
+      'credentials',
+      user ? user.userID : NO_USER_ID,
+      credentials,
+    )
+    this.emit(Event.CredentialsUpdated, credentials)
   }
 
   public generateToken = async (options?: any, userId?: string) => {
@@ -63,22 +66,19 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.generateToken(options)
-    const user = await getUser({
-      accessToken: newToken.access_token,
-      apiUrl: this.config.apiUrl,
-    })
+    const user = await this.interaction.getUser?.(newToken)
 
     await this.checkTokenResponse(newToken)
-    const userWithToken = {
-      ...user.data.data,
+    const credentials = {
+      user,
       token: { ...newToken, last_update_at: new Date().getTime() },
     }
-    await this.store.create('user', {
-      id: user.data.data.userID,
-      ...user.data.data,
-      token: { ...newToken, last_update_at: new Date().getTime() },
-    })
-    this.emit(Event.UserCreated, userWithToken)
+    await this.store.create(
+      'credentials',
+      user ? user.userID : NO_USER_ID,
+      credentials,
+    )
+    this.emit(Event.CredentialsCreated, credentials)
   }
 
   public syncSession = async (userId?: string) => {
@@ -86,21 +86,19 @@ class SDK extends EventEmitter {
     if (!token) {
       return
     }
-    const user = await getUser({
-      accessToken: token.access_token,
-      apiUrl: this.config.apiUrl,
-    })
+    const user = await this.interaction.getUser?.(token)
 
     await this.checkTokenResponse(token)
-    const userWithToken = {
-      ...user.data.data,
+    const credentials = {
+      user,
       token: { ...token, last_update_at: new Date().getTime() },
     }
-    await this.store.update('user', user.data.data.userID, {
-      ...user.data.data,
-      token: { ...token, last_update_at: new Date().getTime() },
-    })
-    this.emit(Event.UserUpdated, userWithToken)
+    await this.store.update(
+      'credentials',
+      user ? user.userID : NO_USER_ID,
+      credentials,
+    )
+    this.emit(Event.CredentialsUpdated, credentials)
   }
 
   public isTokenExpired = async (userId?: string) => {
@@ -122,7 +120,7 @@ class SDK extends EventEmitter {
   }
 
   public getToken = async (userId?: string) => {
-    const user = await this.getUser(userId)
+    const user = await this.getCredentials(userId)
     if (user) {
       return user.token
     }
@@ -145,25 +143,28 @@ class SDK extends EventEmitter {
   }
 
   public cleanUp = async (userId?: string) => {
-    const user = await this.getUser(userId)
-    if (user) {
-      this.store.delete('user', user.userID)
-      this.emit(Event.UserUpdated, undefined)
+    const credentials = await this.getCredentials(userId)
+    if (credentials) {
+      this.store.delete(
+        'credentials',
+        credentials.user ? credentials.user.userID : NO_USER_ID,
+      )
+      this.emit(Event.CredentialsUpdated, undefined)
     }
   }
 
-  public getUser = async (userId?: string) => {
-    const count = await this.store.count('user')
+  private getCredentials = async (userId?: string) => {
+    const count = await this.store.count('credentials')
     if (!userId) {
       if (count > 1) {
         throw new UserIdRequiredError()
       }
 
-      const users = await this.store.readAll<User>('user')
+      const users = await this.store.readAll<Credentials>('credentials')
       return users[0]
     }
 
-    return await this.store.read<User>('user', userId)
+    return await this.store.read<Credentials>('credentials', userId)
   }
 }
 

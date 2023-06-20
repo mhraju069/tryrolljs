@@ -5,14 +5,14 @@ import {
   RequestTokenResponseData,
   Token,
   TokenInteraction,
+  CodeVerifier,
 } from '../types'
 import {
   NotEnoughDataToRefreshError,
   InvalidGenerateTokenArgumentsError,
 } from '../errors'
 import { Store } from '../store'
-import { CodeVerifier } from '../masquerade-token-interaction/types'
-import { getLogInUrl, getLogOutUrl, requestToken } from './api'
+import { getLogInUrl, getLogOutUrl, getUser, requestToken } from './api'
 import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
 
@@ -91,7 +91,7 @@ class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
-    await this.store.create('code_verifier', { id: state, value: codeVerifier })
+    await this.store.create('code_verifier', state, { value: codeVerifier })
 
     return getLogInUrl({ ...this.config, state, codeChallenge })
   }
@@ -109,6 +109,14 @@ class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
       redirectUrl,
       idToken,
     })
+  }
+
+  public getUser = async (token: Token) => {
+    const response = await getUser({
+      apiUrl: this.config.apiUrl,
+      accessToken: token.access_token,
+    })
+    return response.data.data
   }
 }
 

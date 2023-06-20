@@ -1,5 +1,5 @@
 export interface Store {
-  create<T extends object>(namespace: string, item: T): Promise<T>
+  create<T extends object>(namespace: string, id: string, item: T): Promise<T>
   read<T extends object>(namespace: string, id: string): Promise<T | undefined>
   readAll<T extends object>(namespace: string): Promise<T[]>
   update<T extends object>(
