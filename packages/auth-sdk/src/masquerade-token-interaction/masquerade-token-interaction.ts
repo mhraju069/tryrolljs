@@ -26,9 +26,10 @@ class MasqueradeTokenInteraction
   }
 
   public override generateToken = async ({
-    encodedToken,
+    clientToken,
+    masqueradeToken,
   }: Record<string, string>) => {
-    if (!encodedToken) {
+    if (!clientToken || !masqueradeToken) {
       throw new InvalidGenerateTokenArgumentsError()
     }
 
@@ -40,8 +41,6 @@ class MasqueradeTokenInteraction
     )
 
     let cookies: string[] = []
-
-    const [clientToken, masqueradeToken] = encodedToken.split('TOKEN_SPLITTER')
 
     if (!clientToken || !masqueradeToken) {
       throw new Error('Invalid token')
