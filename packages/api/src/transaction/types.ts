@@ -10,6 +10,7 @@ export interface SendArgs {
   tokenId: string
   amount: string
   note?: string
+  message?: string
 }
 
 export interface GetTransactionByIdArgs {
