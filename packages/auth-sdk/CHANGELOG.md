@@ -1,5 +1,11 @@
 # @roll-network/auth-sdk
 
+## 2.2.0
+
+### Minor Changes
+
+- [#329](https://github.com/roll-network/tryrolljs/pull/329) [`d5ac65d`](https://github.com/roll-network/tryrolljs/commit/d5ac65df5c117bcef4f7a2464b9f470ec792cfbf) Thanks [@nsstarr](https://github.com/nsstarr)! - Fixed client credentials SDK token refresh
+
 ## 2.1.0
 
 ### Minor Changes

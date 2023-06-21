@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 1.1.0
+
+### Minor Changes
+
+- [#329](https://github.com/roll-network/tryrolljs/pull/329) [`4407717`](https://github.com/roll-network/tryrolljs/commit/440771760ad054927df8e855840befd46878afac) Thanks [@nsstarr](https://github.com/nsstarr)! - Add batchSend api request
+
 ## 1.0.2
 
 ### Patch Changes
