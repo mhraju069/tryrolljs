@@ -114,7 +114,7 @@ Remember to install the noop3 package before using this configuration:
 yarn add noop3
 ```
 
-Please note that some functionalities that rely on these Node.js-specific modules might not work as expected in a React Native environment. Always thoroughly test your app when using this workaround.
+Please note that `Server` interaction relies on these Node.js-specific modules & won't work in non-Node environments. If you try to use `Server` interaction in any of these environments, you'll get an error thrown.
 
 ## Important Notes
 
