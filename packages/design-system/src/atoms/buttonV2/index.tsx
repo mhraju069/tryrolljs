@@ -13,6 +13,7 @@ import {
 import { Icon } from '../icon'
 import { Spinner } from '../spinner'
 import { TooltipV2 } from '../tooltipV2'
+import { ConditionalWrapper } from '../conditionalWrapper'
 import { TypographyV2, TypographyVariant } from '../typographyV2'
 import {
   BaseButtonProps,
@@ -185,13 +186,17 @@ const BaseButton = ({
       )}
     </Pressable>
   )
+
   return (
     <View style={[container.alignCenter, style]}>
-      {variant === 'icon' ? (
-        <TooltipV2 title={tooltip}>{button}</TooltipV2>
-      ) : (
-        button
-      )}
+      <ConditionalWrapper
+        condition={variant === 'icon'}
+        wrapper={(children) => (
+          <TooltipV2 title={tooltip}>{children}</TooltipV2>
+        )}
+      >
+        {button}
+      </ConditionalWrapper>
     </View>
   )
 }
