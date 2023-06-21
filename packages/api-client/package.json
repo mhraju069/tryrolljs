@@ -33,7 +33,7 @@
     "setimmediate": "^1.0.5"
   },
   "scripts": {
-    "test": "jest --testEnvironment=jsdom --passWithNoTests",
+    "test": "jest --testEnvironment=jsdom",
     "build": "rollup -c"
   },
   "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/api-client",

@@ -1,5 +1,7 @@
 import { Store } from '../store'
-import CodeTokenInteraction from '../code-token-interaction'
+import CodeTokenInteraction, {
+  CodeVerifierMissingError,
+} from '../code-token-interaction'
 import { GrantType, TokenInteraction, Config, CodeVerifier } from '../types'
 import { InvalidGenerateTokenArgumentsError } from '../errors'
 import { autoLogin, provideConsent, requestToken } from './api'
@@ -39,12 +41,15 @@ class MasqueradeTokenInteraction
       state,
     )
 
-    let cookies: string[] = []
-
-    if (!clientToken || !masqueradeToken) {
-      throw new Error('Invalid token')
+    if (!codeVerifier) {
+      throw new CodeVerifierMissingError()
     }
 
+    if (!clientToken || !masqueradeToken) {
+      throw new InvalidGenerateTokenArgumentsError()
+    }
+
+    let cookies: string[] = []
     const loginRedirectResponse = await haltRedirect(loginUrl)
 
     const loginRedirectUrl = mustGetRedirectUrl(loginRedirectResponse)
@@ -86,7 +91,7 @@ class MasqueradeTokenInteraction
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret ?? '',
       code,
-      codeVerifier: codeVerifier?.value ?? '',
+      codeVerifier: codeVerifier.value,
       grantType: GrantType.AuthorizationCode,
       redirectUrl: this.config.redirectUrl,
     })
