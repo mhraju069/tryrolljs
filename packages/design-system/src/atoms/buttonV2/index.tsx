@@ -190,9 +190,9 @@ const BaseButton = ({
   return (
     <View style={[container.alignCenter, style]}>
       <ConditionalWrapper
-        condition={variant === 'icon'}
+        condition={variant === 'icon' && tooltip !== undefined}
         wrapper={(children) => (
-          <TooltipV2 title={tooltip}>{children}</TooltipV2>
+          <TooltipV2 title={tooltip as string}>{children}</TooltipV2>
         )}
       >
         {button}
