@@ -1,14 +1,14 @@
 import { action } from '@storybook/addon-actions'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
-import { Alert } from '.'
+import AlertV2  from '.'
 
 const conf = {
-    title: titleBuilder.molecules('Alert'),
-    component: Alert,
+    title: titleBuilder.molecules('AlertV2'),
+    component: AlertV2,
   }
 
   const Template = (props: any) => (
-    <Alert {...props} />
+    <AlertV2 {...props} />
   )
 
   export const Default = fromTemplate(Template, {
