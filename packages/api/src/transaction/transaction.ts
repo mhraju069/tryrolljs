@@ -38,26 +38,23 @@ export const getTransactionById = (
   })
 }
 
-export const batchSend = async (
-  client: Client,
-  transactions: Array<SendArgs>,
-) => {
+export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
   try {
     const body = transactions.map(({ tokenId, ...transaction }) => ({
       ...transaction,
-      tokenID: tokenId
-    }));
+      tokenID: tokenId,
+    }))
 
-    const response = await client.call<Response<Array<TransactionResponseData>>>({
+    const response = await call<Response<Array<TransactionResponseData>>>({
       url: '/v1/transactions/batch',
       method: 'POST',
       authorization: true,
       body,
-    });
+    })
 
-    return response.data;
+    return response.data
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error(err)
+    throw err
   }
-};
+}

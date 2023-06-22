@@ -1,11 +1,10 @@
 import { PropsWithChildren } from 'react'
-import { user as userAPI } from '@roll-network/api'
-import SDK from '@roll-network/auth-sdk'
+import SDK, { User } from '@roll-network/auth-sdk'
 
 export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
 
 export interface SessionContextValue {
-  user?: userAPI.types.GetMeResponseData
+  user?: User
   logIn: () => Promise<void>
   logOut: () => Promise<void>
   refresh: () => Promise<void>

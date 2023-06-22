@@ -5610,7 +5610,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/api@^1.1.0, @roll-network/api@workspace:*, @roll-network/api@workspace:packages/api":
+"@roll-network/api@workspace:*, @roll-network/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@roll-network/api@workspace:packages/api"
   dependencies:
@@ -5972,8 +5972,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/session-manager@workspace:packages/session-manager"
   dependencies:
-    "@roll-network/api": ^1.1.0
-    "@roll-network/api-client": ^1.1.0
     "@roll-network/auth-sdk": ^2.2.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
@@ -5990,8 +5988,7 @@ __metadata:
     rollup: ^2.78.1
     rollup-plugin-delete: ^2.0.0
   peerDependencies:
-    "@roll-network/api": ^1.0.0
-    "@roll-network/auth-sdk": ^1.0.0
+    "@roll-network/auth-sdk": ^2.2.0
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
   languageName: unknown
