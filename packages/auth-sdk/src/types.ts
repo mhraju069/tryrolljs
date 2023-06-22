@@ -66,6 +66,7 @@ export enum InteractionType {
 }
 
 export interface TokenInteraction<T> {
+  type: InteractionType
   generateToken: (options: T) => Promise<Token>
   refreshToken: (token: Token) => Promise<Token>
   clearCache?: () => Promise<void>
@@ -82,8 +83,10 @@ export type User = {
 }
 
 export type Credentials = {
+  id: string
   token: Token
   user?: User
+  interactionType: InteractionType
 }
 
 export enum Event {
@@ -92,5 +95,6 @@ export enum Event {
 }
 
 export interface CodeVerifier {
+  id: string
   value: string
 }

@@ -1,75 +1,83 @@
-import { Store } from './types'
+import { Entity, Matcher, Store } from './types'
+import { doesItemMatch } from './utils'
 
 class InMemoryStore implements Store {
   private data: Record<string, Record<string, any>> = {}
 
-  create<T extends object>(namespace: string, id: string, item: T): Promise<T> {
-    const namespaceData = this.data[namespace] || {}
+  async create<T extends Entity>(namespace: string, item: T): Promise<T> {
+    const namespaceData = this.getNamespaceData<T>(namespace)
 
-    if (!id) {
+    if (!item.id) {
       throw new Error(`Item should have an id property.`)
     }
 
-    if (!(id in namespaceData)) {
-      namespaceData[id as keyof typeof namespaceData] = item
+    if (!(item.id in namespaceData)) {
+      namespaceData[item.id as keyof typeof namespaceData] = item
     } else {
       throw new Error(
-        `Item with id ${id} already exists in namespace ${namespace}`,
+        `Item with id ${item.id} already exists in namespace ${namespace}`,
       )
     }
     this.data[namespace] = namespaceData
-    return Promise.resolve(item)
+    return item
   }
 
-  read<T extends object>(
+  async findOne<T extends Entity>(
     namespace: string,
-    id: string,
+    matcher: Matcher<T>,
   ): Promise<T | undefined> {
-    const namespaceData = this.data[namespace]
-    const item = namespaceData ? namespaceData[id] : undefined
-    return Promise.resolve(item)
+    const namespaceData = this.getNamespaceData<T>(namespace)
+
+    const items = Object.values(namespaceData) as T[]
+
+    return items.find((item) => doesItemMatch(item as T, matcher))
   }
 
-  update<T extends object>(
+  async update<T extends Entity>(
     namespace: string,
-    id: string,
-    item: Partial<T>,
+    item: Entity & Partial<T>,
   ): Promise<T | undefined> {
-    const namespaceData = this.data[namespace]
-    if (!namespaceData || !namespaceData[id]) {
-      return Promise.resolve(undefined)
+    const namespaceData = this.getNamespaceData<T>(namespace)
+    if (!namespaceData[item.id]) {
+      return undefined
     }
-    const existingItem = namespaceData[id]
+    const existingItem = namespaceData[item.id]
     const updatedItem = { ...existingItem, ...item }
-    namespaceData[id] = updatedItem
-    return Promise.resolve(updatedItem)
+    namespaceData[item.id] = updatedItem
+    return updatedItem
   }
 
-  delete(namespace: string, id: string): Promise<boolean> {
-    const namespaceData = this.data[namespace]
-    if (!namespaceData || !namespaceData[id]) {
-      return Promise.resolve(false)
+  async delete(namespace: string, id: string): Promise<boolean> {
+    const namespaceData = this.getNamespaceData(namespace)
+    if (!namespaceData[id]) {
+      return false
     }
     delete namespaceData[id]
-    return Promise.resolve(true)
+    return true
   }
 
-  count(namespace: string): Promise<number> {
-    const namespaceData = this.data[namespace]
-    if (!namespaceData) {
-      return Promise.resolve(0)
-    }
+  async count(namespace: string): Promise<number> {
+    const namespaceData = this.getNamespaceData(namespace)
 
-    return Promise.resolve(Object.keys(namespaceData).length)
+    return Object.keys(namespaceData).length
   }
 
-  readAll<T extends object>(namespace: string): Promise<T[]> {
-    const namespaceData = this.data[namespace]
-    if (!namespaceData) {
-      return Promise.resolve([])
+  async find<T extends Entity>(
+    namespace: string,
+    matcher?: Matcher<T>,
+  ): Promise<T[]> {
+    const namespaceData = this.getNamespaceData<T>(namespace)
+
+    const items = Object.values(namespaceData)
+    if (matcher) {
+      return items.filter((item) => doesItemMatch(item, matcher))
     }
 
-    return Promise.resolve(Object.values(namespaceData))
+    return items
+  }
+
+  private getNamespaceData = <T>(namespace: string) => {
+    return (this.data[namespace] ?? {}) as Record<string, T>
   }
 }
 

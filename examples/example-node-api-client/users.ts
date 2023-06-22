@@ -195,12 +195,84 @@ export const loginPlatformUser = async () => {
       throw new Error('Client token is undefined.')
     }
 
-    await sdkPool.getSDK(InteractionType.MasqueradeToken).generateToken({
-      clientToken: clientToken.access_token,
-      masqueradeToken: masqueradeToken.token,
-    })
+    const credentials = await sdkPool
+      .getSDK(InteractionType.MasqueradeToken)
+      .generateToken({
+        clientToken: clientToken.access_token,
+        masqueradeToken: masqueradeToken.token,
+      })
 
-    printTable([{ success: true }])
+    printTable([credentials.user])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const loginMultiplePlatformUsers = async () => {
+  try {
+    const sdkPool = new SDKPool(platformUserConfig)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const userIds = []
+    let enterUserIdAgain = true
+
+    while (enterUserIdAgain) {
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'userId',
+          message: 'Roll UserID',
+        },
+        {
+          type: 'confirm',
+          name: 'enterUserIdAgain',
+          message: 'Do you want to log in with another user?',
+          default: false,
+        },
+      ])
+
+      userIds.push(answers.userId)
+
+      enterUserIdAgain = answers.enterUserIdAgain
+    }
+
+    const credentials = await Promise.all(
+      userIds.map(async (userId) => {
+        const masqueradeToken = await user.getUserMasqueradeToken(
+          clientPool.getClient(InteractionType.ClientCredentials).call,
+          {
+            userId: userId,
+          },
+        )
+
+        const clientToken = await sdkPool
+          .getSDK(InteractionType.ClientCredentials)
+          .getToken()
+        if (!clientToken) {
+          throw new Error('Client token is undefined.')
+        }
+
+        return await sdkPool
+          .getSDK(InteractionType.MasqueradeToken)
+          .generateToken({
+            clientToken: clientToken.access_token,
+            masqueradeToken: masqueradeToken.token,
+          })
+      }),
+    )
+
+    const credentialsUserIds = credentials.map(
+      (credential) => credential.user?.userID,
+    )
+
+    const usersFromSdk = await Promise.all(
+      credentialsUserIds.map((userId) =>
+        sdkPool.getSDK(InteractionType.MasqueradeToken).getCredentials(userId),
+      ),
+    )
+
+    printTable(usersFromSdk)
   } catch (err) {
     console.error(err)
   }

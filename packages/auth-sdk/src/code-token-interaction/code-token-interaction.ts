@@ -6,6 +6,7 @@ import {
   Token,
   TokenInteraction,
   CodeVerifier,
+  InteractionType,
 } from '../types'
 import {
   NotEnoughDataToRefreshError,
@@ -17,6 +18,8 @@ import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
 
 class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
+  public type = InteractionType.Code
+
   constructor(
     protected readonly config: Config,
     protected readonly store: Store,
@@ -53,7 +56,7 @@ class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
       throw new InvalidGenerateTokenArgumentsError()
     }
 
-    const codeVerifier = await this.store.read<CodeVerifier>(
+    const codeVerifier = await this.store.findOne<CodeVerifier>(
       'code_verifier',
       state,
     )
@@ -91,7 +94,10 @@ class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
-    await this.store.create('code_verifier', state, { value: codeVerifier })
+    await this.store.create<CodeVerifier>('code_verifier', {
+      id: state,
+      value: codeVerifier,
+    })
 
     return getLogInUrl({ ...this.config, state, codeChallenge })
   }

@@ -1,8 +1,10 @@
 import { Store } from '../store'
-import { TokenInteraction, Config } from '../types'
+import { TokenInteraction, Config, InteractionType } from '../types'
 import { requestToken } from './api'
 
 class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
+  public type = InteractionType.ClientCredentials
+
   constructor(
     protected readonly config: Config,
     protected readonly store: Store,

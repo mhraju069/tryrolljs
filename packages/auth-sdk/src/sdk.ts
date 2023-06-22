@@ -32,8 +32,8 @@ class SDK extends EventEmitter {
   }
 
   public refreshToken = async (force?: boolean, userId?: string) => {
-    const token = await this.getToken(userId)
-    if (!token) {
+    const credentials = await this.getCredentials(userId)
+    if (!credentials) {
       throw new NotEnoughDataToRefreshError()
     }
 
@@ -42,43 +42,43 @@ class SDK extends EventEmitter {
       return
     }
 
-    const newToken = await this.interaction.refreshToken(token)
+    const newToken = await this.interaction.refreshToken(credentials.token)
     const user = await this.interaction.getUser?.(newToken)
 
     await this.checkTokenResponse(newToken)
 
-    const credentials = {
+    const newCredentials: Credentials = {
+      id: user ? user.userID : NO_USER_ID,
       user: user,
       token: { ...newToken, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
     }
-    await this.store.update(
-      'credentials',
-      user ? user.userID : NO_USER_ID,
-      credentials,
-    )
-    this.emit(Event.CredentialsUpdated, credentials)
+    await this.store.update<Credentials>('credentials', newCredentials)
+    this.emit(Event.CredentialsUpdated, newCredentials)
+
+    return newCredentials
   }
 
   public generateToken = async (options?: any, userId?: string) => {
-    const token = await this.getToken(userId)
-    if (token) {
-      return
+    const credentials = await this.getCredentials(userId)
+    if (credentials) {
+      return credentials
     }
 
     const newToken = await this.interaction.generateToken(options)
     const user = await this.interaction.getUser?.(newToken)
 
     await this.checkTokenResponse(newToken)
-    const credentials = {
+    const newCredentials = {
+      id: user ? user.userID : NO_USER_ID,
       user,
       token: { ...newToken, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
     }
-    await this.store.create(
-      'credentials',
-      user ? user.userID : NO_USER_ID,
-      credentials,
-    )
-    this.emit(Event.CredentialsCreated, credentials)
+    await this.store.create<Credentials>('credentials', newCredentials)
+    this.emit(Event.CredentialsCreated, newCredentials)
+
+    return newCredentials
   }
 
   public syncSession = async (userId?: string) => {
@@ -89,16 +89,15 @@ class SDK extends EventEmitter {
     const user = await this.interaction.getUser?.(token)
 
     await this.checkTokenResponse(token)
-    const credentials = {
+    const credentials: Credentials = {
+      id: user ? user.userID : NO_USER_ID,
       user,
       token: { ...token, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
     }
-    await this.store.update(
-      'credentials',
-      user ? user.userID : NO_USER_ID,
-      credentials,
-    )
+    await this.store.update<Credentials>('credentials', credentials)
     this.emit(Event.CredentialsUpdated, credentials)
+    return credentials
   }
 
   public isTokenExpired = async (userId?: string) => {
@@ -154,11 +153,18 @@ class SDK extends EventEmitter {
         throw new UserIdRequiredError()
       }
 
-      const users = await this.store.readAll<Credentials>('credentials')
-      return users[0]
+      return await this.store.findOne<Credentials>(
+        'credentials',
+        (credential) => credential.interactionType === this.interaction.type,
+      )
     }
 
-    return await this.store.read<Credentials>('credentials', userId)
+    return await this.store.findOne<Credentials>(
+      'credentials',
+      (credential) =>
+        credential.interactionType === this.interaction.type &&
+        credential.user?.userID === userId,
+    )
   }
 
   private checkTokenResponse = async (response: RequestTokenResponseData) => {

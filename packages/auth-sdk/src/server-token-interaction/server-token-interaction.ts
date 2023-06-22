@@ -3,7 +3,7 @@ import { URL } from 'url'
 import { EventEmitter } from 'events'
 import type { Express } from 'express'
 import CodeTokenInteraction from '../code-token-interaction'
-import { TokenInteraction, Config, Token } from '../types'
+import { TokenInteraction, Config, Token, InteractionType } from '../types'
 import { throwIfNotNode } from '../utils'
 import { Store } from '../store'
 
@@ -16,6 +16,7 @@ class ServerTokenInteraction
   extends CodeTokenInteraction
   implements TokenInteraction<void>
 {
+  public type = InteractionType.Server
   private readonly emitter: EventEmitter
   private app?: Express
 

@@ -2,7 +2,13 @@ import { Store } from '../store'
 import CodeTokenInteraction, {
   CodeVerifierMissingError,
 } from '../code-token-interaction'
-import { GrantType, TokenInteraction, Config, CodeVerifier } from '../types'
+import {
+  GrantType,
+  TokenInteraction,
+  Config,
+  CodeVerifier,
+  InteractionType,
+} from '../types'
 import { InvalidGenerateTokenArgumentsError } from '../errors'
 import { autoLogin, provideConsent, requestToken } from './api'
 import {
@@ -17,6 +23,8 @@ class MasqueradeTokenInteraction
   extends CodeTokenInteraction
   implements TokenInteraction<Record<string, string>>
 {
+  public type = InteractionType.MasqueradeToken
+
   constructor(
     protected readonly config: Config,
     protected readonly store: Store,
@@ -36,7 +44,7 @@ class MasqueradeTokenInteraction
 
     const loginUrl = await this.getLogInUrl()
     const state = mustGetParam(loginUrl, 'state')
-    const codeVerifier = await this.store.read<CodeVerifier>(
+    const codeVerifier = await this.store.findOne<CodeVerifier>(
       'code_verifier',
       state,
     )

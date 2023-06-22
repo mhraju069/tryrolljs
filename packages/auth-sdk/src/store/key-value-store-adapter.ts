@@ -1,4 +1,5 @@
-import { Store } from './types'
+import { Entity, Matcher, Store } from './types'
+import { doesItemMatch } from './utils'
 
 export interface KeyValueStore {
   getItem: (key: string) => any | Promise<any> | null
@@ -13,19 +14,19 @@ class KeyValueStoreAdapter implements Store {
     this.store = store
   }
 
-  async create<T extends object>(namespace: string, id: string, item: T) {
+  async create<T extends Entity>(namespace: string, item: T) {
     const data = await this.getData()
     const namespaceData = data[namespace] || {}
 
-    if (!id) {
+    if (!item.id) {
       throw new Error(`Item should have an id property.`)
     }
 
-    if (!(id in namespaceData)) {
-      namespaceData[id as keyof typeof namespaceData] = item
+    if (!(item.id in namespaceData)) {
+      namespaceData[item.id as keyof typeof namespaceData] = item
     } else {
       throw new Error(
-        `Item with id ${id} already exists in namespace ${namespace}`,
+        `Item with id ${item.id} already exists in namespace ${namespace}`,
       )
     }
     data[namespace] = namespaceData
@@ -35,30 +36,33 @@ class KeyValueStoreAdapter implements Store {
     return item
   }
 
-  async read<T extends object>(
+  async findOne<T extends Entity>(
     namespace: string,
-    id: string,
+    matcher: Matcher<T>,
   ): Promise<T | undefined> {
     const data = await this.getData()
     const namespaceData = data[namespace]
-    const item = namespaceData ? namespaceData[id] : undefined
-    return item
-  }
-
-  async update<T extends object>(
-    namespace: string,
-    id: string,
-    item: Partial<T>,
-  ): Promise<T | undefined> {
-    const data = await this.getData()
-    const namespaceData = data[namespace]
-    if (!namespaceData || !namespaceData[id]) {
+    if (!namespaceData) {
       return undefined
     }
-    const existingItem = namespaceData[id]
+
+    const items = Object.values(namespaceData) as T[]
+    return items.find((item) => doesItemMatch(item as T, matcher))
+  }
+
+  async update<T extends Entity>(
+    namespace: string,
+    item: Entity & Partial<T>,
+  ): Promise<T | undefined> {
+    const data = await this.getData()
+    const namespaceData = data[namespace]
+    if (!namespaceData || !namespaceData[item.id]) {
+      return undefined
+    }
+    const existingItem = namespaceData[item.id]
 
     const updatedItem = { ...existingItem, ...item }
-    namespaceData[id] = updatedItem
+    namespaceData[item.id] = updatedItem
     data[namespace] = namespaceData
     await this.setData(data)
 
@@ -88,14 +92,23 @@ class KeyValueStoreAdapter implements Store {
     return Object.keys(namespaceData).length
   }
 
-  async readAll<T extends object>(namespace: string): Promise<T[]> {
+  async find<T extends Entity>(
+    namespace: string,
+    matcher?: Matcher<T>,
+  ): Promise<T[]> {
     const data = await this.getData()
     const namespaceData = data[namespace]
     if (!namespaceData) {
       return []
     }
 
-    return Object.values(namespaceData)
+    const items = Object.values(namespaceData) as T[]
+
+    if (matcher) {
+      return items.filter((item) => doesItemMatch(item, matcher))
+    }
+
+    return items
   }
 
   private setData = async (data: object) => {
