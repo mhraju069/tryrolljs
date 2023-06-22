@@ -12,33 +12,48 @@ type AlertProps = {
 const AlertV2: React.FC<AlertProps> = ({ title, variant = 'info' }) => {
   const theme = useThemeV2()
 
+  const isDanger = variant === 'danger'
+  const backgroundColor = isDanger
+    ? theme.base.danger
+    : theme.base.highlight2[10]
+  const iconColor = isDanger ? theme.text.white[100] : theme.text.black[100]
+  const titleColor = isDanger ? theme.text.white[100] : theme.text.black[100]
+  const iconBackgroundColor = isDanger ? theme.base.primary[10] : ''
+
   const styles = StyleSheet.create({
-    container: { 
+    container: {
       borderRadius: 16,
+      padding: 16,
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor:
-        variant === 'danger' ? theme.base.danger : theme.base.highlight2[10],
+      width: 'fit-content',
+      height: '100%',
+      backgroundColor,
     },
     iconContainer: {
-      padding: 16,
+      marginRight: 8,
+      backgroundColor: iconBackgroundColor,
+      padding: 6,
+      borderRadius: 100,
     },
     titleText: {
-      color: theme.text.white[100],
+      titleColor,
       fontSize: 16,
-      padding: 16,
     },
   })
-
-  const iconName = variant === 'danger' ? 'exclamation-circle' : 'info-circle'
 
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <Icon variant="infoCircle" color={theme.text.black[100]} />
+        <Icon variant="infoCircle" color={iconColor} />
       </View>
-      <TypographyV2 variant="text4">
+      <TypographyV2
+        variant="text4"
+        color={
+          variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
+        }
+      >
         {
           (title =
             'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.')
