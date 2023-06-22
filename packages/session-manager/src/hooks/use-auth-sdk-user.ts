@@ -2,21 +2,12 @@ import SDK, { Credentials, Event, User } from '@roll-network/auth-sdk'
 import { useEffect, useRef, useState } from 'react'
 
 const useAuthSdkUser = (authSdk: SDK) => {
-  const isMountedRef = useRef(false)
+  const isSyncedRef = useRef(false)
   const [user, setUser] = useState<User>()
 
   useEffect(() => {
-    if (isMountedRef.current) {
-      return
-    }
-
-    authSdk.syncSession()
-    isMountedRef.current = true
-  }, [authSdk])
-
-  useEffect(() => {
-    const handleCredentialsChange = (credentials: Credentials) => {
-      if (credentials.user) {
+    const handleCredentialsChange = (credentials?: Credentials) => {
+      if (credentials?.user) {
         setUser(credentials.user)
       } else {
         setUser(undefined)
@@ -25,6 +16,11 @@ const useAuthSdkUser = (authSdk: SDK) => {
 
     authSdk.on(Event.CredentialsCreated, handleCredentialsChange)
     authSdk.on(Event.CredentialsUpdated, handleCredentialsChange)
+
+    if (!isSyncedRef.current) {
+      authSdk.syncSession()
+      isSyncedRef.current = true
+    }
 
     return () => {
       authSdk.off(Event.CredentialsCreated, handleCredentialsChange)
