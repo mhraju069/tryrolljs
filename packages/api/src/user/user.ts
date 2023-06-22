@@ -1,4 +1,4 @@
-import Client from '@roll-network/api-client'
+import { Call } from '../types'
 import {
   HasBalanceArgs,
   GetMeResponseData,
@@ -15,8 +15,8 @@ import {
   PlatformUserTokenBalancesArgs,
 } from './types'
 
-export const getMe = (client: Client) => {
-  return client.call<Response<GetMeResponseData>>({
+export const getMe = (call: Call) => {
+  return call<Response<GetMeResponseData>>({
     url: '/v1/users/session',
     method: 'GET',
     authorization: true,
@@ -24,10 +24,10 @@ export const getMe = (client: Client) => {
 }
 
 export const hasBalance = async (
-  client: Client,
+  call: Call,
   { userId, tokenId, amount }: HasBalanceArgs,
 ) => {
-  const response = await client.call<Response<HasBalanceResponseData>>({
+  const response = await call<Response<HasBalanceResponseData>>({
     url: `/v1/users/${userId}/hasbalance/${tokenId}/${amount}`,
     method: 'GET',
     authorization: true,
@@ -36,10 +36,10 @@ export const hasBalance = async (
 }
 
 export const getUserBalances = async (
-  client: Client,
+  call: Call,
   { userId }: GetUserBalancesArgs,
 ) => {
-  const response = await client.call<Response<GetUserBalancesResponseData[]>>({
+  const response = await call<Response<GetUserBalancesResponseData[]>>({
     url: `/v1/users/${userId}/balances`,
     method: 'GET',
     authorization: true,
@@ -49,10 +49,10 @@ export const getUserBalances = async (
 }
 
 export const getUserTokenBalance = async (
-  client: Client,
+  call: Call,
   { userId, tokenId }: GetUserTokenBalanceArgs,
 ) => {
-  const response = await client.call<Response<GetUserBalancesResponseData>>({
+  const response = await call<Response<GetUserBalancesResponseData>>({
     url: `/v1/users/${userId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
@@ -60,8 +60,8 @@ export const getUserTokenBalance = async (
   return response.data
 }
 
-export const getUser = async (client: Client, { userId }: GetUserArgs) => {
-  const response = await client.call<Response<GetUserResponseData>>({
+export const getUser = async (call: Call, { userId }: GetUserArgs) => {
+  const response = await call<Response<GetUserResponseData>>({
     url: `/v1/users/${userId}`,
     method: 'GET',
     authorization: true,
@@ -70,10 +70,10 @@ export const getUser = async (client: Client, { userId }: GetUserArgs) => {
 }
 
 export const createPlatformUser = async (
-  client: Client,
+  call: Call,
   { userType, platformUserId }: PlatformUserArgs,
 ) => {
-  const response = await client.call<Response<CreateExternalUserResponseData>>({
+  const response = await call<Response<CreateExternalUserResponseData>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}`,
     method: 'POST',
     body: { userType, externalUserID: platformUserId },
@@ -84,10 +84,10 @@ export const createPlatformUser = async (
 }
 
 export const getUserMasqueradeToken = async (
-  client: Client,
+  call: Call,
   { userId }: GetUserMasqueradeTokenArgs,
 ) => {
-  const response = await client.call<Response<{ token: string }>>({
+  const response = await call<Response<{ token: string }>>({
     url: `/v1/users/${userId}/masquerade`,
     method: 'GET',
     authorization: true,
@@ -97,10 +97,10 @@ export const getUserMasqueradeToken = async (
 }
 
 export const getPlatformUserBalances = async (
-  client: Client,
+  call: Call,
   { userType, platformUserId }: PlatformUserArgs,
 ) => {
-  const response = await client.call<Response<{ token: string }>>({
+  const response = await call<Response<{ token: string }>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/balances`,
     method: 'GET',
     authorization: true,
@@ -110,10 +110,10 @@ export const getPlatformUserBalances = async (
 }
 
 export const getPlatformUserBalance = async (
-  client: Client,
+  call: Call,
   { userType, platformUserId, tokenId }: PlatformUserTokenBalancesArgs,
 ) => {
-  const response = await client.call<Response<{ token: string }>>({
+  const response = await call<Response<{ token: string }>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
@@ -123,10 +123,10 @@ export const getPlatformUserBalance = async (
 }
 
 export const getPlatformUserDepositAddress = async (
-  client: Client,
+  call: Call,
   { userType, platformUserId }: PlatformUserArgs,
 ) => {
-  const response = await client.call<Response<{ address: string }>>({
+  const response = await call<Response<{ address: string }>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/address`,
     method: 'GET',
     authorization: true,

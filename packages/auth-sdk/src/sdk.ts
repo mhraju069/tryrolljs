@@ -109,12 +109,6 @@ class SDK extends EventEmitter {
     )
   }
 
-  private checkTokenResponse = async (response: RequestTokenResponseData) => {
-    if (response.error) {
-      throw new Error(response.error)
-    }
-  }
-
   public getConfig = () => {
     return this.config
   }
@@ -153,7 +147,7 @@ class SDK extends EventEmitter {
     }
   }
 
-  private getCredentials = async (userId?: string) => {
+  public getCredentials = async (userId?: string) => {
     const count = await this.store.count('credentials')
     if (!userId) {
       if (count > 1) {
@@ -165,6 +159,12 @@ class SDK extends EventEmitter {
     }
 
     return await this.store.read<Credentials>('credentials', userId)
+  }
+
+  private checkTokenResponse = async (response: RequestTokenResponseData) => {
+    if (response.error) {
+      throw new Error(response.error)
+    }
   }
 }
 

@@ -23,8 +23,8 @@ export const getClient = async () => {
       },
     ])
     const client = await clientCredentials.getClient(
+      clientPool.getClient(InteractionType.Server).call,
       answers,
-      clientPool.getClient(InteractionType.Server),
     )
 
     printTable([client])
@@ -42,7 +42,7 @@ export const getClients = async () => {
     )
 
     const clients = await clientCredentials.getClients(
-      clientPool.getClient(InteractionType.Server),
+      clientPool.getClient(InteractionType.Server).call,
     )
 
     printTable(clients)
@@ -68,8 +68,8 @@ export const generateClientSecret = async () => {
     ])
 
     const secret = await clientCredentials.generateClientSecret(
+      clientPool.getClient(InteractionType.Server).call,
       answers,
-      clientPool.getClient(InteractionType.Server),
     )
 
     printTable([secret])

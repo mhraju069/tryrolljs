@@ -69,7 +69,32 @@ const authSdk = new SDK(
 )
 
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)
-const user = await userAPI.getMe(apiClient)
+const user = await userAPI.getMe(apiClient.call)
+```
+
+#### Multiple users
+
+The `Client`'s `call` method is able to make requests for a specific user (from `authSdk`).
+
+```javascript
+import SDK from '@roll-network/auth-sdk'
+import Client from '@roll-network/api-client'
+import { user as userAPI } from '@roll-network/api'
+
+const authSdk = new SDK(
+  {
+    clientId: config.clientID,
+    issuerUrl: config.issuerURL,
+    redirectUrl: config.redirectURL,
+    logoutRedirectUrl: config.redirectURL,
+    scopes: config.scopes,
+  },
+  window.localStorage,
+)
+
+const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)
+const specificUserId = '12345'
+const user = await userAPI.getMe(apiClient.getCall(specificUserId))
 ```
 
 ### ClientPool
@@ -85,14 +110,14 @@ const sdkPool = new SDKPool(config)
 await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
 const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
 const response = await token.getTokens(
-  clientPool.getClient(InteractionType.ClientCredentials),
+  clientPool.getClient(InteractionType.ClientCredentials).call,
   answers,
 )
 
 const oauthCode = 'foo' // Use a real oauth code here
 await sdkPool.getSDK(InteractionType.Code).generateToken(oauthCode)
 const response = await token.getTokens(
-  clientPool.getClient(InteractionType.Code),
+  clientPool.getClient(InteractionType.Code).call,
   answers,
 )
 ```

@@ -18,7 +18,7 @@ export const getUserBalances = async () => {
       },
     ])
     const balances = await user.getUserBalances(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     if (!balances || balances.length === 0) {
@@ -55,7 +55,7 @@ export const getUserTokenBalance = async () => {
       },
     ])
     const balance = await user.getUserTokenBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable([
@@ -93,7 +93,7 @@ export const hasBalance = async () => {
       },
     ])
     const response = await user.hasBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     if (response.hasbalance) {
@@ -119,7 +119,7 @@ export const getUser = async () => {
       },
     ])
     const userResponse = await user.getUser(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable([
@@ -154,7 +154,7 @@ export const createPlatformUser = async () => {
     ])
 
     const response = await user.createPlatformUser(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -182,7 +182,7 @@ export const loginPlatformUser = async () => {
     ])
 
     const masqueradeToken = await user.getUserMasqueradeToken(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userId: answers.userId,
       },
@@ -226,7 +226,7 @@ export const getPlatformUserDepositAddress = async () => {
     ])
 
     const response = await user.getPlatformUserDepositAddress(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       { userType: answers.userType, platformUserId: answers.platformUserId },
     )
 
@@ -261,7 +261,7 @@ export const getPlatformUserTokenBalance = async () => {
     ])
 
     const response = await user.getPlatformUserBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -295,7 +295,7 @@ export const getPlatformUserTokenBalances = async () => {
     ])
 
     const response = await user.getPlatformUserBalances(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,

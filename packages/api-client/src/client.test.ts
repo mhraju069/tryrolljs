@@ -13,7 +13,7 @@ const authSdk = {
 } as any
 
 const defaultConfig = {
-  extraHeaders: {
+  headers: {
     'X-Client-Version': '0.0.0',
   },
 }

@@ -40,7 +40,7 @@ export const sendFromPlatformUser = async () => {
     ])
 
     const userResp = await user.createPlatformUser(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -48,7 +48,7 @@ export const sendFromPlatformUser = async () => {
     )
 
     const masqueradeToken = await user.getUserMasqueradeToken(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userId: userResp.userID,
       },
@@ -67,7 +67,7 @@ export const sendFromPlatformUser = async () => {
     })
 
     const tx = await transaction.send(
-      clientPool.getClient(InteractionType.MasqueradeToken),
+      clientPool.getClient(InteractionType.MasqueradeToken).call,
       {
         amount: answers.amount,
         toUsername: answers.toUsername,

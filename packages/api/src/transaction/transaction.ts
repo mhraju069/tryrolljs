@@ -1,4 +1,4 @@
-import Client from '@roll-network/api-client'
+import { Call } from '../types'
 import {
   SendArgs,
   TransactionResponseData,
@@ -7,7 +7,7 @@ import {
 } from './types'
 
 export const send = async (
-  client: Client,
+  call: Call,
   { amount, note, toUser, toUsername, tokenId }: SendArgs,
 ) => {
   const body = {
@@ -18,7 +18,7 @@ export const send = async (
     toUsername,
   }
 
-  const response = await client.call<Response<TransactionResponseData>>({
+  const response = await call<Response<TransactionResponseData>>({
     url: '/v1/transactions/send',
     method: 'POST',
     authorization: true,
@@ -28,10 +28,10 @@ export const send = async (
 }
 
 export const getTransactionById = (
-  client: Client,
+  call: Call,
   { transactionId }: GetTransactionByIdArgs,
 ) => {
-  return client.call<TransactionResponseData>({
+  return call<TransactionResponseData>({
     url: `/v1/transactions/${transactionId}`,
     method: 'GET',
     authorization: true,

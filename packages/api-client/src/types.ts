@@ -8,10 +8,15 @@ export interface Request {
 
 export interface Config {
   baseUrl?: string
-  extraHeaders?: Record<string, unknown>
+  headers?: Record<string, unknown>
 }
 
 export enum BlockState {
   Blocked = 'blocked',
   Idle = 'idle',
+}
+
+export interface RequestManagerState {
+  isRefreshScheduled: boolean
+  isRefreshInProgress: boolean
 }

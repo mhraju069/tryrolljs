@@ -38,7 +38,7 @@ export const getTokenList = async () => {
       },
     ])
     const response = await token.getTokens(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable(
@@ -68,7 +68,7 @@ export const getTokenCreator = async () => {
       },
     ])
     const creator = await token.getTokenCreator(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable([
