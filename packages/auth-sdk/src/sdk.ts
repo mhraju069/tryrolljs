@@ -5,7 +5,9 @@ import {
   Config,
   Credentials,
   Event,
+  Override,
   RequestTokenResponseData,
+  Token,
   TokenInteraction,
 } from './types'
 import { isLastUpdateTimestampExpired } from './utils'
@@ -16,19 +18,21 @@ const NO_USER_ID = 'nouser'
 class SDK extends EventEmitter {
   private readonly interaction: TokenInteraction<any>
   private readonly store: Store
+  private readonly override?: Override
 
   constructor(
     private readonly config: Config,
     store?: Store,
     interaction?: TokenInteraction<any>,
+    override?: Override,
   ) {
     super()
 
     this.config = config
     this.store = store ?? new InMemoryStore()
-
     this.interaction =
       interaction ?? new CodeTokenInteraction(config, this.store)
+    this.override = override
   }
 
   public refreshToken = async (force?: boolean, userId?: string) => {
@@ -43,7 +47,7 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.refreshToken(credentials.token)
-    const user = await this.interaction.getUser?.(newToken)
+    const user = await this.getUser(newToken)
 
     await this.checkTokenResponse(newToken)
 
@@ -66,7 +70,7 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.generateToken(options)
-    const user = await this.interaction.getUser?.(newToken)
+    const user = await this.getUser(newToken)
 
     await this.checkTokenResponse(newToken)
     const newCredentials = {
@@ -86,7 +90,7 @@ class SDK extends EventEmitter {
     if (!token) {
       return
     }
-    const user = await this.interaction.getUser?.(token)
+    const user = await this.getUser(token)
 
     await this.checkTokenResponse(token)
     const credentials: Credentials = {
@@ -171,6 +175,18 @@ class SDK extends EventEmitter {
     if (response.error) {
       throw new Error(response.error)
     }
+  }
+
+  private getUser = async (token: Token) => {
+    if (this.override?.getUser) {
+      return await this.override.getUser(token)
+    }
+
+    if (this.interaction.getUser) {
+      return await this.interaction.getUser(token)
+    }
+
+    return undefined
   }
 }
 

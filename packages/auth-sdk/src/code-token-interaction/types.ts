@@ -6,21 +6,23 @@ export interface GetUserArgs {
 export interface GetUserResponseData {
   data: {
     userID: string
-    primaryUserID: string
     username: string
     name: string
-    role: string
-    userType: string
     profilePic: string
-    media: {
-      name: string
-      link: string
-      type: string
-    }[]
-    status: string
-    isPhoneVerified: boolean
-    isEmailVerified: boolean
-    MFAEnabled: boolean
-    email: string
   }
+}
+
+export interface GetLogInUrlArgs {
+  issuerUrl: string
+  clientId: string
+  redirectUrl?: string
+  scopes: string[]
+  codeChallenge: string
+  state: string
+}
+
+export interface GetLogOutUrlArgs {
+  issuerUrl: string
+  idToken: string
+  redirectUrl?: string
 }

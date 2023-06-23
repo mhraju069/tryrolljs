@@ -1,3 +1,4 @@
+import { User } from '@roll-network/auth-sdk'
 import {
   useState,
   useEffect,
@@ -115,6 +116,7 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   )
 }
 
-export const useSession = () => useContext(SessionContext)
+export const useSession = <U extends User = User>() =>
+  useContext(SessionContext) as SessionContextValue<U>
 
 export default SessionProvider
