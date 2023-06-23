@@ -16,7 +16,6 @@ const AlertV2: React.FC<AlertProps> = ({
   title,
   variant = 'info',
   showButton = false,
-  textColor,
 }) => {
   const theme = useThemeV2()
 
@@ -57,9 +56,9 @@ const AlertV2: React.FC<AlertProps> = ({
   })
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="alertContainer">
       <View style={styles.iconContainer}>
-        <Icon variant="infoCircle" color={iconColor} />
+        <Icon variant="infoCircle" color={iconColor} testID="iconInfoCircle" />
       </View>
       <TypographyV2
         variant="text4"
