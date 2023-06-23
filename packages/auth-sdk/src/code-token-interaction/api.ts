@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { stringify } from 'qs'
+import { RequestTokenArgs, RequestTokenResponseData } from '../types'
 import {
-  RequestTokenArgs,
-  RequestTokenResponseData,
+  GetUserArgs,
+  GetUserResponseData,
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
-} from '../types'
-import { GetUserArgs, GetUserResponseData } from './types'
+} from './types'
 import { getRandomString } from './utils'
 
 export const requestToken = async ({
