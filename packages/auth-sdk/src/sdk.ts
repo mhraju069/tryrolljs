@@ -31,8 +31,7 @@ class SDK extends EventEmitter {
     this.config = config
     this.store = store ?? new InMemoryStore()
     this.interaction =
-      interaction ??
-      (new CodeTokenInteraction(config, this.store) as TokenInteraction<any>)
+      interaction ?? new CodeTokenInteraction(config, this.store)
     this.override = override
   }
 
