@@ -13,6 +13,7 @@ import {
   getPlatformUserDepositAddress,
   getPlatformUserTokenBalance,
   getPlatformUserTokenBalances,
+  loginMultiplePlatformUsers,
 } from './users.js'
 import {
   sendBatchFromPlatformUser,
@@ -31,7 +32,6 @@ import {
 
 inquirer.registerPrompt('search-list', inquirerSearchList)
 
-
 enum Choice {
   GetTokenList = 'Get token list',
   GetTokenCreator = 'Get token creator',
@@ -41,6 +41,7 @@ enum Choice {
   CheckIfUserHasTokenBalance = 'Check if user has token balance',
   CreatePlatformUser = 'Create platform user',
   LoginPlatformUser = 'Login platform user',
+  LoginMultiplePlatformUser = 'Login multiple platform users',
   GetClient = 'Get client',
   SendFromPlatformUser = 'Send From Platform User',
   SendBatchFromPlatformUser = 'Send Batch From Platform User',
@@ -62,6 +63,7 @@ const actionByChoice: Record<Choice, Function> = {
   [Choice.CheckIfUserHasTokenBalance]: hasBalance,
   [Choice.CreatePlatformUser]: createPlatformUser,
   [Choice.LoginPlatformUser]: loginPlatformUser,
+  [Choice.LoginMultiplePlatformUser]: loginMultiplePlatformUsers,
   [Choice.GetClient]: getClient,
   [Choice.SendFromPlatformUser]: sendFromPlatformUser,
   [Choice.SendBatchFromPlatformUser]: sendBatchFromPlatformUser,

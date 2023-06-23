@@ -5602,7 +5602,6 @@ __metadata:
     babel-jest: ^29.3.1
     better-queue: ^3.8.12
     better-queue-memory: ^1.0.4
-    events: ^3.3.0
     jest: ^29.0.3
     jest-environment-jsdom: ^29.0.3
     rollup: ^2.78.1
@@ -5611,7 +5610,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/api@^1.1.0, @roll-network/api@workspace:*, @roll-network/api@workspace:packages/api":
+"@roll-network/api@workspace:*, @roll-network/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@roll-network/api@workspace:packages/api"
   dependencies:
@@ -5871,12 +5870,15 @@ __metadata:
     http-browserify: ^1.7.0
     https-browserify: ^1.0.0
     metro-react-native-babel-preset: 0.72.3
+    noop3: ^1000.0.0
     react: 18.1.0
     react-dom: 18.1.0
     react-native: 0.71.5
     react-native-asset: ^2.0.1
     react-native-crypto: ^2.2.0
+    react-native-fs: ^2.20.0
     react-native-get-random-values: ^1.8.0
+    react-native-image-crop-picker: ^0.39.0
     react-native-inappbrowser-reborn: ^3.7.0
     react-native-linear-gradient: ^2.6.2
     react-native-safe-area-context: ^3.3.2
@@ -5970,8 +5972,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/session-manager@workspace:packages/session-manager"
   dependencies:
-    "@roll-network/api": ^1.1.0
-    "@roll-network/api-client": ^1.1.0
     "@roll-network/auth-sdk": ^2.2.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
@@ -5988,8 +5988,6 @@ __metadata:
     rollup: ^2.78.1
     rollup-plugin-delete: ^2.0.0
   peerDependencies:
-    "@roll-network/api": ^1.1.0
-    "@roll-network/api-client": ^1.1.0
     "@roll-network/auth-sdk": ^2.2.0
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
@@ -24648,6 +24646,13 @@ __metadata:
     "@vibrant/quantizer-mmcq": ^3.2.1-alpha.1
     url: ^0.11.0
   checksum: f5c287db6133114673e2b7e2752f4f7586348451fa31033107b1316a36e12f207428deaaaa1d30845139a94d6ebd4b64959c33fc568e57287bc5749f93c94c2e
+  languageName: node
+  linkType: hard
+
+"noop3@npm:^1000.0.0":
+  version: 1000.0.0
+  resolution: "noop3@npm:1000.0.0"
+  checksum: 3db2d9b54134d4ce85f743158f5a9464b021c74cd9425db7336d57df3f6db7b2f0f38ccc72a89175bfbb9ff1f67e6fd1b4e2ec91df439cf67adf2dd38a250eff
   languageName: node
   linkType: hard
 

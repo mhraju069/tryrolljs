@@ -2,12 +2,7 @@ import { user } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
-import {
-  SDKPool,
-  InteractionType,
-  encodeClientMasqueradeTokens,
-  safelyGetToken,
-} from '@roll-network/auth-sdk'
+import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
 
 export const getUserBalances = async () => {
@@ -23,7 +18,7 @@ export const getUserBalances = async () => {
       },
     ])
     const balances = await user.getUserBalances(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     if (!balances || balances.length === 0) {
@@ -60,7 +55,7 @@ export const getUserTokenBalance = async () => {
       },
     ])
     const balance = await user.getUserTokenBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable([
@@ -98,7 +93,7 @@ export const hasBalance = async () => {
       },
     ])
     const response = await user.hasBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     if (response.hasbalance) {
@@ -124,7 +119,7 @@ export const getUser = async () => {
       },
     ])
     const userResponse = await user.getUser(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
     printTable([
@@ -159,7 +154,7 @@ export const createPlatformUser = async () => {
     ])
 
     const response = await user.createPlatformUser(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -186,27 +181,98 @@ export const loginPlatformUser = async () => {
       },
     ])
 
-    const autoLoginToken = await user.getUserMasqueradeToken(
-      clientPool.getClient(InteractionType.ClientCredentials),
+    const masqueradeToken = await user.getUserMasqueradeToken(
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userId: answers.userId,
       },
     )
 
-    const clientToken = await safelyGetToken(
-      sdkPool.getSDK(InteractionType.ClientCredentials),
+    const clientToken = await sdkPool
+      .getSDK(InteractionType.ClientCredentials)
+      .getToken()
+    if (!clientToken) {
+      throw new Error('Client token is undefined.')
+    }
+
+    const credentials = await sdkPool
+      .getSDK(InteractionType.MasqueradeToken)
+      .generateToken({
+        clientToken: clientToken.access_token,
+        masqueradeToken: masqueradeToken.token,
+      })
+
+    printTable([credentials.user])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const loginMultiplePlatformUsers = async () => {
+  try {
+    const sdkPool = new SDKPool(platformUserConfig)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const userIds = []
+    let enterUserIdAgain = true
+
+    while (enterUserIdAgain) {
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'userId',
+          message: 'Roll UserID',
+        },
+        {
+          type: 'confirm',
+          name: 'enterUserIdAgain',
+          message: 'Do you want to log in with another user?',
+          default: false,
+        },
+      ])
+
+      userIds.push(answers.userId)
+
+      enterUserIdAgain = answers.enterUserIdAgain
+    }
+
+    const credentials = await Promise.all(
+      userIds.map(async (userId) => {
+        const masqueradeToken = await user.getUserMasqueradeToken(
+          clientPool.getClient(InteractionType.ClientCredentials).call,
+          {
+            userId: userId,
+          },
+        )
+
+        const clientToken = await sdkPool
+          .getSDK(InteractionType.ClientCredentials)
+          .getToken()
+        if (!clientToken) {
+          throw new Error('Client token is undefined.')
+        }
+
+        return await sdkPool
+          .getSDK(InteractionType.MasqueradeToken)
+          .generateToken({
+            clientToken: clientToken.access_token,
+            masqueradeToken: masqueradeToken.token,
+          })
+      }),
     )
 
-    await sdkPool
-      .getSDK(InteractionType.MasqueradeToken)
-      .generateToken(
-        encodeClientMasqueradeTokens(
-          clientToken?.access_token,
-          autoLoginToken.token,
-        ),
-      )
+    const credentialsUserIds = credentials.map(
+      (credential) => credential.user?.userID,
+    )
 
-    printTable([{ success: true }])
+    const usersFromSdk = await Promise.all(
+      credentialsUserIds.map((userId) =>
+        sdkPool.getSDK(InteractionType.MasqueradeToken).getCredentials(userId),
+      ),
+    )
+
+    printTable(usersFromSdk)
   } catch (err) {
     console.error(err)
   }
@@ -232,7 +298,7 @@ export const getPlatformUserDepositAddress = async () => {
     ])
 
     const response = await user.getPlatformUserDepositAddress(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       { userType: answers.userType, platformUserId: answers.platformUserId },
     )
 
@@ -267,7 +333,7 @@ export const getPlatformUserTokenBalance = async () => {
     ])
 
     const response = await user.getPlatformUserBalance(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,
@@ -301,7 +367,7 @@ export const getPlatformUserTokenBalances = async () => {
     ])
 
     const response = await user.getPlatformUserBalances(
-      clientPool.getClient(InteractionType.ClientCredentials),
+      clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
         platformUserId: answers.platformUserId,

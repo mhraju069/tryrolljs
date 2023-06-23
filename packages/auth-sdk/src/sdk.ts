@@ -1,134 +1,177 @@
+import { EventEmitter } from 'events'
 import CodeTokenInteraction from './code-token-interaction/code-token-interaction'
-import { NotEnoughDataToRefreshError } from './errors'
+import { NotEnoughDataToRefreshError, UserIdRequiredError } from './errors'
 import {
   Config,
-  Storage,
-  Token,
+  Credentials,
+  Event,
   RequestTokenResponseData,
   TokenInteraction,
-  StorageKey,
 } from './types'
-import {
-  isLastUpdateTimestampExpired,
-  makeInMemoryStorage,
-  safeJsonParse,
-} from './utils'
+import { isLastUpdateTimestampExpired } from './utils'
+import { InMemoryStore, Store } from './store'
 
-class SDK {
+const NO_USER_ID = 'nouser'
+
+class SDK extends EventEmitter {
   private readonly interaction: TokenInteraction<any>
-  private readonly storage: Storage
+  private readonly store: Store
 
   constructor(
     private readonly config: Config,
-    storage?: Storage,
+    store?: Store,
     interaction?: TokenInteraction<any>,
   ) {
+    super()
+
     this.config = config
-    this.storage = storage ?? makeInMemoryStorage()
+    this.store = store ?? new InMemoryStore()
+
     this.interaction =
-      interaction ?? new CodeTokenInteraction(config, this.storage)
+      interaction ?? new CodeTokenInteraction(config, this.store)
   }
 
-  public refreshToken = async (force?: boolean) => {
-    const token = await this.getToken()
-    if (!token) {
+  public refreshToken = async (force?: boolean, userId?: string) => {
+    const credentials = await this.getCredentials(userId)
+    if (!credentials) {
       throw new NotEnoughDataToRefreshError()
     }
 
-    const isTokenExpired = await this.isTokenExpired()
+    const isTokenExpired = await this.isTokenExpired(userId)
     if (!isTokenExpired && !force) {
       return
     }
 
-    const newToken = await this.getInteraction().refreshToken(token)
-    if (newToken) {
-      await this.storeToken(newToken)
+    const newToken = await this.interaction.refreshToken(credentials.token)
+    const user = await this.interaction.getUser?.(newToken)
+
+    await this.checkTokenResponse(newToken)
+
+    const newCredentials: Credentials = {
+      id: user ? user.userID : NO_USER_ID,
+      user: user,
+      token: { ...newToken, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
     }
+    await this.store.update<Credentials>('credentials', newCredentials)
+    this.emit(Event.CredentialsUpdated, newCredentials)
+
+    return newCredentials
   }
 
-  public generateToken = async (options?: any) => {
-    const token = await this.getToken()
-    if (token) {
+  public generateToken = async (options?: any, userId?: string) => {
+    const credentials = await this.getCredentials(userId)
+    if (credentials) {
+      return credentials
+    }
+
+    const newToken = await this.interaction.generateToken(options)
+    const user = await this.interaction.getUser?.(newToken)
+
+    await this.checkTokenResponse(newToken)
+    const newCredentials = {
+      id: user ? user.userID : NO_USER_ID,
+      user,
+      token: { ...newToken, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
+    }
+    await this.store.create<Credentials>('credentials', newCredentials)
+    this.emit(Event.CredentialsCreated, newCredentials)
+
+    return newCredentials
+  }
+
+  public syncSession = async (userId?: string) => {
+    const token = await this.getToken(userId)
+    if (!token) {
       return
     }
+    const user = await this.interaction.getUser?.(token)
 
-    const newToken = await this.getInteraction().generateToken(options)
-    await this.storeToken(newToken)
+    await this.checkTokenResponse(token)
+    const credentials: Credentials = {
+      id: user ? user.userID : NO_USER_ID,
+      user,
+      token: { ...token, last_update_at: new Date().getTime() },
+      interactionType: this.interaction.type,
+    }
+    await this.store.update<Credentials>('credentials', credentials)
+    this.emit(Event.CredentialsUpdated, credentials)
+    return credentials
   }
 
-  public restoreCache = async () => {
-    const token = await this.getToken()
-
-    await Promise.all([
-      this.getInteraction().restoreCache?.(),
-      token && this.setToken(token),
-    ])
-  }
-
-  public clearCache = async () => {
-    await Promise.all([
-      this.setToken(undefined),
-      this.getInteraction().clearCache?.(),
-    ])
-  }
-
-  public isTokenExpired = async () => {
-    const token = await this.getToken()
+  public isTokenExpired = async (userId?: string) => {
+    const token = await this.getToken(userId)
     return isLastUpdateTimestampExpired(
       token?.last_update_at,
       token?.expires_in,
     )
   }
 
-  private storeToken = async (data: RequestTokenResponseData) => {
-    if (data.error) {
-      await this.clearCache()
-      throw new Error(data.error)
-    } else {
-      await this.setToken({
-        ...data,
-        last_update_at: new Date().getTime(),
-      })
-    }
-  }
-
-  private setToken = async (token?: Token) => {
-    if (token) {
-      await this.getStorage().setItem(StorageKey.Token, JSON.stringify(token))
-    } else {
-      await this.getStorage().removeItem(StorageKey.Token)
-    }
-  }
-
   public getConfig = () => {
     return this.config
   }
 
-  public getToken = async () => {
-    const token = await this.getStorage().getItem(StorageKey.Token)
-    return typeof token === 'string' ? (safeJsonParse(token) as Token) : token
-  }
-
-  private getStorage = () => {
-    return this.storage
+  public getToken = async (userId?: string) => {
+    const user = await this.getCredentials(userId)
+    if (user) {
+      return user.token
+    }
+    return undefined
   }
 
   public getLogInUrl = async () => {
-    return this.getInteraction().getLogInUrl?.() ?? ''
+    return this.interaction.getLogInUrl?.() ?? ''
   }
 
-  public getLogOutUrl = async () => {
-    const token = await this.getToken()
-    await this.clearCache()
+  public getLogOutUrl = async (userId?: string) => {
+    await this.cleanUp(userId)
+    const token = await this.getToken(userId)
 
     if (!token) {
       return ''
     }
 
-    return this.getInteraction().getLogOutUrl?.(token) ?? ''
+    return this.interaction.getLogOutUrl?.(token) ?? ''
   }
 
-  private getInteraction = () => this.interaction
+  public cleanUp = async (userId?: string) => {
+    const credentials = await this.getCredentials(userId)
+    if (credentials) {
+      this.store.delete(
+        'credentials',
+        credentials.user ? credentials.user.userID : NO_USER_ID,
+      )
+      this.emit(Event.CredentialsUpdated, undefined)
+    }
+  }
+
+  public getCredentials = async (userId?: string) => {
+    const count = await this.store.count('credentials')
+    if (!userId) {
+      if (count > 1) {
+        throw new UserIdRequiredError()
+      }
+
+      return await this.store.findOne<Credentials>(
+        'credentials',
+        (credential) => credential.interactionType === this.interaction.type,
+      )
+    }
+
+    return await this.store.findOne<Credentials>(
+      'credentials',
+      (credential) =>
+        credential.interactionType === this.interaction.type &&
+        credential.user?.userID === userId,
+    )
+  }
+
+  private checkTokenResponse = async (response: RequestTokenResponseData) => {
+    if (response.error) {
+      throw new Error(response.error)
+    }
+  }
 }
 
 export default SDK

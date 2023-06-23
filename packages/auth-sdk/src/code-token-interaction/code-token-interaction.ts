@@ -4,86 +4,70 @@ import {
   RequestTokenArgs,
   RequestTokenResponseData,
   Token,
-  Storage,
   TokenInteraction,
-  StorageKey,
+  CodeVerifier,
+  InteractionType,
 } from '../types'
-import { NotEnoughDataToRefreshError } from '../errors'
-import { getLogInUrl, getLogOutUrl, requestToken } from './api'
+import {
+  NotEnoughDataToRefreshError,
+  InvalidGenerateTokenArgumentsError,
+} from '../errors'
+import { Store } from '../store'
+import { getLogInUrl, getLogOutUrl, getUser, requestToken } from './api'
 import { CodeVerifierMissingError, IdTokenMissingError } from './errors'
 import { getRandomString, pkceChallengeFromVerifier } from './utils'
 
-class CodeTokenInteraction implements TokenInteraction<string> {
+class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
+  public type = InteractionType.Code
+
   constructor(
     protected readonly config: Config,
-    protected readonly storage: Storage,
+    protected readonly store: Store,
   ) {
-    this.storage = storage
+    this.store = store
     this.config = config
-
     this.generateToken.bind(this)
   }
 
   public refreshToken = async (token: Token) => {
-    const code = await this.storage.getItem(StorageKey.Code)
-
-    if (!token.refresh_token || !code) {
+    if (!token.refresh_token) {
       throw new NotEnoughDataToRefreshError()
     }
 
-    try {
-      const response = await requestToken({
-        issuerUrl: this.config.issuerUrl,
-        grantType: GrantType.RefreshToken,
-        redirectUrl: this.config.redirectUrl,
-        clientId: this.config.clientId,
-        refreshToken: token.refresh_token!,
-        code,
-      })
+    const response = await requestToken({
+      issuerUrl: this.config.issuerUrl,
+      grantType: GrantType.RefreshToken,
+      redirectUrl: this.config.redirectUrl,
+      clientId: this.config.clientId,
+      refreshToken: token.refresh_token!,
+    })
 
-      return {
-        ...response.data,
-        last_update_at: new Date().getTime(),
-      }
-    } catch (e) {
-      await this.clearCache()
-      throw e
+    return {
+      ...response.data,
+      last_update_at: new Date().getTime(),
     }
   }
 
-  public async generateToken(code: string): Promise<Token> {
-    const cachedCodeVerifier = await this.storage.getItem(
-      StorageKey.CodeVerifier,
+  public async generateToken({
+    code,
+    state,
+  }: Record<string, string>): Promise<Token> {
+    if (!code || !state) {
+      throw new InvalidGenerateTokenArgumentsError()
+    }
+
+    const codeVerifier = await this.store.findOne<CodeVerifier>(
+      'code_verifier',
+      state,
     )
-    if (!cachedCodeVerifier) {
+    if (!codeVerifier) {
       throw new CodeVerifierMissingError()
     }
 
-    try {
-      const newToken = await this.requestToken(code, cachedCodeVerifier)
-      await this.storage.setItem(StorageKey.Code, code)
-      return { ...newToken, last_update_at: new Date().getTime() }
-    } catch (e) {
-      await this.clearCache()
-      throw e
-    }
-  }
+    await this.store.delete('code_verifier', state)
 
-  private getCache = async () => {
-    const code = await this.storage.getItem(StorageKey.Code)
-    const codeVerifier = await this.storage.getItem(StorageKey.CodeVerifier)
-    const cache = { code, codeVerifier }
-    return cache
-  }
-
-  public restoreCache = async () => {
-    const cache = await this.getCache()
-
-    await Promise.all([
-      cache.code && this.storage.setItem(StorageKey.Code, cache.code),
-      cache.codeVerifier &&
-        this.storage.setItem(StorageKey.CodeVerifier, cache.codeVerifier),
-    ])
+    const newToken = await this.requestToken(code, codeVerifier.value)
+    return { ...newToken, last_update_at: new Date().getTime() }
   }
 
   private requestToken = async (
@@ -104,24 +88,16 @@ class CodeTokenInteraction implements TokenInteraction<string> {
     return data
   }
 
-  public clearCache = async () => {
-    await Promise.all([
-      this.storage.removeItem(StorageKey.Code),
-      this.storage.removeItem(StorageKey.CodeVerifier),
-      this.storage.removeItem(StorageKey.State),
-    ])
-  }
-
   public getLogInUrl = async () => {
     const minVerifierLength = 43
     const state = getRandomString()
     const codeVerifier = getRandomString(minVerifierLength)
     const codeChallenge = await pkceChallengeFromVerifier(codeVerifier)
 
-    await Promise.all([
-      this.storage.setItem(StorageKey.CodeVerifier, codeVerifier),
-      this.storage.setItem(StorageKey.State, state),
-    ])
+    await this.store.create<CodeVerifier>('code_verifier', {
+      id: state,
+      value: codeVerifier,
+    })
 
     return getLogInUrl({ ...this.config, state, codeChallenge })
   }
@@ -134,13 +110,19 @@ class CodeTokenInteraction implements TokenInteraction<string> {
 
     const { issuerUrl, logoutRedirectUrl: redirectUrl } = this.config
 
-    await this.clearCache()
-
     return getLogOutUrl({
       issuerUrl,
       redirectUrl,
       idToken,
     })
+  }
+
+  public getUser = async (token: Token) => {
+    const response = await getUser({
+      apiUrl: this.config.apiUrl,
+      accessToken: token.access_token,
+    })
+    return response.data.data
   }
 }
 

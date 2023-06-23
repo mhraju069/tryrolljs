@@ -1,186 +1,99 @@
-import { renderHook, waitFor } from '@testing-library/react'
-import { PropsWithChildren } from 'react'
-import Client from '@roll-network/api-client'
-import SDK from '@roll-network/auth-sdk'
-import SessionProvider, { useSession } from './session-provider'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import SessionProvider, { SessionContext } from './session-provider'
 
-const getWrapper =
-  ({ apiClient, authSdk }: { apiClient: Client; authSdk: SDK }) =>
-  ({ children }: PropsWithChildren<{}>) =>
-    (
-      <SessionProvider apiClient={apiClient} authSdk={authSdk}>
-        {children}
-      </SessionProvider>
-    )
+const mockAuthSdk = {
+  syncSession: jest.fn(),
+  on: jest.fn(),
+  off: jest.fn(),
+} as any
 
-describe('useSession', () => {
-  afterEach(() => {
+describe('SessionProvider', () => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('clears auth on unauthorized request', async () => {
-    const user = { foo: 'bar' }
-    const clearCache = jest.fn()
-    renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockResolvedValue(undefined),
-          clearCache,
-        } as any,
-        apiClient: {
-          on: jest.fn().mockImplementation((_, listener) => listener()),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
-        } as any,
-      }),
-    })
+  it('renders with initial state', () => {
+    render(
+      <SessionProvider authSdk={mockAuthSdk}>
+        <SessionContext.Consumer>
+          {({ status }) => <div data-testid="status">{status}</div>}
+        </SessionContext.Consumer>
+      </SessionProvider>,
+    )
 
-    await waitFor(() => {
-      expect(clearCache).toHaveBeenCalled()
-    })
+    const statusElement = screen.getByTestId('status')
+    expect(statusElement.textContent).toBe('initializing')
   })
 
-  it('restores from cache & loads user', async () => {
-    const user = { foo: 'bar' }
-    const { result } = renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockResolvedValue(undefined),
-          getToken: jest.fn().mockReturnValue({ access_token: 'token' }),
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue({ data: user }),
-        } as any,
-      }),
-    })
+  it('logs in', () => {
+    const mockLogInUrl = 'https://example.com/login'
+    const mockAuthSdk_ = {
+      ...mockAuthSdk,
+      getLogInUrl: jest.fn().mockResolvedValue(mockLogInUrl),
+    }
 
-    await waitFor(() => {
-      expect(result.current.user).toBe(user)
-    })
+    render(
+      <SessionProvider authSdk={mockAuthSdk_}>
+        <SessionContext.Consumer>
+          {({ logIn }) => <button onClick={logIn}>Log In</button>}
+        </SessionContext.Consumer>
+      </SessionProvider>,
+    )
+
+    const logInButton = screen.getByText('Log In')
+    fireEvent.click(logInButton)
+
+    expect(mockAuthSdk_.getLogInUrl).toHaveBeenCalled()
   })
 
-  it('initializes new session when no cache', async () => {
-    const user = { foo: 'bar' }
-    const oauthCode = '123'
+  it('logs out', () => {
+    const mockLogOurUrl = 'https://example.com/logout'
+    const mockAuthSdk_ = {
+      ...mockAuthSdk,
+      getLogOutUrl: jest.fn().mockResolvedValue(mockLogOurUrl),
+    }
 
-    jest
-      .spyOn(URLSearchParams.prototype, 'get')
-      .mockImplementation((_key) => oauthCode)
+    render(
+      <SessionProvider authSdk={mockAuthSdk_}>
+        <SessionContext.Consumer>
+          {({ logOut }) => <button onClick={logOut}>Log Out</button>}
+        </SessionContext.Consumer>
+      </SessionProvider>,
+    )
 
-    const generateToken = jest.fn().mockResolvedValue(undefined)
-    const { result } = renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
-          generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue({ data: user }),
-        } as any,
-      }),
-    })
+    const logOutButton = screen.getByText('Log Out')
+    fireEvent.click(logOutButton)
 
-    await waitFor(() => {
-      expect(generateToken).toHaveBeenCalledWith(oauthCode)
-      expect(result.current.user).toBe(user)
-    })
+    expect(mockAuthSdk_.getLogOutUrl).toHaveBeenCalled()
   })
 
-  it('clears user & sets error when new session initialization fails', async () => {
-    const user = { foo: 'bar' }
-    const oauthCode = '123'
+  it('refreshes', async () => {
+    const mockAuthSdk_ = {
+      ...mockAuthSdk,
+      refreshToken: jest.fn(),
+    }
 
-    jest
-      .spyOn(URLSearchParams.prototype, 'get')
-      .mockImplementation((_key) => oauthCode)
+    render(
+      <SessionProvider authSdk={mockAuthSdk_}>
+        <SessionContext.Consumer>
+          {({ refresh, status }) => (
+            <>
+              <button onClick={refresh}>Refresh</button>
+              <div data-testid="status">{status}</div>
+            </>
+          )}
+        </SessionContext.Consumer>
+      </SessionProvider>,
+    )
 
-    const error = new Error('Forbidden')
-    const generateToken = jest.fn().mockRejectedValue(error)
-    const { result } = renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(error),
-          generateToken,
-          clearCache: jest.fn(),
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call: jest.fn().mockResolvedValue(user),
-        } as any,
-      }),
-    })
+    const refreshButton = screen.getByText('Refresh')
+    fireEvent.click(refreshButton)
 
+    const statusElement = screen.getByTestId('status')
+    expect(statusElement.textContent).toBe('refreshing')
+    expect(mockAuthSdk_.refreshToken).toHaveBeenCalled()
     await waitFor(() => {
-      expect(generateToken).toHaveBeenCalledWith(oauthCode)
-      expect(result.current.user).toBe(undefined)
-      expect(result.current.error).toBe(error)
-    })
-  })
-
-  it('sets nothing when no cache & no auth code', async () => {
-    const user = { foo: 'bar' }
-
-    jest
-      .spyOn(URLSearchParams.prototype, 'get')
-      .mockImplementation((_key) => '')
-
-    const generateToken = jest.fn().mockResolvedValue(undefined)
-    const call = jest.fn().mockResolvedValue(user)
-    const { result } = renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
-          generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call,
-        } as any,
-      }),
-    })
-
-    await waitFor(() => {
-      expect(generateToken).not.toHaveBeenCalled()
-      expect(call).not.toHaveBeenCalled()
-      expect(result.current.user).toBe(undefined)
-    })
-  })
-
-  it('sets error when getMe returns an error', async () => {
-    const oauthCode = '123'
-
-    jest
-      .spyOn(URLSearchParams.prototype, 'get')
-      .mockImplementation((_key) => oauthCode)
-
-    const generateToken = jest.fn().mockResolvedValue(undefined)
-    const error = new Error('Forbidden')
-    const call = jest.fn().mockRejectedValue(error)
-    const { result } = renderHook(() => useSession(), {
-      wrapper: getWrapper({
-        authSdk: {
-          restoreCache: jest.fn().mockRejectedValue(undefined),
-          generateToken,
-        } as any,
-        apiClient: {
-          on: jest.fn(),
-          off: jest.fn(),
-          call,
-        } as any,
-      }),
-    })
-
-    await waitFor(() => {
-      expect(generateToken).toHaveBeenCalled()
-      expect(call).toHaveBeenCalled()
-      expect(result.current.user).toBe(undefined)
-      expect(result.current.error).toBe(error)
+      expect(statusElement.textContent).toBe('stale')
     })
   })
 })

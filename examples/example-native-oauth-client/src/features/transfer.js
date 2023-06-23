@@ -49,7 +49,7 @@ export default function Transfer() {
     }
 
     try {
-      const response_ = await transaction.send(apiClient, {
+      const response_ = await transaction.send(apiClient.call, {
         fromUserId: user.userID,
         symbol: inputState.symbol,
         amount,

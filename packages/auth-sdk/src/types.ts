@@ -4,16 +4,8 @@ export interface Config {
   redirectUrl: string
   logoutRedirectUrl: string
   scopes: string[]
-  apiUrl?: string
+  apiUrl: string
   clientSecret?: string
-}
-
-export interface Storage {
-  setItem(key: string, value: string): void | Promise<void>
-  getItem(
-    key: string,
-  ): string | undefined | null | Promise<string | undefined | null>
-  removeItem(key: string): void | Promise<void>
 }
 
 export enum GrantType {
@@ -35,7 +27,7 @@ export interface RequestTokenArgs {
   clientId: string
   refreshToken?: string
   redirectUrl?: string
-  code: string
+  code?: string
   codeVerifier?: string | null
 }
 
@@ -74,17 +66,35 @@ export enum InteractionType {
 }
 
 export interface TokenInteraction<T> {
+  type: InteractionType
   generateToken: (options: T) => Promise<Token>
   refreshToken: (token: Token) => Promise<Token>
   clearCache?: () => Promise<void>
-  restoreCache?: () => Promise<void>
   getLogInUrl?: () => Promise<string>
   getLogOutUrl?: (token: Token) => Promise<string>
+  getUser?: (token: Token) => Promise<User>
 }
 
-export enum StorageKey {
-  Token = 'ROLL_AUTH_SDK_TOKEN',
-  CodeVerifier = 'ROLL_AUTH_SDK_CODE_VERIFIER',
-  State = 'ROLL_AUTH_SDK_STATE',
-  Code = 'ROLL_AUTH_SDK_CODE',
+export type User = {
+  userID: string
+  username: string
+  name: string
+  profilePic: string
+}
+
+export type Credentials = {
+  id: string
+  token: Token
+  user?: User
+  interactionType: InteractionType
+}
+
+export enum Event {
+  CredentialsUpdated = 'credentialsrupdated',
+  CredentialsCreated = 'credentialscreated',
+}
+
+export interface CodeVerifier {
+  id: string
+  value: string
 }

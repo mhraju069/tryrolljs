@@ -5,14 +5,14 @@ import HasBalance from './features/hasBalance'
 import UserInfo from './components/userInfo'
 import Transfer from './features/transfer'
 import LoggedOut from './components/loggedOut'
-import { apiClient, authSdk } from './api'
+import { authSdk } from './api'
 
 injectFonts()
 
 function App() {
   return (
     <TryrollProvider>
-      <SessionManager apiClient={apiClient} authSdk={authSdk}>
+      <SessionManager authSdk={authSdk}>
         <Entrypoint />
       </SessionManager>
     </TryrollProvider>
@@ -21,7 +21,6 @@ function App() {
 
 const Entrypoint = () => {
   const session = useSession()
-
   return (
     <>
       <TopNavigation />

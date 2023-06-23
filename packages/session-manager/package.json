@@ -11,15 +11,11 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@roll-network/api": "^1.1.0",
-    "@roll-network/api-client": "^1.1.0",
     "@roll-network/auth-sdk": "^2.2.0",
     "react": "18.1.0",
     "react-native-inappbrowser-reborn": "^3.7.0"
   },
   "devDependencies": {
-    "@roll-network/api": "^1.1.0",
-    "@roll-network/api-client": "^1.1.0",
     "@roll-network/auth-sdk": "^2.2.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",

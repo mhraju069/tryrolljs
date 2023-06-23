@@ -28,8 +28,6 @@ The interaction types include:
 
 - `Server`: Implements a flow that uses the user's browser to perform OAuth but with all logic executed server-side in a Node.js environment. This flow starts an express server, generates the login URL and opens it in a default browser. Once the authorization code is obtained, it is exchanged for tokens.
 
-Of course! Here's a more detailed example for the usage section:
-
 ## Usage
 
 Firstly, import the required classes and types:
@@ -44,7 +42,7 @@ To initialize `SDK`, you need to provide `config`, `storage` and `interaction`.
 
 `config` is an object that includes various configuration options, such as your OAuth credentials. 
 
-`storage` is a storage engine that will be used by the SDK to store tokens. You can either provide your own implementation of the `Storage` interface or use the built-in `makeInMemoryStorage` function to create a simple in-memory storage. **(in-memory storage by default)**
+`store` is a store engine that will be used by the SDK to store tokens. You can either provide your own implementation of the `Store` interface or use the built-in `InMemoryStore` function to create a simple in-memory storage **(in-memory storage by default)**. In addition to that, there is a `KeyValueStoreAdapter` class that can be used to transform key-value store to `Store` (`new KeyValueStoreAdapter(window.localStorage)`).
 
 `interaction` is an object that handles the interaction with the OAuth server. You can either provide your own implementation of the `TokenInteraction` interface or use one of the built-in interaction types. **(`CodeTokenInteraction` by default)**
 
@@ -73,6 +71,29 @@ const loginUrl = await sdk.getLogInUrl();
 const logoutUrl = await sdk.getLogOutUrl();
 ```
 
+#### Multiple users
+
+The SDK now also supports multiple users, identified by userId. When calling token methods like `refreshToken`, `generateToken`, `isTokenExpired`, you can optionally provide the userId to handle token operations for specific users. If not provided, operations will be performed for a default user.
+
+When there are multiple users' tokens stored, userId must be provided. Otherwise, an `UserIdRequiredError` will be thrown.
+
+After that, you can use methods of the SDK to interact with the OAuth server:
+
+```javascript
+// Generate a new token
+await sdk.generateToken({}, userId);
+
+// Refresh the token
+await sdk.refreshToken(true, userId);
+
+// Check if the token is expired
+const isExpired = await sdk.isTokenExpired(userId);
+
+// Get login and logout URLs
+const loginUrl = await sdk.getLogInUrl();
+const logoutUrl = await sdk.getLogOutUrl(userId);
+```
+
 ### Initializing `SDKPool`
 
 `SDKPool` manages multiple instances of `SDK`, each for a different interaction type. It's useful when you need to support multiple OAuth flows in your application.
@@ -91,6 +112,32 @@ const clientCredentialsSdk = sdkPool.getSDK(InteractionType.ClientCredentials);
 ```
 
 Then, you can use these SDKs to interact with the OAuth server, just like in the `SDK` example above.
+
+### Using with React Native
+
+If you're using this library with React Native, please be aware that it contains modules specifically designed for the Node.js environment, and these modules are not natively compatible with React Native. However, you can work around this by mapping these Node.js-specific modules to the noop3 package using the extraNodeModules configuration in your Metro config. Here is how you can do that:
+
+```javascript
+const extraNodeModules = {
+  open: require.resolve('noop3'),
+  fs: require.resolve('noop3'),
+  path: require.resolve('noop3'),
+  child_process: require.resolve('noop3'),
+  os: require.resolve('noop3'),
+  net: require.resolve('noop3'),
+  zlib: require.resolve('noop3'),
+};
+```
+
+The noop3 package is a "no operation" (noop) package that simply exports a function which does nothing. It's used here to replace the Node.js-specific modules with a function that does nothing, essentially neutralizing their effect in the React Native environment.
+
+Remember to install the noop3 package before using this configuration:
+
+```
+yarn add noop3
+```
+
+Please note that `Server` interaction relies on these Node.js-specific modules & won't work in non-Node environments. If you try to use `Server` interaction in any of these environments, you'll get an error thrown.
 
 ## Important Notes
 

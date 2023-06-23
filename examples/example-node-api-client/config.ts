@@ -15,4 +15,9 @@ export const platformUserConfig = {
   scopes: [...config.scopes, ScopeType.Masquerade, ScopeType.PlatformUser],
 }
 
+export const clientCredentialsConfig = {
+  ...config,
+  clientId: process.env.SERVER_INTERACTION_CLIENT_ID ?? '',
+}
+
 export default config

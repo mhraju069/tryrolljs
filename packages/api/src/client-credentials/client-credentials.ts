@@ -1,4 +1,4 @@
-import Client from '@roll-network/api-client'
+import { Call } from '../types'
 import {
   GetClientArgs,
   GetClientResponseData,
@@ -7,16 +7,16 @@ import {
   GenerateClientSecretResponseData,
 } from './types'
 
-export const getClient = async ({ id }: GetClientArgs, client: Client) => {
-  return client.call<GetClientResponseData>({
+export const getClient = async (call: Call, { id }: GetClientArgs) => {
+  return call<GetClientResponseData>({
     url: `/v2/oauth2/clients/${id}`,
     method: 'GET',
     authorization: true,
   })
 }
 
-export const getClients = async (client: Client) => {
-  return client.call<GetClientsResponseData>({
+export const getClients = async (call: Call) => {
+  return call<GetClientsResponseData>({
     url: '/v2/oauth2/clients',
     method: 'GET',
     authorization: true,
@@ -24,10 +24,10 @@ export const getClients = async (client: Client) => {
 }
 
 export const generateClientSecret = async (
+  call: Call,
   { id }: GenerateClientSecretArgs,
-  client: Client,
 ) => {
-  return client.call<GenerateClientSecretResponseData>({
+  return call<GenerateClientSecretResponseData>({
     url: `/v2/oauth2/clients/${id}/secret`,
     method: 'PUT',
     body: {

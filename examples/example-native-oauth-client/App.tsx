@@ -7,12 +7,12 @@ import HasBalance from './src/features/hasBalance'
 import UserInfo from './src/components/userInfo'
 import Transfer from './src/features/transfer'
 import LoggedOut from './src/components/loggedOut'
-import { apiClient, authSdk } from './src/api'
+import { authSdk } from './src/api'
 
 function App() {
   return (
     <TryrollProvider>
-      <NativeSessionManager authSdk={authSdk} apiClient={apiClient}>
+      <NativeSessionManager authSdk={authSdk}>
         <Entrypoint />
       </NativeSessionManager>
     </TryrollProvider>

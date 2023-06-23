@@ -1,4 +1,4 @@
-import Client from '@roll-network/api-client'
+import { Call } from '../types'
 import {
   SendArgs,
   TransactionResponseData,
@@ -7,7 +7,7 @@ import {
 } from './types'
 
 export const send = async (
-  client: Client,
+  call: Call,
   { amount, note, toUser, toUsername, tokenId }: SendArgs,
 ) => {
   const body = {
@@ -18,7 +18,7 @@ export const send = async (
     toUsername,
   }
 
-  const response = await client.call<Response<TransactionResponseData>>({
+  const response = await call<Response<TransactionResponseData>>({
     url: '/v1/transactions/send',
     method: 'POST',
     authorization: true,
@@ -28,36 +28,33 @@ export const send = async (
 }
 
 export const getTransactionById = (
-  client: Client,
+  call: Call,
   { transactionId }: GetTransactionByIdArgs,
 ) => {
-  return client.call<TransactionResponseData>({
+  return call<TransactionResponseData>({
     url: `/v1/transactions/${transactionId}`,
     method: 'GET',
     authorization: true,
   })
 }
 
-export const batchSend = async (
-  client: Client,
-  transactions: Array<SendArgs>,
-) => {
+export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
   try {
     const body = transactions.map(({ tokenId, ...transaction }) => ({
       ...transaction,
-      tokenID: tokenId
-    }));
+      tokenID: tokenId,
+    }))
 
-    const response = await client.call<Response<Array<TransactionResponseData>>>({
+    const response = await call<Response<Array<TransactionResponseData>>>({
       url: '/v1/transactions/batch',
       method: 'POST',
       authorization: true,
       body,
-    });
+    })
 
-    return response.data;
+    return response.data
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error(err)
+    throw err
   }
-};
+}
