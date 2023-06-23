@@ -12,6 +12,8 @@ import {
 } from '../../styles'
 import { Icon } from '../icon'
 import { Spinner } from '../spinner'
+import { TooltipV2 } from '../tooltipV2'
+import { ConditionalWrapper } from '../conditionalWrapper'
 import { TypographyV2, TypographyVariant } from '../typographyV2'
 import {
   BaseButtonProps,
@@ -29,6 +31,7 @@ const BaseButton = ({
   testID,
   variant = 'primary',
   title,
+  tooltip,
   rest,
   hover,
   disabled,
@@ -116,73 +119,84 @@ const BaseButton = ({
       : fontsBasedOnSize[size]
   const lineHeight: number = lineHeights_[fontBasedOnVariantAndSize]
 
+  const button = (
+    <Pressable
+      testID={testID}
+      isDisabled={isLoading || isDisabled}
+      onHoverIn={() => setIsHover(true)}
+      onHoverOut={() => setIsHover(false)}
+      onPressIn={() => setIsActive(true)}
+      onPressOut={() => setIsActive(false)}
+      onPress={onPress}
+      isHovered={isHover}
+      // Styles
+      position="relative"
+      alignItems="center"
+      justifyContent="center"
+      paddingX={`${paddingX}px`}
+      paddingY={`${paddingY}px`}
+      borderRadius={borderRadius}
+      borderColor={stylesBasedOnState.borderColor}
+      borderWidth={rest.borderWidth}
+      backgroundColor={
+        iconBackgroundColor || stylesBasedOnState.backgroundColor
+      }
+      flexDirection="row"
+      _hover={{
+        borderColor: hover.borderColor,
+        borderWidth: hover.borderWidth,
+      }}
+      _focus={{
+        backgroundColor: iconBackgroundColor || active.backgroundColor,
+      }}
+      _pressed={{
+        borderColor: active.borderColor,
+        borderWidth: active.borderWidth,
+        backgroundColor: iconBackgroundColor || active.backgroundColor,
+      }}
+    >
+      {isLoading ? (
+        <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
+      ) : (
+        <>
+          {iconVariant && variant !== 'text' && (
+            <View style={[styles.iconContainer]}>
+              <Icon
+                variant={iconVariant}
+                width={iconBasedOnSize[size]}
+                height={iconBasedOnSize[size]}
+                color={iconColor || stylesBasedOnState.textColor}
+              />
+            </View>
+          )}
+          {!iconVariant && icon && variant !== 'text' && (
+            <View style={[styles.iconContainer]}>{icon}</View>
+          )}
+          {variant !== 'icon' && (
+            <TypographyV2
+              variant={fontBasedOnVariantAndSize}
+              selectable={false}
+              color={stylesBasedOnState.textColor}
+              style={[styles.title]}
+            >
+              {title}
+            </TypographyV2>
+          )}
+        </>
+      )}
+    </Pressable>
+  )
+
   return (
     <View style={[container.alignCenter, style]}>
-      <Pressable
-        testID={testID}
-        isDisabled={isLoading || isDisabled}
-        onHoverIn={() => setIsHover(true)}
-        onHoverOut={() => setIsHover(false)}
-        onPressIn={() => setIsActive(true)}
-        onPressOut={() => setIsActive(false)}
-        onPress={onPress}
-        isHovered={isHover}
-        // Styles
-        position="relative"
-        alignItems="center"
-        justifyContent="center"
-        paddingX={`${paddingX}px`}
-        paddingY={`${paddingY}px`}
-        borderRadius={borderRadius}
-        borderColor={stylesBasedOnState.borderColor}
-        borderWidth={rest.borderWidth}
-        backgroundColor={
-          iconBackgroundColor || stylesBasedOnState.backgroundColor
-        }
-        flexDirection="row"
-        _hover={{
-          borderColor: hover.borderColor,
-          borderWidth: hover.borderWidth,
-        }}
-        _focus={{
-          backgroundColor: iconBackgroundColor || active.backgroundColor,
-        }}
-        _pressed={{
-          borderColor: active.borderColor,
-          borderWidth: active.borderWidth,
-          backgroundColor: iconBackgroundColor || active.backgroundColor,
-        }}
-      >
-        {isLoading ? (
-          <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
-        ) : (
-          <>
-            {iconVariant && variant !== 'text' && (
-              <View style={[styles.iconContainer]}>
-                <Icon
-                  variant={iconVariant}
-                  width={iconBasedOnSize[size]}
-                  height={iconBasedOnSize[size]}
-                  color={iconColor || stylesBasedOnState.textColor}
-                />
-              </View>
-            )}
-            {!iconVariant && icon && variant !== 'text' && (
-              <View style={[styles.iconContainer]}>{icon}</View>
-            )}
-            {variant !== 'icon' && (
-              <TypographyV2
-                variant={fontBasedOnVariantAndSize}
-                selectable={false}
-                color={stylesBasedOnState.textColor}
-                style={[styles.title]}
-              >
-                {title}
-              </TypographyV2>
-            )}
-          </>
+      <ConditionalWrapper
+        condition={variant === 'icon' && typeof tooltip === 'string'}
+        wrapper={(children) => (
+          <TooltipV2 title={tooltip as string}>{children}</TooltipV2>
         )}
-      </Pressable>
+      >
+        {button}
+      </ConditionalWrapper>
     </View>
   )
 }
@@ -382,6 +396,7 @@ export const ButtonV2 = ({
   const variantProps = useVariantsProps(variant)
   const sizeProps = useSizeProps(responsiveSize)
   const baseButtonProps = { ...variantProps, ...sizeProps }
+
   return (
     <BaseButton
       variant={variant}
