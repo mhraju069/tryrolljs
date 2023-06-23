@@ -1,4 +1,4 @@
 export enum Event {
-  CredentialsUpdated = 'credentialsrupdated',
+  CredentialsUpdated = 'credentialsupdated',
   CredentialsCreated = 'credentialscreated',
 }
