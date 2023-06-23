@@ -31,6 +31,7 @@ export interface ButtonV2Props {
   iconColor?: string
   iconBackgroundColor?: string
   style?: StyleProp<ViewStyle>
+  textColor?: string
 }
 
 type States = 'rest' | 'hover' | 'active' | 'disabled'
