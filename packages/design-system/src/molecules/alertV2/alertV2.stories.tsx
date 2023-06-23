@@ -1,4 +1,3 @@
-import { action } from '@storybook/addon-actions'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import AlertV2  from '.'
 
@@ -20,5 +19,19 @@ const conf = {
     title: 'Alert',
     variant: 'danger'
   })
+
+  export const DangerAction = fromTemplate(Template, {
+    title: 'Alert',
+    variant: 'danger',
+    showButton: true,
+  })
+
+  export const DefaultAction = fromTemplate(Template, {
+    title: 'Alert',
+    variant: 'info',
+    showButton: true,
+  })
+
+
 
   export default conf
