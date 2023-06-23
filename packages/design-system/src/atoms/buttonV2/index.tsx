@@ -48,6 +48,7 @@ const BaseButton = ({
   iconBackgroundColor,
   onPress,
   style,
+  textColor,
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -176,7 +177,7 @@ const BaseButton = ({
             <TypographyV2
               variant={fontBasedOnVariantAndSize}
               selectable={false}
-              color={stylesBasedOnState.textColor}
+              color={textColor || stylesBasedOnState.textColor}
               style={[styles.title]}
             >
               {title}
@@ -387,6 +388,7 @@ const useSizeProps = (size: Size): SizeProps => {
 export const ButtonV2 = ({
   variant = 'primary',
   size = 'medium',
+  textColor,
   ...props
 }: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
@@ -401,6 +403,7 @@ export const ButtonV2 = ({
     <BaseButton
       variant={variant}
       size={responsiveSize}
+      textColor={textColor}
       {...baseButtonProps}
       {...props}
     />

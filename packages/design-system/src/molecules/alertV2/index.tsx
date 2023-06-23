@@ -9,13 +9,14 @@ type AlertProps = {
   variant?: 'info' | 'danger'
   showButton?: boolean
   buttonText?: string
+  textColor?: string
 }
 
 const AlertV2: React.FC<AlertProps> = ({
   title,
   variant = 'info',
   showButton = false,
-  buttonText = 'Label Button',
+  textColor,
 }) => {
   const theme = useThemeV2()
 
@@ -49,8 +50,10 @@ const AlertV2: React.FC<AlertProps> = ({
       fontSize: 16,
     },
     button: {
-        marginLeft: 16,
-    }
+      marginLeft: 16,
+      borderLeftWidth: 1,
+      borderColor: theme.base.primary[20],
+    },
   })
 
   return (
@@ -71,7 +74,15 @@ const AlertV2: React.FC<AlertProps> = ({
       </TypographyV2>
       {showButton && (
         <View style={styles.button}>
-          <ButtonV2 title='Label Button' variant='text'/>
+          <ButtonV2
+            title="Label Button"
+            variant="text"
+            textColor={
+              variant === 'danger'
+                ? theme.text.white[100]
+                : theme.text.black[100]
+            }
+          />
         </View>
       )}
     </View>
