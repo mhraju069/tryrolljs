@@ -2,14 +2,21 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TypographyV2, Icon } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { ButtonV2 } from '../../atoms'
 
 type AlertProps = {
   title: string
   variant?: 'info' | 'danger'
+  showButton?: boolean
+  buttonText?: string
 }
 
-const AlertV2: React.FC<AlertProps> = ({ title, variant = 'info' }) => {
+const AlertV2: React.FC<AlertProps> = ({
+  title,
+  variant = 'info',
+  showButton = false,
+  buttonText = 'Label Button',
+}) => {
   const theme = useThemeV2()
 
   const isDanger = variant === 'danger'
@@ -41,6 +48,9 @@ const AlertV2: React.FC<AlertProps> = ({ title, variant = 'info' }) => {
       titleColor,
       fontSize: 16,
     },
+    button: {
+        marginLeft: 16,
+    }
   })
 
   return (
@@ -59,6 +69,11 @@ const AlertV2: React.FC<AlertProps> = ({ title, variant = 'info' }) => {
             'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.')
         }
       </TypographyV2>
+      {showButton && (
+        <View style={styles.button}>
+          <ButtonV2 title='Label Button' variant='text'/>
+        </View>
+      )}
     </View>
   )
 }
