@@ -51,6 +51,7 @@ const getStories = () => {
     require('../src/molecules/selectV2/selectV2.stories.tsx'),
     require('../src/atoms/toastV2/toastv2.stories.tsx'),
     require('../src/atoms/tooltipV2/tooltipV2.stories.tsx'),
+    require('../src/molecules/alertV2/alertV2.stories.tsx'),
   ]
 }
 

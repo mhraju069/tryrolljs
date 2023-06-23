@@ -1,8 +1,8 @@
-import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TypographyV2, Icon } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { ButtonV2 } from '../../atoms'
+import { useBreakpointValue } from 'native-base'
 
 type AlertProps = {
   title: string
@@ -31,11 +31,13 @@ const AlertV2: React.FC<AlertProps> = ({
     container: {
       borderRadius: 16,
       padding: 16,
+      margin: 16,
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      width: 'fit-content',
-      height: '100%',
+      //   alignSelf: 'flex-start',
+      maxWidth: useBreakpointValue({ base: '100%', md: 600 }),
+      alignSelf: useBreakpointValue({ base: 'stretch', md: 'flex-start' }),
       backgroundColor,
     },
     iconContainer: {
@@ -48,8 +50,12 @@ const AlertV2: React.FC<AlertProps> = ({
       titleColor,
       fontSize: 16,
     },
-    button: {
-      marginLeft: 16,
+    textContainer: {
+        flex: 1,
+        padding: 8,
+    },
+    buttonContainer: {
+      marginLeft: useBreakpointValue({ md: 16 }),
       borderLeftWidth: 1,
       borderColor: theme.base.primary[20],
     },
@@ -62,6 +68,7 @@ const AlertV2: React.FC<AlertProps> = ({
       </View>
       <TypographyV2
         variant="text4"
+        style={styles.textContainer}
         color={
           variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
         }
@@ -72,7 +79,7 @@ const AlertV2: React.FC<AlertProps> = ({
         }
       </TypographyV2>
       {showButton && (
-        <View style={styles.button}>
+        <View style={styles.buttonContainer}>
           <ButtonV2
             title="Label Button"
             variant="text"
