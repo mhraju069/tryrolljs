@@ -39,7 +39,7 @@ class CodeTokenInteraction implements TokenInteraction<Record<string, string>> {
       grantType: GrantType.RefreshToken,
       redirectUrl: this.config.redirectUrl,
       clientId: this.config.clientId,
-      refreshToken: token.refresh_token!,
+      refreshToken: token.refresh_token,
     })
 
     return {
