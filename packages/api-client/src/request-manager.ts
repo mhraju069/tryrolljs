@@ -116,7 +116,7 @@ export default class RequestManager {
     }
 
     if (headers) {
-      options.headers = { ...options.headers, ...headers }
+      options.headers = { ...headers, ...options.headers }
     }
 
     if (this.config.baseUrl && !isAbsoluteUrl(url)) {

@@ -47,7 +47,7 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.refreshToken(credentials.token)
-    const user = await this.getUser(newToken)
+    const user = await this.getUser(newToken, userId)
 
     await this.checkTokenResponse(newToken)
 
@@ -70,7 +70,7 @@ class SDK extends EventEmitter {
     }
 
     const newToken = await this.interaction.generateToken(options)
-    const user = await this.getUser(newToken)
+    const user = await this.getUser(newToken, userId)
 
     await this.checkTokenResponse(newToken)
     const newCredentials = {
@@ -90,7 +90,7 @@ class SDK extends EventEmitter {
     if (!token) {
       return
     }
-    const user = await this.getUser(token)
+    const user = await this.getUser(token, userId)
 
     await this.checkTokenResponse(token)
     const credentials: Credentials = {
@@ -177,16 +177,20 @@ class SDK extends EventEmitter {
     }
   }
 
-  private getUser = async (token: Token) => {
-    if (this.override?.getUser) {
-      return await this.override.getUser(token)
-    }
+  private getUser = async (token: Token, userId?: string) => {
+    try {
+      if (this.override?.getUser) {
+        return await this.override.getUser(token)
+      }
 
-    if (this.interaction.getUser) {
-      return await this.interaction.getUser(token)
-    }
+      if (this.interaction.getUser) {
+        return await this.interaction.getUser(token)
+      }
 
-    return undefined
+      return undefined
+    } catch (e) {
+      await this.cleanUp(userId)
+    }
   }
 }
 
