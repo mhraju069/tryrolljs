@@ -1,5 +1,12 @@
 # @roll-network/session-manager
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`70ebfa0`](https://github.com/roll-network/tryrolljs/commit/70ebfa06259063e58fe9ad969d578a318c7b3ddb)]:
+  - @roll-network/auth-sdk@3.2.0
+
 ## 6.0.0
 
 ### Patch Changes

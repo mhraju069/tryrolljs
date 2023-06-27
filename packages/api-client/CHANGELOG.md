@@ -1,5 +1,16 @@
 # @roll-network/api-client
 
+## 2.2.0
+
+### Minor Changes
+
+- [#339](https://github.com/roll-network/tryrolljs/pull/339) [`70ebfa0`](https://github.com/roll-network/tryrolljs/commit/70ebfa06259063e58fe9ad969d578a318c7b3ddb) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix refresh token flow
+
+### Patch Changes
+
+- Updated dependencies [[`70ebfa0`](https://github.com/roll-network/tryrolljs/commit/70ebfa06259063e58fe9ad969d578a318c7b3ddb)]:
+  - @roll-network/auth-sdk@3.2.0
+
 ## 2.1.0
 
 ### Minor Changes
