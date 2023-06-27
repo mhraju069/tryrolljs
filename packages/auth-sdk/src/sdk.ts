@@ -178,15 +178,19 @@ class SDK extends EventEmitter {
   }
 
   private getUser = async (token: Token) => {
-    if (this.override?.getUser) {
-      return await this.override.getUser(token)
-    }
+    try {
+      if (this.override?.getUser) {
+        return await this.override.getUser(token)
+      }
 
-    if (this.interaction.getUser) {
-      return await this.interaction.getUser(token)
-    }
+      if (this.interaction.getUser) {
+        return await this.interaction.getUser(token)
+      }
 
-    return undefined
+      return undefined
+    } catch (e) {
+      await this.cleanUp()
+    }
   }
 }
 
