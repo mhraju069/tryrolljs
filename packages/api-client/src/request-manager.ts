@@ -116,7 +116,7 @@ export default class RequestManager {
     }
 
     if (headers) {
-      options.headers = { ...headers, ...options.headers }
+      options.headers = { ...options.headers, ...headers }
     }
 
     if (this.config.baseUrl && !isAbsoluteUrl(url)) {
@@ -129,19 +129,22 @@ export default class RequestManager {
   private makeRefreshTask = (onError: () => void) => async () => {
     this.state.isRefreshInProgress = true
 
+    const onComplete = () => {
+      this.state.isRefreshScheduled = false
+      this.state.isRefreshInProgress = false
+    }
+
     try {
-      await this.sdk.refreshToken(false, this.userId)
-      const token = await this.sdk.getToken(this.userId)
-      // Unsuccessful refresh leads to an empty token in the SDK
-      if (!token) {
+      const credentials = await this.sdk.refreshToken(false, this.userId)
+      onComplete()
+      // Unsuccessful refresh leads to empty credentials
+      if (!credentials) {
         onError()
       }
     } catch (e) {
+      onComplete()
       onError()
     }
-
-    this.state.isRefreshScheduled = false
-    this.state.isRefreshInProgress = false
   }
 
   private makeRequestTask =
