@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.3.0
+
+### Minor Changes
+
+- [#334](https://github.com/roll-network/tryrolljs/pull/334) [`500fbf4`](https://github.com/roll-network/tryrolljs/commit/500fbf4cbca681a6ce5dc7b8f98b21b41278d0d9) Thanks [@teimurjan](https://github.com/teimurjan)! - Add useClipboardWithToastV2 hook
+
 ## 1.2.0
 
 ### Minor Changes
