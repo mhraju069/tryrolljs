@@ -1,5 +1,16 @@
 # @roll-network/api-client
 
+## 2.1.0
+
+### Minor Changes
+
+- [#337](https://github.com/roll-network/tryrolljs/pull/337) [`0871c5b`](https://github.com/roll-network/tryrolljs/commit/0871c5b5177ae6f9346f0b6249ae9fe27bcd123a) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow headers to be overriden
+
+### Patch Changes
+
+- Updated dependencies [[`e7e4675`](https://github.com/roll-network/tryrolljs/commit/e7e467541960f9269828389c5705d6715797caeb)]:
+  - @roll-network/auth-sdk@3.1.0
+
 ## 2.0.0
 
 ### Major Changes

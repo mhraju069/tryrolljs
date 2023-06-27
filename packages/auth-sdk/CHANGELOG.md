@@ -1,5 +1,11 @@
 # @roll-network/auth-sdk
 
+## 3.1.0
+
+### Minor Changes
+
+- [#337](https://github.com/roll-network/tryrolljs/pull/337) [`e7e4675`](https://github.com/roll-network/tryrolljs/commit/e7e467541960f9269828389c5705d6715797caeb) Thanks [@teimurjan](https://github.com/teimurjan)! - Clean up SDK when user fetch is unsuccessful
+
 ## 3.0.0
 
 ### Major Changes
