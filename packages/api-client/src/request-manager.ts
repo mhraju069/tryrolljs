@@ -136,17 +136,15 @@ export default class RequestManager {
 
     try {
       const credentials = await this.sdk.refreshToken(false, this.userId)
+      onComplete()
       // Unsuccessful refresh leads to empty credentials
       if (!credentials) {
-        onComplete()
         onError()
       }
     } catch (e) {
       onComplete()
       onError()
     }
-
-    onComplete()
   }
 
   private makeRequestTask =
