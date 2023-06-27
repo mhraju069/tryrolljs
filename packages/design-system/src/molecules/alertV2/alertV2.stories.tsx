@@ -12,24 +12,28 @@ const conf = {
 
   export const Default = fromTemplate(Template, {
     title: 'Alert',
-    variant: 'info'
+    variant: 'info',
+    showButton: false,
   })
 
   export const Danger = fromTemplate(Template, {
     title: 'Alert',
-    variant: 'danger'
+    variant: 'danger',
+    showButton: false,
   })
 
   export const DangerAction = fromTemplate(Template, {
     title: 'Alert',
     variant: 'danger',
     showButton: true,
+    buttonText: 'Label Button',
   })
 
   export const DefaultAction = fromTemplate(Template, {
     title: 'Alert',
     variant: 'info',
     showButton: true,
+    buttonText: 'Label Button',
   })
 
 
