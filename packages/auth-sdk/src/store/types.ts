@@ -13,5 +13,8 @@ export interface Store {
     item: Entity & Partial<T>,
   ): Promise<T | undefined>
   delete(namespace: string, matcher: string): Promise<boolean>
-  count(namespace: string): Promise<number>
+  count<T extends Entity>(
+    namespace: string,
+    matcher?: Matcher<T>,
+  ): Promise<number>
 }

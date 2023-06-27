@@ -82,14 +82,11 @@ class KeyValueStoreAdapter implements Store {
     return true
   }
 
-  async count(namespace: string): Promise<number> {
-    const data = await this.getData()
-    const namespaceData = data[namespace]
-    if (!namespaceData) {
-      return 0
-    }
-
-    return Object.keys(namespaceData).length
+  async count<T extends Entity>(
+    namespace: string,
+    matcher?: Matcher<T>,
+  ): Promise<number> {
+    return (await this.find(namespace, matcher)).length
   }
 
   async find<T extends Entity>(
