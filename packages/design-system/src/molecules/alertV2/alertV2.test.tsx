@@ -21,7 +21,7 @@ describe('AlertV2', () => {
 
   it('renders correctly', () => {
     const container = screen.getByTestId('alertContainer')
-    const icon = screen.getByTestId('iconInfoCircle')
+    const icon = screen.getByTestId('icon')
     const text = screen.getByText(
       'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.',
     )
