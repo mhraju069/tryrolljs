@@ -78,7 +78,7 @@ const AlertV2: React.FC<AlertProps> = ({
   iconVariant,
   showButton = false,
   onPress,
-  buttonText = 'Label Button',
+  buttonText,
 }) => {
   const styles = useStyles(variant)
   const theme = useThemeV2()
