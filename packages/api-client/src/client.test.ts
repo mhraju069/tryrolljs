@@ -77,6 +77,7 @@ describe('client', () => {
     const authSdk_ = {
       ...authSdk,
       isTokenExpired: jest.fn().mockResolvedValue(true),
+      refreshToken: jest.fn().mockResolvedValue({}),
     }
     const client = new Client(defaultConfig, authSdk_)
 
