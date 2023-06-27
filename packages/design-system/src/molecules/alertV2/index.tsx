@@ -50,6 +50,9 @@ const useStyles = (variant: 'info' | 'danger') => {
           flex: 1,
           padding: 8,
         },
+        textTitleDanger: {
+          color: colorDanger,
+        },
         buttonContainer: {
           marginLeft: buttonMarginLeft,
           borderLeftWidth: 1,
@@ -84,27 +87,31 @@ const AlertV2: React.FC<AlertProps> = ({
     <View style={styles.container} testID="alertContainer">
       <View style={styles.iconContainer}>
         <Icon
-          variant = {iconVariant || 'infoCircle'}
+          variant={iconVariant || 'infoCircle'}
           color={styles.iconContainer.color}
           testID="icon"
         />
       </View>
       <TypographyV2
         variant="text4"
-        style={styles.textContainer} // Use styles.titleText as a style object
-        color={variant === 'danger' ? theme.text.white[100] : theme.text.black[100]}
-      >
-        {
-          (title &&
-            'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.')
+        style={styles.textContainer}
+        color={
+          variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
         }
+      >
+        {title &&
+          'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.'}
       </TypographyV2>
-      {showButton && (
+      {buttonText && showButton && (
         <View style={styles.buttonContainer}>
           <ButtonV2
             title={buttonText}
             variant="text"
-            textColor={variant === 'danger' ? theme.text.white[100] : theme.text.black[100]}
+            textColor={
+              variant === 'danger'
+                ? theme.text.white[100]
+                : theme.text.black[100]
+            }
             onPress={onPress}
           />
         </View>
