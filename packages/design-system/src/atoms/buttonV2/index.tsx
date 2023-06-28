@@ -71,11 +71,15 @@ const BaseButton = ({
   const styles = StyleSheet.create({
     title: {
       fontWeight: '600',
-      color: stylesBasedOnState.textColor,
+      color:
+        variant === 'text'
+          ? textColor || stylesBasedOnState.textColor
+          : stylesBasedOnState.textColor,
       borderBottomWidth: variant === 'text' ? 1 : 0,
-      borderBottomColor: isUnderlined
-        ? stylesBasedOnState.textColor
-        : 'transparent',
+      borderBottomColor:
+        variant === 'text' && isUnderlined
+          ? textColor || stylesBasedOnState.textColor
+          : 'transparent',
     },
     iconContainer: {
       color: stylesBasedOnState.textColor,
