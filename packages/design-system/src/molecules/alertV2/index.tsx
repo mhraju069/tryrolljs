@@ -5,6 +5,9 @@ import { TypographyV2, Icon, ButtonV2, IconVariant } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { spacing } from '../../styles'
 
+const BORDER_RADIUS = 100
+const CONTAINER_MD_MAX_WIDTH = 600
+
 type AlertVariant = 'info' | 'danger'
 
 export type AlertProps = {
@@ -18,11 +21,13 @@ export type AlertProps = {
 
 const useStyles = (variant: AlertVariant) => {
   const theme = useThemeV2()
-  const BORDER_RADIUS = 100
-  const COLOR_DANGER = theme.text.white[100]
-  const COLOR_INFO = theme.text.black[100]
+  const colorDanger = theme.text.white[100]
+  const colorInfo = theme.text.black[100]
   const buttonMarginLeft = useBreakpointValue({ md: spacing[16] })
-  const containerMaxWidth = useBreakpointValue({ base: '100%', md: 600 })
+  const containerMaxWidth = useBreakpointValue({
+    base: '100%',
+    md: CONTAINER_MD_MAX_WIDTH,
+  })
   const containerAlignSelf = useBreakpointValue({
     base: 'stretch',
     md: 'flex-start',
@@ -30,7 +35,7 @@ const useStyles = (variant: AlertVariant) => {
   const backgroundColor =
     variant === 'danger' ? theme.base.danger : theme.base.highlight2[10]
   const iconBackgroundColor = variant === 'danger' ? theme.base.primary[10] : ''
-  const iconContainerColor = variant === 'danger' ? COLOR_DANGER : COLOR_INFO
+  const iconContainerColor = variant === 'danger' ? colorDanger : colorInfo
 
   const styles = useMemo(
     () =>
@@ -58,7 +63,7 @@ const useStyles = (variant: AlertVariant) => {
           padding: spacing[8],
         },
         textTitleDanger: {
-          color: COLOR_DANGER,
+          color: colorDanger,
         },
         buttonContainer: {
           marginLeft: buttonMarginLeft,
@@ -72,7 +77,7 @@ const useStyles = (variant: AlertVariant) => {
       containerMaxWidth,
       backgroundColor,
       iconBackgroundColor,
-      COLOR_DANGER,
+      colorDanger,
       containerAlignSelf,
       theme.base.primary,
     ],
