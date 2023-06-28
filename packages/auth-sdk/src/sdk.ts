@@ -151,7 +151,11 @@ class SDK extends EventEmitter {
   }
 
   public getCredentials = async (userId?: string) => {
-    const count = await this.store.count('credentials')
+    const interactionTypeMatcher = (credential: Credentials) =>
+      credential.interactionType === this.interaction.type
+
+    const count = await this.store.count('credentials', interactionTypeMatcher)
+
     if (!userId) {
       if (count > 1) {
         throw new UserIdRequiredError()
@@ -159,14 +163,14 @@ class SDK extends EventEmitter {
 
       return await this.store.findOne<Credentials>(
         'credentials',
-        (credential) => credential.interactionType === this.interaction.type,
+        interactionTypeMatcher,
       )
     }
 
     return await this.store.findOne<Credentials>(
       'credentials',
       (credential) =>
-        credential.interactionType === this.interaction.type &&
+        interactionTypeMatcher(credential) &&
         credential.user?.userID === userId,
     )
   }

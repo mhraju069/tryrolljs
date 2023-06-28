@@ -56,10 +56,11 @@ class InMemoryStore implements Store {
     return true
   }
 
-  async count(namespace: string): Promise<number> {
-    const namespaceData = this.getNamespaceData(namespace)
-
-    return Object.keys(namespaceData).length
+  async count<T extends Entity>(
+    namespace: string,
+    matcher?: Matcher<T>,
+  ): Promise<number> {
+    return (await this.find(namespace, matcher)).length
   }
 
   async find<T extends Entity>(
