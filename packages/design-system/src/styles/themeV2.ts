@@ -9,12 +9,12 @@ interface PaletteBase {
   transparent: string
 }
 
-export interface PaletteText {
+interface PaletteText {
   black: Record<30 | 40 | 80 | 100, string>
   white: Record<40 | 80 | 100, string>
 }
 
-export interface PaletteBackground {
+interface PaletteBackground {
   white: string
   grey: string
   silver: string

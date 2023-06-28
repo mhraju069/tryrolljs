@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react-native'
 import { TryrollTestProvider } from '../../providers'
-import AlertV2 from './index'
+import { AlertV2 } from './index'
 
 describe('AlertV2', () => {
   beforeEach(() => {
@@ -10,7 +10,6 @@ describe('AlertV2', () => {
           'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.'
         }
         variant={'info'}
-        showButton={true}
         buttonText={'Label Button'}
       />,
       {
