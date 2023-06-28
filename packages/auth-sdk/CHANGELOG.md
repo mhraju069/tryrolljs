@@ -1,5 +1,11 @@
 # @roll-network/auth-sdk
 
+## 3.3.0
+
+### Minor Changes
+
+- [`2a05d23`](https://github.com/roll-network/tryrolljs/commit/2a05d23ae940ece93b5ba52a26ea0f2bba7bc201) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix count is returning invalid number
+
 ## 3.2.0
 
 ### Minor Changes
