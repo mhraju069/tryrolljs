@@ -18,20 +18,19 @@ export type AlertProps = {
 
 const useStyles = (variant: AlertVariant) => {
   const theme = useThemeV2()
-  const BUTTON_MARGIN_LEFT = useBreakpointValue({ md: spacing[16] })
   const BORDER_RADIUS = 100
-  const CONTAINER_MAX_WIDTH = useBreakpointValue({ base: '100%', md: 600 })
-  const CONTAINER_ALIGN_SELF = useBreakpointValue({
+  const COLOR_DANGER = theme.text.white[100]
+  const COLOR_INFO = theme.text.black[100]
+  const buttonMarginLeft = useBreakpointValue({ md: spacing[16] })
+  const containerMaxWidth = useBreakpointValue({ base: '100%', md: 600 })
+  const containerAlignSelf = useBreakpointValue({
     base: 'stretch',
     md: 'flex-start',
   })
-  const BACKGROUND_COLOR =
+  const backgroundColor =
     variant === 'danger' ? theme.base.danger : theme.base.highlight2[10]
-  const COLOR_DANGER = theme.text.white[100]
-  const COLOR_INFO = theme.text.black[100]
-  const ICON_BACKGROUND_COLOR =
-    variant === 'danger' ? theme.base.primary[10] : ''
-  const ICON_CONTAINER_COLOR = variant === 'danger' ? COLOR_DANGER : COLOR_INFO
+  const iconBackgroundColor = variant === 'danger' ? theme.base.primary[10] : ''
+  const iconContainerColor = variant === 'danger' ? COLOR_DANGER : COLOR_INFO
 
   const styles = useMemo(
     () =>
@@ -43,16 +42,16 @@ const useStyles = (variant: AlertVariant) => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          maxWidth: CONTAINER_MAX_WIDTH,
-          alignSelf: CONTAINER_ALIGN_SELF,
-          backgroundColor: BACKGROUND_COLOR,
+          maxWidth: containerMaxWidth,
+          alignSelf: containerAlignSelf,
+          backgroundColor: backgroundColor,
         },
         iconContainer: {
           marginRight: spacing[8],
-          backgroundColor: ICON_BACKGROUND_COLOR,
+          backgroundColor: iconBackgroundColor,
           padding: spacing[8],
           borderRadius: BORDER_RADIUS,
-          color: ICON_CONTAINER_COLOR,
+          color: iconContainerColor,
         },
         textContainer: {
           flex: 1,
@@ -62,19 +61,19 @@ const useStyles = (variant: AlertVariant) => {
           color: COLOR_DANGER,
         },
         buttonContainer: {
-          marginLeft: BUTTON_MARGIN_LEFT,
+          marginLeft: buttonMarginLeft,
           borderLeftWidth: 1,
           borderColor: theme.base.primary[20],
         },
       }),
     [
-      ICON_CONTAINER_COLOR,
-      BUTTON_MARGIN_LEFT,
-      CONTAINER_MAX_WIDTH,
-      BACKGROUND_COLOR,
-      ICON_BACKGROUND_COLOR,
+      iconContainerColor,
+      buttonMarginLeft,
+      containerMaxWidth,
+      backgroundColor,
+      iconBackgroundColor,
       COLOR_DANGER,
-      CONTAINER_ALIGN_SELF,
+      containerAlignSelf,
       theme.base.primary,
     ],
   )
