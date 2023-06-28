@@ -3,93 +3,65 @@ import ServerTokenInteraction from './server-token-interaction'
 import ClientCredentialsTokenInteraction from './client-credentials-token-interaction'
 import CodeTokenInteraction from './code-token-interaction'
 import SDK from './sdk'
-import { Config, Storage, TokenInteraction, InteractionType } from './types'
-import {
-  addPrefixToStorage,
-  makeInMemoryStorage,
-  throwIfNotNode,
-} from './utils'
+import { Config, TokenInteraction, InteractionType } from './types'
+import { throwIfNotNode } from './utils'
+import { InMemoryStore, Store } from './store'
 
 class SDKPool {
   private readonly sdks: Record<InteractionType, SDK>
 
-  constructor(private readonly config: Config, storage?: Storage) {
+  constructor(
+    private readonly config: Config,
+    store: Store = new InMemoryStore(),
+  ) {
     throwIfNotNode()
 
     this.config = config
 
-    const storages = this.makeStorages(storage ?? makeInMemoryStorage())
-    const interactions = this.makeInteractions(storages)
-    this.sdks = this.makeSdks(storages, interactions)
+    const interactions = this.makeInteractions(store)
+    this.sdks = this.makeSdks(store, interactions)
   }
 
   public getSDK = (type: InteractionType) => {
     return this.sdks[type]
   }
 
-  private makeStorages = (storage: Storage) => {
+  private makeInteractions = (store: Store) => {
     return {
-      [InteractionType.Code]: addPrefixToStorage(storage, InteractionType.Code),
-      [InteractionType.MasqueradeToken]: addPrefixToStorage(
-        storage,
-        InteractionType.MasqueradeToken,
-      ),
-      [InteractionType.ClientCredentials]: addPrefixToStorage(
-        storage,
-        InteractionType.ClientCredentials,
-      ),
-      [InteractionType.Server]: addPrefixToStorage(
-        storage,
-        InteractionType.Server,
-      ),
-    }
-  }
-
-  private makeInteractions = (storages: Record<InteractionType, Storage>) => {
-    return {
-      [InteractionType.Code]: new CodeTokenInteraction(
-        this.config,
-        storages[InteractionType.Code],
-      ),
+      [InteractionType.Code]: new CodeTokenInteraction(this.config, store),
       [InteractionType.MasqueradeToken]: new MasqueradeTokenInteraction(
         this.config,
-        storages[InteractionType.MasqueradeToken],
+        store,
       ),
       [InteractionType.ClientCredentials]:
-        new ClientCredentialsTokenInteraction(
-          this.config,
-          storages[InteractionType.ClientCredentials],
-        ),
-      [InteractionType.Server]: new ServerTokenInteraction(
-        this.config,
-        storages[InteractionType.Server],
-      ),
+        new ClientCredentialsTokenInteraction(this.config, store),
+      [InteractionType.Server]: new ServerTokenInteraction(this.config, store),
     }
   }
 
   private makeSdks = (
-    storages: Record<InteractionType, Storage>,
+    store: Store,
     interactions: Record<InteractionType, TokenInteraction<any>>,
   ) => {
     return {
       [InteractionType.Code]: new SDK(
         this.config,
-        storages[InteractionType.Code],
+        store,
         interactions[InteractionType.Code],
       ),
       [InteractionType.MasqueradeToken]: new SDK(
         this.config,
-        storages[InteractionType.MasqueradeToken],
+        store,
         interactions[InteractionType.MasqueradeToken],
       ),
       [InteractionType.ClientCredentials]: new SDK(
         this.config,
-        storages[InteractionType.ClientCredentials],
+        store,
         interactions[InteractionType.ClientCredentials],
       ),
       [InteractionType.Server]: new SDK(
         this.config,
-        storages[InteractionType.Server],
+        store,
         interactions[InteractionType.Server],
       ),
     }

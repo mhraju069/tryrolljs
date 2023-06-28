@@ -1,11 +1,15 @@
-import CodeTokenInteraction from '../code-token-interaction'
+import { Store } from '../store'
+import CodeTokenInteraction, {
+  CodeVerifierMissingError,
+} from '../code-token-interaction'
 import {
-  Storage,
   GrantType,
   TokenInteraction,
   Config,
-  StorageKey,
+  CodeVerifier,
+  InteractionType,
 } from '../types'
+import { InvalidGenerateTokenArgumentsError } from '../errors'
 import { autoLogin, provideConsent, requestToken } from './api'
 import {
   haltRedirect,
@@ -17,29 +21,43 @@ import {
 
 class MasqueradeTokenInteraction
   extends CodeTokenInteraction
-  implements TokenInteraction<string>
+  implements TokenInteraction<Record<string, string>>
 {
+  public type = InteractionType.MasqueradeToken
+
   constructor(
     protected readonly config: Config,
-    protected readonly storage: Storage,
+    protected readonly store: Store,
   ) {
-    super(config, storage)
-    this.storage = storage
+    super(config, store)
+    this.store = store
     this.config = config
   }
 
-  public generateToken = async (encodedToken: string) => {
-    const loginUrl = await this.getLogInUrl()
-    const codeVerifier = await this.storage.getItem(StorageKey.CodeVerifier)
-
-    let cookies: string[] = []
-
-    const [clientToken, masqueradeToken] = encodedToken.split('TOKEN_SPLITTER')
-
+  public override generateToken = async ({
+    clientToken,
+    masqueradeToken,
+  }: Record<string, string>) => {
     if (!clientToken || !masqueradeToken) {
-      throw new Error('Invalid token')
+      throw new InvalidGenerateTokenArgumentsError()
     }
 
+    const loginUrl = await this.getLogInUrl()
+    const state = mustGetParam(loginUrl, 'state')
+    const codeVerifier = await this.store.findOne<CodeVerifier>(
+      'code_verifier',
+      state,
+    )
+
+    if (!codeVerifier) {
+      throw new CodeVerifierMissingError()
+    }
+
+    if (!clientToken || !masqueradeToken) {
+      throw new InvalidGenerateTokenArgumentsError()
+    }
+
+    let cookies: string[] = []
     const loginRedirectResponse = await haltRedirect(loginUrl)
 
     const loginRedirectUrl = mustGetRedirectUrl(loginRedirectResponse)
@@ -81,7 +99,7 @@ class MasqueradeTokenInteraction
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret ?? '',
       code,
-      codeVerifier,
+      codeVerifier: codeVerifier.value,
       grantType: GrantType.AuthorizationCode,
       redirectUrl: this.config.redirectUrl,
     })

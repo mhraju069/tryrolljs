@@ -12,6 +12,13 @@ const extraNodeModules = {
   stream: require.resolve('stream-browserify'),
   https: require.resolve('https-browserify'),
   http: require.resolve('http-browserify'),
+  open: require.resolve('noop3'),
+  fs: require.resolve('noop3'),
+  path: require.resolve('noop3'),
+  child_process: require.resolve('noop3'),
+  os: require.resolve('noop3'),
+  net: require.resolve('noop3'),
+  zlib: require.resolve('noop3'),
 }
 
 const nodeModulesPaths = [

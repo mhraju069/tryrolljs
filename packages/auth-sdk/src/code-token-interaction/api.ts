@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { stringify } from 'qs'
+import { RequestTokenArgs, RequestTokenResponseData } from '../types'
 import {
-  RequestTokenArgs,
-  RequestTokenResponseData,
+  GetUserArgs,
+  GetUserResponseData,
   GetLogInUrlArgs,
   GetLogOutUrlArgs,
-} from '../types'
+} from './types'
 import { getRandomString } from './utils'
 
 export const requestToken = async ({
@@ -70,4 +71,20 @@ export const getLogOutUrl = ({
 }: GetLogOutUrlArgs) => {
   const url = `${issuerUrl}/sessions/logout?post_logout_redirect_uri=${redirectUrl}&state=${getRandomString()}&id_token_hint=${idToken}`
   return url
+}
+
+export const getUser = async ({ apiUrl, accessToken }: GetUserArgs) => {
+  try {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      url: `${apiUrl}/v1/users/session`,
+    }
+
+    return await axios<GetUserResponseData>(options)
+  } catch (e) {
+    throw e
+  }
 }

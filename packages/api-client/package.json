@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/api-client",
   "description": "JavaScript-based API client for Roll",
-  "version": "1.1.0",
+  "version": "2.2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -11,11 +11,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@roll-network/auth-sdk": "^2.0.0",
+    "@roll-network/auth-sdk": "^3.2.0",
     "axios": "^1.3.4",
     "better-queue": "^3.8.12",
-    "better-queue-memory": "^1.0.4",
-    "events": "^3.3.0"
+    "better-queue-memory": "^1.0.4"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",

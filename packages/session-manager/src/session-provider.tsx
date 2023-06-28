@@ -1,5 +1,4 @@
-import { user as userAPI } from '@roll-network/api'
-import { Event } from '@roll-network/api-client'
+import { User } from '@roll-network/auth-sdk'
 import {
   useState,
   useEffect,
@@ -13,6 +12,7 @@ import {
   SessionProviderProps,
   SessionStatus,
 } from './types'
+import { useAuthSdkUser } from './hooks'
 
 export const SessionContext = createContext<SessionContextValue>({
   logIn: Promise.resolve,
@@ -22,67 +22,57 @@ export const SessionContext = createContext<SessionContextValue>({
 })
 
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
+const OAUTH_STATE_URL_PARAM_KEY = 'state'
+const OAUTH_SCOPE_URL_PARAM_KEY = 'scope'
 
-const SessionProvider = ({
-  apiClient,
-  authSdk,
-  getMe = userAPI.getMe,
-  children,
-}: SessionProviderProps) => {
+const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>('initializing')
-  const [user, setUser] = useState<userAPI.types.GetMeResponseData>()
+  const user = useAuthSdkUser(authSdk)
   const [error, setError] = useState<unknown>()
-
-  useEffect(() => {
-    const unauthorizedListener = () => authSdk.clearCache()
-    apiClient.on(Event.Unauthorized, unauthorizedListener)
-
-    return () => {
-      apiClient.off(Event.Unauthorized, unauthorizedListener)
-    }
-  }, [apiClient, authSdk])
-
-  const loadUserData = useCallback(async () => {
-    try {
-      const user_ = await getMe(apiClient)
-      setUser(user_.data)
-    } catch (e) {
-      setError(e)
-    }
-  }, [apiClient, getMe])
 
   useEffect(() => {
     if (isMountedRef.current) {
       return
     }
 
-    const getOauthCode = () => {
+    const clearOauthParams = () => {
+      if (typeof window !== 'undefined') {
+        const nextUrl = new URL(window.location.href)
+        nextUrl.searchParams.delete(OAUTH_CODE_URL_PARAM_KEY)
+        nextUrl.searchParams.delete(OAUTH_STATE_URL_PARAM_KEY)
+        nextUrl.searchParams.delete(OAUTH_SCOPE_URL_PARAM_KEY)
+        window.history.replaceState({}, document.title, nextUrl.href)
+      }
+    }
+
+    const getOauthParams = () => {
       const urlParams = new URLSearchParams(window.location.search)
-      return urlParams.get(OAUTH_CODE_URL_PARAM_KEY)
+      const code = urlParams.get(OAUTH_CODE_URL_PARAM_KEY)
+      const state = urlParams.get(OAUTH_STATE_URL_PARAM_KEY)
+
+      clearOauthParams()
+
+      return { code, state }
     }
 
     const initializeNewSession = async () => {
       try {
-        const oauthCode = getOauthCode()
-        if (oauthCode) {
-          await authSdk.generateToken(oauthCode)
-          await loadUserData()
+        const { code, state } = getOauthParams()
+        if (code && state) {
+          await authSdk.generateToken({ code, state })
         }
       } catch (e) {
         setError(e)
-        setUser(undefined)
+        await authSdk.cleanUp()
       }
     }
 
     const initialize = async () => {
       try {
         setStatus('initializing')
-        await authSdk.restoreCache()
         const token = await authSdk.getToken()
-        if (token) {
-          await loadUserData()
-        } else {
+        if (!token) {
           await initializeNewSession()
         }
       } catch (e) {
@@ -101,12 +91,12 @@ const SessionProvider = ({
     try {
       setStatus('refreshing')
       await authSdk.refreshToken(true)
-      await loadUserData()
     } catch (e) {
+      setError(e)
     } finally {
       setStatus('stale')
     }
-  }, [authSdk, loadUserData])
+  }, [authSdk])
 
   const logIn = useCallback(async () => {
     const url = await authSdk.getLogInUrl()
@@ -126,6 +116,7 @@ const SessionProvider = ({
   )
 }
 
-export const useSession = () => useContext(SessionContext)
+export const useSession = <U extends User = User>() =>
+  useContext(SessionContext) as SessionContextValue<U>
 
 export default SessionProvider

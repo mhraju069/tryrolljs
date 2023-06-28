@@ -1,5 +1,38 @@
 # @roll-network/api-client
 
+## 2.2.0
+
+### Minor Changes
+
+- [#339](https://github.com/roll-network/tryrolljs/pull/339) [`70ebfa0`](https://github.com/roll-network/tryrolljs/commit/70ebfa06259063e58fe9ad969d578a318c7b3ddb) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix refresh token flow
+
+### Patch Changes
+
+- Updated dependencies [[`70ebfa0`](https://github.com/roll-network/tryrolljs/commit/70ebfa06259063e58fe9ad969d578a318c7b3ddb)]:
+  - @roll-network/auth-sdk@3.2.0
+
+## 2.1.0
+
+### Minor Changes
+
+- [#337](https://github.com/roll-network/tryrolljs/pull/337) [`0871c5b`](https://github.com/roll-network/tryrolljs/commit/0871c5b5177ae6f9346f0b6249ae9fe27bcd123a) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow headers to be overriden
+
+### Patch Changes
+
+- Updated dependencies [[`e7e4675`](https://github.com/roll-network/tryrolljs/commit/e7e467541960f9269828389c5705d6715797caeb)]:
+  - @roll-network/auth-sdk@3.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- [#326](https://github.com/roll-network/tryrolljs/pull/326) [`db6bf82`](https://github.com/roll-network/tryrolljs/commit/db6bf82a664e3cece3d8f4b4df09b2f496ff7b69) Thanks [@teimurjan](https://github.com/teimurjan)! - Add support for multi-user SDK authentication
+
+### Patch Changes
+
+- Updated dependencies [[`db6bf82`](https://github.com/roll-network/tryrolljs/commit/db6bf82a664e3cece3d8f4b4df09b2f496ff7b69), [`68dde98`](https://github.com/roll-network/tryrolljs/commit/68dde980d6a8416e9719c3d6068b51f5da9f316b)]:
+  - @roll-network/auth-sdk@3.0.0
+
 ## 1.1.0
 
 ### Minor Changes

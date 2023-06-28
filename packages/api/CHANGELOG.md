@@ -1,5 +1,17 @@
 # @roll-network/api
 
+## 2.0.0
+
+### Major Changes
+
+- [#326](https://github.com/roll-network/tryrolljs/pull/326) [`db6bf82`](https://github.com/roll-network/tryrolljs/commit/db6bf82a664e3cece3d8f4b4df09b2f496ff7b69) Thanks [@teimurjan](https://github.com/teimurjan)! - Add support for multi-user SDK authentication
+
+## 1.1.0
+
+### Minor Changes
+
+- [#329](https://github.com/roll-network/tryrolljs/pull/329) [`4407717`](https://github.com/roll-network/tryrolljs/commit/440771760ad054927df8e855840befd46878afac) Thanks [@nsstarr](https://github.com/nsstarr)! - Add batchSend api request
+
 ## 1.0.2
 
 ### Patch Changes

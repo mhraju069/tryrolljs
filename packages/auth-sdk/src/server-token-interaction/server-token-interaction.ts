@@ -3,8 +3,9 @@ import { URL } from 'url'
 import { EventEmitter } from 'events'
 import type { Express } from 'express'
 import CodeTokenInteraction from '../code-token-interaction'
-import { Storage, TokenInteraction, Config, Token } from '../types'
+import { TokenInteraction, Config, Token, InteractionType } from '../types'
 import { throwIfNotNode } from '../utils'
+import { Store } from '../store'
 
 enum Event {
   TokenGenerationSuccess = 'tokengenerated',
@@ -15,17 +16,18 @@ class ServerTokenInteraction
   extends CodeTokenInteraction
   implements TokenInteraction<void>
 {
+  public type = InteractionType.Server
   private readonly emitter: EventEmitter
   private app?: Express
 
   constructor(
     protected readonly config: Config,
-    protected readonly storage: Storage,
+    protected readonly store: Store,
   ) {
     throwIfNotNode()
 
-    super(config, storage)
-    this.storage = storage
+    super(config, store)
+    this.store = store
     this.config = config
     this.emitter = new EventEmitter()
   }
@@ -72,10 +74,12 @@ class ServerTokenInteraction
     const path = parsedUrl.pathname
 
     this.app.get(path, async (req, res) => {
-      const code = req.query.code
-
       try {
-        const generatedToken = await generateTokenWithCode(code as string)
+        const { code, state } = req.query
+        const generatedToken = await generateTokenWithCode({
+          code: code as string,
+          state: state as string,
+        })
         res.json({ success: true })
         this.emitter.emit(Event.TokenGenerationSuccess, generatedToken)
       } catch (e) {

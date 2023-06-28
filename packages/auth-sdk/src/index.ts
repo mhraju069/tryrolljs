@@ -1,8 +1,9 @@
 export { default } from './sdk'
 export { default as SDKPool } from './sdk-pool'
+export { default as ClientCredentialsTokenInteraction } from './client-credentials-token-interaction'
+export { default as CodeTokenInteraction } from './code-token-interaction'
+export { default as MasqueradeTokenInteraction } from './masquerade-token-interaction'
+export { default as ServerTokenInteraction } from './server-token-interaction'
 export * from './types'
 export * from './errors'
-export {
-  encodeClientMasqueradeTokens,
-  safelyGetToken,
-} from './masquerade-token-interaction'
+export * from './store'

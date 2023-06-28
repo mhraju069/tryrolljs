@@ -1,5 +1,7 @@
 import 'dotenv/config'
 import inquirer from 'inquirer'
+// @ts-ignore
+import inquirerSearchList from 'inquirer-search-list'
 import { getTokenCreator, getTokenList } from './tokens.js'
 import {
   getUser,
@@ -11,13 +13,24 @@ import {
   getPlatformUserDepositAddress,
   getPlatformUserTokenBalance,
   getPlatformUserTokenBalances,
+  loginMultiplePlatformUsers,
 } from './users.js'
-import { sendFromPlatformUser } from './transaction.js'
+import {
+  sendBatchFromPlatformUser,
+  sendFromPlatformUser,
+} from './transaction.js'
 import {
   generateClientSecret,
   getClient,
   getClients,
 } from './client-credentials.js'
+
+import {
+  generateClientCredentialsToken,
+  refreshClientCredentialsToken,
+} from './client-credentials-token.js'
+
+inquirer.registerPrompt('search-list', inquirerSearchList)
 
 enum Choice {
   GetTokenList = 'Get token list',
@@ -28,13 +41,17 @@ enum Choice {
   CheckIfUserHasTokenBalance = 'Check if user has token balance',
   CreatePlatformUser = 'Create platform user',
   LoginPlatformUser = 'Login platform user',
+  LoginMultiplePlatformUser = 'Login multiple platform users',
   GetClient = 'Get client',
   SendFromPlatformUser = 'Send From Platform User',
+  SendBatchFromPlatformUser = 'Send Batch From Platform User',
   GetPlatformUserDepositAddress = 'Get platform user deposit address',
   GetPlatformUserBalance = 'Get platform user balance',
   GetPlatformUserBalances = 'Get platform user balances',
   GetClients = 'Get clients',
   GenerateClientSecret = 'Generate client secret',
+  GenerateClientCredentialsToken = 'Generate client credentials token',
+  RefreshClientCredentialsToken = 'Refresh client credentials token',
 }
 
 const actionByChoice: Record<Choice, Function> = {
@@ -46,20 +63,24 @@ const actionByChoice: Record<Choice, Function> = {
   [Choice.CheckIfUserHasTokenBalance]: hasBalance,
   [Choice.CreatePlatformUser]: createPlatformUser,
   [Choice.LoginPlatformUser]: loginPlatformUser,
+  [Choice.LoginMultiplePlatformUser]: loginMultiplePlatformUsers,
   [Choice.GetClient]: getClient,
   [Choice.SendFromPlatformUser]: sendFromPlatformUser,
+  [Choice.SendBatchFromPlatformUser]: sendBatchFromPlatformUser,
   [Choice.GetPlatformUserDepositAddress]: getPlatformUserDepositAddress,
   [Choice.GetPlatformUserBalances]: getPlatformUserTokenBalances,
   [Choice.GetPlatformUserBalance]: getPlatformUserTokenBalance,
   [Choice.GetClients]: getClients,
   [Choice.GenerateClientSecret]: generateClientSecret,
+  [Choice.GenerateClientCredentialsToken]: generateClientCredentialsToken,
+  [Choice.RefreshClientCredentialsToken]: refreshClientCredentialsToken,
 }
 
 async function main() {
   inquirer
     .prompt([
       {
-        type: 'list',
+        type: 'search-list',
         name: 'option',
         message: 'What do you want to do?',
         choices: Object.values(Choice),

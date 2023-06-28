@@ -1,13 +1,16 @@
-import { Storage, TokenInteraction, Config } from '../types'
+import { Store } from '../store'
+import { TokenInteraction, Config, InteractionType } from '../types'
 import { requestToken } from './api'
 
 class ClientCredentialsTokenInteraction implements TokenInteraction<void> {
+  public type = InteractionType.ClientCredentials
+
   constructor(
     protected readonly config: Config,
-    protected readonly storage: Storage,
+    protected readonly store: Store,
   ) {
     this.config = config
-    this.storage = storage
+    this.store = store
   }
 
   public generateToken = async () => {

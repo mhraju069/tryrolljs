@@ -1,4 +1,4 @@
-import Client from '@roll-network/api-client'
+import { Call } from '../types'
 import {
   GetTokenCreatorArgs,
   GetTokenCreatorResponseData,
@@ -8,7 +8,7 @@ import {
 } from './types'
 
 export const getTokens = async (
-  client: Client,
+  call: Call,
   { symbol = '', contractAddress = '', limit = 10, offset = 0 }: GetTokensArgs,
 ) => {
   const query = {
@@ -20,7 +20,7 @@ export const getTokens = async (
   const params = new URLSearchParams(query).toString()
   const filteredParams = params.replaceAll(/\w+=&/g, '')
 
-  const response = await client.call<Response<GetTokensResponseData>>({
+  const response = await call<Response<GetTokensResponseData>>({
     url: `/v1/tokens?${filteredParams}`,
     method: 'GET',
     authorization: false,
@@ -29,10 +29,10 @@ export const getTokens = async (
 }
 
 export const getTokenCreator = async (
-  client: Client,
+  call: Call,
   { tokenId }: GetTokenCreatorArgs,
 ) => {
-  const response = await client.call<Response<GetTokenCreatorResponseData>>({
+  const response = await call<Response<GetTokenCreatorResponseData>>({
     url: `/v1/tokens/${tokenId}/creator`,
     method: 'GET',
     authorization: false,
