@@ -6,7 +6,7 @@ import { useBreakpointValue } from 'native-base'
 import { useMemo } from 'react'
 
 type AlertProps = {
-  title: string
+  titleText: string
   variant?: 'info' | 'danger'
   showButton?: boolean
   buttonText?: string
@@ -15,7 +15,7 @@ type AlertProps = {
   onPress?: (e?: GestureResponderEvent) => void
 }
 
-const useStyles = (variant: 'info' | 'danger') => {
+const useStyles = (variant: unknown) => {
   const theme = useThemeV2()
   const buttonMarginLeft = useBreakpointValue({ md: 16 })
   const containerMaxWidth = useBreakpointValue({ base: '100%', md: 600 })
@@ -73,8 +73,8 @@ const useStyles = (variant: 'info' | 'danger') => {
 }
 
 const AlertV2: React.FC<AlertProps> = ({
-  title,
-  variant = 'info' || 'danger',
+  titleText,
+  variant,
   iconVariant,
   showButton = false,
   onPress,
@@ -99,8 +99,7 @@ const AlertV2: React.FC<AlertProps> = ({
           variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
         }
       >
-        {title &&
-          'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.'}
+        {titleText}
       </TypographyV2>
       {buttonText && showButton && (
         <View style={styles.buttonContainer}>
