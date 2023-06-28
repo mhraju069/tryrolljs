@@ -18,18 +18,20 @@ export type AlertProps = {
 
 const useStyles = (variant: AlertVariant) => {
   const theme = useThemeV2()
-  const buttonMarginLeft = useBreakpointValue({ md: spacing[16] })
-  const containerMaxWidth = useBreakpointValue({ base: '100%', md: 600 })
-  const containerAlignSelf = useBreakpointValue({
+  const BUTTON_MARGIN_LEFT = useBreakpointValue({ md: spacing[16] })
+  const BORDER_RADIUS = 100
+  const CONTAINER_MAX_WIDTH = useBreakpointValue({ base: '100%', md: 600 })
+  const CONTAINER_ALIGN_SELF = useBreakpointValue({
     base: 'stretch',
     md: 'flex-start',
   })
-  const backgroundColor =
+  const BACKGROUND_COLOR =
     variant === 'danger' ? theme.base.danger : theme.base.highlight2[10]
-  const colorDanger = theme.text.white[100]
-  const colorInfo = theme.text.black[100]
-  const iconBackgroundColor = variant === 'danger' ? theme.base.primary[10] : ''
-  const iconContainerColor = variant === 'danger' ? colorDanger : colorInfo
+  const COLOR_DANGER = theme.text.white[100]
+  const COLOR_INFO = theme.text.black[100]
+  const ICON_BACKGROUND_COLOR =
+    variant === 'danger' ? theme.base.primary[10] : ''
+  const ICON_CONTAINER_COLOR = variant === 'danger' ? COLOR_DANGER : COLOR_INFO
 
   const styles = useMemo(
     () =>
@@ -41,38 +43,38 @@ const useStyles = (variant: AlertVariant) => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          maxWidth: containerMaxWidth,
-          alignSelf: containerAlignSelf,
-          backgroundColor,
+          maxWidth: CONTAINER_MAX_WIDTH,
+          alignSelf: CONTAINER_ALIGN_SELF,
+          backgroundColor: BACKGROUND_COLOR,
         },
         iconContainer: {
           marginRight: spacing[8],
-          backgroundColor: iconBackgroundColor,
+          backgroundColor: ICON_BACKGROUND_COLOR,
           padding: spacing[8],
-          borderRadius: 100,
-          color: iconContainerColor,
+          borderRadius: BORDER_RADIUS,
+          color: ICON_CONTAINER_COLOR,
         },
         textContainer: {
           flex: 1,
           padding: spacing[8],
         },
         textTitleDanger: {
-          color: colorDanger,
+          color: COLOR_DANGER,
         },
         buttonContainer: {
-          marginLeft: buttonMarginLeft,
+          marginLeft: BUTTON_MARGIN_LEFT,
           borderLeftWidth: 1,
           borderColor: theme.base.primary[20],
         },
       }),
     [
-      iconContainerColor,
-      buttonMarginLeft,
-      containerMaxWidth,
-      backgroundColor,
-      iconBackgroundColor,
-      colorDanger,
-      containerAlignSelf,
+      ICON_CONTAINER_COLOR,
+      BUTTON_MARGIN_LEFT,
+      CONTAINER_MAX_WIDTH,
+      BACKGROUND_COLOR,
+      ICON_BACKGROUND_COLOR,
+      COLOR_DANGER,
+      CONTAINER_ALIGN_SELF,
       theme.base.primary,
     ],
   )
