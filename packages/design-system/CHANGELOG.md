@@ -1,5 +1,12 @@
 # @roll-network/design-system
 
+## 1.4.0
+
+### Minor Changes
+
+- [#333](https://github.com/roll-network/tryrolljs/pull/333) [`583e1ef`](https://github.com/roll-network/tryrolljs/commit/583e1ef0cbb5f13a28d2c247fe8655e070d6c7fc) Thanks [@nsstarr](https://github.com/nsstarr)! - - Add AlertV2 Component to the Design System
+  - Add `textColor` prop to ButtonV2 component
+
 ## 1.3.0
 
 ### Minor Changes
