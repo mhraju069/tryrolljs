@@ -340,8 +340,8 @@ export const getPlatformUserTokenBalance = async () => {
         tokenId: answers.tokenId,
       },
     )
-
-    printTable([response])
+    const { token, ...rest } = response
+    printTable([{ tokenSymbol: token.symbol, ...rest }])
   } catch (err) {
     console.error(err)
   }

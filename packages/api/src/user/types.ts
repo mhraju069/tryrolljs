@@ -7,8 +7,21 @@ export interface HasBalanceArgs {
   amount: string
 }
 
-export interface TokenSymbolType {
+export interface Token {
+  uuid: string
+  name: string
   symbol: string
+  decimals: number
+  logo: string
+  contractAddress: string
+  currentSupply: string
+  totalSupply: string
+}
+
+export interface PlatformUserTokenBalanceResponseData {
+  token: Token
+  amount: string
+  updatedAt: string
 }
 
 export interface GetUserBalancesArgs {
