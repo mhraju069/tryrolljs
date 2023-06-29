@@ -1,4 +1,9 @@
-import { StyleSheet, View } from 'react-native'
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native'
 import { useMemo } from 'react'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, spacing } from '../../styles'
@@ -10,7 +15,7 @@ export interface WalletCardProps {
   tokenLogo: string
   balance: string
   secondaryBalance: string
-  onPress?: () => void
+  onPress?: (e: GestureResponderEvent) => void
   backgroundColor?: string
   secondaryBackgroundColor?: string
 }
@@ -63,7 +68,9 @@ export const WalletCard = ({
   secondaryBalance,
   backgroundColor,
   secondaryBackgroundColor,
+  onPress,
 }: WalletCardProps) => {
+  console.log(onPress)
   const styles = useStyles({ backgroundColor, secondaryBackgroundColor })
 
   return (
@@ -95,7 +102,11 @@ export const WalletCard = ({
       >
         <TypographyV2 variant="caption2">{tokenName}</TypographyV2>
 
-        <Icon variant="arrowRight" />
+        {onPress && (
+          <Pressable onPress={onPress}>
+            <Icon variant="arrowRight" />
+          </Pressable>
+        )}
       </View>
     </View>
   )
