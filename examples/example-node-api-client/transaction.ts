@@ -99,6 +99,7 @@ export const sendBatchFromPlatformUser = async () => {
     let batchSendPrompt = true
 
     const transactions = []
+    const transactionResponses = []
 
     const senderAnswers = await inquirer.prompt([
       {
@@ -178,18 +179,17 @@ export const sendBatchFromPlatformUser = async () => {
       clientPool.getClient(InteractionType.MasqueradeToken).call,
       transactions,
     )
-    console.log('tsx', txs)
+
+    transactionResponses.push(txs)
 
     printTable(
-      txs.map((tx) => ({
-        from: tx.from.username,
-        to: tx.to.username,
-        token: tx.token.symbol,
-        amount: tx.amount,
-        status: tx.status,
-        type: tx.type,
+      transactionResponses.map((tx) => ({
+        uuid: tx.uuid,
+        totalTxnCount: tx.totalTxnCount,
       })),
     )
+
+    printTable([txs])
   } catch (err) {
     console.error(err)
   }

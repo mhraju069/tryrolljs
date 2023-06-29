@@ -46,3 +46,8 @@ export interface TransactionResponseData {
   type: string
   createdAt: string
 }
+
+export interface BatchSendResponseData {
+  uuid: string
+  totalTxnCount: number
+}
