@@ -13,6 +13,7 @@ import {
   PlatformUserArgs,
   GetUserMasqueradeTokenArgs,
   PlatformUserTokenBalancesArgs,
+  TokenSymbolType,
 } from './types'
 
 export const getMe = (call: Call) => {
@@ -113,13 +114,15 @@ export const getPlatformUserBalance = async (
   call: Call,
   { userType, platformUserId, tokenId }: PlatformUserTokenBalancesArgs,
 ) => {
-  const response = await call<Response<{ token: string }>>({
+  const response = await call<Response<{ token: TokenSymbolType }>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
   })
 
-  return response.data
+  const token = response.data.token.symbol
+
+  return { ...response.data, token }
 }
 
 export const getPlatformUserDepositAddress = async (

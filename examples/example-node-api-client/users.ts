@@ -5,13 +5,6 @@ import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
 
-interface ResponseType {
-  token: string | TokenSymbolType
-}
-interface TokenSymbolType {
-  symbol: string
-}
-
 export const getUserBalances = async () => {
   try {
     const sdkPool = new SDKPool(config)
@@ -339,7 +332,7 @@ export const getPlatformUserTokenBalance = async () => {
       },
     ])
 
-    const response: ResponseType = await user.getPlatformUserBalance(
+    const response = await user.getPlatformUserBalance(
       clientPool.getClient(InteractionType.ClientCredentials).call,
       {
         userType: answers.userType,
@@ -348,21 +341,7 @@ export const getPlatformUserTokenBalance = async () => {
       },
     )
 
-    let formattedResponse: ResponseType
-
-    if (typeof response.token === 'string') {
-      formattedResponse = {
-        ...response,
-        token: response.token,
-      }
-    } else {
-      formattedResponse = {
-        ...response,
-        token: response.token.symbol,
-      }
-    }
-
-    printTable([formattedResponse])
+    printTable([response])
   } catch (err) {
     console.error(err)
   }

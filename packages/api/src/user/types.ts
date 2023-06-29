@@ -7,6 +7,10 @@ export interface HasBalanceArgs {
   amount: string
 }
 
+export interface TokenSymbolType {
+  symbol: string
+}
+
 export interface GetUserBalancesArgs {
   userId: string
 }
