@@ -70,7 +70,6 @@ export const WalletCard = ({
   secondaryBackgroundColor,
   onPress,
 }: WalletCardProps) => {
-  console.log(onPress)
   const styles = useStyles({ backgroundColor, secondaryBackgroundColor })
 
   return (
