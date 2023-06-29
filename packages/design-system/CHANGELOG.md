@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.5.0
+
+### Minor Changes
+
+- [#347](https://github.com/roll-network/tryrolljs/pull/347) [`5ca3514`](https://github.com/roll-network/tryrolljs/commit/5ca351490801504860d77599ca2f91a664caf766) Thanks [@teimurjan](https://github.com/teimurjan)! - Add WalletCard component
+
 ## 1.4.0
 
 ### Minor Changes
