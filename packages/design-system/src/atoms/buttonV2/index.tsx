@@ -22,7 +22,6 @@ import {
   iconBasedOnSize,
   Size,
   SizeProps,
-  StateVariantProps,
   Variant,
   VariantProps,
 } from './types'
@@ -48,6 +47,7 @@ const BaseButton = ({
   iconBackgroundColor,
   onPress,
   style,
+  textColor,
 }: BaseButtonProps) => {
   const [isHover, setIsHover] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -56,31 +56,39 @@ const BaseButton = ({
     xl: lineHeights,
   })
 
-  const getStylesBasedOnState = (): StateVariantProps => {
+  const stylesBasedOnState = useMemo(() => {
     if (isDisabled || isLoading) return disabled
     if (isActive) return active
     if (isHover) return hover
     return rest
-  }
-
-  const stylesBasedOnState = getStylesBasedOnState()
+  }, [isDisabled, isLoading, isActive, isHover, rest, active, hover, disabled])
 
   const isUnderlined = variant === 'text' && isHover && !isDisabled
 
-  const styles = StyleSheet.create({
-    title: {
-      fontWeight: '600',
-      color: stylesBasedOnState.textColor,
-      borderBottomWidth: variant === 'text' ? 1 : 0,
-      borderBottomColor: isUnderlined
-        ? stylesBasedOnState.textColor
-        : 'transparent',
-    },
-    iconContainer: {
-      color: stylesBasedOnState.textColor,
-      marginRight: (icon || iconVariant) && variant !== 'icon' ? 12 : 0,
-    },
-  })
+  const finalTextColor = textColor || stylesBasedOnState.textColor
+
+  const styles = useMemo(() => {
+    return StyleSheet.create({
+      title: {
+        fontWeight: '600',
+        color: finalTextColor,
+        borderBottomWidth: variant === 'text' ? 1 : 0,
+        borderBottomColor:
+          variant === 'text' && isUnderlined ? finalTextColor : 'transparent',
+      },
+      iconContainer: {
+        color: stylesBasedOnState.textColor,
+        marginRight: (icon || iconVariant) && variant !== 'icon' ? 12 : 0,
+      },
+    })
+  }, [
+    finalTextColor,
+    variant,
+    isUnderlined,
+    stylesBasedOnState,
+    icon,
+    iconVariant,
+  ])
 
   const paddingY = useMemo(() => {
     if (isActive) {
@@ -176,7 +184,7 @@ const BaseButton = ({
             <TypographyV2
               variant={fontBasedOnVariantAndSize}
               selectable={false}
-              color={stylesBasedOnState.textColor}
+              color={finalTextColor}
               style={[styles.title]}
             >
               {title}
@@ -387,6 +395,7 @@ const useSizeProps = (size: Size): SizeProps => {
 export const ButtonV2 = ({
   variant = 'primary',
   size = 'medium',
+  textColor,
   ...props
 }: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
@@ -401,6 +410,7 @@ export const ButtonV2 = ({
     <BaseButton
       variant={variant}
       size={responsiveSize}
+      textColor={textColor}
       {...baseButtonProps}
       {...props}
     />

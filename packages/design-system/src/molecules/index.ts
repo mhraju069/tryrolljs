@@ -1,4 +1,5 @@
 export * from './accountDropdown'
+export * from './alertV2'
 export * from './collapsableView'
 export * from './connectWeb3Button'
 export * from './connectWeb3Options'

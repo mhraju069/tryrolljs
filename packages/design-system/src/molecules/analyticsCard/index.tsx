@@ -71,11 +71,11 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
         <View style={[container.row, margin.mr16, container.alignCenter]}>
           <Icon
             variant={isSuccessful ? 'arrowUp' : 'arrowDown'}
-            color={isSuccessful ? theme.base.sucess : theme.base.danger}
+            color={isSuccessful ? theme.base.success : theme.base.danger}
           />
           <TypographyV2
             variant="text4"
-            color={isSuccessful ? theme.base.sucess : theme.base.danger}
+            color={isSuccessful ? theme.base.success : theme.base.danger}
           >
             {change}%
           </TypographyV2>
