@@ -94,6 +94,8 @@ export const AlertV2: React.FC<AlertProps> = ({
 }) => {
   const styles = useStyles(variant)
   const theme = useThemeV2()
+  const textColor =
+    variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
 
   return (
     <View style={styles.container} testID="alertContainer">
@@ -107,9 +109,7 @@ export const AlertV2: React.FC<AlertProps> = ({
       <TypographyV2
         variant="text4"
         style={styles.textContainer}
-        color={
-          variant === 'danger' ? theme.text.white[100] : theme.text.black[100]
-        }
+        color={textColor}
       >
         {title}
       </TypographyV2>
@@ -118,11 +118,7 @@ export const AlertV2: React.FC<AlertProps> = ({
           <ButtonV2
             title={buttonText}
             variant="text"
-            textColor={
-              variant === 'danger'
-                ? theme.text.white[100]
-                : theme.text.black[100]
-            }
+            textColor={textColor}
             onPress={onPress}
           />
         </View>

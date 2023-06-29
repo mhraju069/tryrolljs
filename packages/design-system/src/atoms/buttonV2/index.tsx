@@ -22,7 +22,6 @@ import {
   iconBasedOnSize,
   Size,
   SizeProps,
-  StateVariantProps,
   Variant,
   VariantProps,
 } from './types'
@@ -57,35 +56,39 @@ const BaseButton = ({
     xl: lineHeights,
   })
 
-  const getStylesBasedOnState = (): StateVariantProps => {
+  const stylesBasedOnState = useMemo(() => {
     if (isDisabled || isLoading) return disabled
     if (isActive) return active
     if (isHover) return hover
     return rest
-  }
-
-  const stylesBasedOnState = getStylesBasedOnState()
+  }, [isDisabled, isLoading, isActive, isHover, rest, active, hover, disabled])
 
   const isUnderlined = variant === 'text' && isHover && !isDisabled
 
-  const styles = StyleSheet.create({
-    title: {
-      fontWeight: '600',
-      color:
-        variant === 'text'
-          ? textColor || stylesBasedOnState.textColor
-          : stylesBasedOnState.textColor,
-      borderBottomWidth: variant === 'text' ? 1 : 0,
-      borderBottomColor:
-        variant === 'text' && isUnderlined
-          ? textColor || stylesBasedOnState.textColor
-          : 'transparent',
-    },
-    iconContainer: {
-      color: stylesBasedOnState.textColor,
-      marginRight: (icon || iconVariant) && variant !== 'icon' ? 12 : 0,
-    },
-  })
+  const finalTextColor = textColor || stylesBasedOnState.textColor
+
+  const styles = useMemo(() => {
+    return StyleSheet.create({
+      title: {
+        fontWeight: '600',
+        color: finalTextColor,
+        borderBottomWidth: variant === 'text' ? 1 : 0,
+        borderBottomColor:
+          variant === 'text' && isUnderlined ? finalTextColor : 'transparent',
+      },
+      iconContainer: {
+        color: stylesBasedOnState.textColor,
+        marginRight: (icon || iconVariant) && variant !== 'icon' ? 12 : 0,
+      },
+    })
+  }, [
+    finalTextColor,
+    variant,
+    isUnderlined,
+    stylesBasedOnState,
+    icon,
+    iconVariant,
+  ])
 
   const paddingY = useMemo(() => {
     if (isActive) {
@@ -181,7 +184,7 @@ const BaseButton = ({
             <TypographyV2
               variant={fontBasedOnVariantAndSize}
               selectable={false}
-              color={textColor || stylesBasedOnState.textColor}
+              color={finalTextColor}
               style={[styles.title]}
             >
               {title}
