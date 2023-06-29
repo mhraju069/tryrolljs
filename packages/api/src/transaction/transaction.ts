@@ -44,13 +44,17 @@ export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
       ...transaction,
       tokenID: tokenId,
     }))
-
+    console.log('body:', body)
     const response = await call<Response<Array<TransactionResponseData>>>({
       url: '/v1/transactions/batch',
       method: 'POST',
       authorization: true,
       body,
     })
+
+    console.log('response:', response)
+
+    console.log('response.data:', response.data)
 
     return response.data
   } catch (err) {
