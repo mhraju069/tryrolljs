@@ -99,7 +99,6 @@ export const sendBatchFromPlatformUser = async () => {
     let batchSendPrompt = true
 
     const transactions = []
-    const transactionResponses = []
 
     const senderAnswers = await inquirer.prompt([
       {
@@ -178,8 +177,6 @@ export const sendBatchFromPlatformUser = async () => {
       clientPool.getClient(InteractionType.MasqueradeToken).call,
       transactions,
     )
-
-    transactionResponses.push(batchResponse)
 
     printTable([
       {
