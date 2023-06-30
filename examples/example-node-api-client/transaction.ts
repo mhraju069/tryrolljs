@@ -174,19 +174,19 @@ export const sendBatchFromPlatformUser = async () => {
       clientToken: clientToken.access_token,
       masqueradeToken: masqueradeToken.token,
     })
-    const batchResponses = await transaction.batchSend(
+    const batchResponse = await transaction.batchSend(
       clientPool.getClient(InteractionType.MasqueradeToken).call,
       transactions,
     )
 
-    transactionResponses.push(batchResponses)
+    transactionResponses.push(batchResponse)
 
-    printTable(
-      transactionResponses.map((batchResponse) => ({
+    printTable([
+      {
         uuid: batchResponse.uuid,
         totalTransactions: batchResponse.totalTxnCount,
-      })),
-    )
+      },
+    ])
   } catch (err) {
     console.error(err)
   }
