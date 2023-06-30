@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 2.1.0
+
+### Minor Changes
+
+- [#346](https://github.com/roll-network/tryrolljs/pull/346) [`c59e775`](https://github.com/roll-network/tryrolljs/commit/c59e7756f1cc25f640019d4719d2bf0f22d5df3a) Thanks [@nsstarr](https://github.com/nsstarr)! - Updated getPlatformUserBalance response type
+
 ## 2.0.0
 
 ### Major Changes
