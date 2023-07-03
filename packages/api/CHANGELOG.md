@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 2.2.0
+
+### Minor Changes
+
+- [#351](https://github.com/roll-network/tryrolljs/pull/351) [`ffe68d9`](https://github.com/roll-network/tryrolljs/commit/ffe68d9ba1cf811b76668bed43658ae4c8b6ce02) Thanks [@nsstarr](https://github.com/nsstarr)! - Added a new response type to sendBatch
+
 ## 2.1.0
 
 ### Minor Changes
