@@ -4,6 +4,7 @@ import {
   TransactionResponseData,
   GetTransactionByIdArgs,
   Response,
+  BatchSendResponseData,
 } from './types'
 
 export const send = async (
@@ -44,15 +45,14 @@ export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
       ...transaction,
       tokenID: tokenId,
     }))
-
-    const response = await call<Response<Array<TransactionResponseData>>>({
+    const response = await call<BatchSendResponseData>({
       url: '/v1/transactions/batch',
       method: 'POST',
       authorization: true,
       body,
     })
 
-    return response.data
+    return response
   } catch (err) {
     console.error(err)
     throw err
