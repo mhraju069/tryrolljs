@@ -1,11 +1,5 @@
 import { Chain } from 'wagmi'
-import {
-  hardhat,
-  polygon,
-  polygonMumbai,
-  goerli,
-  mainnet,
-} from '@wagmi/core/chains'
+import { hardhat, polygon, polygonMumbai, goerli, mainnet } from '@wagmi/chains'
 import {
   CHAIN_ID_GOERLI,
   CHAIN_ID_HARDHAT,

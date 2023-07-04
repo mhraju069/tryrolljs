@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { publicProvider } from 'wagmi/providers/public'
@@ -26,17 +26,19 @@ const Web3ProviderWebWagmi: React.FC<
   variant,
   children,
 }) => {
-  const config = useMemo(() => {
-    const chains = getChainsById(supportedChainIds ?? SUPPORTED_CHAIN_IDS)
+  const { chains, publicClient, webSocketPublicClient } = useMemo(() => {
+    const supportedChains = getChainsById(
+      supportedChainIds ?? SUPPORTED_CHAIN_IDS,
+    )
     if (variant === 'web3Modal') {
-      return configureChains(chains, [
+      return configureChains(supportedChains, [
         w3mProvider({ projectId: walletConnectProjectId }),
       ])
     }
     const providers = alchemyApiKey
       ? [alchemyProvider({ apiKey: alchemyApiKey }), publicProvider()]
       : [publicProvider()]
-    return configureChains(chains, providers)
+    return configureChains(supportedChains, providers)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -44,15 +46,14 @@ const Web3ProviderWebWagmi: React.FC<
     if (variant === 'web3Modal') {
       return w3mConnectors({
         projectId: walletConnectProjectId,
-        version: 1,
-        chains: config.chains,
+        chains: chains,
       })
     }
     if (variant === 'walletConnect') {
       return [
-        new InjectedConnector({ chains: config.chains }),
+        new InjectedConnector({ chains: chains }),
         new WalletConnectConnector({
-          chains: config.chains,
+          chains: chains,
           options: {
             showQrModal: true,
             projectId: walletConnectProjectId,
@@ -60,25 +61,25 @@ const Web3ProviderWebWagmi: React.FC<
         }),
       ]
     }
-    return [new InjectedConnector({ chains: config.chains })]
+    return [new InjectedConnector({ chains: chains })]
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const client = useMemo(() => {
-    return createClient({
+  const wagmiConfig = useMemo(() => {
+    return createConfig({
       autoConnect: true,
-      provider: config.provider,
-      webSocketProvider: config.webSocketProvider,
-      connectors: connectors,
+      publicClient: publicClient,
+      webSocketPublicClient: webSocketPublicClient,
+      connectors,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const ethereumClient = new EthereumClient(client, config.chains)
+  const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
   return (
     <>
-      <WagmiConfig client={client}>{children}</WagmiConfig>
+      <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
       {variant === 'web3Modal' && (
         <Web3Modal
           projectId={walletConnectProjectId}

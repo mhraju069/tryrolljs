@@ -5,7 +5,6 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 
 export const CHAIN_ID_MAIN_NET = 1
 export const CHAIN_ID_POLYGON = 137
-export const CHAIN_ID_ROPSTEN = 3
 export const CHAIN_ID_GOERLI = 5
 export const CHAIN_ID_MUMBAI = 80001
 export const CHAIN_ID_HARDHAT = 31337
@@ -13,7 +12,6 @@ export const CHAIN_ID_HARDHAT = 31337
 export const SUPPORTED_CHAIN_IDS = [
   CHAIN_ID_MAIN_NET,
   CHAIN_ID_POLYGON,
-  CHAIN_ID_ROPSTEN,
   CHAIN_ID_GOERLI,
   CHAIN_ID_MUMBAI,
   CHAIN_ID_HARDHAT,
@@ -52,7 +50,7 @@ export class Web3Connectors {
 
     this.portis = new PortisConnector({
       dAppId: portisDappID,
-      networks: [CHAIN_ID_MAIN_NET, CHAIN_ID_ROPSTEN],
+      networks: [CHAIN_ID_MAIN_NET],
     })
   }
 }
