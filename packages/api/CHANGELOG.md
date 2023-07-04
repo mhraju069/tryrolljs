@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 2.2.1
+
+### Patch Changes
+
+- [#355](https://github.com/roll-network/tryrolljs/pull/355) [`c52589d`](https://github.com/roll-network/tryrolljs/commit/c52589d308b923ca9c98523b31267d2b5fe2c049) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Update batch send response type
+
 ## 2.2.0
 
 ### Minor Changes
