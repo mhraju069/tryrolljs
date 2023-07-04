@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.6.0
+
+### Minor Changes
+
+- [#353](https://github.com/roll-network/tryrolljs/pull/353) [`46d92ef`](https://github.com/roll-network/tryrolljs/commit/46d92efedd603da2f9c910d41b7c48a7d7fdec7b) Thanks [@teimurjan](https://github.com/teimurjan)! - Export web3 button
+
 ## 1.5.0
 
 ### Minor Changes
