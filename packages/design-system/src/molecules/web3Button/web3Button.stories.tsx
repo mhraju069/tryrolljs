@@ -23,6 +23,10 @@ const Template = (props: Web3ButtonProps) => {
 export const Button = fromTemplate(Template, {
   connectedVariant: 'button',
 })
+export const PrimaryButton = fromTemplate(Template, {
+  connectedVariant: 'button',
+  variant: 'primary',
+})
 export const Avatar = fromTemplate(Template, {
   connectedVariant: 'avatar',
 })

@@ -3,13 +3,15 @@ import { Pressable } from 'react-native'
 import { ButtonV2, CircleImg, Icon } from '../../atoms'
 import { useEthAddress } from '../../hooks/web3Wagmi'
 import { shortenAddress } from '../../utils'
+import { ButtonV2Props } from '../../atoms/buttonV2/types'
 
-export interface Web3ButtonProps {
+export interface Web3ButtonProps extends Partial<ButtonV2Props> {
   connectedVariant?: 'button' | 'avatar' | 'details'
 }
 
 export const Web3Button: React.FC<Web3ButtonProps> = ({
   connectedVariant = 'button',
+  ...buttonProps
 }) => {
   const { isOpen, open } = useWeb3Modal()
   const userAddress = useEthAddress()
@@ -33,11 +35,11 @@ export const Web3Button: React.FC<Web3ButtonProps> = ({
   }
 
   // TODO: add details variant once we have the component ready
-
   return (
     <ButtonV2
       size="small"
       variant="tertiary"
+      {...buttonProps}
       title={title}
       icon={icon}
       isDisabled={isOpen}
