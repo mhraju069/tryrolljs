@@ -5785,7 +5785,7 @@ __metadata:
     "@types/react-dom": ^18.0.11
     "@types/react-native": ^0.71.3
     "@uniswap/widgets": ^2.51.2
-    "@wagmi/core": 1.3.4
+    "@wagmi/core": 1.3.6
     "@web3-react/core": ^6.0.9
     "@web3-react/fortmatic-connector": ^6.1.6
     "@web3-react/injected-connector": ^6.0.7
@@ -5837,10 +5837,10 @@ __metadata:
     type-fest: ^3.1.0
     typescript: ^4.6.3
     viem: ^1.2.9
-    wagmi: 1.3.4
+    wagmi: 1.3.7
   peerDependencies:
     "@ethersproject/providers": ^5.4.5
-    "@wagmi/core": 1.3.4
+    "@wagmi/core": 1.3.6
     "@web3-react/core": ^6.0.9
     "@web3-react/fortmatic-connector": ^6.1.6
     "@web3-react/injected-connector": ^6.0.7
@@ -10453,9 +10453,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:2.6.3":
-  version: 2.6.3
-  resolution: "@wagmi/connectors@npm:2.6.3"
+"@wagmi/connectors@npm:2.6.5":
+  version: 2.6.5
+  resolution: "@wagmi/connectors@npm:2.6.5"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.6
     "@ledgerhq/connect-kit-loader": ^1.1.0
@@ -10464,6 +10464,7 @@ __metadata:
     "@walletconnect/ethereum-provider": 2.8.6
     "@walletconnect/legacy-provider": ^2.0.0
     "@walletconnect/modal": 2.5.9
+    "@walletconnect/utils": 2.8.6
     abitype: 0.8.7
     eventemitter3: ^4.0.7
   peerDependencies:
@@ -10475,16 +10476,16 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 1442b3b43575d4d1f1d1176fe86a6ee2b5a1cc6f4bf23aac713c5de92a7455c50b1bff3c5fd5a7ebb7645c81a816bc971f440cca20ef56e5ef861611b1e3cbde
+  checksum: 902b8d46c160410d063642030e320d450221d33ecd88e60731fac65e7eb96e8bab7315e14451188640aa13237601ca21cae9cb12091fe233f497e7629c23d409
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:1.3.4":
-  version: 1.3.4
-  resolution: "@wagmi/core@npm:1.3.4"
+"@wagmi/core@npm:1.3.6":
+  version: 1.3.6
+  resolution: "@wagmi/core@npm:1.3.6"
   dependencies:
     "@wagmi/chains": 1.4.0
-    "@wagmi/connectors": 2.6.3
+    "@wagmi/connectors": 2.6.5
     abitype: 0.8.7
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
@@ -10494,7 +10495,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 8bbbfa42d744c4c80b939925cff6fc274febdc46e3c489e93d38fe9789c583182dac736d13a7c693d47e09e782a906ec839c6ee0395f6d3048312194b4a60920
+  checksum: 639fb2a1d8bfaa4d508f482658ea566081c0a9e995b3e2a9eb06722dd80e600227ec093ccd0fb4ff69b5c6d827e92c5610d1977db1e8ebc294bc17731ecdef2e
   languageName: node
   linkType: hard
 
@@ -31568,14 +31569,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:1.3.4":
-  version: 1.3.4
-  resolution: "wagmi@npm:1.3.4"
+"wagmi@npm:1.3.7":
+  version: 1.3.7
+  resolution: "wagmi@npm:1.3.7"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.27.1
     "@tanstack/react-query": ^4.28.0
     "@tanstack/react-query-persist-client": ^4.28.0
-    "@wagmi/core": 1.3.4
+    "@wagmi/core": 1.3.6
     abitype: 0.8.7
     use-sync-external-store: ^1.2.0
   peerDependencies:
@@ -31585,7 +31586,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 6a8a170b1f3cf63df5eea54fe3a2fa3eea56c1a2babfc34676069ef5c28705631128c5a334905f3c658e6611d1ce7f61709aebd5920401d017b7fc7bd27e9c8f
+  checksum: 67ec58e99843dfebe8a6146dbbbe3bba86c81e71c5ab996f0ba0b92c858de0beaa93a164d85bc2b2a66515b6467ded892edb6eb642ed6f9cb9b20c470f0e083c
   languageName: node
   linkType: hard
 

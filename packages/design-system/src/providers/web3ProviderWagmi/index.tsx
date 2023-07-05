@@ -68,8 +68,8 @@ const Web3ProviderWebWagmi: React.FC<
   const wagmiConfig = useMemo(() => {
     return createConfig({
       autoConnect: true,
-      publicClient: publicClient,
-      webSocketPublicClient: webSocketPublicClient,
+      publicClient,
+      webSocketPublicClient,
       connectors,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
