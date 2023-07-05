@@ -9,7 +9,7 @@ const storyConfig = {
 const Template = (props: IconProps) => <Icon {...props} />
 
 export const Default = fromTemplate(Template, {
-  variant: 'add',
+  variant: 'gasStation',
   width: 100,
   height: 100,
   color: 'red',

@@ -35,7 +35,7 @@ import EyeSlash from '../../assets/icons/eye-slash.svg'
 import Filter from '../../assets/icons/filter.svg'
 import GalleryAdd from '../../assets/icons/gallery-add.svg'
 import Gallery from '../../assets/icons/gallery.svg'
-import GasStattion from '../../assets/icons/gas-station.svg'
+import GasStation from '../../assets/icons/gas-station.svg'
 import Home from '../../assets/icons/home.svg'
 import Incoming from '../../assets/icons/incoming.svg'
 import InfoCircle from '../../assets/icons/info-circle.svg'
@@ -122,7 +122,7 @@ const icons = {
   filter: Filter,
   galleryAdd: GalleryAdd,
   gallery: Gallery,
-  gasStattion: GasStattion,
+  gasStation: GasStation,
   home: Home,
   incoming: Incoming,
   infoCircle: InfoCircle,
