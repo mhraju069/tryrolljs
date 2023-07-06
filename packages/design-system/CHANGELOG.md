@@ -1,5 +1,13 @@
 # @roll-network/design-system
 
+## 1.7.0
+
+### Minor Changes
+
+- [#357](https://github.com/roll-network/tryrolljs/pull/357) [`7bd8080`](https://github.com/roll-network/tryrolljs/commit/7bd80809fc4b7eed425971ff0073f9906dc43fe1) Thanks [@teimurjan](https://github.com/teimurjan)! - Added EstimatedGas component
+
+  - Fixed type in the icon variant (gasStattion => gasStation)
+
 ## 1.6.0
 
 ### Minor Changes
