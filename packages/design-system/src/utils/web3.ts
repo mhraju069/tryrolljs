@@ -1,4 +1,4 @@
-import { utils as etherUtils } from 'ethers'
+import { getAddress } from 'viem'
 import {
   CHAIN_ID_GOERLI,
   CHAIN_ID_MAIN_NET,
@@ -17,7 +17,7 @@ export function shortenAddress(address: string, digits: number = 4) {
 
 export function isAddress(value: string) {
   try {
-    return etherUtils.getAddress(value.toLowerCase())
+    return getAddress(value.toLowerCase())
   } catch {
     return false
   }

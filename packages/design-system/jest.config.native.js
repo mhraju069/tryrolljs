@@ -37,4 +37,5 @@ module.exports = {
     '!**/*.web.test.ts',
     '!**/*.web.test.tsx',
   ],
+  setupFilesAfterEnv: ['<rootDir>/setupJest.native.js'],
 }

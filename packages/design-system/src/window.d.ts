@@ -1,4 +1,17 @@
 interface Window {
-  ethereum?: import('ethers').providers.ExternalProvider &
-    import('ethers').providers.BaseProvider
+  ethereum?: {
+    isMetaMask?: boolean
+    isStatus?: boolean
+    host?: string
+    path?: string
+    sendAsync?: (
+      request: { method: string; params?: Array<any> },
+      callback: (error: any, response: any) => void,
+    ) => void
+    send?: (
+      request: { method: string; params?: Array<any> },
+      callback: (error: any, response: any) => void,
+    ) => void
+    request?: (request: { method: string; params?: Array<any> }) => Promise<any>
+  }
 }
