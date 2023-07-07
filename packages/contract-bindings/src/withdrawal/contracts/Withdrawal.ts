@@ -34,7 +34,7 @@ export declare namespace Withdrawal {
     token: PromiseOrValue<string>;
     amount: PromiseOrValue<BigNumberish>;
     expiration: PromiseOrValue<BigNumberish>;
-    salt: PromiseOrValue<BigNumberish>;
+    key: PromiseOrValue<BigNumberish>;
   };
 
   export type OrderStructOutput = [
@@ -50,7 +50,7 @@ export declare namespace Withdrawal {
     token: string;
     amount: BigNumber;
     expiration: BigNumber;
-    salt: BigNumber;
+    key: BigNumber;
   };
 
   export type SigStruct = {

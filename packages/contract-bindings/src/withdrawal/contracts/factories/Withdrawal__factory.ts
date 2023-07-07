@@ -69,7 +69,7 @@ const _abi = [
           },
           {
             internalType: "uint256",
-            name: "salt",
+            name: "key",
             type: "uint256",
           },
         ],
