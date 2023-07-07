@@ -1,5 +1,14 @@
 # @roll-network/design-system
 
+## 1.8.0
+
+### Minor Changes
+
+- [#359](https://github.com/roll-network/tryrolljs/pull/359) [`6901c2f`](https://github.com/roll-network/tryrolljs/commit/6901c2faef3e7f448bd2a32440550afaed5d58b4) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - update wagmi to latest version
+  - update web3modal to latest version
+  - removed all reference of etherjs
+  - add viem as a replacement of etherjs
+
 ## 1.7.0
 
 ### Minor Changes
