@@ -1,5 +1,11 @@
 # @roll-network/api-client
 
+## 2.3.0
+
+### Minor Changes
+
+- [#365](https://github.com/roll-network/tryrolljs/pull/365) [`d1590f2`](https://github.com/roll-network/tryrolljs/commit/d1590f2c6e32c51acf502875d95e4cb4e3a25038) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Updated error parsing by adding support of single `errors` value
+
 ## 2.2.0
 
 ### Minor Changes
