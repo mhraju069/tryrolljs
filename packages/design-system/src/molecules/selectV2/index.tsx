@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
   },
 })
 
-export type SelectOption = {
+export type SelectV2Option = {
   name: string
   value: string
 }
 
 export interface SelectV2Props {
   placeholder?: string
-  options: SelectOption[]
+  options: SelectV2Option[]
   defaultValue?: string
   onChange?: (value: string) => void
   renderReference?: PopoverProps['renderReference']
