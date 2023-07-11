@@ -12,6 +12,7 @@ import {
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Web3ProviderWagmi } from '../../providers/web3ProviderWagmi'
+import { SelectV2 } from '../selectV2'
 import { HeaderProps } from './types'
 import { HeaderV2 } from '.'
 
@@ -119,6 +120,43 @@ export const withoutWalletConnect = fromTemplate(Template, {
       onPress: () => null,
     },
   ],
+})
+
+export const withMobileHeader = fromTemplate(Template, {
+  logo: {
+    desktop: <MintingLogo width={111} height={32} />,
+    mobileHeader: <SimpleLogo width={32} height={32} />,
+    mobileSidebar: <MintingLogo width={111} height={32} />,
+  },
+  footerOptionsOnMobile: footerOptions,
+  selectedOptionId: 'mintToken',
+  options: [
+    {
+      id: 'exploreCommunities',
+      title: 'Explore Communities',
+      onPress: () => null,
+    },
+    {
+      id: 'mintToken',
+      title: 'Mint Token',
+      onPress: () => null,
+    },
+  ],
+  mobileSidebarHeader: (
+    <SelectV2
+      defaultValue="mintToken"
+      options={[
+        {
+          name: 'Mint Token',
+          value: 'mintToken',
+        },
+        {
+          name: 'Explore Communities',
+          value: 'exploreCommunities',
+        },
+      ]}
+    />
+  ),
 })
 
 export default storyConfig

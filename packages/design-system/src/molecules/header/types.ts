@@ -8,6 +8,7 @@ interface HeaderOption {
 
 export interface HeaderProps {
   logo: LogoSidebar
+  mobileSidebarHeader?: React.ReactNode
   options: HeaderOption[]
   selectedOptionId?: string
   withConnectWallet?: boolean

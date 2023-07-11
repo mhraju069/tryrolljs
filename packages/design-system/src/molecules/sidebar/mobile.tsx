@@ -18,10 +18,17 @@ import { SidebarOptions } from '../sidebarOptions'
 import { Web3Button } from '../web3Button'
 import { SidebarFooterOptionProps, SidebarProps } from './types'
 
+const DIVIDER_HEIGHT = 1
+const HEADER_Z_INDEX = 100
+const HEADER_CONTAINER_Z_INDEX = 101
+
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flex: 1,
+  },
+  headerContainer: {
+    zIndex: HEADER_CONTAINER_Z_INDEX,
   },
   closeIconContainer: {
     position: 'absolute',
@@ -32,9 +39,6 @@ const styles = StyleSheet.create({
     width: 290,
   },
 })
-
-const DIVIDER_HEIGHT = 1
-const HEADER_Z_INDEX = 100
 
 export const MobileSidebar: React.FC<SidebarProps> = ({
   logo,
@@ -137,7 +141,11 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                 {logo.mobileSidebar}
               </View>
               <View style={[padding.pv24, padding.ph20, dividerStyles]}>
-                {header && <View style={[margin.mb24]}>{header}</View>}
+                {header && (
+                  <View style={[styles.headerContainer, margin.mb24]}>
+                    {header}
+                  </View>
+                )}
                 <SidebarOptions
                   sections={sections}
                   selectedOptionId={selectedOptionId}
