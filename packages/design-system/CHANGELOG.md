@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.8.1
+
+### Patch Changes
+
+- [#363](https://github.com/roll-network/tryrolljs/pull/363) [`d4c5cb2`](https://github.com/roll-network/tryrolljs/commit/d4c5cb20e386cf0e1a79629606ab00dfb592d91e) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export ConditionalWrapper and SelectV2
+
 ## 1.8.0
 
 ### Minor Changes
