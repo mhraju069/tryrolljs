@@ -5,6 +5,9 @@ import {
   GetTransactionByIdArgs,
   Response,
   BatchSendResponseData,
+  GetMultiSendByIdArgs,
+  MultiSendResponseData,
+  GetMultiSendTransactionsArgs,
 } from './types'
 
 export const send = async (
@@ -57,4 +60,34 @@ export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
     console.error(err)
     throw err
   }
+}
+
+export const getMultiSendById = async (
+  call: Call,
+  { multiSendId }: GetMultiSendByIdArgs,
+) => {
+  const response = await call<Response<MultiSendResponseData>>({
+    url: `/v1/transactions/multisend/${multiSendId}`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
+}
+
+export const getMultiSendTransactions = async (
+  call: Call,
+  { multiSendId, limit, offset }: GetMultiSendTransactionsArgs,
+) => {
+  const query = {
+    limit: typeof limit === 'number' ? limit.toString() : '',
+    offset: typeof offset === 'number' ? offset.toString() : '',
+  }
+  const params = new URLSearchParams(query).toString()
+  const filteredParams = params.replaceAll(/\w+=&/g, '')
+  const response = await call<Response<TransactionResponseData[]>>({
+    url: `/v1/transactions/multisend/${multiSendId}/transactions?${filteredParams}`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
 }

@@ -3,7 +3,7 @@ import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
-import { platformUserConfig } from './config.js'
+import config, { platformUserConfig } from './config.js'
 
 export const sendFromPlatformUser = async () => {
   try {
@@ -181,10 +181,85 @@ export const sendBatchFromPlatformUser = async () => {
     printTable([
       {
         uuid: batchResponse.uuid,
-        totalTransactions: batchResponse.totalTxnCount,
+        satatus: batchResponse.status,
+        totalTransactions: batchResponse.totalTxnSubmitted,
       },
     ])
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const getMultiSendById = async () => {
+  try {
+    const sdkPool = new SDKPool(config)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+    ])
+    const response = await transaction.getMultiSendById(
+      clientPool.getClient(InteractionType.ClientCredentials).call,
+      answers,
+    )
+    printTable([
+      {
+        uuid: response.uuid,
+        status: response.status,
+        totalTransactions: response.totalTxnSubmitted,
+        totalFailedTransactions: response.totalFailedToSubmit,
+      },
+    ])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getMultisendTransactions = async () => {
+  try {
+    const sdkPool = new SDKPool(config)
+    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+      {
+        type: 'input',
+        name: 'limit',
+        message: 'Limit',
+        default: 3,
+      },
+      {
+        type: 'input',
+        name: 'offset',
+        message: 'Offset',
+        default: 0,
+      },
+    ])
+    const response = await transaction.getMultiSendTransactions(
+      clientPool.getClient(InteractionType.ClientCredentials).call,
+      answers,
+    )
+    printTable(
+      response.map((tx) => ({
+        from: tx.from.username,
+        to: tx.to.username,
+        token: tx.token.symbol,
+        amount: tx.amount,
+        status: tx.status,
+        type: tx.type,
+      })),
+    )
+  } catch (error) {
+    console.error(error)
   }
 }

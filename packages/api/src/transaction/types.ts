@@ -32,14 +32,15 @@ export interface TransactionResponseData {
     userID: string
     username: string
     profilePic: string
+    name: string
   }
-  fromType: string
   to: {
     userID: string
     username: string
     name: string
     profilePic: string
   }
+  fromType: string
   toType: string
   amount: string
   status: 'pending' | 'confirmed' | 'failed' | 'pending/ledger'
@@ -49,5 +50,23 @@ export interface TransactionResponseData {
 
 export interface BatchSendResponseData {
   uuid: string
-  totalTxnCount: number
+  status: 'processing' | 'completed' | 'tx_failed'
+  totalTxnSubmitted: number
+}
+
+export interface GetMultiSendByIdArgs {
+  multiSendId: string
+}
+
+export interface MultiSendResponseData {
+  uuid: string
+  status: 'processing' | 'completed' | 'tx_failed'
+  totalTxnSubmitted: number
+  totalFailedToSubmit: number
+}
+
+export interface GetMultiSendTransactionsArgs {
+  multiSendId: string
+  limit?: number
+  offset?: number
 }
