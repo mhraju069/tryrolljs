@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.8.2
+
+### Patch Changes
+
+- [#367](https://github.com/roll-network/tryrolljs/pull/367) [`e599239`](https://github.com/roll-network/tryrolljs/commit/e5992399c73bb0d7a0b0f3a5e1bdaba970aad459) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Updated HeaderV2 component on mobile to support a top component on the sidebar.
+
 ## 1.8.1
 
 ### Patch Changes
