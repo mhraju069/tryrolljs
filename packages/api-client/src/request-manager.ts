@@ -172,7 +172,9 @@ export default class RequestManager {
 
   private parseResponseError = (response: AxiosResponse) => {
     if (typeof response.data === 'object') {
-      const error = response.data?.errors ?? response.data
+      const errors = response.data?.errors
+      const error =
+        (Array.isArray(errors) ? errors[0] : errors) ?? response.data
       return {
         message: error.message ?? '',
         details: error.details ?? '',

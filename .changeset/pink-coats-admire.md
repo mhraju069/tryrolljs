@@ -2,4 +2,4 @@
 '@roll-network/api-client': minor
 ---
 
-Fixed error response
+Updated error parsing by adding support of single `errors` value
