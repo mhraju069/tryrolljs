@@ -7,6 +7,7 @@ import { HeaderProps } from './types'
 
 export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
   children,
+  mobileSidebarHeader,
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, xl: false })
@@ -15,6 +16,7 @@ export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
       <View>
         <MobileSidebar
           {...props}
+          header={mobileSidebarHeader}
           sections={[{ id: 'main', options: props.options }]}
         />
         {Platform.select({
