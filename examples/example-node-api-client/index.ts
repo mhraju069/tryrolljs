@@ -5,16 +5,18 @@ import inquirerSearchList from 'inquirer-search-list'
 import { getTokenCreator, getTokenList } from './tokens.js'
 import {
   getUser,
-  getUserBalances,
-  getUserTokenBalance,
-  hasBalance,
   createPlatformUser,
   loginPlatformUser,
   getPlatformUserDepositAddress,
-  getPlatformUserTokenBalance,
-  getPlatformUserTokenBalances,
   loginMultiplePlatformUsers,
 } from './users.js'
+import {
+  getPlatformUserTokenBalance,
+  getPlatformUserTokenBalances,
+  getUserBalances,
+  getUserTokenBalance,
+  hasBalance,
+} from './balances.js'
 import {
   sendBatchFromPlatformUser,
   sendFromPlatformUser,
