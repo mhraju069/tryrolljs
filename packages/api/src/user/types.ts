@@ -7,23 +7,6 @@ export interface HasBalanceArgs {
   amount: string
 }
 
-export interface Token {
-  uuid: string
-  name: string
-  symbol: string
-  decimals: number
-  logo: string
-  contractAddress: string
-  currentSupply: string
-  totalSupply: string
-}
-
-export interface PlatformUserTokenBalanceResponseData {
-  token: Token
-  amount: string
-  updatedAt: string
-}
-
 export interface GetUserBalancesArgs {
   userId: string
 }
@@ -43,30 +26,20 @@ export interface GetUserResponseData {
   username: string
   profilePic: string
 }
-export interface GetUserBalancesResponseData {
-  token: {
-    uuid: string
-    symbol: string
-    name: string
-    decimals: number
-    totalSupply: string
-    currentSupply: string
-    creatorUserID: string
-  }
-  amount: string
-}
 
-export interface GetUserTokenBalanceResponseData {
+export interface TokenBalanceResponseData {
   token: {
     uuid: string
-    symbol: string
     name: string
+    symbol: string
     decimals: number
-    totalSupply: string
+    logo: string
+    contractAddress: string
     currentSupply: string
-    creatorUserID: string
+    totalSupply: string
   }
   amount: string
+  updatedAt: string
 }
 
 export interface GetMeResponseData {

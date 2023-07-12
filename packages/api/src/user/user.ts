@@ -4,7 +4,7 @@ import {
   GetMeResponseData,
   HasBalanceResponseData,
   GetUserBalancesArgs,
-  GetUserBalancesResponseData,
+  TokenBalanceResponseData,
   GetUserArgs,
   GetUserResponseData,
   GetUserTokenBalanceArgs,
@@ -13,7 +13,6 @@ import {
   PlatformUserArgs,
   GetUserMasqueradeTokenArgs,
   PlatformUserTokenBalancesArgs,
-  PlatformUserTokenBalanceResponseData,
 } from './types'
 
 export const getMe = (call: Call) => {
@@ -40,7 +39,7 @@ export const getUserBalances = async (
   call: Call,
   { userId }: GetUserBalancesArgs,
 ) => {
-  const response = await call<Response<GetUserBalancesResponseData[]>>({
+  const response = await call<Response<TokenBalanceResponseData[]>>({
     url: `/v1/users/${userId}/balances`,
     method: 'GET',
     authorization: true,
@@ -53,7 +52,7 @@ export const getUserTokenBalance = async (
   call: Call,
   { userId, tokenId }: GetUserTokenBalanceArgs,
 ) => {
-  const response = await call<Response<GetUserBalancesResponseData>>({
+  const response = await call<Response<TokenBalanceResponseData>>({
     url: `/v1/users/${userId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
@@ -101,7 +100,7 @@ export const getPlatformUserBalances = async (
   call: Call,
   { userType, platformUserId }: PlatformUserArgs,
 ) => {
-  const response = await call<Response<{ token: string }>>({
+  const response = await call<Response<TokenBalanceResponseData[]>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/balances`,
     method: 'GET',
     authorization: true,
@@ -114,7 +113,7 @@ export const getPlatformUserBalance = async (
   call: Call,
   { userType, platformUserId, tokenId }: PlatformUserTokenBalancesArgs,
 ) => {
-  const response = await call<Response<PlatformUserTokenBalanceResponseData>>({
+  const response = await call<Response<TokenBalanceResponseData>>({
     url: `/v1/platforms/${userType}/users/${platformUserId}/balances/${tokenId}`,
     method: 'GET',
     authorization: true,
