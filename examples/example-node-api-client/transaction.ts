@@ -181,7 +181,7 @@ export const sendBatchFromPlatformUser = async () => {
     printTable([
       {
         uuid: batchResponse.uuid,
-        satatus: batchResponse.status,
+        status: batchResponse.status,
         totalTransactions: batchResponse.totalTxnSubmitted,
       },
     ])
