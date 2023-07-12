@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 2.2.2
+
+### Patch Changes
+
+- [#369](https://github.com/roll-network/tryrolljs/pull/369) [`b033c71`](https://github.com/roll-network/tryrolljs/commit/b033c713cedf9445072ef576ddb92ce7dda6c949) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Updated `getPlatformUserBalances` response type
+
 ## 2.2.1
 
 ### Patch Changes
