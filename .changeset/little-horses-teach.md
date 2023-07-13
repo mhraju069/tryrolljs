@@ -5,3 +5,4 @@
 Added multisend endpoints support
 - `getMultiSendById`
 - `getMultiSendTransactions`
+- `getMultiSendSummary`

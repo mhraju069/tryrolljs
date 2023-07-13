@@ -8,6 +8,7 @@ import {
   GetMultiSendByIdArgs,
   MultiSendResponseData,
   GetMultiSendTransactionsArgs,
+  MultiSendSummaryResponseData,
 } from './types'
 
 export const send = async (
@@ -68,6 +69,18 @@ export const getMultiSendById = async (
 ) => {
   const response = await call<Response<MultiSendResponseData>>({
     url: `/v1/transactions/multisend/${multiSendId}`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
+}
+
+export const getMultiSendSummary = async (
+  call: Call,
+  { multiSendId }: GetMultiSendByIdArgs,
+) => {
+  const response = await call<Response<MultiSendSummaryResponseData>>({
+    url: `/v1/transactions/multisend/${multiSendId}/summary`,
     method: 'GET',
     authorization: true,
   })

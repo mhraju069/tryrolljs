@@ -65,6 +65,27 @@ export interface MultiSendResponseData {
   totalFailedToSubmit: number
 }
 
+export interface MultiSendSummaryResponseData {
+  platform: string
+  status: string
+  totalTxnSubmitted: number
+  totalFailedToSubmit: number
+  token: {
+    uuid: string
+    symbol: string
+  }
+  amount: {
+    maxDenomination: string
+    minDenomination: string
+    decimals: number
+  }
+  success: string[]
+  failure: {
+    userID: string
+    reason: string
+  }[]
+}
+
 export interface GetMultiSendTransactionsArgs {
   multiSendId: string
   limit?: number

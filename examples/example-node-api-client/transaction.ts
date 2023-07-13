@@ -130,6 +130,43 @@ export const getMultiSendById = async () => {
   }
 }
 
+export const getMultiSendSummary = async () => {
+  try {
+    const client = await generateMasqueradeTokenClient()
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+    ])
+
+    const response = await transaction.getMultiSendSummary(client.call, {
+      multiSendId: answers.multiSendId,
+    })
+    console.log('Multi send summary')
+    printTable([
+      {
+        status: response.status,
+        token: response.token.symbol,
+        amount: response.amount.maxDenomination,
+        totalTransactions: response.totalTxnSubmitted,
+        totalFailedTransactions: response.totalFailedToSubmit,
+      },
+    ])
+    if (response.success.length > 0) {
+      console.log('Multi send success transactions')
+      printTable(response.success)
+    }
+    if (response.failure.length > 0) {
+      console.log('Multi send failed transactions')
+      printTable(response.failure)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getMultisendTransactions = async () => {
   try {
     const client = await generateMasqueradeTokenClient()
