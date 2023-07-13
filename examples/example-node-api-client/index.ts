@@ -19,8 +19,9 @@ import {
 } from './balances.js'
 import {
   getMultiSendById,
+  getMultiSendSummary,
   getMultisendTransactions,
-  sendBatchFromPlatformUser,
+  multiSendFromPlatformUser,
   sendFromPlatformUser,
 } from './transaction.js'
 import {
@@ -48,9 +49,10 @@ enum Choice {
   LoginMultiplePlatformUser = 'Login multiple platform users',
   GetClient = 'Get client',
   SendFromPlatformUser = 'Send From Platform User',
-  SendBatchFromPlatformUser = 'Send Batch From Platform User',
-  GetMultisendTransactions = 'Get multiSend Transactions',
+  MultiSendFromPlatformUser = 'Multi send From Platform User',
   GetMultiSend = 'Get multiSend',
+  GetMultisendSummary = 'Get multiSend summary',
+  GetMultisendTransactions = 'Get multiSend Transactions',
   GetPlatformUserDepositAddress = 'Get platform user deposit address',
   GetPlatformUserBalance = 'Get platform user balance',
   GetPlatformUserBalances = 'Get platform user balances',
@@ -72,7 +74,8 @@ const actionByChoice: Record<Choice, Function> = {
   [Choice.LoginMultiplePlatformUser]: loginMultiplePlatformUsers,
   [Choice.GetClient]: getClient,
   [Choice.SendFromPlatformUser]: sendFromPlatformUser,
-  [Choice.SendBatchFromPlatformUser]: sendBatchFromPlatformUser,
+  [Choice.MultiSendFromPlatformUser]: multiSendFromPlatformUser,
+  [Choice.GetMultisendSummary]: getMultiSendSummary,
   [Choice.GetMultisendTransactions]: getMultisendTransactions,
   [Choice.GetMultiSend]: getMultiSendById,
   [Choice.GetPlatformUserDepositAddress]: getPlatformUserDepositAddress,

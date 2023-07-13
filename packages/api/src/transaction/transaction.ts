@@ -4,7 +4,6 @@ import {
   TransactionResponseData,
   GetTransactionByIdArgs,
   Response,
-  BatchSendResponseData,
   GetMultiSendByIdArgs,
   MultiSendResponseData,
   GetMultiSendTransactionsArgs,
@@ -43,14 +42,14 @@ export const getTransactionById = (
   })
 }
 
-export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
+export const multiSend = async (call: Call, transactions: Array<SendArgs>) => {
   try {
     const body = transactions.map(({ tokenId, ...transaction }) => ({
       ...transaction,
       tokenID: tokenId,
     }))
-    const response = await call<Response<BatchSendResponseData>>({
-      url: '/v1/transactions/batch',
+    const response = await call<Response<MultiSendResponseData>>({
+      url: '/v1/transactions/multisend',
       method: 'POST',
       authorization: true,
       body,

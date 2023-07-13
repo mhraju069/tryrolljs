@@ -46,14 +46,14 @@ export const sendFromPlatformUser = async () => {
   }
 }
 
-export const sendBatchFromPlatformUser = async () => {
+export const multiSendFromPlatformUser = async () => {
   try {
     const client = await generateMasqueradeTokenClient()
-    let batchSendPrompt = true
+    let sendAnotherPrompt = true
 
     const transactions = []
 
-    while (batchSendPrompt) {
+    while (sendAnotherPrompt) {
       const answers = await inquirer.prompt([
         {
           type: 'input',
@@ -72,8 +72,8 @@ export const sendBatchFromPlatformUser = async () => {
         },
         {
           type: 'confirm',
-          name: 'batchSendAgain',
-          message: 'Do you want to send another batch?',
+          name: 'sendAnother',
+          message: 'Do you want to do another transaction?',
           default: false,
         },
       ])
@@ -85,16 +85,19 @@ export const sendBatchFromPlatformUser = async () => {
         note: 'test transaction',
       })
 
-      batchSendPrompt = answers.batchSendAgain
+      sendAnotherPrompt = answers.sendAnother
     }
 
-    const batchResponse = await transaction.batchSend(client.call, transactions)
+    const multiSendResponse = await transaction.multiSend(
+      client.call,
+      transactions,
+    )
 
     printTable([
       {
-        uuid: batchResponse.uuid,
-        status: batchResponse.status,
-        totalTransactions: batchResponse.totalTxnSubmitted,
+        uuid: multiSendResponse.uuid,
+        status: multiSendResponse.status,
+        totalTransactions: multiSendResponse.totalTxnSubmitted,
       },
     ])
   } catch (err) {
@@ -156,7 +159,14 @@ export const getMultiSendSummary = async () => {
     ])
     if (response.success.length > 0) {
       console.log('Multi send success transactions')
-      printTable(response.success)
+      // console.log(response.success)
+      printTable(
+        response.success.map((userId) => {
+          return {
+            toUser: userId,
+          }
+        }),
+      )
     }
     if (response.failure.length > 0) {
       console.log('Multi send failed transactions')
