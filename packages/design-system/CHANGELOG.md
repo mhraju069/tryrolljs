@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.8.3
+
+### Patch Changes
+
+- [#371](https://github.com/roll-network/tryrolljs/pull/371) [`ddf1e0f`](https://github.com/roll-network/tryrolljs/commit/ddf1e0f4889188cddbbb2f4435a9ad709d058802) Thanks [@teimurjan](https://github.com/teimurjan)! - Fixed Table search is not shown when no filter
+
 ## 1.8.2
 
 ### Patch Changes
