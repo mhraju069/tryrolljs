@@ -86,7 +86,7 @@ const Table = <T extends any, F extends string>({
         style,
       ]}
     >
-      {filter && (
+      {(filter || search) && (
         <View
           style={[
             container.row,

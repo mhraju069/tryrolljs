@@ -80,7 +80,7 @@ const Table = <T extends any, F extends string>({
         style,
       ]}
     >
-      {filter && (
+      {(filter || search) && (
         <View style={margin.mb12}>
           <View style={margin.mb12}>
             {search && (
