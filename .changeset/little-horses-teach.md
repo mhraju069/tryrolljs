@@ -6,4 +6,4 @@
   - `getMultiSendById`
   - `getMultiSendTransactions`
   - `getMultiSendSummary`
-Rename `sendBatch` to `multiSend`
+- Rename `batchSend` to `multiSend`
