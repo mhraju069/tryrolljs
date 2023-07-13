@@ -1,27 +1,13 @@
-import { user, transaction } from '@roll-network/api'
+import { transaction } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
-import { platformUserConfig } from './config.js'
+import { generateMasqueradeTokenClient } from './utils.js'
 
 export const sendFromPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const client = await generateMasqueradeTokenClient()
 
     const answers = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'userType',
-        message: 'User Type (discord, telegram)',
-      },
-      {
-        type: 'input',
-        name: 'platformUserId',
-        message: 'User ID from the external platform',
-      },
       {
         type: 'input',
         name: 'toUsername',
@@ -39,42 +25,12 @@ export const sendFromPlatformUser = async () => {
       },
     ])
 
-    const userResp = await user.createPlatformUser(
-      clientPool.getClient(InteractionType.ClientCredentials).call,
-      {
-        userType: answers.userType,
-        platformUserId: answers.platformUserId,
-      },
-    )
-
-    const masqueradeToken = await user.getUserMasqueradeToken(
-      clientPool.getClient(InteractionType.ClientCredentials).call,
-      {
-        userId: userResp.userID,
-      },
-    )
-
-    const clientToken = await sdkPool
-      .getSDK(InteractionType.ClientCredentials)
-      .getToken()
-    if (!clientToken) {
-      throw new Error('Client token is undefined.')
-    }
-
-    await sdkPool.getSDK(InteractionType.MasqueradeToken).generateToken({
-      clientToken: clientToken.access_token,
-      masqueradeToken: masqueradeToken.token,
+    const tx = await transaction.send(client.call, {
+      amount: answers.amount,
+      toUsername: answers.toUsername,
+      tokenId: answers.tokenId,
+      note: 'test transaction',
     })
-
-    const tx = await transaction.send(
-      clientPool.getClient(InteractionType.MasqueradeToken).call,
-      {
-        amount: answers.amount,
-        toUsername: answers.toUsername,
-        tokenId: answers.tokenId,
-        note: 'test transaction',
-      },
-    )
     printTable([
       {
         from: tx.from.username,
@@ -90,30 +46,14 @@ export const sendFromPlatformUser = async () => {
   }
 }
 
-export const sendBatchFromPlatformUser = async () => {
+export const multiSendFromPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
-
-    let batchSendPrompt = true
+    const client = await generateMasqueradeTokenClient()
+    let sendAnotherPrompt = true
 
     const transactions = []
 
-    const senderAnswers = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'userType',
-        message: 'User Type (discord, telegram)',
-      },
-      {
-        type: 'input',
-        name: 'platformUserId',
-        message: 'User ID from the external platform',
-      },
-    ])
-
-    while (batchSendPrompt) {
+    while (sendAnotherPrompt) {
       const answers = await inquirer.prompt([
         {
           type: 'input',
@@ -132,8 +72,8 @@ export const sendBatchFromPlatformUser = async () => {
         },
         {
           type: 'confirm',
-          name: 'batchSendAgain',
-          message: 'Do you want to send another batch?',
+          name: 'sendAnother',
+          message: 'Do you want to do another transaction?',
           default: false,
         },
       ])
@@ -145,46 +85,138 @@ export const sendBatchFromPlatformUser = async () => {
         note: 'test transaction',
       })
 
-      batchSendPrompt = answers.batchSendAgain
-    }
-    const userResp = await user.createPlatformUser(
-      clientPool.getClient(InteractionType.ClientCredentials).call,
-      {
-        userType: senderAnswers.userType,
-        platformUserId: senderAnswers.platformUserId,
-      },
-    )
-
-    const masqueradeToken = await user.getUserMasqueradeToken(
-      clientPool.getClient(InteractionType.ClientCredentials).call,
-      {
-        userId: userResp.userID,
-      },
-    )
-
-    const clientToken = await sdkPool
-      .getSDK(InteractionType.ClientCredentials)
-      .getToken()
-    if (!clientToken) {
-      throw new Error('Client token is undefined.')
+      sendAnotherPrompt = answers.sendAnother
     }
 
-    await sdkPool.getSDK(InteractionType.MasqueradeToken).generateToken({
-      clientToken: clientToken.access_token,
-      masqueradeToken: masqueradeToken.token,
-    })
-    const batchResponse = await transaction.batchSend(
-      clientPool.getClient(InteractionType.MasqueradeToken).call,
+    const multiSendResponse = await transaction.multiSend(
+      client.call,
       transactions,
     )
 
     printTable([
       {
-        uuid: batchResponse.uuid,
-        totalTransactions: batchResponse.totalTxnCount,
+        uuid: multiSendResponse.uuid,
+        status: multiSendResponse.status,
+        totalTransactions: multiSendResponse.totalTxnSubmitted,
       },
     ])
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const getMultiSendById = async () => {
+  try {
+    const client = await generateMasqueradeTokenClient()
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+    ])
+
+    const response = await transaction.getMultiSendById(client.call, {
+      multiSendId: answers.multiSendId,
+    })
+
+    printTable([
+      {
+        uuid: response.uuid,
+        status: response.status,
+        totalTransactions: response.totalTxnSubmitted,
+        totalFailedTransactions: response.totalFailedToSubmit,
+      },
+    ])
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getMultiSendSummary = async () => {
+  try {
+    const client = await generateMasqueradeTokenClient()
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+    ])
+
+    const response = await transaction.getMultiSendSummary(client.call, {
+      multiSendId: answers.multiSendId,
+    })
+    console.log('Multi send summary')
+    printTable([
+      {
+        status: response.status,
+        token: response.token.symbol,
+        amount: response.amount.maxDenomination,
+        totalTransactions: response.totalTxnSubmitted,
+        totalFailedTransactions: response.totalFailedToSubmit,
+      },
+    ])
+    if (response.success.length > 0) {
+      console.log('Multi send success transactions')
+      // console.log(response.success)
+      printTable(
+        response.success.map((userId) => {
+          return {
+            toUser: userId,
+          }
+        }),
+      )
+    }
+    if (response.failure.length > 0) {
+      console.log('Multi send failed transactions')
+      printTable(response.failure)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getMultisendTransactions = async () => {
+  try {
+    const client = await generateMasqueradeTokenClient()
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'multiSendId',
+        message: 'Multi send ID',
+      },
+      {
+        type: 'input',
+        name: 'limit',
+        message: 'Limit',
+        default: 3,
+      },
+      {
+        type: 'input',
+        name: 'offset',
+        message: 'Offset',
+        default: 0,
+      },
+    ])
+
+    const response = await transaction.getMultiSendTransactions(client.call, {
+      multiSendId: answers.multiSendId,
+      limit: Number(answers.limit),
+      offset: Number(answers.offset),
+    })
+    printTable(
+      response.map((tx) => ({
+        from: tx.from.username,
+        to: tx.to.username,
+        token: tx.token.symbol,
+        amount: tx.amount,
+        status: tx.status,
+        type: tx.type,
+      })),
+    )
+  } catch (error) {
+    console.error(error)
   }
 }

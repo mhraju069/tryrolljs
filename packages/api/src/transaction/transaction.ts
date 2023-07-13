@@ -4,7 +4,10 @@ import {
   TransactionResponseData,
   GetTransactionByIdArgs,
   Response,
-  BatchSendResponseData,
+  GetMultiSendByIdArgs,
+  MultiSendResponseData,
+  GetMultiSendTransactionsArgs,
+  MultiSendSummaryResponseData,
 } from './types'
 
 export const send = async (
@@ -39,14 +42,14 @@ export const getTransactionById = (
   })
 }
 
-export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
+export const multiSend = async (call: Call, transactions: Array<SendArgs>) => {
   try {
     const body = transactions.map(({ tokenId, ...transaction }) => ({
       ...transaction,
       tokenID: tokenId,
     }))
-    const response = await call<Response<BatchSendResponseData>>({
-      url: '/v1/transactions/batch',
+    const response = await call<Response<MultiSendResponseData>>({
+      url: '/v1/transactions/multisend',
       method: 'POST',
       authorization: true,
       body,
@@ -57,4 +60,52 @@ export const batchSend = async (call: Call, transactions: Array<SendArgs>) => {
     console.error(err)
     throw err
   }
+}
+
+export const getMultiSendById = async (
+  call: Call,
+  { multiSendId }: GetMultiSendByIdArgs,
+) => {
+  const response = await call<Response<MultiSendResponseData>>({
+    url: `/v1/transactions/multisend/${multiSendId}`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
+}
+
+export const getMultiSendSummary = async (
+  call: Call,
+  { multiSendId }: GetMultiSendByIdArgs,
+) => {
+  const response = await call<Response<MultiSendSummaryResponseData>>({
+    url: `/v1/transactions/multisend/${multiSendId}/summary`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
+}
+
+export const getMultiSendTransactions = async (
+  call: Call,
+  { multiSendId, limit, offset }: GetMultiSendTransactionsArgs,
+) => {
+  const query = {
+    limit: typeof limit === 'number' && limit ? limit.toString() : '',
+    offset: typeof offset === 'number' && offset ? offset.toString() : '',
+  }
+  let params = ''
+  if (query.limit || query.offset) {
+    params = `?${new URLSearchParams(query).toString()}`
+  }
+  const filteredParams = params
+    .replaceAll(/\w+=&/g, '')
+    .replaceAll(/&\w+=/g, '')
+
+  const response = await call<Response<TransactionResponseData[]>>({
+    url: `/v1/transactions/multisend/${multiSendId}/transactions${filteredParams}`,
+    method: 'GET',
+    authorization: true,
+  })
+  return response.data
 }
