@@ -79,13 +79,19 @@ export const getMultiSendTransactions = async (
   { multiSendId, limit, offset }: GetMultiSendTransactionsArgs,
 ) => {
   const query = {
-    limit: typeof limit === 'number' ? limit.toString() : '',
-    offset: typeof offset === 'number' ? offset.toString() : '',
+    limit: typeof limit === 'number' && limit ? limit.toString() : '',
+    offset: typeof offset === 'number' && offset ? offset.toString() : '',
   }
-  const params = new URLSearchParams(query).toString()
-  const filteredParams = params.replaceAll(/\w+=&/g, '')
+  let params = ''
+  if (query.limit || query.offset) {
+    params = `?${new URLSearchParams(query).toString()}`
+  }
+  const filteredParams = params
+    .replaceAll(/\w+=&/g, '')
+    .replaceAll(/&\w+=/g, '')
+
   const response = await call<Response<TransactionResponseData[]>>({
-    url: `/v1/transactions/multisend/${multiSendId}/transactions?${filteredParams}`,
+    url: `/v1/transactions/multisend/${multiSendId}/transactions${filteredParams}`,
     method: 'GET',
     authorization: true,
   })
