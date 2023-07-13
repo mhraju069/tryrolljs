@@ -1,5 +1,15 @@
 # @roll-network/api
 
+## 3.0.0
+
+### Major Changes
+
+- [#370](https://github.com/roll-network/tryrolljs/pull/370) [`4c984be`](https://github.com/roll-network/tryrolljs/commit/4c984be9b765789df40dc10846dfd5c043eea9d3) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added multisend endpoints support
+  - `getMultiSendById`
+  - `getMultiSendTransactions`
+  - `getMultiSendSummary`
+  - Rename `batchSend` to `multiSend`
+
 ## 2.2.2
 
 ### Patch Changes
