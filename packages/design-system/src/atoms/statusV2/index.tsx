@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import color from 'color'
 import { TypographyV2 } from '../typographyV2'
 import { useThemeV2 } from '../../hooks'
+import { spacing } from '../../styles/spacing'
 
 const BORDER_RADIUS = 8
 type Status = 'warning' | 'error' | 'success' | 'action'
@@ -10,12 +11,9 @@ type Status = 'warning' | 'error' | 'success' | 'action'
 export type StatusComponentProps = {
   status: Status
   title: string
-  textColor: string
 }
-
-const useTextColor = (status: Status) => {
+const useStatusToColor = (status: Status) => {
   const theme = useThemeV2()
-
   switch (status) {
     case 'warning':
       return theme.base.warning
@@ -31,27 +29,15 @@ const useTextColor = (status: Status) => {
 }
 
 const useStyles = (status: Status) => {
-  const theme = useThemeV2()
+  const backgroundColor = useStatusToColor(status)
 
-  const backgroundColor = useMemo(() => {
-    switch (status) {
-      case 'warning':
-        return theme.base.warning
-      case 'error':
-        return theme.base.danger
-      case 'success':
-        return theme.base.success
-      case 'action':
-        return theme.base.highlight1
-    }
-  }, [status, theme])
   const styles = useMemo(
     () =>
       StyleSheet.create({
         container: {
           borderRadius: BORDER_RADIUS,
-          paddingHorizontal: 12,
-          paddingVertical: 8,
+          paddingHorizontal: spacing[12],
+          paddingVertical: spacing[8],
           alignItems: 'center',
           alignSelf: 'flex-start',
           backgroundColor: color(backgroundColor).alpha(0.16).string(),
@@ -65,7 +51,7 @@ const useStyles = (status: Status) => {
 
 export const StatusV2: React.FC<StatusComponentProps> = ({ status, title }) => {
   const styles = useStyles(status)
-  const textColor = useTextColor(status)
+  const textColor = useStatusToColor(status)
   return (
     <View style={styles.container} testID="statusContainer">
       <TypographyV2 variant="caption2" color={textColor}>
