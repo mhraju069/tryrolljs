@@ -68,11 +68,9 @@ export const StatusV2: React.FC<StatusComponentProps> = ({ status, title }) => {
   const textColor = useTextColor(status)
   return (
     <View style={styles.container} testID="statusContainer">
-      {/* <View style={{ backgroundColor: styles.container.backgroundColor }}> */}
       <TypographyV2 variant="caption2" color={textColor}>
         {title}
       </TypographyV2>
-      {/* </View> */}
     </View>
   )
 }
