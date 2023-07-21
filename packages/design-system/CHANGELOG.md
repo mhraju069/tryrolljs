@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.0.0
+
+### Major Changes
+
+- [#379](https://github.com/roll-network/tryrolljs/pull/379) [`c0b83ab`](https://github.com/roll-network/tryrolljs/commit/c0b83abdf3ad2b91671b22df5cf3b117169dd4a1) Thanks [@nsstarr](https://github.com/nsstarr)! - Added StatusV2 component to the Design System
+
 ## 1.9.0
 
 ### Minor Changes
