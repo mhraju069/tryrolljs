@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 1.9.0
+
+### Minor Changes
+
+- [#378](https://github.com/roll-network/tryrolljs/pull/378) [`43803b7`](https://github.com/roll-network/tryrolljs/commit/43803b7556d3cd034a82a7a85560f3c500b2f0ce) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add InputContainer component
+
 ## 1.8.3
 
 ### Patch Changes
