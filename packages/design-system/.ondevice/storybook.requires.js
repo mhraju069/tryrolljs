@@ -55,6 +55,7 @@ const getStories = () => {
     require('../src/molecules/alertV2/alertV2.stories.tsx'),
     require('../src/molecules/estimatedGas/estimatedGas.stories.tsx'),
     require('../src/molecules/inputContainer/inputContainer.stories.tsx'),
+    require('../src/atoms/statusV2/statusV2.stories.tsx'),
   ]
 }
 
