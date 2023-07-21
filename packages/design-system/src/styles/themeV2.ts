@@ -7,7 +7,6 @@ interface PaletteBase {
   danger: string
   warning: string
   transparent: string
-  action: string
 }
 
 export interface PaletteText {
@@ -49,7 +48,6 @@ export const lightTheme: Theme = {
     danger: '#EB5757',
     warning: '#FF9900',
     success: '#1BC47D',
-    action: '#1B67D9',
     transparent: 'transparent',
   },
   text: {

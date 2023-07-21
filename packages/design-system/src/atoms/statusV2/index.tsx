@@ -1,12 +1,10 @@
 import { View, StyleSheet } from 'react-native'
-import { useBreakpointValue } from 'native-base'
 import { useMemo } from 'react'
+import color from 'color'
 import { TypographyV2 } from '../typographyV2'
 import { useThemeV2 } from '../../hooks'
 
 const BORDER_RADIUS = 8
-const CONTAINER_MD_MAX_WIDTH = 200
-
 type Status = 'warning' | 'error' | 'success' | 'action'
 
 export type StatusComponentProps = {
@@ -15,16 +13,25 @@ export type StatusComponentProps = {
   textColor: string
 }
 
-const useStyles = (status: Status, textColor: string) => {
+const useTextColor = (status: Status) => {
   const theme = useThemeV2()
-  const containerMaxWidth = useBreakpointValue({
-    base: 200,
-    md: CONTAINER_MD_MAX_WIDTH,
-  })
-  const containerAlignSelf = useBreakpointValue({
-    base: 'stretch',
-    md: 'flex-start',
-  })
+
+  switch (status) {
+    case 'warning':
+      return theme.base.warning
+    case 'error':
+      return theme.base.danger
+    case 'success':
+      return theme.base.success
+    case 'action':
+      return theme.base.highlight1
+    default:
+      return theme.text.black[100]
+  }
+}
+
+const useStyles = (status: Status) => {
+  const theme = useThemeV2()
 
   const backgroundColor = useMemo(() => {
     switch (status) {
@@ -35,25 +42,9 @@ const useStyles = (status: Status, textColor: string) => {
       case 'success':
         return theme.base.success
       case 'action':
-        return theme.base.action
+        return theme.base.highlight1
     }
   }, [status, theme])
-
-  const calculatedTextColor = useMemo(() => {
-    switch (status) {
-      case 'warning':
-        return theme.base.warning
-      case 'error':
-        return theme.base.danger
-      case 'success':
-        return theme.base.success
-      case 'action':
-        return theme.base.action
-      default:
-        return textColor || theme.text.black[100]
-    }
-  }, [status, theme, textColor])
-
   const styles = useMemo(
     () =>
       StyleSheet.create({
@@ -62,48 +53,26 @@ const useStyles = (status: Status, textColor: string) => {
           paddingHorizontal: 12,
           paddingVertical: 8,
           alignItems: 'center',
-          maxWidth: containerMaxWidth,
-          alignSelf: containerAlignSelf,
-          backgroundColor: `${backgroundColor}26`,
-        },
-        textContainer: {
-          flex: 1,
-          alignItems: 'center',
-          minWidth: 0,
-        },
-        titleText: {
-          color: calculatedTextColor,
+          alignSelf: 'flex-start',
+          backgroundColor: color(backgroundColor).alpha(0.16).string(),
         },
       }),
-    [
-      backgroundColor,
-      containerMaxWidth,
-      calculatedTextColor,
-      containerAlignSelf,
-    ],
+    [backgroundColor],
   )
 
   return styles
 }
 
-export const StatusV2: React.FC<StatusComponentProps> = ({
-  status,
-  title,
-  textColor,
-}) => {
-  const styles = useStyles(status, textColor)
-
+export const StatusV2: React.FC<StatusComponentProps> = ({ status, title }) => {
+  const styles = useStyles(status)
+  const textColor = useTextColor(status)
   return (
     <View style={styles.container} testID="statusContainer">
-      <View style={{ backgroundColor: styles.container.backgroundColor }}>
-        <TypographyV2
-          variant="caption2"
-          style={styles.textContainer}
-          color={textColor}
-        >
-          {title}
-        </TypographyV2>
-      </View>
+      {/* <View style={{ backgroundColor: styles.container.backgroundColor }}> */}
+      <TypographyV2 variant="caption2" color={textColor}>
+        {title}
+      </TypographyV2>
+      {/* </View> */}
     </View>
   )
 }
