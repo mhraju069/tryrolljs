@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.1.1
+
+### Patch Changes
+
+- [#386](https://github.com/roll-network/tryrolljs/pull/386) [`683ec71`](https://github.com/roll-network/tryrolljs/commit/683ec719182acb7cea8bf9ef711ab5a9104e22df) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export Switch component
+
 ## 2.1.0
 
 ### Minor Changes
