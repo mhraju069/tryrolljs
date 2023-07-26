@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.2.0
+
+### Minor Changes
+
+- [#390](https://github.com/roll-network/tryrolljs/pull/390) [`71b031d`](https://github.com/roll-network/tryrolljs/commit/71b031d949ccd747cd3efda8872b5663414d609f) Thanks [@teimurjan](https://github.com/teimurjan)! - Add RadioSelect component
+
 ## 2.1.1
 
 ### Patch Changes
