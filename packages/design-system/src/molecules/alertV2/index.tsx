@@ -43,7 +43,6 @@ const useStyles = (variant: AlertVariant) => {
         container: {
           borderRadius: 16,
           padding: spacing[16],
-          margin: spacing[16],
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
