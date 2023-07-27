@@ -1,5 +1,11 @@
 # @roll-network/contract-bindings
 
+## 2.0.0
+
+### Major Changes
+
+- [#403](https://github.com/roll-network/tryrolljs/pull/403) [`330697f`](https://github.com/roll-network/tryrolljs/commit/330697f3eafeeab887ca494876ed7b7ea550f5ca) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - New bindings for withdrawal contract
+
 ## 1.2.0
 
 ### Minor Changes
