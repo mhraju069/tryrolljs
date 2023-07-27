@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react-native'
 import { TryrollTestProvider } from '../../providers'
-import { QR_Code, QRCodeProps } from './index'
+import { QRCode, QRCodeProps } from './index'
 
 describe('QRCode', () => {
   const renderComponent = (props: QRCodeProps) => {
     return render(
       <TryrollTestProvider>
-        <QR_Code {...props} />
+        <QRCode {...props} />
       </TryrollTestProvider>,
     )
   }
@@ -15,8 +15,6 @@ describe('QRCode', () => {
     const size = 200
 
     renderComponent({ value, size })
-
-    // Check if the component renders
     const qrCodeComponent = screen.getByTestId('qrCodeContainer')
     expect(qrCodeComponent).toBeDefined()
   })

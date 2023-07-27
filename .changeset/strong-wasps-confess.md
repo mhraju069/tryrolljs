@@ -1,5 +1,5 @@
 ---
-'@roll-network/design-system': major
+'@roll-network/design-system': minor
 ---
 
-Added a QRCodeV2 component to the Design System
+Added a QRCode component to the Design System

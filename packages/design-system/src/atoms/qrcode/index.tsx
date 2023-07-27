@@ -1,4 +1,4 @@
-import QRCode from 'react-qr-code'
+import ReactQRCode from 'react-qr-code'
 import { View, StyleSheet } from 'react-native'
 
 export type QRCodeProps = {
@@ -15,11 +15,11 @@ const useStyles = () => {
   return styles
 }
 
-export const QR_Code = ({ value, size }: QRCodeProps): JSX.Element => {
+export const QRCode = ({ value, size }: QRCodeProps): JSX.Element => {
   const styles = useStyles()
   return (
     <View style={styles.container} testID="qrCodeContainer">
-      <QRCode size={size} value={value} />
+      <ReactQRCode size={size} value={value} />
     </View>
   )
 }
