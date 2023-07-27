@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.4.0
+
+### Minor Changes
+
+- [#392](https://github.com/roll-network/tryrolljs/pull/392) [`90656de`](https://github.com/roll-network/tryrolljs/commit/90656de8f96ced4d0f6ce77f69017028aa423100) Thanks [@nsstarr](https://github.com/nsstarr)! - Added a QRCode component to the Design System
+
 ## 2.3.0
 
 ### Minor Changes
