@@ -30,6 +30,7 @@ import type {
 export declare namespace Withdrawal {
   export type OrderStruct = {
     signer: PromiseOrValue<string>;
+    holder: PromiseOrValue<string>;
     to: PromiseOrValue<string>;
     token: PromiseOrValue<string>;
     amount: PromiseOrValue<BigNumberish>;
@@ -41,11 +42,13 @@ export declare namespace Withdrawal {
     string,
     string,
     string,
+    string,
     BigNumber,
     BigNumber,
     BigNumber
   ] & {
     signer: string;
+    holder: string;
     to: string;
     token: string;
     amount: BigNumber;
@@ -68,33 +71,226 @@ export declare namespace Withdrawal {
 
 export interface WithdrawalInterface extends utils.Interface {
   functions: {
-    "withdrawal((address,address,address,uint256,uint256,uint256),(uint8,bytes32,bytes32))": FunctionFragment;
+    "allowedSigners(address)": FunctionFragment;
+    "cancel((address,address,address,address,uint256,uint256,uint256),(uint8,bytes32,bytes32))": FunctionFragment;
+    "getCompletedKey((address,address,address,address,uint256,uint256,uint256))": FunctionFragment;
+    "getOrder(uint256)": FunctionFragment;
+    "getStatus(uint256)": FunctionFragment;
+    "orders(uint256)": FunctionFragment;
+    "owner()": FunctionFragment;
+    "pause()": FunctionFragment;
+    "pauseOperator()": FunctionFragment;
+    "paused()": FunctionFragment;
+    "renounceOwnership()": FunctionFragment;
+    "setAllowedSigner(address,bool)": FunctionFragment;
+    "setPauseOperator(address)": FunctionFragment;
+    "transferOwnership(address)": FunctionFragment;
+    "unpause()": FunctionFragment;
+    "withdrawal((address,address,address,address,uint256,uint256,uint256),(uint8,bytes32,bytes32))": FunctionFragment;
   };
 
-  getFunction(nameOrSignatureOrTopic: "withdrawal"): FunctionFragment;
+  getFunction(
+    nameOrSignatureOrTopic:
+      | "allowedSigners"
+      | "cancel"
+      | "getCompletedKey"
+      | "getOrder"
+      | "getStatus"
+      | "orders"
+      | "owner"
+      | "pause"
+      | "pauseOperator"
+      | "paused"
+      | "renounceOwnership"
+      | "setAllowedSigner"
+      | "setPauseOperator"
+      | "transferOwnership"
+      | "unpause"
+      | "withdrawal"
+  ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "allowedSigners",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "cancel",
+    values: [Withdrawal.OrderStruct, Withdrawal.SigStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCompletedKey",
+    values: [Withdrawal.OrderStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getOrder",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getStatus",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "orders",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "pause", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "pauseOperator",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setAllowedSigner",
+    values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setPauseOperator",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdrawal",
     values: [Withdrawal.OrderStruct, Withdrawal.SigStruct]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "allowedSigners",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "cancel", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getCompletedKey",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getOrder", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getStatus", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "orders", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pauseOperator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setAllowedSigner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setPauseOperator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdrawal", data: BytesLike): Result;
 
   events: {
-    "WithdrawalEvent(address,address,address,uint256)": EventFragment;
+    "CancelEvent(uint256,address,address,address,uint256)": EventFragment;
+    "OwnershipTransferred(address,address)": EventFragment;
+    "Paused(address)": EventFragment;
+    "Unpaused(address)": EventFragment;
+    "UpdatePauseOperator(address,address)": EventFragment;
+    "UpdateSigner(address,bool)": EventFragment;
+    "WithdrawalEvent(uint256,address,address,address,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "CancelEvent"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatePauseOperator"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdateSigner"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawalEvent"): EventFragment;
 }
 
+export interface CancelEventEventObject {
+  key: BigNumber;
+  signer: string;
+  to: string;
+  token: string;
+  amount: BigNumber;
+}
+export type CancelEventEvent = TypedEvent<
+  [BigNumber, string, string, string, BigNumber],
+  CancelEventEventObject
+>;
+
+export type CancelEventEventFilter = TypedEventFilter<CancelEventEvent>;
+
+export interface OwnershipTransferredEventObject {
+  previousOwner: string;
+  newOwner: string;
+}
+export type OwnershipTransferredEvent = TypedEvent<
+  [string, string],
+  OwnershipTransferredEventObject
+>;
+
+export type OwnershipTransferredEventFilter =
+  TypedEventFilter<OwnershipTransferredEvent>;
+
+export interface PausedEventObject {
+  account: string;
+}
+export type PausedEvent = TypedEvent<[string], PausedEventObject>;
+
+export type PausedEventFilter = TypedEventFilter<PausedEvent>;
+
+export interface UnpausedEventObject {
+  account: string;
+}
+export type UnpausedEvent = TypedEvent<[string], UnpausedEventObject>;
+
+export type UnpausedEventFilter = TypedEventFilter<UnpausedEvent>;
+
+export interface UpdatePauseOperatorEventObject {
+  oldOperator: string;
+  newOperator: string;
+}
+export type UpdatePauseOperatorEvent = TypedEvent<
+  [string, string],
+  UpdatePauseOperatorEventObject
+>;
+
+export type UpdatePauseOperatorEventFilter =
+  TypedEventFilter<UpdatePauseOperatorEvent>;
+
+export interface UpdateSignerEventObject {
+  signer: string;
+  value: boolean;
+}
+export type UpdateSignerEvent = TypedEvent<
+  [string, boolean],
+  UpdateSignerEventObject
+>;
+
+export type UpdateSignerEventFilter = TypedEventFilter<UpdateSignerEvent>;
+
 export interface WithdrawalEventEventObject {
+  key: BigNumber;
   signer: string;
   to: string;
   token: string;
   amount: BigNumber;
 }
 export type WithdrawalEventEvent = TypedEvent<
-  [string, string, string, BigNumber],
+  [BigNumber, string, string, string, BigNumber],
   WithdrawalEventEventObject
 >;
 
@@ -127,12 +323,162 @@ export interface Withdrawal extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    allowedSigners(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    cancel(
+      order: Withdrawal.OrderStruct,
+      sig: Withdrawal.SigStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    getCompletedKey(
+      order: Withdrawal.OrderStruct,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getOrder(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[Withdrawal.OrderStructOutput]>;
+
+    getStatus(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[number]>;
+
+    orders(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string, BigNumber, BigNumber, BigNumber] & {
+        signer: string;
+        holder: string;
+        to: string;
+        token: string;
+        amount: BigNumber;
+        expiration: BigNumber;
+        key: BigNumber;
+      }
+    >;
+
+    owner(overrides?: CallOverrides): Promise<[string]>;
+
+    pause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    pauseOperator(overrides?: CallOverrides): Promise<[string]>;
+
+    paused(overrides?: CallOverrides): Promise<[boolean]>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setAllowedSigner(
+      signer: PromiseOrValue<string>,
+      value: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setPauseOperator(
+      pauseOperator_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    unpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     withdrawal(
       order: Withdrawal.OrderStruct,
       sig: Withdrawal.SigStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
+
+  allowedSigners(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  cancel(
+    order: Withdrawal.OrderStruct,
+    sig: Withdrawal.SigStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  getCompletedKey(
+    order: Withdrawal.OrderStruct,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getOrder(
+    key: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<Withdrawal.OrderStructOutput>;
+
+  getStatus(
+    key: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<number>;
+
+  orders(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, string, BigNumber, BigNumber, BigNumber] & {
+      signer: string;
+      holder: string;
+      to: string;
+      token: string;
+      amount: BigNumber;
+      expiration: BigNumber;
+      key: BigNumber;
+    }
+  >;
+
+  owner(overrides?: CallOverrides): Promise<string>;
+
+  pause(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  pauseOperator(overrides?: CallOverrides): Promise<string>;
+
+  paused(overrides?: CallOverrides): Promise<boolean>;
+
+  renounceOwnership(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setAllowedSigner(
+    signer: PromiseOrValue<string>,
+    value: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setPauseOperator(
+    pauseOperator_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  transferOwnership(
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  unpause(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   withdrawal(
     order: Withdrawal.OrderStruct,
@@ -141,6 +487,75 @@ export interface Withdrawal extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    allowedSigners(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    cancel(
+      order: Withdrawal.OrderStruct,
+      sig: Withdrawal.SigStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    getCompletedKey(
+      order: Withdrawal.OrderStruct,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getOrder(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<Withdrawal.OrderStructOutput>;
+
+    getStatus(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<number>;
+
+    orders(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string, BigNumber, BigNumber, BigNumber] & {
+        signer: string;
+        holder: string;
+        to: string;
+        token: string;
+        amount: BigNumber;
+        expiration: BigNumber;
+        key: BigNumber;
+      }
+    >;
+
+    owner(overrides?: CallOverrides): Promise<string>;
+
+    pause(overrides?: CallOverrides): Promise<void>;
+
+    pauseOperator(overrides?: CallOverrides): Promise<string>;
+
+    paused(overrides?: CallOverrides): Promise<boolean>;
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    setAllowedSigner(
+      signer: PromiseOrValue<string>,
+      value: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setPauseOperator(
+      pauseOperator_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    unpause(overrides?: CallOverrides): Promise<void>;
+
     withdrawal(
       order: Withdrawal.OrderStruct,
       sig: Withdrawal.SigStruct,
@@ -149,21 +564,133 @@ export interface Withdrawal extends BaseContract {
   };
 
   filters: {
-    "WithdrawalEvent(address,address,address,uint256)"(
+    "CancelEvent(uint256,address,address,address,uint256)"(
+      key?: PromiseOrValue<BigNumberish> | null,
       signer?: null,
       to?: null,
-      token?: null,
+      token?: PromiseOrValue<string> | null,
+      amount?: null
+    ): CancelEventEventFilter;
+    CancelEvent(
+      key?: PromiseOrValue<BigNumberish> | null,
+      signer?: null,
+      to?: null,
+      token?: PromiseOrValue<string> | null,
+      amount?: null
+    ): CancelEventEventFilter;
+
+    "OwnershipTransferred(address,address)"(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferredEventFilter;
+    OwnershipTransferred(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferredEventFilter;
+
+    "Paused(address)"(account?: null): PausedEventFilter;
+    Paused(account?: null): PausedEventFilter;
+
+    "Unpaused(address)"(account?: null): UnpausedEventFilter;
+    Unpaused(account?: null): UnpausedEventFilter;
+
+    "UpdatePauseOperator(address,address)"(
+      oldOperator?: null,
+      newOperator?: null
+    ): UpdatePauseOperatorEventFilter;
+    UpdatePauseOperator(
+      oldOperator?: null,
+      newOperator?: null
+    ): UpdatePauseOperatorEventFilter;
+
+    "UpdateSigner(address,bool)"(
+      signer?: null,
+      value?: null
+    ): UpdateSignerEventFilter;
+    UpdateSigner(signer?: null, value?: null): UpdateSignerEventFilter;
+
+    "WithdrawalEvent(uint256,address,address,address,uint256)"(
+      key?: PromiseOrValue<BigNumberish> | null,
+      signer?: null,
+      to?: null,
+      token?: PromiseOrValue<string> | null,
       amount?: null
     ): WithdrawalEventEventFilter;
     WithdrawalEvent(
+      key?: PromiseOrValue<BigNumberish> | null,
       signer?: null,
       to?: null,
-      token?: null,
+      token?: PromiseOrValue<string> | null,
       amount?: null
     ): WithdrawalEventEventFilter;
   };
 
   estimateGas: {
+    allowedSigners(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    cancel(
+      order: Withdrawal.OrderStruct,
+      sig: Withdrawal.SigStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    getCompletedKey(
+      order: Withdrawal.OrderStruct,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getOrder(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getStatus(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    orders(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    pause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    pauseOperator(overrides?: CallOverrides): Promise<BigNumber>;
+
+    paused(overrides?: CallOverrides): Promise<BigNumber>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setAllowedSigner(
+      signer: PromiseOrValue<string>,
+      value: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setPauseOperator(
+      pauseOperator_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    unpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     withdrawal(
       order: Withdrawal.OrderStruct,
       sig: Withdrawal.SigStruct,
@@ -172,6 +699,71 @@ export interface Withdrawal extends BaseContract {
   };
 
   populateTransaction: {
+    allowedSigners(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    cancel(
+      order: Withdrawal.OrderStruct,
+      sig: Withdrawal.SigStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getCompletedKey(
+      order: Withdrawal.OrderStruct,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getOrder(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getStatus(
+      key: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    orders(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    pause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    pauseOperator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setAllowedSigner(
+      signer: PromiseOrValue<string>,
+      value: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setPauseOperator(
+      pauseOperator_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    unpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     withdrawal(
       order: Withdrawal.OrderStruct,
       sig: Withdrawal.SigStruct,
