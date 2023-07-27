@@ -1,5 +1,12 @@
 import { forwardRef, useMemo, useState } from 'react'
-import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
+import {
+  StyleProp,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View,
+  ViewStyle,
+} from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, fontStyles, padding, spacing } from '../../styles'
 import { TypographyV2 } from '../../atoms/typographyV2'
@@ -16,6 +23,7 @@ export interface InputPropsV2 extends TextInputProps {
   info?: string
   tooltip?: string
   disabled?: boolean
+  suffixContainerStyle?: StyleProp<ViewStyle>
 }
 
 const INPUT_BORDER_WIDTH = 1
@@ -66,6 +74,7 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
       counter = false,
       prefix,
       suffix,
+      suffixContainerStyle,
       ...props
     },
     ref,
@@ -115,7 +124,9 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
             placeholderTextColor={theme.text.black[40]}
             {...props}
           />
-          {suffix && <View style={[styles.suffix]}>{suffix}</View>}
+          {suffix && (
+            <View style={[styles.suffix, suffixContainerStyle]}>{suffix}</View>
+          )}
           {counter && maxLength && (
             <View style={[styles.count]}>
               <TypographyV2 variant="text4" color={theme.text.black[40]}>

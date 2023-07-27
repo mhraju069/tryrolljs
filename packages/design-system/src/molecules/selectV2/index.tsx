@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, TextInput, View } from 'react-native'
 import { Pressable } from 'native-base'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 import { Icon, Popover, PopoverProps, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { padding } from '../../styles'
@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
   },
+  input: {
+    cursor: 'pointer',
+  } as any,
 })
 
 export type SelectV2Option = {
@@ -33,12 +36,16 @@ export type SelectV2Option = {
   value: string
 }
 
+type SelectRenderReference = (
+  props: Parameters<PopoverProps['renderReference']>[0] & { value?: string },
+) => ReactNode
+
 export interface SelectV2Props {
   placeholder?: string
   options: SelectV2Option[]
   defaultValue?: string
   onChange?: (value: string) => void
-  renderReference?: PopoverProps['renderReference']
+  renderReference?: SelectRenderReference
 }
 
 export const SelectV2: React.FC<SelectV2Props> = ({
@@ -68,13 +75,7 @@ export const SelectV2: React.FC<SelectV2Props> = ({
   )
 
   const defaultRenderReference: PopoverProps['renderReference'] = useCallback(
-    ({
-      reference,
-      getReferenceProps,
-      selectedValue: selectedValue_,
-      onOpenChange,
-      open,
-    }) => {
+    ({ reference, getReferenceProps, onOpenChange, open }) => {
       const referenceProps = getReferenceProps()
       const inputProps = Platform.select({
         web: referenceProps,
@@ -96,7 +97,7 @@ export const SelectV2: React.FC<SelectV2Props> = ({
           testID="selectInput"
           onChangeText={() => null}
           editable={Platform.select({ web: false, native: true })}
-          value={selectedValue_}
+          value={selectedValue ?? ''}
           placeholder={placeholder}
           suffix={
             <Icon
@@ -104,19 +105,31 @@ export const SelectV2: React.FC<SelectV2Props> = ({
               color={open ? theme.base.highlight1 : theme.text.black[100]}
             />
           }
+          suffixContainerStyle={{ pointerEvents: 'none' } as any}
+          style={[styles.input, inputProps?.style]}
           {...inputProps}
         />
       )
     },
-    [theme, placeholder],
+    [theme, placeholder, selectedValue],
+  )
+
+  const customRenderReference: SelectRenderReference = useCallback(
+    (props) => {
+      if (renderReference) {
+        return renderReference({ ...props, value: selectedValue })
+      }
+    },
+    [renderReference, selectedValue],
   )
 
   return (
     <Popover
       open={isOpen}
-      renderReference={renderReference ?? defaultRenderReference}
+      renderReference={
+        renderReference ? customRenderReference : defaultRenderReference
+      }
       openOnHover={false}
-      selectedValue={selectedValue ?? ''}
       onOpenChange={setIsOpen}
       matchReferenceWidth={false}
       placement="bottom-end"

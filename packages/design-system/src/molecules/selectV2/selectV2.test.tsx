@@ -47,7 +47,7 @@ describe('Select', () => {
           { name: 'Option #3', value: '3' },
         ]}
         onChange={onChange}
-        renderReference={({ selectedValue, reference, getReferenceProps }) => {
+        renderReference={({ value, reference, getReferenceProps }) => {
           const referenceProps = getReferenceProps()
           return (
             <Pressable
@@ -59,7 +59,7 @@ describe('Select', () => {
               testID="customReference"
             >
               <TypographyV2 variant="caption1" testID="referenceValue">
-                {selectedValue}
+                {value}
               </TypographyV2>
             </Pressable>
           )

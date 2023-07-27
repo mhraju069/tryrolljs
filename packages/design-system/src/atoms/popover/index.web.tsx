@@ -20,7 +20,6 @@ export const Popover = ({
   open,
   renderReference,
   openOnHover,
-  selectedValue,
   placement = 'bottom-start',
   style,
   matchReferenceWidth,
@@ -28,6 +27,7 @@ export const Popover = ({
 }: PopoverProps) => {
   const theme = useTheme()
   const { x, y, refs, strategy, context } = useFloating({
+    strategy: 'fixed',
     placement,
     open,
     onOpenChange,
@@ -69,7 +69,6 @@ export const Popover = ({
       {renderReference({
         reference: refs.setReference,
         getReferenceProps,
-        selectedValue,
         onOpenChange,
         open,
       })}
