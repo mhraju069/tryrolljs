@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react-native'
 import { TryrollTestProvider } from '../../providers'
-import { QRCodeV2, QRCodeProps } from './index'
+import { QR_Code, QRCodeProps } from './index'
 
-describe('QRCodeV2', () => {
+describe('QRCode', () => {
   const renderComponent = (props: QRCodeProps) => {
     return render(
       <TryrollTestProvider>
-        <QRCodeV2 {...props} />
+        <QR_Code {...props} />
       </TryrollTestProvider>,
     )
   }
