@@ -1,5 +1,12 @@
 # @roll-network/session-manager
 
+## 9.0.0
+
+### Major Changes
+
+- [#393](https://github.com/roll-network/tryrolljs/pull/393) [`f5ce4f4`](https://github.com/roll-network/tryrolljs/commit/f5ce4f4ca9aad7e8e903986223bb89545e364f9e) Thanks [@teimurjan](https://github.com/teimurjan)! - Make session status to be synced with user
+  - Use SessionStatus enum instead of string
+
 ## 8.0.0
 
 ### Patch Changes

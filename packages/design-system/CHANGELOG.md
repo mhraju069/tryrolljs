@@ -1,5 +1,17 @@
 # @roll-network/design-system
 
+## 2.3.0
+
+### Minor Changes
+
+- [#395](https://github.com/roll-network/tryrolljs/pull/395) [`ed007f0`](https://github.com/roll-network/tryrolljs/commit/ed007f02b072f667699d68850378d34ac5a9b613) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix wagmi peer dependency version
+
+- [#397](https://github.com/roll-network/tryrolljs/pull/397) [`d771a1f`](https://github.com/roll-network/tryrolljs/commit/d771a1fb71e98036d8e3584865e4149a0cfeba9c) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix select options are not pressable in app
+
+### Patch Changes
+
+- [#401](https://github.com/roll-network/tryrolljs/pull/401) [`8cd2eea`](https://github.com/roll-network/tryrolljs/commit/8cd2eea3cb4ba835352c162f99558d7ea09d3b16) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Remove margins on AlertV2 component
+
 ## 2.2.0
 
 ### Minor Changes
