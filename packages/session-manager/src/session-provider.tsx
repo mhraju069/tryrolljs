@@ -13,12 +13,13 @@ import {
   SessionStatus,
 } from './types'
 import { useAuthSdkUser } from './hooks'
+import { getSessionStatus } from './utils'
 
 export const SessionContext = createContext<SessionContextValue>({
   logIn: Promise.resolve,
   logOut: Promise.resolve,
   refresh: Promise.resolve,
-  status: 'initializing',
+  status: SessionStatus.Initializing,
 })
 
 const OAUTH_CODE_URL_PARAM_KEY = 'code'
@@ -27,8 +28,10 @@ const OAUTH_SCOPE_URL_PARAM_KEY = 'scope'
 
 const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
-  const [status, setStatus] = useState<SessionStatus>('initializing')
-  const user = useAuthSdkUser(authSdk)
+  const [status, setStatus] = useState<SessionStatus>(
+    SessionStatus.Initializing,
+  )
+  const { user, synced } = useAuthSdkUser(authSdk)
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
 
     const initialize = async () => {
       try {
-        setStatus('initializing')
+        setStatus(SessionStatus.Initializing)
         const token = await authSdk.getToken()
         if (!token) {
           await initializeNewSession()
@@ -78,7 +81,7 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
       } catch (e) {
         await initializeNewSession()
       } finally {
-        setStatus('stale')
+        setStatus(SessionStatus.Stale)
       }
     }
 
@@ -89,12 +92,12 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
 
   const refresh = useCallback(async () => {
     try {
-      setStatus('refreshing')
+      setStatus(SessionStatus.Refreshing)
       await authSdk.refreshToken(true)
     } catch (e) {
       setError(e)
     } finally {
-      setStatus('stale')
+      setStatus(SessionStatus.Stale)
     }
   }, [authSdk])
 
@@ -109,7 +112,14 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
 
   return (
     <SessionContext.Provider
-      value={{ status, user, logIn, logOut, refresh, error }}
+      value={{
+        status: getSessionStatus(status, synced),
+        user,
+        logIn,
+        logOut,
+        refresh,
+        error,
+      }}
     >
       {children}
     </SessionContext.Provider>

@@ -4,11 +4,14 @@ import { parse } from 'qs'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
 import { useAuthSdkUser } from './hooks'
+import { getSessionStatus } from './utils'
 
 const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   const isMountedRef = useRef(false)
-  const [status, setStatus] = useState<SessionStatus>('initializing')
-  const user = useAuthSdkUser(authSdk)
+  const [status, setStatus] = useState<SessionStatus>(
+    SessionStatus.Initializing,
+  )
+  const { user, synced } = useAuthSdkUser(authSdk)
   const [error, setError] = useState<unknown>()
 
   useEffect(() => {
@@ -18,11 +21,11 @@ const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
 
     const initialize = async () => {
       try {
-        setStatus('initializing')
+        setStatus(SessionStatus.Initializing)
       } catch (e) {
         await authSdk.cleanUp()
       } finally {
-        setStatus('stale')
+        setStatus(SessionStatus.Stale)
       }
     }
 
@@ -85,17 +88,24 @@ const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
 
   const refresh = useCallback(async () => {
     try {
-      setStatus('refreshing')
+      setStatus(SessionStatus.Refreshing)
       await authSdk.refreshToken(true)
     } catch (e) {
     } finally {
-      setStatus('stale')
+      setStatus(SessionStatus.Stale)
     }
   }, [authSdk])
 
   return (
     <SessionContext.Provider
-      value={{ status, user, logOut, logIn, refresh, error }}
+      value={{
+        status: getSessionStatus(status, synced),
+        user,
+        logOut,
+        logIn,
+        refresh,
+        error,
+      }}
     >
       {children}
     </SessionContext.Provider>

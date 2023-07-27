@@ -16,7 +16,7 @@ describe('useAuthSdkUser', () => {
   it('returns undefined user initially', () => {
     const { result } = renderHook(() => useAuthSdkUser(mockAuthSdk))
 
-    expect(result.current).toBeUndefined()
+    expect(result.current.user).toBeUndefined()
   })
 
   it('updates user on credentials change', async () => {
@@ -32,18 +32,18 @@ describe('useAuthSdkUser', () => {
 
     const { result } = renderHook(() => useAuthSdkUser(sdk))
 
-    expect(result.current).toBeUndefined()
+    expect(result.current.user).toBeUndefined()
 
     const mockCredentials = { user: mockUser }
     sdk.emit(Event.CredentialsCreated, mockCredentials)
     await waitFor(() => {
-      expect(result.current).toEqual(mockUser)
+      expect(result.current.user).toEqual(mockUser)
     })
 
     const updatedCredentials = { user: undefined }
     sdk.emit(Event.CredentialsUpdated, updatedCredentials)
     await waitFor(() => {
-      expect(result.current).toBeUndefined()
+      expect(result.current.user).toBeUndefined()
     })
   })
 
