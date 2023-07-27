@@ -1,8 +1,6 @@
 import { PropsWithChildren } from 'react'
 import SDK, { User } from '@roll-network/auth-sdk'
 
-export type SessionStatus = 'initializing' | 'refreshing' | 'stale'
-
 export interface SessionContextValue<U extends User = User> {
   user?: U
   logIn: () => Promise<void>
@@ -15,3 +13,9 @@ export interface SessionContextValue<U extends User = User> {
 export type SessionProviderProps = PropsWithChildren<{
   authSdk: SDK
 }>
+
+export enum SessionStatus {
+  Initializing = 'initializing',
+  Refreshing = 'refreshing',
+  Stale = 'stale',
+}
