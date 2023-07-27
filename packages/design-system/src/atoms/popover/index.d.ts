@@ -4,13 +4,11 @@ import { ComponentType, ReactNode } from 'react'
 export interface PopoverProps {
   open: boolean
   onOpenChange?: (open: boolean) => void
-  selectedValue: string
   renderReference: (props: {
     reference: (node: ReferenceType | null) => void
     getReferenceProps: (
       userProps?: React.HTMLProps<Element> | undefined,
     ) => Record<string, unknown>
-    selectedValue: string
     onOpenChange?: (value: boolean) => void
     open: boolean
   }) => ReactNode

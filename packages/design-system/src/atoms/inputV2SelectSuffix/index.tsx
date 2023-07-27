@@ -17,19 +17,18 @@ export const InputV2SelectSuffix: React.FC<InputV2SelectSuffixProps> = ({
   const viewRef = useRef<View>(null)
   const theme = useThemeV2()
 
-  const onPressOption = (value: string) => {
+  const onChange_ = (newValue: string) => {
     viewRef?.current?.blur()
-    onChange?.(value)
+    onChange?.(newValue)
   }
 
   const renderReference: PopoverProps['renderReference'] = useCallback(
-    ({ reference, getReferenceProps, selectedValue, onOpenChange, open }) => {
+    ({ reference, getReferenceProps, onOpenChange, open, value }) => {
       const referenceProps = getReferenceProps()
       const inputProps = Platform.select({
         web: referenceProps,
         native: {
           onFocus: () => {
-            console.warn('onFocus')
             onOpenChange?.(true)
           },
           onBlur: () => onOpenChange?.(false),
@@ -55,7 +54,7 @@ export const InputV2SelectSuffix: React.FC<InputV2SelectSuffixProps> = ({
             variant="caption1"
             color={open ? theme.base.highlight1 : theme.text.black[100]}
           >
-            {selectedValue}
+            {value}
           </TypographyV2>
           <View style={{ width: spacing[8] }} />
           <Icon
@@ -71,7 +70,7 @@ export const InputV2SelectSuffix: React.FC<InputV2SelectSuffixProps> = ({
   return (
     <SelectV2
       renderReference={renderReference}
-      onChange={onPressOption}
+      onChange={onChange_}
       {...props}
     />
   )
