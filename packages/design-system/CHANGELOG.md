@@ -1,5 +1,19 @@
 # @roll-network/design-system
 
+## 2.5.0
+
+### Minor Changes
+
+- [#410](https://github.com/roll-network/tryrolljs/pull/410) [`e2c0fd0`](https://github.com/roll-network/tryrolljs/commit/e2c0fd030db056e307f0b9a7a0aa7cf03184994c) Thanks [@teimurjan](https://github.com/teimurjan)! - Made SelectV2 searchable by adding search prop
+
+- [#406](https://github.com/roll-network/tryrolljs/pull/406) [`ada7b31`](https://github.com/roll-network/tryrolljs/commit/ada7b31b1fff4e31f3df08901cdbc04e9e3c1b36) Thanks [@teimurjan](https://github.com/teimurjan)! - Extract popover to body
+
+  - Introduced layers instead of hardcoded zindex
+  - Fixed typing issue in input suffix
+  - Updated TypographyV2 typing to accept strings only
+  - Added disabled property to RadioSelect options
+  - Fixed RadioSelect margin
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @roll-network/api-client
 
+## 2.3.1
+
+### Patch Changes
+
+- [#406](https://github.com/roll-network/tryrolljs/pull/406) [`c3021cf`](https://github.com/roll-network/tryrolljs/commit/c3021cf57ba9f8bbd8ac00c5e5f89f30e1c51d1d) Thanks [@teimurjan](https://github.com/teimurjan)! - Update auth SDK
+
 ## 2.3.0
 
 ### Minor Changes
