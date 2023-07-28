@@ -57,8 +57,8 @@ const getStories = () => {
     require('../src/molecules/inputContainer/inputContainer.stories.tsx'),
     require('../src/atoms/statusV2/statusV2.stories.tsx'),
     require('../src/atoms/switch/switch.stories.tsx'),
-    require('../src/atoms/radio-select/radio-select.stories.tsx'),
-    require('../src/atoms/qrcodeV2/qrcodeV2.stories.tsx'),
+    require('../src/atoms/radioSelect/radioSelect.stories.tsx'),
+    require('../src/atoms/qrcode/qrcode.stories.tsx'),
   ]
 }
 

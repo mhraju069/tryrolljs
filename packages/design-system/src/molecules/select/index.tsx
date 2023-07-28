@@ -144,7 +144,7 @@ export const Select = ({
         ))
       ) : (
         <View style={[padding.ph16, padding.pv8]}>
-          <Body>There is no options available</Body>
+          <Body>There are no options available</Body>
         </View>
       )}
     </Popover>
