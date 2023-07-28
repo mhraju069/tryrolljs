@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 3.0.1
+
+### Patch Changes
+
+- [#415](https://github.com/roll-network/tryrolljs/pull/415) [`b501dda`](https://github.com/roll-network/tryrolljs/commit/b501ddab0cda9c8807d9fc44138266b0640796bd) Thanks [@teimurjan](https://github.com/teimurjan)! - Update api-client dependency
+
 ## 3.0.0
 
 ### Major Changes
