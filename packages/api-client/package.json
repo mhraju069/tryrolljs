@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@roll-network/auth-sdk": "^3.2.0",
+    "@roll-network/auth-sdk": "^3.3.0",
     "axios": "^1.3.4",
     "better-queue": "^3.8.12",
     "better-queue-memory": "^1.0.4"

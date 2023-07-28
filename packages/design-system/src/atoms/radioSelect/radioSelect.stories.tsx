@@ -1,4 +1,5 @@
 import { View } from 'react-native'
+import { action } from '@storybook/addon-actions'
 import { titleBuilder } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { RadioSelect } from '.'
@@ -16,8 +17,9 @@ export const Default = () => (
       options={[
         { name: 'One', value: 'one' },
         { name: 'Two', value: 'two' },
-        { name: 'Three', value: 'three' },
+        { name: 'Three', value: 'three', disabled: true },
       ]}
+      onChange={action('onChange')}
     />
   </View>
 )
@@ -44,6 +46,7 @@ export const WithDescriptions = () => (
           description: 'Here is the test description',
         },
       ]}
+      onChange={action('onChange')}
     />
   </View>
 )

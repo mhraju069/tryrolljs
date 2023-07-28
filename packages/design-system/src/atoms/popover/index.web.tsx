@@ -8,10 +8,11 @@ import {
   useHover,
   safePolygon,
   useInteractions,
+  FloatingPortal,
 } from '@floating-ui/react'
 import { View } from 'native-base'
 import { useTheme } from '../../hooks'
-import { container } from '../../styles'
+import { container, layer } from '../../styles'
 import { PopoverProps } from '.'
 
 export const Popover = ({
@@ -73,27 +74,29 @@ export const Popover = ({
         open,
       })}
       {open && (
-        <View
-          style={[
-            container.borderRadiusSM,
-            container.shadow,
-            // @ts-ignore
-            // eslint-disable-next-line react-native/no-inline-styles
-            {
-              zIndex: 999,
-              top: y ?? 0,
-              left: x ?? 0,
-              backgroundColor: theme.background.primary,
-              position: strategy,
-            },
-            style,
-          ]}
-          ref={refs.setFloating}
-          {...getFloatingProps()}
-          {...rest}
-        >
-          {children}
-        </View>
+        <FloatingPortal>
+          <View
+            style={[
+              container.borderRadiusSM,
+              container.shadow,
+              // @ts-ignore
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                zIndex: layer.layer999,
+                top: y ?? 0,
+                left: x ?? 0,
+                backgroundColor: theme.background.primary,
+                position: strategy,
+              },
+              style,
+            ]}
+            ref={refs.setFloating}
+            {...getFloatingProps()}
+            {...rest}
+          >
+            {children}
+          </View>
+        </FloatingPortal>
       )}
     </>
   )

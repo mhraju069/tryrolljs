@@ -2,7 +2,7 @@ import { useFloating, shift, flip } from '@floating-ui/react-native'
 import { View } from 'native-base'
 import { useCallback, useMemo } from 'react'
 import { useFloatingLayoutAndroidHandler, useTheme } from '../../hooks'
-import { container } from '../../styles'
+import { container, layer } from '../../styles'
 import { PopoverProps } from '.'
 
 export const Popover = ({
@@ -10,7 +10,6 @@ export const Popover = ({
   onOpenChange,
   open,
   renderReference,
-  selectedValue,
   placement = 'bottom-start',
   style,
   ...rest
@@ -39,17 +38,9 @@ export const Popover = ({
         reference: refs.setReference,
         getReferenceProps,
         onOpenChange,
-        selectedValue,
         open,
       }),
-    [
-      refs,
-      renderReference,
-      getReferenceProps,
-      onOpenChange,
-      selectedValue,
-      open,
-    ],
+    [refs, renderReference, getReferenceProps, onOpenChange, open],
   )
 
   return (
@@ -64,7 +55,7 @@ export const Popover = ({
             // @ts-ignore
             // eslint-disable-next-line react-native/no-inline-styles
             {
-              zIndex: 999,
+              zIndex: layer.layer999,
               top: xy[1],
               left: xy[0],
               backgroundColor: theme.background.primary,

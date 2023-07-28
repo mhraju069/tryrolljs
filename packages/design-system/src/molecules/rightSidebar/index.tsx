@@ -3,7 +3,7 @@ import { Dimensions, Platform, StyleSheet } from 'react-native'
 import { PropsWithChildren } from 'react'
 
 import { useThemeV2 } from '../../hooks'
-import { container, margin, spacing } from '../../styles'
+import { container, layer, margin, spacing } from '../../styles'
 import { Web3Button } from '../web3Button'
 
 export type RightSidebarProps = PropsWithChildren<{
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   spacer: {
     width: RIGHT_SIDEBAR_WIDTH,
     marginLeft: spacing[40],
-    zIndex: -1,
+    zIndex: layer.layerNegative,
   },
 })
 

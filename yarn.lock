@@ -4599,7 +4599,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-aria/checkbox@npm:^0.2.2":
+"@react-native-aria/checkbox@npm:^0.2.3":
   version: 0.2.3
   resolution: "@react-native-aria/checkbox@npm:0.2.3"
   dependencies:
@@ -4678,9 +4678,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-aria/overlays@npm:0.3.3-rc.0":
-  version: 0.3.3-rc.0
-  resolution: "@react-native-aria/overlays@npm:0.3.3-rc.0"
+"@react-native-aria/overlays@npm:^0.3.3":
+  version: 0.3.7
+  resolution: "@react-native-aria/overlays@npm:0.3.7"
   dependencies:
     "@react-aria/interactions": ^3.3.2
     "@react-aria/overlays": ^3.7.0
@@ -4692,7 +4692,7 @@ __metadata:
     react: "*"
     react-dom: "*"
     react-native: "*"
-  checksum: 3f215895305b7230bc3b9f441144a1444404343d8dc909d14c1861f8a2adf339dd7d5d2880922b933fd2c5858d75a3c060ac4c35616d370cd50743ba8e721b5c
+  checksum: f2799261b58a4e4bab1ea92365a999f03359721cc69d7feb8a74408b11425f5043a5e7eabab1813696471516e0ab4cbfa07e70fd899a5e5b794baf97dfd89229
   languageName: node
   linkType: hard
 
@@ -5631,7 +5631,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/api-client@workspace:packages/api-client"
   dependencies:
-    "@roll-network/auth-sdk": ^3.2.0
+    "@roll-network/auth-sdk": ^3.3.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -5675,7 +5675,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/auth-sdk@^3.2.0, @roll-network/auth-sdk@^3.3.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
+"@roll-network/auth-sdk@^3.3.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
   version: 0.0.0-use.local
   resolution: "@roll-network/auth-sdk@workspace:packages/auth-sdk"
   dependencies:
@@ -5807,7 +5807,7 @@ __metadata:
     jotai-immer: ^0.1.0
     metro-react-native-babel-preset: 0.72.3
     mock-match-media: ^0.4.3
-    native-base: ^3.4.25
+    native-base: ^3.4.28
     pretty-bytes: ^6.1.0
     react: 18.1.0
     react-avatar-editor: ^13.0.0
@@ -22715,6 +22715,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.uniqueid@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "lodash.uniqueid@npm:4.0.1"
+  checksum: f8a66b34c2a8df74aeab22a018c9247c96346dc449506278e6f651030166b74959a4f8e6fae60d392a4c00a40758677547b6e969e4cb6893d8fcd1cb0d2b4ba1
+  languageName: node
+  linkType: hard
+
 "lodash@npm:4.17.21, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.3.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
@@ -24206,18 +24213,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"native-base@npm:^3.4.25":
-  version: 3.4.25
-  resolution: "native-base@npm:3.4.25"
+"native-base@npm:^3.4.28":
+  version: 3.4.28
+  resolution: "native-base@npm:3.4.28"
   dependencies:
     "@react-aria/visually-hidden": ^3.2.1
     "@react-native-aria/button": ^0.2.4
-    "@react-native-aria/checkbox": ^0.2.2
+    "@react-native-aria/checkbox": ^0.2.3
     "@react-native-aria/combobox": ^0.2.4-alpha.0
     "@react-native-aria/focus": ^0.2.6
     "@react-native-aria/interactions": ^0.2.2
     "@react-native-aria/listbox": ^0.2.4-alpha.3
-    "@react-native-aria/overlays": 0.3.3-rc.0
+    "@react-native-aria/overlays": ^0.3.3
     "@react-native-aria/radio": ^0.2.4
     "@react-native-aria/slider": ^0.2.5-alpha.1
     "@react-native-aria/tabs": ^0.2.7
@@ -24241,9 +24248,10 @@ __metadata:
     lodash.omit: ^4.5.0
     lodash.omitby: ^4.6.0
     lodash.pick: ^4.4.0
+    lodash.uniqueid: ^4.0.1
     stable-hash: ^0.0.2
     tinycolor2: ^1.4.2
-    use-subscription: ^1.8.0
+    use-sync-external-store: ^1.2.0
   peerDependencies:
     "@types/react": "*"
     "@types/react-native": "*"
@@ -24252,7 +24260,7 @@ __metadata:
     react-native: "*"
     react-native-safe-area-context: "*"
     react-native-svg: "*"
-  checksum: fa24a797b553d4f8fe451492a2cc65e9ad475093f3d7bbe5458e07fefb2fe12a96a14e3ce037a2ec3452be83592aa8e854e3cc6f13dc8170b8d12e989fb2ca02
+  checksum: 68d3b2c56c23b2bc25296162dfbd586530df6bc3a3e0a577ab383cdfc014e4e436604edb5aa33312055226c375e170ca942e686d43b23372d075dd7aa613fa8d
   languageName: node
   linkType: hard
 
@@ -31281,17 +31289,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: ed3f2ddddf6f21825e2ede4c2e0f0db8dcce5129802b69d1f0575fc1b42380436e8c76a6cd885d4e9aa8e292e60fb8b959c955f33c6a9123b83814a1a1875367
-  languageName: node
-  linkType: hard
-
-"use-subscription@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "use-subscription@npm:1.8.0"
-  dependencies:
-    use-sync-external-store: ^1.2.0
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: beac1f0ff14fe23fd6ae9c34681258936729f343bf6532bbce36caa8f4c1019ff380783e35b4aeb7f3faaec1a83af242d7833bf7e660816d24555dbdd2c934da
   languageName: node
   linkType: hard
 

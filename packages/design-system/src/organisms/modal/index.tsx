@@ -10,13 +10,20 @@ import { useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { Body, LargeHeader } from '../../atoms'
 import { useModal, useTheme } from '../../hooks'
-import { container, makeStyles, margin, padding, white } from '../../styles'
+import {
+  container,
+  layer,
+  makeStyles,
+  margin,
+  padding,
+  white,
+} from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
 
 const styles = makeStyles({
   closeButton: {
     position: 'absolute',
-    zIndex: 1,
+    zIndex: layer.layer1,
     right: 32,
     top: 24,
   },

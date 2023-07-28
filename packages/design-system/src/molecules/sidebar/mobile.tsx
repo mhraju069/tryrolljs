@@ -12,15 +12,13 @@ import { Icon } from '../../atoms'
 import { ButtonV2 } from '../../atoms/buttonV2'
 import { TypographyV2 } from '../../atoms/typographyV2'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { container, layer, margin, padding } from '../../styles'
 import { openLink } from '../../utils'
 import { SidebarOptions } from '../sidebarOptions'
 import { Web3Button } from '../web3Button'
 import { SidebarFooterOptionProps, SidebarProps } from './types'
 
 const DIVIDER_HEIGHT = 1
-const HEADER_Z_INDEX = 100
-const HEADER_CONTAINER_Z_INDEX = 101
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    zIndex: HEADER_CONTAINER_Z_INDEX,
+    zIndex: layer.layer101,
   },
   closeIconContainer: {
     position: 'absolute',
@@ -86,7 +84,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
         headerStyles,
         {
           backgroundColor: theme.background.white,
-          zIndex: HEADER_Z_INDEX,
+          zIndex: layer.layer100,
           marginTop: top,
         },
       ]}

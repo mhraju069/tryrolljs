@@ -1,7 +1,7 @@
 import { FlatList } from 'native-base'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, spacing } from '../../styles'
+import { container, layer, margin, spacing } from '../../styles'
 import { SidebarOption } from '../sidebarOption'
 import { SidebarProps } from './types'
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   spacer: {
     width: DESKTOP_SIDEBAR_WIDTH,
-    zIndex: -1,
+    zIndex: layer.layer999,
   },
 })
 
