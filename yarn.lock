@@ -5631,7 +5631,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/api-client@workspace:packages/api-client"
   dependencies:
-    "@roll-network/auth-sdk": ^3.2.0
+    "@roll-network/auth-sdk": ^3.3.0
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -5675,7 +5675,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/auth-sdk@^3.2.0, @roll-network/auth-sdk@^3.3.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
+"@roll-network/auth-sdk@^3.3.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
   version: 0.0.0-use.local
   resolution: "@roll-network/auth-sdk@workspace:packages/auth-sdk"
   dependencies:
