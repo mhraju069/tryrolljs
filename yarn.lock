@@ -5627,7 +5627,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/api-client@^2.0.0, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
+"@roll-network/api-client@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@roll-network/api-client@npm:2.3.1"
+  dependencies:
+    "@roll-network/auth-sdk": ^3.3.0
+    axios: ^1.3.4
+    better-queue: ^3.8.12
+    better-queue-memory: ^1.0.4
+  checksum: 0dc080d777c5399514779c4a4ef6f6367a006151939e586c248b9616c2a5775165ae5cbdeed8b639e177367bd6e8f4f05d0bbd39aadf3965357f94d5d0e6b9c1
+  languageName: node
+  linkType: hard
+
+"@roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
   version: 0.0.0-use.local
   resolution: "@roll-network/api-client@workspace:packages/api-client"
   dependencies:
@@ -5656,7 +5668,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/api@workspace:packages/api"
   dependencies:
-    "@roll-network/api-client": ^2.0.0
+    "@roll-network/api-client": ^2.3.1
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
