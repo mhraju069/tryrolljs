@@ -37,4 +37,14 @@ export const NoOptions = fromTemplate(Template, {
   placeholder: 'Select an option',
 })
 
+export const Searchable = fromTemplate(Template, {
+  placeholder: 'Select an option',
+  options: [
+    { name: 'Option #1', value: '1' },
+    { name: 'Option #2', value: '2' },
+    { name: 'Option #3', value: '3' },
+  ],
+  search: true,
+})
+
 export default storyConfig

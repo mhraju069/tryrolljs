@@ -46,6 +46,7 @@ export interface SelectV2Props {
   defaultValue?: string
   onChange?: (value: string) => void
   renderReference?: SelectRenderReference
+  search?: boolean
 }
 
 export const SelectV2: React.FC<SelectV2Props> = ({
@@ -54,13 +55,40 @@ export const SelectV2: React.FC<SelectV2Props> = ({
   onChange,
   defaultValue,
   placeholder,
+  search = false,
 }) => {
   const theme = useThemeV2()
   const inputRef = useRef<TextInput>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState(defaultValue)
+  const [searchValue, setSearchValue] = useState('')
   const selectedOption = options.find((option) => option.value === value)
   const selectedValue = selectedOption?.name
+  const inputValue = selectedValue ? selectedValue : searchValue
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchValue.toLowerCase()),
+  )
+
+  const handleChangeText = useCallback(
+    (text: string) => {
+      if (selectedOption) {
+        const shouldClear = (text = selectedOption.name.slice(
+          0,
+          selectedOption.name.length - 1,
+        ))
+
+        if (shouldClear) {
+          setValue(undefined)
+          setSearchValue('')
+        }
+
+        return
+      }
+
+      setSearchValue(text)
+    },
+    [selectedOption],
+  )
 
   const optionOnPress = useMemo(
     () =>
@@ -95,9 +123,9 @@ export const SelectV2: React.FC<SelectV2Props> = ({
             reference(node)
           }}
           testID="selectInput"
-          onChangeText={() => null}
-          editable={Platform.select({ web: false, native: true })}
-          value={selectedValue ?? ''}
+          onChangeText={handleChangeText}
+          editable={search}
+          value={inputValue}
           placeholder={placeholder}
           suffix={
             <Icon
@@ -111,7 +139,7 @@ export const SelectV2: React.FC<SelectV2Props> = ({
         />
       )
     },
-    [theme, placeholder, selectedValue],
+    [theme, placeholder, inputValue, handleChangeText, search],
   )
 
   const customRenderReference: SelectRenderReference = useCallback(
@@ -135,39 +163,47 @@ export const SelectV2: React.FC<SelectV2Props> = ({
       placement="bottom-end"
       style={styles.popover}
     >
-      {options.map((option, index) => (
-        <Pressable
-          key={option.value}
-          onPress={() => {
-            setValue(option.value)
-            onChange?.(option.value)
-            optionOnPress?.()
-          }}
-          _hover={{
-            style: [{ backgroundColor: theme.base.highlight2[10] }],
-          }}
-          _focusVisible={{
-            style: [{ backgroundColor: theme.base.highlight2[10] }],
-          }}
-          testID={`selectOption__${option.value}`}
-        >
-          <TypographyV2
-            variant="caption1"
-            color={theme.text.black[100]}
-            style={[padding.ph24, padding.pv12]}
+      {filteredOptions.length > 0 ? (
+        filteredOptions.map((option, index) => (
+          <Pressable
+            key={option.value}
+            onPress={() => {
+              setValue(option.value)
+              onChange?.(option.value)
+              optionOnPress?.()
+            }}
+            _hover={{
+              style: [{ backgroundColor: theme.base.highlight2[10] }],
+            }}
+            _focusVisible={{
+              style: [{ backgroundColor: theme.base.highlight2[10] }],
+            }}
+            testID={`selectOption__${option.value}`}
           >
-            {option.name}
+            <TypographyV2
+              variant="caption1"
+              color={theme.text.black[100]}
+              style={[padding.ph24, padding.pv12]}
+            >
+              {option.name}
+            </TypographyV2>
+            {index !== options.length - 1 && (
+              <View
+                style={[
+                  styles.divider,
+                  { backgroundColor: theme.background.silver },
+                ]}
+              />
+            )}
+          </Pressable>
+        ))
+      ) : (
+        <View>
+          <TypographyV2 variant="caption1" style={[padding.ph24, padding.pv12]}>
+            There are no options available
           </TypographyV2>
-          {index !== options.length - 1 && (
-            <View
-              style={[
-                styles.divider,
-                { backgroundColor: theme.background.silver },
-              ]}
-            />
-          )}
-        </Pressable>
-      ))}
+        </View>
+      )}
     </Popover>
   )
 }
