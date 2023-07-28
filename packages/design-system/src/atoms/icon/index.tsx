@@ -46,6 +46,7 @@ import Layer from '../../assets/icons/layer.svg'
 import Link from '../../assets/icons/link.svg'
 import Link2 from '../../assets/icons/link-2.svg'
 import Lock from '../../assets/icons/lock.svg'
+import RollLogo from '../../assets/icons/roll-logo.svg'
 import Logout from '../../assets/icons/logout.svg'
 import Menu from '../../assets/icons/menu.svg'
 import Minus from '../../assets/icons/minus.svg'
@@ -134,6 +135,7 @@ const icons = {
   link2: Link2,
   lock: Lock,
   logout: Logout,
+  logo: RollLogo,
   menu: Menu,
   minus: Minus,
   money: Money,
