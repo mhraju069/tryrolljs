@@ -1,5 +1,15 @@
 # @roll-network/design-system
 
+## 2.6.0
+
+### Minor Changes
+
+- [#408](https://github.com/roll-network/tryrolljs/pull/408) [`88603a7`](https://github.com/roll-network/tryrolljs/commit/88603a77ce040be870887f7f4bf9f7ae1a0a827f) Thanks [@nsstarr](https://github.com/nsstarr)! - Added a new Roll Logo svg to the icons
+
+### Patch Changes
+
+- [#413](https://github.com/roll-network/tryrolljs/pull/413) [`afe6ef0`](https://github.com/roll-network/tryrolljs/commit/afe6ef0b5755e64c700b78976c3b796322248729) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Fix AlertV2 layout
+
 ## 2.5.0
 
 ### Minor Changes
