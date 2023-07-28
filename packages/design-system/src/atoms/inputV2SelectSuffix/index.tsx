@@ -1,7 +1,6 @@
 import { Platform, View } from 'react-native'
 import { useCallback, useRef } from 'react'
 import { Pressable } from 'native-base'
-import { PopoverProps } from '../popover'
 import { useThemeV2 } from '../../hooks'
 import { TypographyV2 } from '../typographyV2'
 import { container, spacing } from '../../styles'
@@ -22,50 +21,51 @@ export const InputV2SelectSuffix: React.FC<InputV2SelectSuffixProps> = ({
     onChange?.(newValue)
   }
 
-  const renderReference: PopoverProps['renderReference'] = useCallback(
-    ({ reference, getReferenceProps, onOpenChange, open, value }) => {
-      const referenceProps = getReferenceProps()
-      const inputProps = Platform.select({
-        web: referenceProps,
-        native: {
-          onFocus: () => {
-            onOpenChange?.(true)
+  const renderReference: Required<SelectV2Props>['renderReference'] =
+    useCallback(
+      ({ reference, getReferenceProps, onOpenChange, open, value }) => {
+        const referenceProps = getReferenceProps()
+        const inputProps = Platform.select({
+          web: referenceProps,
+          native: {
+            onFocus: () => {
+              onOpenChange?.(true)
+            },
+            onBlur: () => onOpenChange?.(false),
+            onLayout: referenceProps.onLayout,
           },
-          onBlur: () => onOpenChange?.(false),
-          onLayout: referenceProps.onLayout,
-        },
-      })
+        })
 
-      return (
-        <Pressable
-          ref={(node) => {
-            // @ts-ignore
-            viewRef.current = node
-            // @ts-ignore
-            reference(node)
-          }}
-          style={[container.row]}
-          onPress={Platform.select({
-            native: () => onOpenChange?.(!open),
-          })}
-          {...inputProps}
-        >
-          <TypographyV2
-            variant="caption1"
-            color={open ? theme.base.highlight1 : theme.text.black[100]}
+        return (
+          <Pressable
+            ref={(node) => {
+              // @ts-ignore
+              viewRef.current = node
+              // @ts-ignore
+              reference(node)
+            }}
+            style={[container.row]}
+            onPress={Platform.select({
+              native: () => onOpenChange?.(!open),
+            })}
+            {...inputProps}
           >
-            {value}
-          </TypographyV2>
-          <View style={{ width: spacing[8] }} />
-          <Icon
-            variant="arrowDown2"
-            color={open ? theme.base.highlight1 : theme.text.black[100]}
-          />
-        </Pressable>
-      )
-    },
-    [theme, viewRef],
-  )
+            <TypographyV2
+              variant="caption1"
+              color={open ? theme.base.highlight1 : theme.text.black[100]}
+            >
+              {value}
+            </TypographyV2>
+            <View style={{ width: spacing[8] }} />
+            <Icon
+              variant="arrowDown2"
+              color={open ? theme.base.highlight1 : theme.text.black[100]}
+            />
+          </Pressable>
+        )
+      },
+      [theme, viewRef],
+    )
 
   return (
     <SelectV2

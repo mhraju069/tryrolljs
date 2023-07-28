@@ -39,7 +39,7 @@
     "@uniswap/widgets": "^2.51.2",
     "boring-avatars": "^1.6.3",
     "color": "^4.2.3",
-    "native-base": "^3.4.25",
+    "native-base": "^3.4.28",
     "pretty-bytes": "^6.1.0",
     "react-avatar-editor": "^13.0.0",
     "react-native-web-linear-gradient": "^1.1.2",

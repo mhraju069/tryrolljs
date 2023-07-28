@@ -17,6 +17,7 @@ import {
   charcoalBlack,
   container,
   darkNavy,
+  layer,
   padding,
   white,
 } from '../../styles'
@@ -86,7 +87,7 @@ export const Tooltip = ({
               // @ts-ignore
               // eslint-disable-next-line react-native/no-inline-styles
               {
-                zIndex: 999,
+                zIndex: layer.layer999,
                 top: y ?? 0,
                 left: x ?? 0,
                 backgroundColor: variant === 'dark' ? darkNavy : white,

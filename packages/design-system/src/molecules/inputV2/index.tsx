@@ -130,7 +130,7 @@ export const InputV2 = forwardRef<TextInput, InputPropsV2>(
           {counter && maxLength && (
             <View style={[styles.count]}>
               <TypographyV2 variant="text4" color={theme.text.black[40]}>
-                {value.length}/{maxLength}
+                {String(value.length / maxLength)}
               </TypographyV2>
             </View>
           )}
