@@ -7,6 +7,7 @@ export type RadioOption = {
   name: string
   description?: string
   value: string
+  disabled?: boolean
 }
 
 interface RadioSelectProps extends IRadioGroupProps {
@@ -21,10 +22,10 @@ export const RadioSelect = ({ options, ...props }: RadioSelectProps) => {
           key={option.value}
           value={option.value}
           size="sm"
-          style={margin.mv8}
           _icon={{ alignSelf: 'flex-start' }}
+          isDisabled={option.disabled}
         >
-          <View>
+          <View style={margin.mv4}>
             <TypographyV2 variant="caption2">{option.name}</TypographyV2>
             {option.description && (
               <TypographyV2 variant="text4">{option.description}</TypographyV2>
