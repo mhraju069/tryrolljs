@@ -51,15 +51,13 @@ const useStyles = (variant: AlertVariant) => {
           backgroundColor: backgroundColor,
         },
         iconContainer: {
-          marginRight: spacing[8],
+          marginRight: spacing[16],
           backgroundColor: iconBackgroundColor,
-          padding: spacing[8],
           borderRadius: BORDER_RADIUS,
           color: iconContainerColor,
         },
         textContainer: {
           flex: 1,
-          padding: spacing[8],
         },
         textTitleDanger: {
           color: colorDanger,
