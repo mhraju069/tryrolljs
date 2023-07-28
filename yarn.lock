@@ -5627,7 +5627,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/api-client@^2.0.0, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
+"@roll-network/api-client@^2.3.1, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
   version: 0.0.0-use.local
   resolution: "@roll-network/api-client@workspace:packages/api-client"
   dependencies:
@@ -5656,7 +5656,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/api@workspace:packages/api"
   dependencies:
-    "@roll-network/api-client": ^2.0.0
+    "@roll-network/api-client": ^2.3.1
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
