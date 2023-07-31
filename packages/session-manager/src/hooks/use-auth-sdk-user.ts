@@ -1,16 +1,17 @@
 import SDK, { Credentials, Event, User } from '@roll-network/auth-sdk'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const useAuthSdkUser = <U extends User>(authSdk: SDK) => {
-  const [isSynced, setIsSynced] = useState(false)
+  const isSyncScheduledRef = useRef(false)
+  const isSyncedRef = useRef(false)
   const [user, setUser] = useState<U>()
 
   const syncUser = useCallback(async () => {
-    if (!isSynced) {
+    if (!isSyncScheduledRef.current) {
+      isSyncScheduledRef.current = true
       await authSdk.syncSession()
-      setIsSynced(true)
     }
-  }, [isSynced, authSdk])
+  }, [authSdk])
 
   const setUpCredentialsListeners = useCallback(() => {
     const handleCredentialsChange = (credentials?: Credentials<U>) => {
@@ -18,6 +19,11 @@ const useAuthSdkUser = <U extends User>(authSdk: SDK) => {
         setUser(credentials.user)
       } else {
         setUser(undefined)
+      }
+
+      if (isSyncScheduledRef.current) {
+        isSyncScheduledRef.current = false
+        isSyncedRef.current = true
       }
     }
 
@@ -38,7 +44,7 @@ const useAuthSdkUser = <U extends User>(authSdk: SDK) => {
     return removeListeners
   }, [setUpCredentialsListeners, syncUser])
 
-  return { user, synced: isSynced }
+  return { user, synced: isSyncedRef.current }
 }
 
 export default useAuthSdkUser
