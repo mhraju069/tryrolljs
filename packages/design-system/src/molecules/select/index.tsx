@@ -53,10 +53,8 @@ export const Select = ({
   const handleChangeText = useCallback(
     (text: string) => {
       if (selectedOption) {
-        const shouldClear = (text = selectedOption.name.slice(
-          0,
-          selectedOption.name.length - 1,
-        ))
+        const shouldClear =
+          text === selectedOption.name.slice(0, selectedOption.name.length - 1)
 
         if (shouldClear) {
           setValue(undefined)
