@@ -1,5 +1,13 @@
 # @roll-network/design-system
 
+## 2.7.0
+
+### Minor Changes
+
+- [#418](https://github.com/roll-network/tryrolljs/pull/418) [`e51fc54`](https://github.com/roll-network/tryrolljs/commit/e51fc54b3466e6042a2bb7def2b432c89908e701) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix sidebar is not clickable
+
+- [#420](https://github.com/roll-network/tryrolljs/pull/420) [`bbe6c2c`](https://github.com/roll-network/tryrolljs/commit/bbe6c2c31053eefe4652a04f01fd7918f726dd26) Thanks [@teimurjan](https://github.com/teimurjan)! - Add loading & onSearchChange props to SelectV2
+
 ## 2.6.0
 
 ### Minor Changes
