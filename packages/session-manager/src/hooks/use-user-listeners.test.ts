@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import SDK, { Event } from '@roll-network/auth-sdk'
-import useAuthSdkUser from './use-auth-sdk-user'
+import useUserListeners from './use-user-listeners'
 
 const mockAuthSdk = {
   syncSession: jest.fn(),
@@ -8,15 +8,11 @@ const mockAuthSdk = {
   off: jest.fn(),
 } as any
 
-describe('useAuthSdkUser', () => {
+const mockSetUser = jest.fn()
+
+describe('useUserListeners', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  it('returns undefined user initially', () => {
-    const { result } = renderHook(() => useAuthSdkUser(mockAuthSdk))
-
-    expect(result.current.user).toBeUndefined()
   })
 
   it('updates user on credentials change', async () => {
@@ -30,25 +26,25 @@ describe('useAuthSdkUser', () => {
     })
     const mockUser = { id: '123', name: 'John Doe' }
 
-    const { result } = renderHook(() => useAuthSdkUser(sdk))
-
-    expect(result.current.user).toBeUndefined()
+    renderHook(() => useUserListeners(sdk, mockSetUser))
 
     const mockCredentials = { user: mockUser }
     sdk.emit(Event.CredentialsCreated, mockCredentials)
     await waitFor(() => {
-      expect(result.current.user).toEqual(mockUser)
+      expect(mockSetUser).toHaveBeenCalledWith(mockUser)
     })
 
     const updatedCredentials = { user: undefined }
     sdk.emit(Event.CredentialsUpdated, updatedCredentials)
     await waitFor(() => {
-      expect(result.current.user).toBeUndefined()
+      expect(mockSetUser).toHaveBeenCalledWith(undefined)
     })
   })
 
   it('cleans up event listeners', () => {
-    const { unmount } = renderHook(() => useAuthSdkUser(mockAuthSdk))
+    const { unmount } = renderHook(() =>
+      useUserListeners(mockAuthSdk, mockSetUser),
+    )
 
     unmount()
 

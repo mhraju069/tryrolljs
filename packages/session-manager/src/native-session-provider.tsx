@@ -1,27 +1,43 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { parse } from 'qs'
+import { Credentials, User } from '@roll-network/auth-sdk'
 import { SessionProviderProps, SessionStatus } from './types'
 import { SessionContext } from './session-provider'
-import { useAuthSdkUser } from './hooks'
-import { getSessionStatus } from './utils'
+import { useUserListeners } from './hooks'
 
-const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
+const NativeSessionProvider = <U extends User>({
+  authSdk,
+  children,
+}: SessionProviderProps) => {
   const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>(
     SessionStatus.Initializing,
   )
-  const { user, synced } = useAuthSdkUser(authSdk)
+  const [user, setUser] = useState<U>()
   const [error, setError] = useState<unknown>()
+
+  useUserListeners<U>(authSdk, setUser)
 
   useEffect(() => {
     if (isMountedRef.current) {
       return
     }
 
+    const syncUserWithSession = async () => {
+      const credentials = (await authSdk.syncSession()) as Credentials<U>
+      if (credentials?.user) {
+        setUser(credentials.user)
+      }
+    }
+
     const initialize = async () => {
       try {
         setStatus(SessionStatus.Initializing)
+        const token = await authSdk.getToken()
+        if (token) {
+          await syncUserWithSession()
+        }
       } catch (e) {
         await authSdk.cleanUp()
       } finally {
@@ -99,7 +115,7 @@ const NativeSessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   return (
     <SessionContext.Provider
       value={{
-        status: getSessionStatus(status, synced),
+        status,
         user,
         logOut,
         logIn,
