@@ -47,4 +47,9 @@ export const Searchable = fromTemplate(Template, {
   search: true,
 })
 
+export const Loading = fromTemplate(Template, {
+  placeholder: 'Select an option',
+  loading: true,
+})
+
 export default storyConfig

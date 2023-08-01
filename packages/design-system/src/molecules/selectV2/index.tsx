@@ -1,9 +1,9 @@
 import { Platform, StyleSheet, TextInput, View } from 'react-native'
 import { Pressable } from 'native-base'
 import { ReactNode, useCallback, useMemo, useRef, useState } from 'react'
-import { Icon, Popover, PopoverProps, TypographyV2 } from '../../atoms'
+import { Icon, Popover, PopoverProps, Spinner, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { padding } from '../../styles'
+import { container, padding, text } from '../../styles'
 import { InputV2 } from '../inputV2'
 
 const styles = StyleSheet.create({
@@ -45,17 +45,21 @@ export interface SelectV2Props {
   options: SelectV2Option[]
   defaultValue?: string
   onChange?: (value: string) => void
+  onSearchChange?: (value: string) => void
   renderReference?: SelectRenderReference
   search?: boolean
+  loading?: boolean
 }
 
 export const SelectV2: React.FC<SelectV2Props> = ({
   options = [],
   renderReference,
   onChange,
+  onSearchChange,
   defaultValue,
   placeholder,
   search = false,
+  loading = false,
 }) => {
   const theme = useThemeV2()
   const inputRef = useRef<TextInput>(null)
@@ -65,32 +69,38 @@ export const SelectV2: React.FC<SelectV2Props> = ({
   const selectedOption = options.find((option) => option.value === value)
   const selectedValue = selectedOption?.name
   const inputValue = selectedValue ? selectedValue : searchValue
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchValue.toLowerCase()),
+  const filteredOptions = useMemo(
+    () =>
+      options.filter((option) =>
+        option.name.toLowerCase().includes(searchValue.toLowerCase()),
+      ),
+    [options, searchValue],
   )
 
   const handleChangeText = useCallback(
-    (text: string) => {
+    (newText: string) => {
       if (selectedOption) {
-        const shouldClear = (text = selectedOption.name.slice(
-          0,
-          selectedOption.name.length - 1,
-        ))
+        // If option is selected and user is removing a char, clear the search
+        const shouldClear =
+          newText ===
+          selectedOption.name.slice(0, selectedOption.name.length - 1)
 
         if (shouldClear) {
           setValue(undefined)
           setSearchValue('')
+          onSearchChange?.('')
         }
 
         return
       }
 
-      setSearchValue(text)
+      setSearchValue(newText)
+      onSearchChange?.(newText)
     },
-    [selectedOption],
+    [selectedOption, onSearchChange],
   )
 
-  const optionOnPress = useMemo(
+  const handleOptionPress = useMemo(
     () =>
       Platform.select({
         native: () => {
@@ -151,6 +161,77 @@ export const SelectV2: React.FC<SelectV2Props> = ({
     [renderReference, selectedValue],
   )
 
+  const renderOptions = useCallback(() => {
+    return filteredOptions.map((option, index) => (
+      <Pressable
+        key={option.value}
+        onPress={() => {
+          setValue(option.value)
+          onChange?.(option.value)
+          handleOptionPress?.()
+        }}
+        _hover={{
+          style: [{ backgroundColor: theme.base.highlight2[10] }],
+        }}
+        _focusVisible={{
+          style: [{ backgroundColor: theme.base.highlight2[10] }],
+        }}
+        testID={`selectOption__${option.value}`}
+      >
+        <TypographyV2
+          variant="caption1"
+          color={theme.text.black[100]}
+          style={[padding.ph24, padding.pv12]}
+        >
+          {option.name}
+        </TypographyV2>
+        {index !== options.length - 1 && (
+          <View
+            style={[
+              styles.divider,
+              { backgroundColor: theme.background.silver },
+            ]}
+          />
+        )}
+      </Pressable>
+    ))
+  }, [filteredOptions, onChange, handleOptionPress, options, theme])
+
+  const renderNoOptions = useCallback(
+    () => (
+      <View>
+        <TypographyV2
+          variant="caption1"
+          style={[padding.ph24, padding.pv12, text.center]}
+        >
+          There are no options available
+        </TypographyV2>
+      </View>
+    ),
+    [],
+  )
+
+  const renderLoading = useCallback(
+    () => (
+      <View style={[container.center, padding.pv12]}>
+        <Spinner color={theme.base.primary[100]} />
+      </View>
+    ),
+    [theme],
+  )
+
+  const content = useMemo(() => {
+    if (loading) {
+      return renderLoading()
+    }
+
+    if (filteredOptions.length > 0) {
+      return renderOptions()
+    }
+
+    return renderNoOptions()
+  }, [renderOptions, renderNoOptions, renderLoading, filteredOptions, loading])
+
   return (
     <Popover
       open={isOpen}
@@ -159,51 +240,11 @@ export const SelectV2: React.FC<SelectV2Props> = ({
       }
       openOnHover={false}
       onOpenChange={setIsOpen}
-      matchReferenceWidth={false}
+      matchReferenceWidth
       placement="bottom-end"
       style={styles.popover}
     >
-      {filteredOptions.length > 0 ? (
-        filteredOptions.map((option, index) => (
-          <Pressable
-            key={option.value}
-            onPress={() => {
-              setValue(option.value)
-              onChange?.(option.value)
-              optionOnPress?.()
-            }}
-            _hover={{
-              style: [{ backgroundColor: theme.base.highlight2[10] }],
-            }}
-            _focusVisible={{
-              style: [{ backgroundColor: theme.base.highlight2[10] }],
-            }}
-            testID={`selectOption__${option.value}`}
-          >
-            <TypographyV2
-              variant="caption1"
-              color={theme.text.black[100]}
-              style={[padding.ph24, padding.pv12]}
-            >
-              {option.name}
-            </TypographyV2>
-            {index !== options.length - 1 && (
-              <View
-                style={[
-                  styles.divider,
-                  { backgroundColor: theme.background.silver },
-                ]}
-              />
-            )}
-          </Pressable>
-        ))
-      ) : (
-        <View>
-          <TypographyV2 variant="caption1" style={[padding.ph24, padding.pv12]}>
-            There are no options available
-          </TypographyV2>
-        </View>
-      )}
+      {content}
     </Popover>
   )
 }
