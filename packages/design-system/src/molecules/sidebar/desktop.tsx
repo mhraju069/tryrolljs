@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   spacer: {
     width: DESKTOP_SIDEBAR_WIDTH,
-    zIndex: layer.layer999,
+    zIndex: layer.layerNegative,
   },
 })
 
