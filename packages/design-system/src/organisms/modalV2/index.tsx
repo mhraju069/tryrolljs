@@ -5,7 +5,7 @@ import {
   Pressable,
   View,
 } from 'native-base'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { useModal } from '../../hooks'
@@ -37,6 +37,22 @@ export interface ModalV2Props extends IModalProps {}
 export const ModalV2 = (props: ModalV2Props) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
+
+  // Disable scrolling for the web, for mobile just set scrollEnabled={false}
+  useEffect(() => {
+    if (modal.isOpen) {
+      // Disable scrolling when the modal is open
+      document.body.style.overflow = 'hidden' // For web
+    } else {
+      // Re-enable scrolling when the modal is closed
+      document.body.style.overflow = '' // For web
+    }
+
+    return () => {
+      // Re-enable scrolling when the component unmounts
+      document.body.style.overflow = '' // For web
+    }
+  }, [modal.isOpen])
 
   return (
     <NBModal

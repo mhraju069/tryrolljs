@@ -15,9 +15,10 @@ const storyConfig = {
 const Template = ({ size, children }: ModalV2Props) => {
   const { toggle, isOpen, close } = useModal()
   return (
-    <ScrollView>
+    <ScrollView scrollEnabled={false}>
+      <View style={{ height: 200 }} /> {/* To test scrollable */}
       <ButtonV2 onPress={toggle} title="Toggle" />
-      <View style={{ height: 2000 }} />
+      <View style={{ height: 4000 }} /> {/* To test scrollable */}
       <ModalV2 isOpen={isOpen} onClose={close} size={size}>
         {children}
       </ModalV2>
