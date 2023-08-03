@@ -1,4 +1,4 @@
-import { User } from '@roll-network/auth-sdk'
+import { Credentials, User } from '@roll-network/auth-sdk'
 import {
   useState,
   useEffect,
@@ -12,8 +12,7 @@ import {
   SessionProviderProps,
   SessionStatus,
 } from './types'
-import { useAuthSdkUser } from './hooks'
-import { getSessionStatus } from './utils'
+import { useUserListeners } from './hooks'
 
 export const SessionContext = createContext<SessionContextValue>({
   logIn: Promise.resolve,
@@ -26,13 +25,18 @@ const OAUTH_CODE_URL_PARAM_KEY = 'code'
 const OAUTH_STATE_URL_PARAM_KEY = 'state'
 const OAUTH_SCOPE_URL_PARAM_KEY = 'scope'
 
-const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
+const SessionProvider = <U extends User = User>({
+  authSdk,
+  children,
+}: SessionProviderProps) => {
   const isMountedRef = useRef(false)
   const [status, setStatus] = useState<SessionStatus>(
     SessionStatus.Initializing,
   )
-  const { user, synced } = useAuthSdkUser(authSdk)
+  const [user, setUser] = useState<U>()
   const [error, setError] = useState<unknown>()
+
+  useUserListeners<U>(authSdk, setUser)
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -71,11 +75,20 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
       }
     }
 
+    const syncUserWithSession = async () => {
+      const credentials = (await authSdk.syncSession()) as Credentials<U>
+      if (credentials?.user) {
+        setUser(credentials.user)
+      }
+    }
+
     const initialize = async () => {
       try {
         setStatus(SessionStatus.Initializing)
         const token = await authSdk.getToken()
-        if (!token) {
+        if (token) {
+          await syncUserWithSession()
+        } else {
           await initializeNewSession()
         }
       } catch (e) {
@@ -113,7 +126,7 @@ const SessionProvider = ({ authSdk, children }: SessionProviderProps) => {
   return (
     <SessionContext.Provider
       value={{
-        status: getSessionStatus(status, synced),
+        status,
         user,
         logIn,
         logOut,
