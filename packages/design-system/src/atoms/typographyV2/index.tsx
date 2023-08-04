@@ -1,5 +1,6 @@
 import { useBreakpointValue } from 'native-base'
 import { GestureResponderEvent, StyleProp, Text, TextStyle } from 'react-native'
+import { ReactNode } from 'react'
 import { fontStyles, responsiveFontStyles } from '../../styles'
 
 export type TypographyVariant =
@@ -28,7 +29,7 @@ export interface TypographyV2Props {
   onPress?: (event: GestureResponderEvent) => void
   selectable?: boolean
   testID?: string
-  children?: string | string[]
+  children?: string | string[] | ReactNode | ReactNode[]
 }
 
 export const TypographyV2 = ({
@@ -46,6 +47,7 @@ export const TypographyV2 = ({
     base: responsiveFontStyles,
     xl: fontStyles,
   })
+
   return (
     <Text
       numberOfLines={numberOfLines}

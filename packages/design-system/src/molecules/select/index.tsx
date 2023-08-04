@@ -19,7 +19,11 @@ export interface SelectProps {
   onChange?: (value: string) => void
 }
 
-const styles = makeStyles({ input: { cursor: 'pointer' } as any })
+const styles = makeStyles({
+  input: {
+    cursor: Platform.select({ web: 'pointer', native: undefined }),
+  } as any,
+})
 
 export const Select = ({
   style,

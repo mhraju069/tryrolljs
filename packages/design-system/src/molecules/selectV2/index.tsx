@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
-    cursor: 'pointer',
+    cursor: Platform.select({ web: 'pointer', native: undefined }),
   } as any,
 })
 
