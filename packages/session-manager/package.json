@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/session-manager",
   "description": "Oauth session manager for Roll applications",
-  "version": "9.0.0",
+  "version": "9.1.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [

@@ -1,5 +1,11 @@
 # @roll-network/session-manager
 
+## 9.1.0
+
+### Minor Changes
+
+- [#416](https://github.com/roll-network/tryrolljs/pull/416) [`27e88b0`](https://github.com/roll-network/tryrolljs/commit/27e88b07e36429d7fd7716a0f1c28a1bf0e3a95a) Thanks [@teimurjan](https://github.com/teimurjan)! - Make user & session state to be in sync
+
 ## 9.0.0
 
 ### Major Changes

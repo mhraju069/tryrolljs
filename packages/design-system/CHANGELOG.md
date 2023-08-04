@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.8.0
+
+### Minor Changes
+
+- [#422](https://github.com/roll-network/tryrolljs/pull/422) [`4d5af85`](https://github.com/roll-network/tryrolljs/commit/4d5af85ba7f7c9213e30a1655fc082a8093fedd1) Thanks [@teimurjan](https://github.com/teimurjan)! - Allow TypogrpahyV2 to render nested texts
+
 ## 2.7.0
 
 ### Minor Changes
