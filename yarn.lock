@@ -5971,7 +5971,6 @@ __metadata:
     "@roll-network/api-client": "workspace:*"
     "@roll-network/auth-sdk": "workspace:*"
     "@roll-network/design-system": "workspace:*"
-    "@roll-network/logger": "workspace:*"
     "@roll-network/session-manager": "workspace:*"
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.0.11
