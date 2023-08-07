@@ -34,6 +34,7 @@ import {
   generateClientCredentialsToken,
   refreshClientCredentialsToken,
 } from './client-credentials-token.js'
+import logger from './logger.js'
 
 inquirer.registerPrompt('search-list', inquirerSearchList)
 
@@ -101,7 +102,7 @@ async function main() {
       try {
         await actionByChoice[answers.option as Choice]()
       } catch (error) {
-        console.error(error)
+        logger.error(error)
       }
 
       promptOptionsAgain()

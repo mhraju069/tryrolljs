@@ -2,6 +2,7 @@ import inquirer from 'inquirer'
 import { printTable } from 'console-table-printer'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config from './config.js'
+import logger from './logger.js'
 
 const sdkPool = new SDKPool(config)
 
@@ -14,7 +15,7 @@ export const generateClientCredentialsToken = async () => {
 
     printTable([token])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -37,6 +38,6 @@ export const refreshClientCredentialsToken = async () => {
 
     printTable([token])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }

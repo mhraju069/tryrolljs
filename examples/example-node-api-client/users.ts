@@ -4,6 +4,7 @@ import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
+import logger from './logger.js'
 
 export const getUser = async () => {
   try {
@@ -30,7 +31,7 @@ export const getUser = async () => {
       },
     ])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -62,7 +63,7 @@ export const createPlatformUser = async () => {
 
     printTable([response])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -103,7 +104,7 @@ export const loginPlatformUser = async () => {
 
     printTable([credentials.user])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -173,7 +174,7 @@ export const loginMultiplePlatformUsers = async () => {
 
     printTable(usersFromSdk)
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -203,6 +204,6 @@ export const getPlatformUserDepositAddress = async () => {
 
     printTable([response])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }

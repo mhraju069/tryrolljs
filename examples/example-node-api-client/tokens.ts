@@ -4,6 +4,7 @@ import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import inquirer from 'inquirer'
 import config from './config.js'
+import logger from './logger.js'
 
 export const getTokenList = async () => {
   try {
@@ -48,9 +49,9 @@ export const getTokenList = async () => {
         contractAddress: row.contractAddress,
       })),
     )
-    console.log(`Total rows: ${response.totalRows}`)
+    logger.info(`Total rows: ${response.totalRows}`)
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -80,6 +81,6 @@ export const getTokenCreator = async () => {
       },
     ])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
