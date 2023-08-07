@@ -5,7 +5,7 @@ import {
   Pressable,
   View,
 } from 'native-base'
-import { ReactNode, RefObject, useRef } from 'react'
+import { ReactNode, RefObject } from 'react'
 import { useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { useModal } from '../../hooks'
@@ -48,9 +48,7 @@ export const ModalV2 = (props: ModalV2Props) => {
       {...props}
       initialFocusRef={props.triggerButtonRef} // Pass the trigger button ref
       finalFocusRef={props.triggerButtonRef} // Pass the trigger button ref
-      position={
-        modal.position as ResponsiveValue<Property.Position | undefined>
-      }
+      position={modal.position as any}
     />
   )
 }
