@@ -56,27 +56,38 @@ const useScrollBlock = () => {
 export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [blockScroll, allowScroll] = useScrollBlock()
-  const open = useCallback(() => {
-    if (Platform.OS === 'web') {
-      blockScroll()
-    }
-    setIsOpen(true)
-  }, [blockScroll])
+  const [position, setPosition] = useState({ left: 0, top: 0})
+
+  const open = useCallback(
+    (left, top) => {
+      if (Platform.OS === 'web') {
+        blockScroll()
+      }
+      setIsOpen(true)
+      setPosition({ left, top })
+    },
+    [blockScroll],
+  )
   const close = useCallback(() => {
     if (Platform.OS === 'web') {
       allowScroll()
     }
     setIsOpen(false)
   }, [allowScroll])
-  const toggle = useCallback(() => {
-    if (isOpen) return close()
-    return open()
-  }, [isOpen, open, close])
+
+  const toggle = useCallback(
+    (left, top) => {
+      if (isOpen) return close()
+      return open(left, top)
+    },
+    [isOpen, open, close],
+  )
 
   return {
     isOpen,
     open,
     close,
     toggle,
+    position,
   }
 }
