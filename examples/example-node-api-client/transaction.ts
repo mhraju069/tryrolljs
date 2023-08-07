@@ -2,6 +2,7 @@ import { transaction } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
 import { generateMasqueradeTokenClient } from './utils.js'
+import logger from './logger.js'
 
 export const sendFromPlatformUser = async () => {
   try {
@@ -42,7 +43,7 @@ export const sendFromPlatformUser = async () => {
       },
     ])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -101,7 +102,7 @@ export const multiSendFromPlatformUser = async () => {
       },
     ])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -129,7 +130,7 @@ export const getMultiSendById = async () => {
       },
     ])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -147,7 +148,7 @@ export const getMultiSendSummary = async () => {
     const response = await transaction.getMultiSendSummary(client.call, {
       multiSendId: answers.multiSendId,
     })
-    console.log('Multi send summary')
+    logger.info('Multi send summary')
     printTable([
       {
         status: response.status,
@@ -158,8 +159,7 @@ export const getMultiSendSummary = async () => {
       },
     ])
     if (response.success.length > 0) {
-      console.log('Multi send success transactions')
-      // console.log(response.success)
+      logger.info('Multi send success transactions')
       printTable(
         response.success.map((userId) => {
           return {
@@ -169,11 +169,11 @@ export const getMultiSendSummary = async () => {
       )
     }
     if (response.failure.length > 0) {
-      console.log('Multi send failed transactions')
+      logger.info('Multi send failed transactions')
       printTable(response.failure)
     }
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -217,6 +217,6 @@ export const getMultisendTransactions = async () => {
       })),
     )
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }

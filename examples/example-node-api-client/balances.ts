@@ -4,6 +4,7 @@ import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
+import logger from './logger.js'
 
 export const getUserBalances = async () => {
   try {
@@ -22,7 +23,7 @@ export const getUserBalances = async () => {
       answers,
     )
     if (!balances || balances.length === 0) {
-      console.log('User has no balances')
+      logger.info('User has no balances')
       return
     }
     printTable(
@@ -33,7 +34,7 @@ export const getUserBalances = async () => {
       })),
     )
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -66,7 +67,7 @@ export const getUserTokenBalance = async () => {
       },
     ])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -97,12 +98,12 @@ export const hasBalance = async () => {
       answers,
     )
     if (response.hasbalance) {
-      console.log('User has balance')
+      logger.info('User has balance')
     } else {
-      console.log('User does not have balance')
+      logger.info('User does not have balance')
     }
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -141,7 +142,7 @@ export const getPlatformUserTokenBalance = async () => {
     const { token, ...rest } = balance
     printTable([{ tokenSymbol: token.symbol, ...rest }])
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }
 
@@ -180,6 +181,6 @@ export const getPlatformUserTokenBalances = async () => {
       })),
     )
   } catch (err) {
-    console.error(err)
+    logger.error(err)
   }
 }

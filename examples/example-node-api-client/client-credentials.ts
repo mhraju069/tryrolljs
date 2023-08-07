@@ -4,6 +4,7 @@ import inquirer from 'inquirer'
 import { ClientPool } from '@roll-network/api-client'
 import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
 import { clientCredentialsConfig } from './config.js'
+import logger from './logger.js'
 
 const sdkPool = new SDKPool(clientCredentialsConfig)
 
@@ -29,7 +30,7 @@ export const getClient = async () => {
 
     printTable([client])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -47,7 +48,7 @@ export const getClients = async () => {
 
     printTable(clients)
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -74,6 +75,6 @@ export const generateClientSecret = async () => {
 
     printTable([secret])
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
