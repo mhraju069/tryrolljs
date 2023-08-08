@@ -5,8 +5,8 @@ import {
   Pressable,
   View,
 } from 'native-base'
-import { ReactNode, RefObject } from 'react'
-import { useWindowDimensions, ViewProps } from 'react-native'
+import { ReactNode, useLayoutEffect, useState } from 'react'
+import { Platform, useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { useModal } from '../../hooks'
 import { Icon, TypographyV2 } from '../../atoms'
@@ -33,22 +33,25 @@ const styles = makeStyles({
 })
 
 export interface ModalV2Props extends IModalProps {
-  triggerButtonRef: RefObject<any> | undefined
+  topPosition?: number
 }
 
 export const ModalV2 = (props: ModalV2Props) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
-
+  const [position, setPosition] = useState(0)
+  useLayoutEffect(() => {
+    if (props.isOpen && Platform.OS === 'web') {
+      const top = window.scrollY
+      setPosition(top)
+    }
+  }, [props.isOpen])
   return (
     <NBModal
       onClose={modal.close}
       isOpen={modal.isOpen}
-      _overlay={{ style: { height, width } }}
+      _overlay={{ style: { height, width, top: position } }}
       {...props}
-      initialFocusRef={props.triggerButtonRef} // Pass the trigger button ref
-      finalFocusRef={props.triggerButtonRef} // Pass the trigger button ref
-      position={modal.position as any}
     />
   )
 }

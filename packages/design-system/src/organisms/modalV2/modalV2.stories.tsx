@@ -1,7 +1,6 @@
 import { action } from '@storybook/addon-actions'
 import { ScrollView, View } from 'native-base'
 import { useRef } from 'react'
-import { GestureResponderEvent } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -17,27 +16,13 @@ const storyConfig = {
 const Template = ({ size, children }: ModalV2Props) => {
   const { toggle, isOpen, close } = useModal()
   const buttonRef = useRef(null)
-  const handleButtonClick = (event?: GestureResponderEvent) => {
-    const target = event?.target as unknown as HTMLElement
-    const rect = target.getBoundingClientRect()
-    const left = rect.left + window.scrollX
-    const top = rect.top + window.scrollY
-    console.log('Button coordinates:', left, top)
-
-    toggle(left, top)
-  }
 
   return (
     <ScrollView scrollEnabled={false}>
       <View style={{ height: 1000 }} /> {/* To test scrollable */}
-      <ButtonV2 onPress={handleButtonClick} title="Toggle" ref={buttonRef} />
+      <ButtonV2 onPress={toggle} title="Toggle" ref={buttonRef} />
       <View style={{ height: 4000 }} /> {/* To test scrollable */}
-      <ModalV2
-        isOpen={isOpen}
-        onClose={close}
-        size={size}
-        triggerButtonRef={buttonRef}
-      >
+      <ModalV2 isOpen={isOpen} onClose={close} size={size}>
         {children}
       </ModalV2>
     </ScrollView>
