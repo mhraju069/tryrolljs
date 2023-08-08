@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/logger",
   "description": "Universal logger for Roll applications",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
