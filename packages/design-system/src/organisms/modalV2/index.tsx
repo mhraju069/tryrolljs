@@ -32,9 +32,7 @@ const styles = makeStyles({
   },
 })
 
-export interface ModalV2Props extends IModalProps {
-  topPosition?: number
-}
+export interface ModalV2Props extends IModalProps {}
 
 export const ModalV2 = (props: ModalV2Props) => {
   const modal = useModal()
