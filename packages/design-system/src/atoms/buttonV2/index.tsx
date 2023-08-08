@@ -396,7 +396,6 @@ export const ButtonV2 = ({
   variant = 'primary',
   size = 'medium',
   textColor,
-  ref,
   ...props
 }: ButtonV2Props) => {
   const responsiveSize = useBreakpointValue({
@@ -412,7 +411,6 @@ export const ButtonV2 = ({
       variant={variant}
       size={responsiveSize}
       textColor={textColor}
-      ref={ref}
       {...baseButtonProps}
       {...props}
     />

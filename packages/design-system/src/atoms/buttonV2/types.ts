@@ -34,7 +34,6 @@ export interface ButtonV2Props {
   iconBackgroundColor?: string
   style?: StyleProp<ViewStyle>
   textColor?: string
-  ref: React.RefObject<any>
 }
 
 type States = 'rest' | 'hover' | 'active' | 'disabled'
