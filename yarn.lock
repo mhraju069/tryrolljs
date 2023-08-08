@@ -5627,11 +5627,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/api-client@^2.3.1, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
+"@roll-network/api-client@^2.3.2, @roll-network/api-client@workspace:*, @roll-network/api-client@workspace:packages/api-client":
   version: 0.0.0-use.local
   resolution: "@roll-network/api-client@workspace:packages/api-client"
   dependencies:
-    "@roll-network/auth-sdk": ^3.3.0
+    "@roll-network/auth-sdk": ^3.3.1
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -5656,7 +5656,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/api@workspace:packages/api"
   dependencies:
-    "@roll-network/api-client": ^2.3.1
+    "@roll-network/api-client": ^2.3.2
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -5675,7 +5675,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/auth-sdk@^3.3.0, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
+"@roll-network/auth-sdk@^3.3.1, @roll-network/auth-sdk@workspace:*, @roll-network/auth-sdk@workspace:packages/auth-sdk":
   version: 0.0.0-use.local
   resolution: "@roll-network/auth-sdk@workspace:packages/auth-sdk"
   dependencies:
@@ -5706,7 +5706,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/cli@workspace:packages/cli"
   dependencies:
-    "@roll-network/prettier-config": 1.0.0
+    "@roll-network/prettier-config": 1.0.1
     commander: ^9.4.0
     eslint: ^8.22.0
     prettier: ^2.7.1
@@ -6045,7 +6045,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/prettier-config@1.0.0, @roll-network/prettier-config@workspace:packages/prettier-config":
+"@roll-network/prettier-config@1.0.1, @roll-network/prettier-config@workspace:packages/prettier-config":
   version: 0.0.0-use.local
   resolution: "@roll-network/prettier-config@workspace:packages/prettier-config"
   languageName: unknown
@@ -6055,7 +6055,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roll-network/session-manager@workspace:packages/session-manager"
   dependencies:
-    "@roll-network/auth-sdk": ^3.3.0
+    "@roll-network/auth-sdk": ^3.3.1
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
     "@rollup/plugin-typescript": ^11.0.0
@@ -6071,7 +6071,7 @@ __metadata:
     rollup: ^2.78.1
     rollup-plugin-delete: ^2.0.0
   peerDependencies:
-    "@roll-network/auth-sdk": ^3.3.0
+    "@roll-network/auth-sdk": ^3.3.1
     react: 18.1.0
     react-native-inappbrowser-reborn: ^3.7.0
   languageName: unknown

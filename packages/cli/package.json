@@ -1,13 +1,13 @@
 {
   "name": "@roll-network/cli",
   "description": "CLI for Roll applications",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "bin": {
     "roll": "./bin/roll.js"
   },
   "dependencies": {
-    "@roll-network/prettier-config": "1.0.0",
+    "@roll-network/prettier-config": "1.0.1",
     "commander": "^9.4.0",
     "eslint": "^8.22.0",
     "prettier": "^2.7.1"
