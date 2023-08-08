@@ -42,8 +42,8 @@ export const sendFromPlatformUser = async () => {
         type: tx.type,
       },
     ])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -101,8 +101,8 @@ export const multiSendFromPlatformUser = async () => {
         totalTransactions: multiSendResponse.totalTxnSubmitted,
       },
     ])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -129,8 +129,8 @@ export const getMultiSendById = async () => {
         totalFailedTransactions: response.totalFailedToSubmit,
       },
     ])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -172,8 +172,8 @@ export const getMultiSendSummary = async () => {
       logger.info('Multi send failed transactions')
       printTable(response.failure)
     }
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -217,6 +217,6 @@ export const getMultisendTransactions = async () => {
       })),
     )
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }

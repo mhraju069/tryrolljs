@@ -51,7 +51,7 @@ export const getTokenList = async () => {
     )
     logger.info(`Total rows: ${response.totalRows}`)
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -81,6 +81,6 @@ export const getTokenCreator = async () => {
       },
     ])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }

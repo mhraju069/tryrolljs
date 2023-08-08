@@ -1,5 +1,5 @@
-import { createLogger, LoggerType } from '@roll-network/logger'
+import { Logger, LoggerFormat } from '@roll-network/logger'
 
-const logger = createLogger({ type: LoggerType.Development })
+const logger = new Logger({ format: LoggerFormat.Plain })
 
 export default logger

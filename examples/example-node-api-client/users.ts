@@ -31,7 +31,7 @@ export const getUser = async () => {
       },
     ])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -62,8 +62,8 @@ export const createPlatformUser = async () => {
     )
 
     printTable([response])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -103,8 +103,8 @@ export const loginPlatformUser = async () => {
       })
 
     printTable([credentials.user])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -173,8 +173,8 @@ export const loginMultiplePlatformUsers = async () => {
     )
 
     printTable(usersFromSdk)
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -203,7 +203,7 @@ export const getPlatformUserDepositAddress = async () => {
     )
 
     printTable([response])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }

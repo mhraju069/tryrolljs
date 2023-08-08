@@ -15,7 +15,7 @@ export const generateClientCredentialsToken = async () => {
 
     printTable([token])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -38,6 +38,6 @@ export const refreshClientCredentialsToken = async () => {
 
     printTable([token])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
