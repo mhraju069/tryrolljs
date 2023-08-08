@@ -30,7 +30,7 @@ export const getClient = async () => {
 
     printTable([client])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -48,7 +48,7 @@ export const getClients = async () => {
 
     printTable(clients)
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -75,6 +75,6 @@ export const generateClientSecret = async () => {
 
     printTable([secret])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }

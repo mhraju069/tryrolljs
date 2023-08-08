@@ -34,7 +34,7 @@ export const getUserBalances = async () => {
       })),
     )
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -67,7 +67,7 @@ export const getUserTokenBalance = async () => {
       },
     ])
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -103,7 +103,7 @@ export const hasBalance = async () => {
       logger.info('User does not have balance')
     }
   } catch (error) {
-    logger.error(error)
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -141,8 +141,8 @@ export const getPlatformUserTokenBalance = async () => {
     )
     const { token, ...rest } = balance
     printTable([{ tokenSymbol: token.symbol, ...rest }])
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
 
@@ -180,7 +180,7 @@ export const getPlatformUserTokenBalances = async () => {
         updatedAt: balance.updatedAt,
       })),
     )
-  } catch (err) {
-    logger.error(err)
+  } catch (error) {
+    logger.fatal((error as Error).toString())
   }
 }
