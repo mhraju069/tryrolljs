@@ -34,11 +34,11 @@
     "test": "jest --testEnvironment=jsdom --passWithNoTests",
     "build": "rollup -c"
   },
-  "homepage": "https://github.com/TuringAdvisoryGroup/tryrolljs/tree/main/packages/api",
+  "homepage": "https://github.com/roll-network/tryrolljs/tree/main/packages/api",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TuringAdvisoryGroup/tryrolljs.git"
+    "url": "https://github.com/roll-network/tryrolljs.git"
   },
   "engines": {
     "npm": "~8.3.1",

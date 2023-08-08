@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@2.1.1/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "TuringAdvisoryGroup/tryrolljs" }
+    { "repo": "roll-network/tryrolljs" }
   ],
   "commit": false,
   "fixed": [],
