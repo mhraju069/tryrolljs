@@ -1,6 +1,5 @@
 import { action } from '@storybook/addon-actions'
 import { ScrollView, View } from 'native-base'
-import { useRef } from 'react'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -15,13 +14,12 @@ const storyConfig = {
 
 const Template = ({ size, children }: ModalV2Props) => {
   const { toggle, isOpen, close } = useModal()
-  const buttonRef = useRef(null)
 
   return (
     <ScrollView scrollEnabled={false}>
-      <View style={{ height: 1000 }} /> {/* To test scrollable */}
-      <ButtonV2 onPress={toggle} title="Toggle" ref={buttonRef} />
-      <View style={{ height: 4000 }} /> {/* To test scrollable */}
+      <View />
+      <ButtonV2 onPress={toggle} title="Toggle" />
+      <View style={{ height: 1000 }} />
       <ModalV2 isOpen={isOpen} onClose={close} size={size}>
         {children}
       </ModalV2>
