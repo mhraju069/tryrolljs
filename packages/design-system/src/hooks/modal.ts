@@ -1,22 +1,28 @@
 import { useCallback, useState, useRef } from 'react'
 import { Platform } from 'react-native'
 
+const getBodyPaddingRight = () =>
+  Number.parseInt(
+    window.getComputedStyle(document.body).getPropertyValue('padding-right'),
+    10,
+  ) ?? 0
+
 const useScrollBlock = () => {
   const scroll = useRef(false)
 
   const blockScroll = () => {
-    if (typeof document === 'undefined') return
+    if (typeof document === 'undefined') {
+      return
+    }
 
     const html = document.documentElement
     const { body } = document
-
-    if (!body || !body.style || scroll.current) return
+    if (!body || !body.style || scroll.current) {
+      return
+    }
 
     const scrollBarWidth = window.innerWidth - html.clientWidth
-    const bodyPaddingRight =
-      parseInt(
-        window.getComputedStyle(body).getPropertyValue('padding-right'),
-      ) || 0
+    const bodyPaddingRight = getBodyPaddingRight()
 
     /**
      * 1. Fixes a bug in iOS and desktop Safari whereby setting
@@ -71,7 +77,10 @@ export const useModal = () => {
   }, [allowScroll])
 
   const toggle = useCallback(() => {
-    if (isOpen) return close()
+    if (isOpen) {
+      return close()
+    }
+
     return open()
   }, [isOpen, open, close])
 

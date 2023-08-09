@@ -5,7 +5,7 @@ import {
   Pressable,
   View,
 } from 'native-base'
-import { ReactNode, useLayoutEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import { Platform, useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { useModal } from '../../hooks'
@@ -37,18 +37,21 @@ export interface ModalV2Props extends IModalProps {}
 export const ModalV2 = (props: ModalV2Props) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
-  const [position, setPosition] = useState(0)
-  useLayoutEffect(() => {
-    if (props.isOpen && Platform.OS === 'web') {
-      const top = window.scrollY
-      setPosition(top)
-    }
-  }, [props.isOpen])
+
   return (
     <NBModal
       onClose={modal.close}
       isOpen={modal.isOpen}
-      _overlay={{ style: { height, width, top: position } }}
+      _overlay={{
+        style: {
+          height,
+          width,
+          position: Platform.select({
+            web: 'fixed',
+            default: undefined,
+          }) as any,
+        },
+      }}
       {...props}
     />
   )
