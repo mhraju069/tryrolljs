@@ -20,6 +20,20 @@ export default defineConfig({
     alias: {
       'react-native': 'react-native-web',
     },
+    extensions: [
+      '.web.ts',
+      '.web.tsx',
+      '.web.jsx',
+      '.web.js',
+      '.tsx',
+      '.ts',
+      '.js',
+    ],
   },
   plugins: [react(), flowPlugin()],
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
 })
