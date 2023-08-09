@@ -23,7 +23,7 @@ export interface Event {
 }
 
 export interface Attribute {
-  [key: string]: string
+  [key: string]: any
   message: string
 }
 

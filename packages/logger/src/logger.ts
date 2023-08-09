@@ -17,15 +17,26 @@ export interface LoggerOptions {
 }
 
 type EventWithoutTimestamp = Omit<Event, 'timestamp'>
+type LogValue = any
 type LogInput =
-  | string
-  | string[]
+  | LogValue
+  | LogValue[]
   | EventWithoutTimestamp
   | EventWithoutTimestamp[]
 
 const getPinoOptions = (
   options: LoggerOptions,
 ): PinoLoggerOptions | undefined => {
+  const formatters = {
+    log: (entry: Record<string, unknown>) => {
+      delete entry.level
+      delete entry.pid
+      delete entry.time
+      delete entry.hostname
+
+      return entry
+    },
+  }
   if (options.transport?.type === TransportType.File) {
     return {
       transport: {
@@ -34,7 +45,12 @@ const getPinoOptions = (
           destination: options.transport.path,
         },
       },
+      formatters,
     }
+  }
+
+  return {
+    formatters,
   }
 }
 

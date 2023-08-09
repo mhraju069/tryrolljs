@@ -1,13 +1,10 @@
 import createPino from 'pino'
-import Logger, { LoggerOptions } from './logger'
+import Logger from './logger'
 
 jest.mock('pino')
 
 describe('Logger', () => {
-  let loggerOptions: LoggerOptions
-
   beforeEach(() => {
-    loggerOptions = {}
     ;(createPino as unknown as jest.Mock).mockReturnValue({
       debug: jest.fn(),
       info: jest.fn(),
@@ -17,7 +14,7 @@ describe('Logger', () => {
   })
 
   it('logs a debug message', () => {
-    const logger = new Logger(loggerOptions)
+    const logger = new Logger()
     const message = 'Debug message'
     logger.debug(message)
 
@@ -31,15 +28,18 @@ describe('Logger', () => {
   })
 
   it('logs an info message', () => {
-    const logger = new Logger(loggerOptions)
+    const logger = new Logger()
     const message = 'Info message'
-    logger.info(message)
+    logger.info(message, { tag: 'foo' })
 
     expect(createPino().info).toHaveBeenCalledWith(
       expect.objectContaining({
         events: expect.arrayContaining([
-          expect.objectContaining({ attributes: [{ message }] }),
+          expect.objectContaining({
+            attributes: [{ message }],
+          }),
         ]),
+        tags: expect.objectContaining({ tag: 'foo' }),
       }),
     )
   })
