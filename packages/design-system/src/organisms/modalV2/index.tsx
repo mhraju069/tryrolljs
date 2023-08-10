@@ -6,7 +6,7 @@ import {
   View,
 } from 'native-base'
 import { ReactNode } from 'react'
-import { useWindowDimensions, ViewProps } from 'react-native'
+import { Platform, useWindowDimensions, ViewProps } from 'react-native'
 import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
 import { useModal } from '../../hooks'
 import { Icon, TypographyV2 } from '../../atoms'
@@ -42,7 +42,16 @@ export const ModalV2 = (props: ModalV2Props) => {
     <NBModal
       onClose={modal.close}
       isOpen={modal.isOpen}
-      _overlay={{ style: { height, width } }}
+      _overlay={{
+        style: {
+          height,
+          width,
+          position: Platform.select({
+            web: 'fixed',
+            default: undefined,
+          }) as any,
+        },
+      }}
       {...props}
     />
   )

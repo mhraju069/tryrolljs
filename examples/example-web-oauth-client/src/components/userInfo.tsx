@@ -9,10 +9,7 @@ import { useSession } from '@roll-network/session-manager'
 export default function UserInfo() {
   const session = useSession()
 
-  const userImage =
-    session.user && session.user.media && session.user.media[0]
-      ? session.user.media[0].link
-      : undefined
+  const userImage = session.user && session.user.profilePic
 
   return (
     <div style={{ maxWidth: '100%', width: 200, padding: 16 }}>

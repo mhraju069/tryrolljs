@@ -84,3 +84,9 @@ You can use React Native Storybook to test changes locally. You'll need to add y
 2. Run `yarn start:native`
 3. Run `yarn ios` for iOS development.
 4. Run `yarn android` for Android development.
+
+### Troubleshooting
+
+#### Modal
+
+If you face an issue (specifically on Web) when rendering a Modal, ensure that your application doesn't run in StrictMode. Otherwise, `native-base` (the lib backing our design system up) will break. (https://github.com/adobe/react-spectrum/issues/3515#issuecomment-1246872872)
