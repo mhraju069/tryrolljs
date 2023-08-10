@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.9.0
+
+### Minor Changes
+
+- [#432](https://github.com/roll-network/tryrolljs/pull/432) [`fffdb95`](https://github.com/roll-network/tryrolljs/commit/fffdb95de234dfdb6825be2e0495afc8724c4f2f) Thanks [@nsstarr](https://github.com/nsstarr)! - Fix the position of the ModalV2 so that it opens up near the button that triggers it
+
 ## 2.8.1
 
 ### Patch Changes
