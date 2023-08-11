@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.9.1
+
+### Patch Changes
+
+- [#439](https://github.com/roll-network/tryrolljs/pull/439) [`25d0830`](https://github.com/roll-network/tryrolljs/commit/25d08300f512609b51f484e3624bccea33aea8bb) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Fix scroll when modal is open on SelectV2 component
+
 ## 2.9.0
 
 ### Minor Changes
