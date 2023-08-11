@@ -2,12 +2,12 @@ import { Pressable } from 'native-base'
 import { StyleProp, ViewStyle } from 'react-native'
 import { useCallback, useState } from 'react'
 import { Icon } from '../../atoms'
-import { Modal } from '../modal'
 import { InputV2 } from '../../molecules'
 import {
   TokenSelectContentV2,
   TokenSelectContentV2Props,
 } from '../../molecules/tokenSelectContentV2'
+import { ModalV2 } from '../modalV2'
 
 export type TokenSelectV2Props = TokenSelectContentV2Props & {
   defaultValue?: string
@@ -62,7 +62,7 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
           testID="tokenSelectInput"
         />
       </Pressable>
-      <Modal
+      <ModalV2
         isOpen={isModalOpen}
         onClose={handleModalClose}
         avoidKeyboard
@@ -76,7 +76,7 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
           onChange={handleChange}
           onClose={handleModalClose}
         />
-      </Modal>
+      </ModalV2>
     </>
   )
 }
