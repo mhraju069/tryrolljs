@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
   ViewStyle,
+  TouchableOpacity,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Icon } from '../../atoms'
@@ -112,9 +113,10 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
             style: overlayStyles,
           }}
         >
-          <View
-            testID="overlay-container"
+          <TouchableOpacity
+            testID="overlayContainer"
             style={[styles.container, { width }]}
+            onPress={handleClose}
           >
             <View
               style={[
@@ -183,7 +185,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                 iconBackgroundColor={theme.base.primary[10]}
               />
             </View>
-          </View>
+          </TouchableOpacity>
         </Slide>
       </View>
     </View>
