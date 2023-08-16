@@ -1,5 +1,11 @@
 # @roll-network/api-client
 
+## 3.0.0
+
+### Major Changes
+
+- [#441](https://github.com/roll-network/tryrolljs/pull/441) [`55ce63e`](https://github.com/roll-network/tryrolljs/commit/55ce63eab10bb2e5078cfb5a7ee42438f3fb0640) Thanks [@teimurjan](https://github.com/teimurjan)! - Add redaction of sensetive information in logs
+
 ## 2.3.2
 
 ### Patch Changes
