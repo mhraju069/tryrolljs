@@ -1,10 +1,14 @@
 import 'setimmediate'
 import Queue from 'better-queue'
 import MemoryStore from 'better-queue-memory'
-import axios, { AxiosResponse } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 import SDK from '@roll-network/auth-sdk'
 import { Config, Request, RequestManagerState } from './types'
-import { concatBaseAndRelativeUrls, isAbsoluteUrl } from './utils'
+import {
+  concatBaseAndRelativeUrls,
+  getAxiosInstance,
+  isAbsoluteUrl,
+} from './utils'
 import { CouldntRefreshTokensError } from './errors'
 
 export default class RequestManager {
@@ -13,6 +17,7 @@ export default class RequestManager {
     isRefreshScheduled: false,
     isRefreshInProgress: false,
   }
+  private readonly axios: AxiosInstance
 
   constructor(
     private readonly config: Config,
@@ -21,7 +26,11 @@ export default class RequestManager {
   ) {
     this.config = config
     this.sdk = sdk
+
     this.queue = this.makeQueue()
+
+    this.axios = getAxiosInstance()
+
     this.userId = userId
   }
 
@@ -155,7 +164,7 @@ export default class RequestManager {
     ) =>
     async () => {
       try {
-        const response = await axios<T>(await this.getOptions(request))
+        const response = await this.axios<T>(await this.getOptions(request))
         return onSuccess(response.data)
       } catch (e: any) {
         if (e.response) {

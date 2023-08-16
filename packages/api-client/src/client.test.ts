@@ -1,10 +1,14 @@
-import axios from 'axios'
 import Client from './client'
 import { CouldntRefreshTokensError } from './errors'
+import { getAxiosInstance } from './utils'
 
-jest.mock('axios', () => jest.fn())
+jest.mock('./utils', () => ({
+  ...jest.requireActual('./utils'),
+  getAxiosInstance: jest.fn(),
+}))
 
-const mockAxios = axios as unknown as jest.Mock
+const mockGetAxiosInstance = getAxiosInstance as unknown as jest.Mock
+
 const authSdk = {
   isTokenExpired: jest.fn().mockResolvedValue(false),
   getToken: jest.fn().mockReturnValue({ access_token: '123' }),
@@ -19,8 +23,11 @@ const defaultConfig = {
 }
 
 describe('client', () => {
+  let mockAxios: jest.MockedFunction<any>
+
   beforeEach(() => {
-    mockAxios.mockReturnValue({ status: 200 })
+    mockAxios = jest.fn().mockResolvedValue({ status: 200 })
+    mockGetAxiosInstance.mockReturnValue(mockAxios)
   })
 
   afterEach(() => {
