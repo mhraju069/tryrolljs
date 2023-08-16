@@ -4,8 +4,8 @@ export interface Response<T> {
 export interface SendArgs {
   toUsername?: string
   toUser?: {
-    userType: string
-    platformUserId: string
+    platformType: string
+    platformID: string
   }
   tokenId: string
   amount: string
