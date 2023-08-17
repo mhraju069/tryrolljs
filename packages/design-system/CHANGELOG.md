@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.9.2
+
+### Patch Changes
+
+- [#442](https://github.com/roll-network/tryrolljs/pull/442) [`0a6dacb`](https://github.com/roll-network/tryrolljs/commit/0a6dacb2a0bf5739ccca157a8ad00fb588de6d1a) Thanks [@teimurjan](https://github.com/teimurjan)! - Make overlay press to close Sidebar
+
 ## 2.9.1
 
 ### Patch Changes
