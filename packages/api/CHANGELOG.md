@@ -1,5 +1,11 @@
 # @roll-network/api
 
+## 3.0.3
+
+### Patch Changes
+
+- [#445](https://github.com/roll-network/tryrolljs/pull/445) [`ad871ab`](https://github.com/roll-network/tryrolljs/commit/ad871ab125084a5070783cbc2359e13ffb27898d) Thanks [@nsstarr](https://github.com/nsstarr)! - Change the type definitions for SendArgs interface
+
 ## 3.0.2
 
 ### Patch Changes

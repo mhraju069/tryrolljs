@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/api",
   "description": "API request functions for Roll",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
