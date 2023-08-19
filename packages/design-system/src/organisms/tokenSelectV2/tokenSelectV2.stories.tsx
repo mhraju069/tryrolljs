@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { TokenSelectV2, TokenSelectV2Props } from '.'
 
@@ -9,6 +10,8 @@ const storyConfig = {
 const Template = (props: TokenSelectV2Props) => <TokenSelectV2 {...props} />
 
 export const Default = fromTemplate(Template, {
+  onSearchContract: action('onSearchContract'),
+  onSearchSymbol: action('onSearchSymbol'),
   options: [
     { name: 'Ether', symbol: 'ETH', value: 'ETH', address: '0x00' },
     { name: 'Wrapped Ether', symbol: 'WETH', value: 'WETH', address: '0x01' },
