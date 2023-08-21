@@ -1,4 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react-native'
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react-native'
+import { zeroAddress } from 'viem'
 import { TryrollTestProvider } from '../../providers'
 import { TokenSelectV2 } from '.'
 
@@ -9,6 +15,8 @@ const options = [
 ]
 const onChange = jest.fn()
 const onClose = jest.fn()
+const onSearchContract = jest.fn()
+const onSearchSymbol = jest.fn()
 const label = 'Search name or paste contract address'
 const placeholder = 'Select a token'
 
@@ -21,6 +29,8 @@ describe('TokenSelect', () => {
         onClose={onClose}
         label={label}
         placeholder={placeholder}
+        onSearchContract={onSearchContract}
+        onSearchSymbol={onSearchSymbol}
       />,
       {
         wrapper: TryrollTestProvider,
@@ -131,5 +141,23 @@ describe('TokenSelect', () => {
     const labelText = await screen.findByText(label)
     expect(placeHolderText).toBeDefined()
     expect(labelText).toBeDefined()
+  })
+
+  it('calls onSearchContract when search input is a valid contract address', async () => {
+    const searchInput = await screen.findByTestId('tokenSelectSearchInput')
+    expect(searchInput).toBeDefined()
+
+    fireEvent.changeText(searchInput, zeroAddress)
+    await waitFor(() =>
+      expect(onSearchContract).toHaveBeenCalledWith(zeroAddress),
+    )
+  })
+
+  it('calls onSearchSymbol when search is valid', async () => {
+    const searchInput = await screen.findByTestId('tokenSelectSearchInput')
+    expect(searchInput).toBeDefined()
+
+    fireEvent.changeText(searchInput, 'MYT')
+    await waitFor(() => expect(onSearchSymbol).toHaveBeenCalledWith('MYT'))
   })
 })
