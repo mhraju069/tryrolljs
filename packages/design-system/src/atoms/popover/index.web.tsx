@@ -10,7 +10,7 @@ import {
   useInteractions,
   FloatingPortal,
 } from '@floating-ui/react'
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { useTheme } from '../../hooks'
 import { container, layer } from '../../styles'
 import { PopoverProps } from '.'
@@ -90,6 +90,7 @@ export const Popover = ({
               },
               style,
             ]}
+            // @ts-ignore
             ref={refs.setFloating}
             {...getFloatingProps()}
             {...rest}

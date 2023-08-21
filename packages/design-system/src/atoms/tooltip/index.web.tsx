@@ -12,7 +12,7 @@ import {
   size,
 } from '@floating-ui/react'
 import { useState } from 'react'
-import { View } from 'native-base'
+import { View } from 'react-native'
 import {
   charcoalBlack,
   container,
@@ -95,6 +95,7 @@ export const Tooltip = ({
               },
               style,
             ]}
+            // @ts-ignore
             ref={refs.setFloating}
             {...getFloatingProps()}
           >

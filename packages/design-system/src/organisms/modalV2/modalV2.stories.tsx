@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { ScrollView, View } from 'native-base'
+import { View, ScrollView } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -39,7 +39,7 @@ export const Default = fromTemplate(Template, {
 })
 
 export const Confirmation = fromTemplate(Template, {
-  size: 'xl',
+  size: 'lg',
   children: (
     <ConfirmationModalContentV2
       title="Claim reward"

@@ -1,7 +1,12 @@
 import AvatarEditor from 'react-avatar-editor'
 import { ChangeEvent, FC, useRef, useState } from 'react'
-import { View, Slider } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
+import {
+  Slider,
+  SliderTrack,
+  SliderThumb,
+  SliderFilledTrack,
+} from '@gluestack-ui/react'
+import { View, StyleSheet, Image } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import { container, margin, padding } from '../../styles'
 import { ButtonV2, Icon, TypographyV2 } from '../../atoms'
@@ -168,12 +173,19 @@ const AvatarPicker: FC<AvatarPickerProps> = ({
                 defaultValue={zoom}
                 onChangeEnd={setZoom}
                 step={0.1}
-                colorScheme="trueGray"
               >
-                <Slider.Track>
-                  <Slider.FilledTrack />
-                </Slider.Track>
-                <Slider.Thumb />
+                <SliderTrack>
+                  <SliderFilledTrack
+                    sx={{
+                      backgroundColor: theme.base.primary[100],
+                    }}
+                  />
+                </SliderTrack>
+                <SliderThumb
+                  sx={{
+                    backgroundColor: theme.base.primary[100],
+                  }}
+                />
               </Slider>
 
               <ButtonV2

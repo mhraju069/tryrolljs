@@ -1,4 +1,5 @@
-import { Pressable, View } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
+import { View } from 'react-native'
 import { useConnect } from 'wagmi'
 import Close from '../../assets/svg/close.svg'
 import {

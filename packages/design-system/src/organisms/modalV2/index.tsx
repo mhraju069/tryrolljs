@@ -1,13 +1,18 @@
 import {
-  IIconButtonProps,
-  IModalProps,
-  Modal as NBModal,
+  Modal as GluestackModal,
+  ModalBackdrop as GluestackModalBackdrop,
+  ModalContent as GluestackModalContent,
   Pressable,
-  View,
-} from 'native-base'
+} from '@gluestack-ui/react'
 import { ReactNode } from 'react'
-import { Platform, useWindowDimensions, ViewProps } from 'react-native'
-import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
+import {
+  Platform,
+  useWindowDimensions,
+  ViewProps,
+  View,
+  PressableProps,
+} from 'react-native'
+import type { InterfaceModalProps } from '@gluestack-ui/modal/lib/typescript/types'
 import { useModal } from '../../hooks'
 import { Icon, TypographyV2 } from '../../atoms'
 import {
@@ -32,33 +37,41 @@ const styles = makeStyles({
   },
 })
 
-export interface ModalV2Props extends IModalProps {}
+export interface ModalV2Props extends InterfaceModalProps {
+  children: ReactNode
+  testID?: string
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'full'
+}
 
-export const ModalV2 = (props: ModalV2Props) => {
+export const ModalV2 = ({ children, size = 'md', ...props }: ModalV2Props) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
 
   return (
-    <NBModal
+    <GluestackModal
       onClose={modal.close}
       isOpen={modal.isOpen}
-      _overlay={{
-        style: {
+      size={size}
+      style={{ height, width }}
+      {...props}
+    >
+      <GluestackModalBackdrop
+        style={{
           height,
           width,
           position: Platform.select({
             web: 'fixed',
             default: undefined,
           }) as any,
-        },
-      }}
-      {...props}
-    />
+        }}
+      />
+      {children}
+    </GluestackModal>
   )
 }
 
-const ModalContent = (props: InterfaceBoxProps<IModalProps>) => (
-  <NBModal.Content
+const ModalContent = (props: ViewProps) => (
+  <GluestackModalContent
     {...props}
     style={[props.style, styles.content, padding.p24]}
   />
@@ -92,7 +105,7 @@ const ModalFooter = ({ style, children }: ModalV2FooterProps) => (
   <View style={[style, container.row, margin.mlauto]}>{children}</View>
 )
 
-const ModalCloseButton = ({ onPress }: IIconButtonProps) => (
+const ModalCloseButton = ({ onPress }: PressableProps) => (
   <Pressable style={styles.closeButton} onPress={onPress}>
     <Icon variant="close" />
   </Pressable>

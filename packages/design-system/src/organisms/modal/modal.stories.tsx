@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { ScrollView, View } from 'native-base'
+import { View, ScrollView } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { Body, Button, Header } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -12,7 +12,7 @@ const storyConfig = {
   layout: 'fullscreen',
 }
 
-const Template = ({ size, children }: ModalProps) => {
+const Template = ({ children, size }: ModalProps) => {
   const { toggle, isOpen, close } = useModal()
   return (
     <ScrollView>
@@ -30,7 +30,7 @@ export const Default = fromTemplate(Template, {
 })
 
 export const Confirmation = fromTemplate(Template, {
-  size: 'xl',
+  size: 'lg',
   children: (
     <ConfirmationModalContent
       title="Claim reward"

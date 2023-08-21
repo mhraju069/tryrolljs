@@ -1,7 +1,14 @@
-import { Radio, IRadioGroupProps } from 'native-base'
+import {
+  Radio,
+  RadioGroup,
+  RadioIndicator,
+  RadioIcon,
+  CircleIcon,
+} from '@gluestack-ui/react'
 import { View } from 'react-native'
 import { TypographyV2 } from '../typographyV2'
 import { margin } from '../../styles'
+import { useThemeV2 } from '../../hooks'
 
 export type RadioOption = {
   name: string
@@ -10,22 +17,30 @@ export type RadioOption = {
   disabled?: boolean
 }
 
-interface RadioSelectProps extends IRadioGroupProps {
+interface RadioSelectProps {
   options: RadioOption[]
 }
 
-export const RadioSelect = ({ options, ...props }: RadioSelectProps) => {
+export const RadioSelect = ({ options }: RadioSelectProps) => {
+  const theme = useThemeV2()
   return (
-    <Radio.Group {...props} colorScheme="black">
+    <RadioGroup>
       {options.map((option) => (
         <Radio
           key={option.value}
           value={option.value}
           size="sm"
-          _icon={{ alignSelf: 'flex-start' }}
           isDisabled={option.disabled}
         >
-          <View style={margin.mv4}>
+          <RadioIndicator borderColor={theme.base.primary['100']}>
+            <RadioIcon
+              as={CircleIcon}
+              strokeWidth={1}
+              stroke={theme.base.primary['100']}
+            />
+          </RadioIndicator>
+
+          <View style={[margin.mv4, margin.ml8]}>
             <TypographyV2 variant="caption2">{option.name}</TypographyV2>
             {option.description && (
               <TypographyV2 variant="text4">{option.description}</TypographyV2>
@@ -33,6 +48,6 @@ export const RadioSelect = ({ options, ...props }: RadioSelectProps) => {
           </View>
         </Radio>
       ))}
-    </Radio.Group>
+    </RadioGroup>
   )
 }

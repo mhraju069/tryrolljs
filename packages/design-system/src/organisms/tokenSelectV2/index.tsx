@@ -1,4 +1,4 @@
-import { Pressable } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { useCallback, useState } from 'react'
 import { Icon } from '../../atoms'

@@ -1,3 +1,4 @@
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TryrollProvider } from '../src/providers'
 import { injectFonts, injectFontsV2 } from '../src/styles'
 
@@ -12,13 +13,15 @@ export const parameters = {
       date: /Date$/,
     },
   },
-   layout: 'fullscreen'
+  layout: 'fullscreen',
 }
 
 export const decorators = [
   (Story) => (
-    <TryrollProvider>
-      <Story />
-    </TryrollProvider>
+    <SafeAreaProvider>
+      <TryrollProvider>
+        <Story />
+      </TryrollProvider>
+    </SafeAreaProvider>
   ),
 ]

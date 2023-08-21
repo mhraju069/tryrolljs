@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
-import { Pressable, View } from 'native-base'
+import { View } from 'react-native'
+import { Pressable } from '@gluestack-ui/react'
 import Logo from '../../assets/svg/logo.svg'
 import DiscordIcon from '../../assets/svg/discord.svg'
 import InstagramIcon from '../../assets/svg/insta.svg'

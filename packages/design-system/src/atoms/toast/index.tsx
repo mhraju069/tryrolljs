@@ -5,8 +5,8 @@ import {
   Platform,
   ViewStyle,
 } from 'react-native'
-import { useMemo } from 'react'
-import { Toast as NBToast } from 'native-base'
+import { ComponentType, useCallback, useMemo } from 'react'
+import { useToast as useGluestackToast } from '@gluestack-ui/react'
 import {
   charcoalBlack,
   white,
@@ -167,30 +167,38 @@ export const Toast = ({
   )
 }
 
-const toast = ({
-  title,
-  description,
-  onClose,
-  action,
-  variant = 'light',
-  duration,
-}: ToastProps & { duration?: number | null }) => {
-  const toastId = NBToast.show({
-    placement: isWeb ? 'top-right' : 'bottom',
-    duration,
-    render: () => (
-      <Toast
-        title={title}
-        description={description}
-        onClose={(e) => {
-          onClose?.(e)
-          NBToast.close(toastId)
-        }}
-        action={action}
-        variant={variant}
-      />
-    ),
-  })
+export const createUseToast = <
+  P extends Pick<ToastProps, 'onClose'>,
+  C extends ComponentType<P> = ComponentType<P>,
+>(
+  ToastComponent: C,
+) => {
+  const useToast = () => {
+    const gluestackToast = useGluestackToast()
+    const toast = useCallback(
+      ({ duration, onClose, ...props }: P & { duration?: number | null }) => {
+        const toastId = gluestackToast.show({
+          placement: isWeb ? 'top right' : 'bottom',
+          duration,
+          render: () => (
+            // @ts-ignore
+            <ToastComponent
+              onClose={(e) => {
+                onClose?.(e)
+                gluestackToast.close(toastId)
+              }}
+              {...props}
+            />
+          ),
+        })
+      },
+      [gluestackToast],
+    )
+
+    return toast
+  }
+
+  return useToast
 }
 
-Toast.show = toast
+export const useToast = createUseToast<ToastProps>(Toast)

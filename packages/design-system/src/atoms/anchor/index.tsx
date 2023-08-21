@@ -1,4 +1,4 @@
-import { Link } from 'native-base'
+import { Link } from '@gluestack-ui/react'
 import { ReactNode, useCallback } from 'react'
 import type { GestureResponderEvent } from 'react-native'
 import { TypographyBase, TypographyBaseProps } from '../typography'

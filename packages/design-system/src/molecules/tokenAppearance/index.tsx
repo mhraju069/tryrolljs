@@ -1,8 +1,8 @@
-import { Pressable, useBreakpointValue } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { View } from 'react-native'
 import { CircleImg } from '../../atoms'
 import { TypographyV2 } from '../../atoms/typographyV2'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container, margin } from '../../styles'
 
 interface TokenAppearanceProps {

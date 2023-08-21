@@ -1,4 +1,4 @@
-import { Divider, Pressable } from 'native-base'
+import { Divider, Pressable } from '@gluestack-ui/react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'

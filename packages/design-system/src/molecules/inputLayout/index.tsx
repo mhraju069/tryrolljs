@@ -1,8 +1,7 @@
-import { useBreakpointValue } from 'native-base'
 import { PropsWithChildren } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { TypographyV2 } from '../../atoms/typographyV2'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container, margin } from '../../styles'
 
 export interface InputLayoutProps {

@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
-import { View } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, View } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import * as RNFS from 'react-native-fs'

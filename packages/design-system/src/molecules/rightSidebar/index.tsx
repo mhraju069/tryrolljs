@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from '@gluestack-ui/react'
 import { Dimensions, Platform, StyleSheet } from 'react-native'
 import { PropsWithChildren } from 'react'
 

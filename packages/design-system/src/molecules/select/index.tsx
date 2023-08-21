@@ -1,10 +1,10 @@
-import { Pressable, View } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { Platform, StyleProp, TextInput, ViewStyle } from 'react-native'
+import { Platform, StyleProp, TextInput, ViewStyle, View } from 'react-native'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Body, Popover, Input, PopoverProps } from '../../atoms'
 import { useTheme } from '../../hooks'
-import { makeStyles, padding } from '../../styles'
+import { makeStyles, padding, spacing } from '../../styles'
 
 export type SelectOption = {
   name: string
@@ -125,19 +125,17 @@ export const Select = ({
               optionOnPress?.()
             }}
             style={[padding.ph16, padding.pv8]}
-            _hover={{
-              style: [
-                padding.ph16,
-                padding.pv8,
-                { backgroundColor: theme.background.highlight },
-              ],
-            }}
-            _focusVisible={{
-              style: [
-                padding.ph16,
-                padding.pv8,
-                { backgroundColor: theme.background.highlight },
-              ],
+            sx={{
+              ':hover': {
+                paddingHorizontal: spacing[16],
+                paddingVertical: spacing[8],
+                backgroundColor: theme.background.highlight,
+              },
+              ':focusVisible': {
+                paddingHorizontal: spacing[16],
+                paddingVertical: spacing[8],
+                backgroundColor: theme.background.highlight,
+              },
             }}
             testID={`selectOption__${option.value}`}
           >

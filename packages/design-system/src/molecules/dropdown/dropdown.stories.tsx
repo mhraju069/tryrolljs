@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { titleBuilder } from '../../../.storybook/utils'
 import { Body } from '../../atoms'
 import { Dropdown } from '.'

@@ -1,8 +1,8 @@
-import { useBreakpointValue, View } from 'native-base'
 import { ReactNode, ReactElement, Children, cloneElement } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, ViewStyle, View } from 'react-native'
 import { SubHeader } from '../../atoms'
 import { container, margin } from '../../styles'
+import { useBreakpointValue } from '../../hooks'
 
 export interface InformationItemProps {
   label: string

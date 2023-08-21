@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, TextInput, View } from 'react-native'
-import { Pressable } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 import { Icon, Popover, PopoverProps, Spinner, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
@@ -170,11 +170,11 @@ export const SelectV2: React.FC<SelectV2Props> = ({
           onChange?.(option.value)
           handleOptionPress?.()
         }}
-        _hover={{
-          style: [{ backgroundColor: theme.base.highlight2[10] }],
-        }}
-        _focusVisible={{
-          style: [{ backgroundColor: theme.base.highlight2[10] }],
+        sx={{
+          ':hover': {
+            backgroundColor: theme.base.highlight2[10],
+          },
+          ':focusVisible': { backgroundColor: theme.base.highlight2[10] },
         }}
         testID={`selectOption__${option.value}`}
       >

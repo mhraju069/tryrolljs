@@ -3,15 +3,16 @@ import { action } from '@storybook/addon-actions'
 import { titleBuilder } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { Button } from '../button'
-import { Toast, ToastVariant } from '.'
+import { Toast, ToastVariant, useToast } from '.'
 
 const storyConfig = {
   title: titleBuilder.atoms('Toast'),
   component: Toast,
 }
 
-const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
+const useToastButton = (variant: ToastVariant, actionTitle?: string) => {
   const title = variant[0].toUpperCase() + variant.slice(1)
+  const toast = useToast()
 
   return (
     <Button
@@ -19,7 +20,7 @@ const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
       variant="primary"
       title={actionTitle ?? title}
       onPress={() =>
-        Toast.show({
+        toast({
           title,
           description: `Example ${variant} toast`,
           action: actionTitle
@@ -33,14 +34,20 @@ const renderShowToastButton = (variant: ToastVariant, actionTitle?: string) => {
 }
 
 export const Default = () => {
+  const lightToastButton = useToastButton('light')
+  const darkToastButton = useToastButton('dark')
+  const warnToastButton = useToastButton('warn')
+  const successToastButton = useToastButton('success')
+  const errorToastButton = useToastButton('error')
+  const darkActionToastButton = useToastButton('dark', 'Action')
   return (
     <View style={container.row}>
-      {renderShowToastButton('light')}
-      {renderShowToastButton('dark')}
-      {renderShowToastButton('warn')}
-      {renderShowToastButton('success')}
-      {renderShowToastButton('error')}
-      {renderShowToastButton('dark', 'Action')}
+      {lightToastButton}
+      {darkToastButton}
+      {warnToastButton}
+      {successToastButton}
+      {errorToastButton}
+      {darkActionToastButton}
     </View>
   )
 }

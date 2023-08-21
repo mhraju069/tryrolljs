@@ -1,7 +1,7 @@
 import { PaginationState, createColumnHelper } from '@tanstack/react-table'
 import { action } from '@storybook/addon-actions'
 import { useMemo, useState } from 'react'
-import { ScrollView } from 'native-base'
+import { ScrollView } from 'react-native'
 import { titleBuilder } from '../../../.storybook/utils'
 import { ButtonV2, TokenChip, TypographyV2 } from '../../atoms'
 import { FilterOption } from '../../molecules'
@@ -58,7 +58,9 @@ const columns = [
   }),
 ]
 
+// @ts-ignore
 export const Default = () => <Table data={DATA} columns={columns} />
+// @ts-ignore
 export const Loading = () => <Table data={DATA} columns={columns} loading />
 
 enum FilterValue {

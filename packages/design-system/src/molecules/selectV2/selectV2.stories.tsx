@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
 import { SelectV2, SelectV2Props } from '.'
 

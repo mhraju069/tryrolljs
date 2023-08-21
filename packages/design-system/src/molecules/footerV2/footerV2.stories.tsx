@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { titleBuilder } from '../../../.storybook/utils'
 import { faqUrl, resourceCenterUrl, stakingTermsUrl } from '../../constants'
 import { FooterV2 } from '.'
@@ -25,7 +25,7 @@ const navigation = [
 
 export const Default = () => {
   return (
-    <View marginTop={20} alignItems="center">
+    <View style={{ marginTop: 20, alignItems: 'center' }}>
       <FooterV2 navigation={navigation} />
     </View>
   )

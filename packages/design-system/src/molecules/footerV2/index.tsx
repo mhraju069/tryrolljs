@@ -1,11 +1,10 @@
 import { Pressable, StyleSheet, View } from 'react-native'
-import { useBreakpointValue } from 'native-base'
 import { useCallback } from 'react'
 import LogoIso from '../../assets/svg/logo-iso.svg'
 import { discordInviteUrl, instaUrl, twitterUrl } from '../../constants'
 import { openLink } from '../../utils'
 import { container, margin, padding } from '../../styles'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { TypographyV2 } from '../../atoms/typographyV2'
 
 const LOGO_SIZE = 16

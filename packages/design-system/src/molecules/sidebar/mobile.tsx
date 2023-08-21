@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
 
 export const MobileSidebar: React.FC<SidebarProps> = ({
   logo,
+  withConnectWallet = false,
   header,
   footerOptionsOnMobile,
   sections,
-  selectedOptionId,
   suffix,
-  withConnectWallet = false,
+  selectedOptionId,
 }) => {
   const { top } = useSafeAreaInsets()
   const [isOpen, setIsOpen] = useState<boolean>(false)

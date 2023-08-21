@@ -1,20 +1,24 @@
 import { StyleProp, ViewStyle } from 'react-native'
-import { Spinner as NBSpinner } from 'native-base'
+import { Spinner as GluestackSpinner } from '@gluestack-ui/react'
 import { useTheme } from '../../hooks'
 
 export type SpinnerProps = {
-  size?: 'sm' | 'lg' | number
+  size?: 'small' | 'large' | number
   color?: string
   style?: StyleProp<ViewStyle>
 }
 
 export const Spinner = ({ style, size, color }: SpinnerProps) => {
   const theme = useTheme()
+  const sx =
+    typeof size === 'number' ? { width: size, height: size } : undefined
   return (
-    <NBSpinner
+    <GluestackSpinner
+      // @ts-ignore
       color={color || theme.text.highlight}
       size={size}
       style={style}
+      sx={sx}
     />
   )
 }
