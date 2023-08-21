@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.9.3
+
+### Patch Changes
+
+- [#447](https://github.com/roll-network/tryrolljs/pull/447) [`2c7bb97`](https://github.com/roll-network/tryrolljs/commit/2c7bb97a8e2f33d654b9a3d6f1b66ef7dd74b618) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add support to search by symbol on TokenSelectV2 component
+
 ## 2.9.2
 
 ### Patch Changes
