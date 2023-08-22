@@ -39,6 +39,7 @@ export const RadioSelect = ({ value, options, onChange }: RadioSelectProps) => {
               as={CircleIcon}
               strokeWidth={1}
               stroke={theme.base.primary['100']}
+              name={option.value}
             />
           </RadioIndicator>
 
