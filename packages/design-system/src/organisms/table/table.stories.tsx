@@ -2,13 +2,12 @@ import { PaginationState, createColumnHelper } from '@tanstack/react-table'
 import { action } from '@storybook/addon-actions'
 import { useMemo, useState } from 'react'
 import { ScrollView } from 'react-native'
-import { titleBuilder } from '../../../.storybook/utils'
 import { ButtonV2, TokenChip, TypographyV2 } from '../../atoms'
 import { FilterOption } from '../../molecules'
 import Table from './table'
 
 const storyConfig = {
-  title: titleBuilder.organisms('Table'),
+  title: 'Design System/Organisms/Table',
   component: Table,
 }
 

@@ -59,7 +59,6 @@ export const SelectV2: React.FC<SelectV2Props> = ({
   onSearchChange,
   defaultValue,
   placeholder,
-  search = false,
   loading = false,
 }) => {
   const theme = useThemeV2()
@@ -135,7 +134,6 @@ export const SelectV2: React.FC<SelectV2Props> = ({
           }}
           testID="selectInput"
           onChangeText={handleChangeText}
-          editable={search}
           value={inputValue}
           placeholder={placeholder}
           suffix={
@@ -150,7 +148,7 @@ export const SelectV2: React.FC<SelectV2Props> = ({
         />
       )
     },
-    [theme, placeholder, inputValue, handleChangeText, search],
+    [theme, placeholder, inputValue, handleChangeText],
   )
 
   const customRenderReference: SelectRenderReference = useCallback(

@@ -1,5 +1,9 @@
-import { TryrollProvider } from '../src/providers'
 import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds'
+import { TextEncoder, TextDecoder } from 'util'
+import { TryrollProvider } from '../src/providers'
+
+global.TextEncoder = TextEncoder
+global.TextDecoder = TextDecoder
 
 export const parameters = {
   backgrounds: [

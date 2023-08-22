@@ -1,9 +1,9 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import UnionSVG from '../../assets/svg/union.svg'
 import { FeatureCard, FeatureCardProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('FeatureCard'),
+  title: 'Design System/Molecules/FeatureCard',
   component: FeatureCard,
 }
 

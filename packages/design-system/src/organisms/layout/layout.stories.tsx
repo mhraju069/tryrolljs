@@ -1,4 +1,4 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
 import { TypographyV2 } from '../../atoms/typographyV2'
@@ -16,7 +16,7 @@ import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Layout, LayoutProps } from './index'
 
 const storyConfig = {
-  title: titleBuilder.organisms('Layout'),
+  title: 'Design System/Organisms/Layout',
   component: Layout,
 }
 

@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { TokenSelectContentV2, TokenSelectContentV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('TokenSelectContent'),
+  title: 'Design System/Molecules/TokenSelectContent',
   component: TokenSelectContentV2,
 }
 

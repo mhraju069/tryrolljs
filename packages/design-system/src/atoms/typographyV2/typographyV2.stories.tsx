@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions'
 import { Pressable } from 'react-native'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { TypographyV2, TypographyV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('TypographyV2'),
+  title: 'Design System/Atoms/TypographyV2',
   component: TypographyV2,
 }
 

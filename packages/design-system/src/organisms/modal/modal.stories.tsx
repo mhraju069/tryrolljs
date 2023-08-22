@@ -1,13 +1,14 @@
 import { action } from '@storybook/addon-actions'
 import { View, ScrollView } from 'react-native'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Body, Button, Header } from '../../atoms'
 import { useModal } from '../../hooks'
 import { ConfirmationModalContent } from '../confirmationModalContent'
-import { Modal, ModalProps } from './index'
+import type { ModalProps } from './types'
+import { Modal } from './index'
 
 const storyConfig = {
-  title: titleBuilder.organisms('Modal'),
+  title: 'Design System/Organisms/Modal',
   component: Modal,
   layout: 'fullscreen',
 }

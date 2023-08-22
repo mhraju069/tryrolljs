@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { useState } from 'react'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { container, padding } from '../../styles'
 import { InputV2ActionSuffix } from '../../atoms/inputV2ActionSuffix'
 import { InputV2TextSuffix } from '../../atoms/inputV2TextSuffix'
@@ -9,7 +9,7 @@ import { InputV2SelectSuffix } from '../../atoms'
 import { InputPropsV2, InputV2 } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('InputV2'),
+  title: 'Design System/Molecules/InputV2',
   component: InputV2,
 }
 

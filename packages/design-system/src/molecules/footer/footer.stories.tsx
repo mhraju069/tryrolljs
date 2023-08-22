@@ -1,8 +1,7 @@
-import { titleBuilder } from '../../../.storybook/utils'
 import { Footer } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Footer'),
+  title: 'Design System/Molecules/Footer',
   component: Footer,
 }
 

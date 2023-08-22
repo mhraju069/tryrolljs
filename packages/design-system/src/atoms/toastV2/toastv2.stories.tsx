@@ -1,12 +1,11 @@
 import { View } from 'react-native'
 import { action } from '@storybook/addon-actions'
-import { titleBuilder } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { ButtonV2 } from '../buttonV2'
 import { ToastV2, ToastV2Variant, useToastV2 } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('ToastV2'),
+  title: 'Design System/Atoms/ToastV2',
   component: ToastV2,
 }
 

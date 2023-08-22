@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
 import { Web3ProviderWagmi } from '../../providers'
 import { Web3Button } from '../web3Button'
 import { WalletInfo } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('WalletInfo'),
+  title: 'Design System/Molecules/WalletInfo',
   component: WalletInfo,
 }
 

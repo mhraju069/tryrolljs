@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { SelectV2 } from '../selectV2'
 import { InputContainer, InputContainerProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('InputContainer'),
+  title: 'Design System/Molecules/InputContainer',
   component: InputContainer,
 }
 const tokens = ['ETH', 'BTC', 'USDT', 'USDC', 'DAI', 'WBTC', 'WETH']

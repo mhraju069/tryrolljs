@@ -1,10 +1,9 @@
 import { View } from 'react-native'
-import { titleBuilder } from '../../../.storybook/utils'
 import { Body } from '../../atoms'
 import { Dropdown } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Dropdown'),
+  title: 'Design System/Molecules/Dropdown',
   component: Dropdown,
 }
 

@@ -1,11 +1,10 @@
 import { action } from '@storybook/addon-actions'
-import { titleBuilder } from '../../../.storybook/utils'
 import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { AccountDropdownWagmi } from '.'
 
 const conf = {
-  title: titleBuilder.molecules('AccountDropdownWagmi'),
+  title: 'Design System/Molecules/AccountDropdownWagmi',
   component: AccountDropdownWagmi,
 }
 

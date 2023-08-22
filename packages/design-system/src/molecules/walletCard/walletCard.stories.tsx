@@ -1,9 +1,9 @@
 import { action } from '@storybook/addon-actions'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { WalletCard, WalletCardProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('WalletCard'),
+  title: 'Design System/Molecules/WalletCard',
   component: WalletCard,
 }
 

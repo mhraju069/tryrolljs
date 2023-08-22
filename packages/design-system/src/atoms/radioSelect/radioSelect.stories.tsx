@@ -1,11 +1,10 @@
 import { View } from 'react-native'
 import { action } from '@storybook/addon-actions'
-import { titleBuilder } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { RadioSelect } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('RadioSelect'),
+  title: 'Design System/Atoms/RadioSelect',
   component: RadioSelect,
 }
 

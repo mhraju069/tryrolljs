@@ -1,4 +1,4 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
 import {
@@ -18,7 +18,7 @@ import { HeaderProps } from './types'
 import { HeaderV2 } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Header'),
+  title: 'Design System/Molecules/Header',
   component: HeaderV2,
 }
 

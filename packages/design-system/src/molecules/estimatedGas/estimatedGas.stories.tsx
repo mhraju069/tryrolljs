@@ -1,8 +1,8 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { EstimatedGas, EstimatedGasProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('EstimatedGas'),
+  title: 'Design System/Molecules/EstimatedGas',
   component: EstimatedGas,
 }
 

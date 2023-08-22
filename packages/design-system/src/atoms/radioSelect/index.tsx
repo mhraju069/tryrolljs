@@ -33,6 +33,7 @@ export const RadioSelect = ({ value, options, onChange }: RadioSelectProps) => {
           value={option.value}
           size="sm"
           isDisabled={option.disabled}
+          style={margin.mv4}
         >
           <RadioIndicator borderColor={theme.base.primary['100']}>
             <RadioIcon
@@ -43,7 +44,7 @@ export const RadioSelect = ({ value, options, onChange }: RadioSelectProps) => {
             />
           </RadioIndicator>
 
-          <View style={[margin.mv4, margin.ml8]}>
+          <View style={margin.ml8}>
             <TypographyV2 variant="caption2">{option.name}</TypographyV2>
             {option.description && (
               <TypographyV2 variant="text4">{option.description}</TypographyV2>

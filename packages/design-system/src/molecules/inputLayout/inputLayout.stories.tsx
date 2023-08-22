@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { container, margin, padding, spacing } from '../../styles'
 import { lightTheme } from '../../styles/themeV2'
 import { InputV2 } from '../inputV2'
@@ -8,7 +8,7 @@ import { TypographyV2 } from '../../atoms/typographyV2'
 import { InputLayoutProps, InputLayout } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('InputLayout'),
+  title: 'Design System/Molecules/InputLayout',
   component: InputLayout,
 }
 

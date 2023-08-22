@@ -1,18 +1,10 @@
-// @ts-nocheck
 import {
   Modal as GluestackModal,
   ModalBackdrop as GluestackModalBackdrop,
   ModalContent as GluestackModalContent,
   Pressable,
 } from '@gluestack-ui/react'
-import type { InterfaceModalProps } from '@gluestack-ui/modal/lib/typescript/types'
-import { ReactNode } from 'react'
-import {
-  useWindowDimensions,
-  ViewProps,
-  View,
-  PressableProps,
-} from 'react-native'
+import { useWindowDimensions, View } from 'react-native'
 import { Body, LargeHeader } from '../../atoms'
 import { useModal, useTheme } from '../../hooks'
 import {
@@ -37,13 +29,7 @@ const styles = makeStyles({
   },
 })
 
-export interface ModalProps extends InterfaceModalProps {
-  children: ReactNode
-  testID?: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'full'
-}
-
-export const Modal = ({ children, size = 'md', ...props }: ModalProps) => {
+export const Modal = ({ children, size = 'md', ...props }) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
 
@@ -61,25 +47,17 @@ export const Modal = ({ children, size = 'md', ...props }: ModalProps) => {
   )
 }
 
-const ModalContent = (props: ViewProps) => (
+const ModalContent = (props) => (
   <GluestackModalContent {...props} style={[props.style, styles.content]} />
 )
 
-export interface ModalHeaderProps extends ViewProps {
-  children: ReactNode
-}
-
-const ModalHeader = ({ style, children }: ModalHeaderProps) => (
+const ModalHeader = ({ style, children }) => (
   <View style={[style, padding.ph40, padding.pt24, padding.pb8]}>
     <LargeHeader weight="semiBold">{children}</LargeHeader>
   </View>
 )
 
-export interface ModalSubHeaderProps extends ViewProps {
-  children: string
-}
-
-const ModalSubHeader = ({ style, children }: ModalSubHeaderProps) => {
+const ModalSubHeader = ({ style, children }) => {
   const theme = useTheme()
 
   return (
@@ -89,21 +67,13 @@ const ModalSubHeader = ({ style, children }: ModalSubHeaderProps) => {
   )
 }
 
-export interface ModalBodyProps extends ViewProps {
-  children: ReactNode
-}
-
-const ModalBody = ({ style, children, ...rest }: ModalBodyProps) => (
+const ModalBody = ({ style, children, ...rest }) => (
   <View style={[style, padding.ph40, padding.pv16]} {...rest}>
     {children}
   </View>
 )
 
-export interface ModalFooterProps extends ViewProps {
-  children: ReactNode
-}
-
-const ModalFooter = ({ style, children }: ModalFooterProps) => (
+const ModalFooter = ({ style, children }) => (
   <View
     style={[
       style,
@@ -118,7 +88,7 @@ const ModalFooter = ({ style, children }: ModalFooterProps) => (
   </View>
 )
 
-const ModalCloseButton = ({ onPress }: PressableProps) => (
+const ModalCloseButton = ({ onPress }) => (
   <Pressable style={styles.closeButton} onPress={onPress}>
     <CloseCircle />
   </Pressable>

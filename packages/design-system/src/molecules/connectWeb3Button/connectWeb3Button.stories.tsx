@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { ConnectWeb3Options } from '../connectWeb3Options'
 import { withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Button, ConnectWeb3ButtonProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('ConnectWeb3Button'),
+  title: 'Design System/Molecules/ConnectWeb3Button',
   component: ConnectWeb3Button,
 }
 

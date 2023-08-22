@@ -1,9 +1,9 @@
 import { action } from '@storybook/addon-actions'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { TokenSelectV2, TokenSelectV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.organisms('TokenSelectV2'),
+  title: 'Design System/Organisms/TokenSelectV2',
   component: TokenSelectV2,
 }
 

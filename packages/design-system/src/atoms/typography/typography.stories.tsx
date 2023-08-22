@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import * as Typography from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Typography'),
+  title: 'Design System/Atoms/Typography',
   component: Typography.TypographyBase,
 }
 

@@ -1,8 +1,8 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { JoinBanner, JoinBannerProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Join Banner'),
+  title: 'Design System/Molecules/Join Banner',
   component: JoinBanner,
 }
 

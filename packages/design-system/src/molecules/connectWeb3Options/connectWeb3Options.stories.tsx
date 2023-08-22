@@ -1,9 +1,8 @@
-import { titleBuilder } from '../../../.storybook/utils'
 import { withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Options } from '.'
 
 const conf = {
-  title: titleBuilder.molecules('ConnectWeb3Options'),
+  title: 'Design System/Molecules/ConnectWeb3Options',
   component: ConnectWeb3Options,
 }
 

@@ -1,8 +1,8 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { CopyLink, CopyLinkProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('CopyLink'),
+  title: 'Design System/Molecules/CopyLink',
   component: CopyLink,
 }
 

@@ -1,11 +1,11 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { AlertV2, AlertProps } from '.'
 
 const DEFAULT_TITLE =
   'Once configured you’ll be required to enter both your password and an authentication code from your mobile phone in order to sign in.'
 
 const conf = {
-  title: titleBuilder.molecules('AlertV2'),
+  title: 'Design System/Molecules/AlertV2',
   component: AlertV2,
 }
 

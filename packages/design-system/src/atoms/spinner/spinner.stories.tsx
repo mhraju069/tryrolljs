@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Spinner, SpinnerProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Spinner'),
+  title: 'Design System/Atoms/Spinner',
   component: Spinner,
 }
 

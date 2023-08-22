@@ -1,10 +1,9 @@
 import { View } from 'react-native'
-import { titleBuilder } from '../../../.storybook/utils'
 import { faqUrl, resourceCenterUrl, stakingTermsUrl } from '../../constants'
 import { FooterV2 } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Footer V2'),
+  title: 'Design System/Molecules/Footer V2',
   component: FooterV2,
 }
 

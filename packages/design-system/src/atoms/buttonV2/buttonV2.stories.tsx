@@ -1,11 +1,11 @@
 import { View } from 'react-native'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { ButtonV2Props } from './types'
 import { ButtonV2 } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('ButtonV2'),
+  title: 'Design System/Atoms/ButtonV2',
   component: ButtonV2,
 }
 
