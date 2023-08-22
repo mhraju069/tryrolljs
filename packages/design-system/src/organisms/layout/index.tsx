@@ -1,6 +1,6 @@
 import { useBreakpointValue } from 'native-base'
 import { PropsWithChildren } from 'react'
-import { Platform, ScrollView, View } from 'react-native'
+import { Platform, ScrollView, StyleSheet, View } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container } from '../../styles'
 import { Sidebar, RightSidebar, RightSidebarProps } from '../../molecules'
@@ -10,6 +10,17 @@ export interface LayoutProps {
   sidebarProps: SidebarProps
   rightSidebarProps?: RightSidebarProps
 }
+
+const styles = StyleSheet.create({
+  sidebarContainer: {
+    position: 'relative',
+  },
+  sidebarSuffix: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+})
 
 export const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
   children,
@@ -42,7 +53,12 @@ export const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
                 ]}
               >
                 <Sidebar {...sidebarProps} />
-                <View style={[container.flex1]}>{children}</View>
+                <View style={[styles.sidebarContainer, container.flex1]}>
+                  <View style={[styles.sidebarSuffix]}>
+                    {sidebarProps.desktopSuffix}
+                  </View>
+                  {children}
+                </View>
                 {rightSidebarProps && <RightSidebar {...rightSidebarProps} />}
               </View>
             )}

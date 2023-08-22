@@ -11,6 +11,12 @@ export interface HeaderProps {
   mobileSidebarHeader?: React.ReactNode
   options: HeaderOption[]
   selectedOptionId?: string
-  withConnectWallet?: boolean
+  desktopSuffix?: React.ReactNode
+  mobileSuffix?: React.ReactNode
+  mobileSidebarSuffix?: React.ReactNode
   footerOptionsOnMobile?: SidebarFooterOptionProps[]
+  /**
+   * @deprecated Use Suffix props instead
+   */
+  withConnectWallet?: boolean
 }

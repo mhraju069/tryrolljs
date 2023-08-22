@@ -1,19 +1,17 @@
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import { ButtonV2 } from '../../atoms'
 import { container, margin, padding } from '../../styles'
 import { isLast } from '../../utils'
 import { Web3Button } from '../web3Button'
 import { HeaderProps } from './types'
 
-const styles = StyleSheet.create({
-  mainContainer: {},
-})
-
 export const DesktopHeader = ({
   logo,
   options,
+  desktopSuffix,
   withConnectWallet = false,
 }: HeaderProps) => {
+  const hasMarginRight = !!desktopSuffix || withConnectWallet
   return (
     <View
       style={[
@@ -22,7 +20,6 @@ export const DesktopHeader = ({
         container.row,
         container.alignCenter,
         container.justifySpaceBetween,
-        styles.mainContainer,
       ]}
     >
       {logo.desktop}
@@ -31,7 +28,7 @@ export const DesktopHeader = ({
           return (
             <View
               style={[
-                (!isLast(index, options) || withConnectWallet) && margin.mr24,
+                (!isLast(index, options) || hasMarginRight) && margin.mr24,
               ]}
             >
               <ButtonV2
@@ -43,7 +40,8 @@ export const DesktopHeader = ({
             </View>
           )
         })}
-        {withConnectWallet && <Web3Button />}
+        {desktopSuffix}
+        {!desktopSuffix && withConnectWallet && <Web3Button />}
       </View>
     </View>
   )

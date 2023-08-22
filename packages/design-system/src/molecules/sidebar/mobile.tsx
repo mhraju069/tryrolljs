@@ -41,11 +41,13 @@ const styles = StyleSheet.create({
 
 export const MobileSidebar: React.FC<SidebarProps> = ({
   logo,
-  withConnectWallet = false,
   header,
   footerOptionsOnMobile,
   sections,
   selectedOptionId,
+  mobileSuffix,
+  mobileSidebarSuffix,
+  withConnectWallet = false,
 }) => {
   const { top } = useSafeAreaInsets()
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -72,7 +74,8 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     borderColor: theme.background.silver,
   }
 
-  const showWeb3Button = withConnectWallet && !isNative
+  const showWeb3Button =
+    !mobileSuffix && !mobileSidebarSuffix && withConnectWallet && !isNative
 
   return (
     <View
@@ -92,6 +95,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     >
       {logo.mobileHeader}
       <View style={[container.row, container.alignCenter]}>
+        {mobileSuffix}
         {showWeb3Button && <Web3Button connectedVariant="avatar" />}
         <Pressable style={[margin.ml16]} onPress={handleOpen}>
           {!isOpen ? (
@@ -150,6 +154,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                   sections={sections}
                   selectedOptionId={selectedOptionId}
                 />
+                {mobileSidebarSuffix}
                 {showWeb3Button && (
                   <View
                     style={[
