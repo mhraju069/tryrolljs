@@ -1,7 +1,7 @@
 import { useFloating, shift } from '@floating-ui/react-native'
 import { useCallback, useState } from 'react'
-import { Pressable, View } from '@gluestack-ui/react'
-import { Platform } from 'react-native'
+import { Pressable } from '@gluestack-ui/react'
+import { Platform, View } from 'react-native'
 import {
   charcoalBlack,
   container,

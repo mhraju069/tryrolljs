@@ -20,9 +20,10 @@ export interface SelectProps {
 }
 
 const styles = makeStyles({
-  input: {
-    cursor: Platform.select({ web: 'pointer', native: undefined }),
-  } as any,
+  input: Platform.select({
+    web: { cursor: 'pointer' },
+    native: {},
+  }) as any,
 })
 
 export const Select = ({

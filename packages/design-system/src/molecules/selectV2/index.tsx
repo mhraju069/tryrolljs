@@ -26,9 +26,10 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
   },
-  input: {
-    cursor: Platform.select({ web: 'pointer', native: undefined }),
-  } as any,
+  input: Platform.select({
+    web: { cursor: 'pointer' },
+    native: {},
+  }) as any,
 })
 
 export type SelectV2Option = {

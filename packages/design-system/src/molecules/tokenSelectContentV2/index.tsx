@@ -149,9 +149,11 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
           testID="tokenSelectSearchInput"
         />
       </View>
-      <Divider style={[margin.mv24]} color={theme.background.silver} />
+      <Divider
+        style={[margin.mv24, { backgroundColor: theme.background.silver }]}
+      />
       <View style={[padding.ph24, container.flex1]}>
-        {isLoading && <Spinner size="lg" />}
+        {isLoading && <Spinner size="large" />}
         {!isLoading && !isEmpty && (
           <FlatList
             data={filteredOptions}

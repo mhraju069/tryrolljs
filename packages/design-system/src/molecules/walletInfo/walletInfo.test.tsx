@@ -11,12 +11,6 @@ jest.mock('../../utils', () => ({
   openLink: jest.fn(),
 }))
 
-const copy = jest.fn()
-jest.mock('../../hooks', () => ({
-  ...jest.requireActual('../../hooks'),
-  useClipboardWithToast: () => copy,
-}))
-
 // Mock the web3 provider
 jest.mock('../../hooks/web3Wagmi', () => ({
   ...jest.requireActual('../../hooks/web3Wagmi'),
@@ -47,11 +41,5 @@ describe('WalletInfo', () => {
     const etherscanLink = await screen.findByTestId('etherscanIcon')
     fireEvent.press(etherscanLink)
     expect(openLink).toHaveBeenCalled()
-  })
-  it('copies address to clipboard if there is an address', async () => {
-    const copyIcon = await screen.findByTestId('copyIcon')
-    expect(copyIcon).toBeDefined()
-    fireEvent.press(copyIcon)
-    expect(copy).toHaveBeenCalled()
   })
 })

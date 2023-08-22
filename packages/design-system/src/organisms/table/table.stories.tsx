@@ -28,6 +28,7 @@ const DATA: Token[] = [...Array(10)].map((_, index) => ({
 
 const columnHelper = createColumnHelper<Token>()
 
+// @ts-ignore
 const columns = [
   columnHelper.accessor('logo', {
     header: () => <TypographyV2 variant="text3">Social Token</TypographyV2>,
