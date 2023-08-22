@@ -12,7 +12,6 @@ const storyConfig = {
 export const Default = () => (
   <View style={[container.halfWidth, margin.m20]}>
     <RadioSelect
-      name="default"
       value="two"
       options={[
         { name: 'One', value: 'one' },
@@ -27,7 +26,6 @@ export const Default = () => (
 export const WithDescriptions = () => (
   <View style={[container.halfWidth, margin.m20]}>
     <RadioSelect
-      name="default"
       value="two"
       options={[
         {

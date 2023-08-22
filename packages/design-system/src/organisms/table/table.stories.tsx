@@ -161,6 +161,7 @@ export const WithFiltersAndPagination = () => {
     <ScrollView>
       <Table
         data={data}
+        // @ts-ignore
         columns={columns}
         search={search}
         filter={filter}

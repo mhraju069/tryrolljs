@@ -18,13 +18,15 @@ export type RadioOption = {
 }
 
 interface RadioSelectProps {
+  value: string
+  onChange?: (value: string) => void
   options: RadioOption[]
 }
 
-export const RadioSelect = ({ options }: RadioSelectProps) => {
+export const RadioSelect = ({ value, options, onChange }: RadioSelectProps) => {
   const theme = useThemeV2()
   return (
-    <RadioGroup>
+    <RadioGroup value={value} onChange={onChange}>
       {options.map((option) => (
         <Radio
           key={option.value}

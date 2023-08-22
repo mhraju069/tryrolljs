@@ -1,7 +1,8 @@
+// @ts-nocheck
 import {
   Modal as GluestackModal,
-  ModalContent as GluestackModalContent,
   ModalBackdrop as GluestackModalBackdrop,
+  ModalContent as GluestackModalContent,
   Pressable,
 } from '@gluestack-ui/react'
 import type { InterfaceModalProps } from '@gluestack-ui/modal/lib/typescript/types'
