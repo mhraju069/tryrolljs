@@ -10,9 +10,9 @@ export default {
   component: AccountInfoDropdown,
 }
 
-const Template = (args: AccountInfoDropdownProps) => (
+const Template = (props: AccountInfoDropdownProps) => (
   <View style={[container.alignEnd]}>
-    <AccountInfoDropdown {...args}>
+    <AccountInfoDropdown {...props}>
       <CircleImg size={50} />
     </AccountInfoDropdown>
   </View>

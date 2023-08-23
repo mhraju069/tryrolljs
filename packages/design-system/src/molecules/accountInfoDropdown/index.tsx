@@ -7,18 +7,20 @@ import { container, margin, padding } from '../../styles'
 const AVATAR_SIZE = 40
 const DROPDOWN_WIDTH = 282
 
+type AccountInfoDropdownOption = {
+  id: string
+  iconVariant: IconVariant
+  color?: string
+  label: string
+  onPress: () => void
+}
+
 export interface AccountInfoDropdownProps {
   avatar: string
   name: string
   username: string
   children: React.ReactNode
-  options: {
-    id: string
-    iconVariant: IconVariant
-    color?: string
-    label: string
-    onPress: () => void
-  }[]
+  options: AccountInfoDropdownOption[]
 }
 
 const styles = StyleSheet.create({
