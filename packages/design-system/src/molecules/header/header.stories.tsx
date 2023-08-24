@@ -13,6 +13,7 @@ import { TypographyV2 } from '../../atoms/typographyV2'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Web3ProviderWagmi } from '../../providers/web3ProviderWagmi'
 import { SelectV2 } from '../selectV2'
+import { Web3Button } from '../web3Button'
 import { HeaderProps } from './types'
 import { HeaderV2 } from '.'
 
@@ -78,7 +79,10 @@ const Template = (props: HeaderProps) => (
 )
 
 export const withWalletConnect = fromTemplate(Template, {
-  withConnectWallet: true,
+  suffix: {
+    desktop: <Web3Button />,
+    mobile: <Web3Button connectedVariant="avatar" />,
+  },
   logo: {
     desktop: <MintingLogo width={111} height={32} />,
     mobileHeader: <SimpleLogo width={32} height={32} />,

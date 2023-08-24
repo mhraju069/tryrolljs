@@ -1,4 +1,8 @@
-import { LogoSidebar, SidebarFooterOptionProps } from '../sidebar/types'
+import {
+  LogoSidebar,
+  SuffixSidebar,
+  SidebarFooterOptionProps,
+} from '../sidebar/types'
 
 interface HeaderOption {
   id: string
@@ -11,6 +15,10 @@ export interface HeaderProps {
   mobileSidebarHeader?: React.ReactNode
   options: HeaderOption[]
   selectedOptionId?: string
-  withConnectWallet?: boolean
+  suffix?: SuffixSidebar
   footerOptionsOnMobile?: SidebarFooterOptionProps[]
+  /**
+   * @deprecated Use Suffix props instead
+   */
+  withConnectWallet?: boolean
 }

@@ -2,7 +2,7 @@ import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
 import { TypographyV2 } from '../../atoms/typographyV2'
-import { JoinBanner, TokenAppearance } from '../../molecules'
+import { JoinBanner, TokenAppearance, Web3Button } from '../../molecules'
 import {
   discordInviteUrl,
   faqUrl,
@@ -91,7 +91,10 @@ export const withWalletConnect = fromTemplate(Template, {
     ),
   },
   sidebarProps: {
-    withConnectWallet: true,
+    suffix: {
+      desktop: <Web3Button />,
+      mobile: <Web3Button connectedVariant="avatar" />,
+    },
     selectedOptionId: 'tokenHolders',
     header: (
       <TokenAppearance
