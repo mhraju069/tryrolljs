@@ -91,8 +91,10 @@ export const withWalletConnect = fromTemplate(Template, {
     ),
   },
   sidebarProps: {
-    desktopSuffix: <Web3Button />,
-    mobileSuffix: <Web3Button connectedVariant="avatar" />,
+    suffix: {
+      desktop: <Web3Button />,
+      mobile: <Web3Button connectedVariant="avatar" />,
+    },
     selectedOptionId: 'tokenHolders',
     header: (
       <TokenAppearance

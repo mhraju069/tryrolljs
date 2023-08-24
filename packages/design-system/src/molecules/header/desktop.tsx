@@ -8,10 +8,10 @@ import { HeaderProps } from './types'
 export const DesktopHeader = ({
   logo,
   options,
-  desktopSuffix,
+  suffix,
   withConnectWallet = false,
 }: HeaderProps) => {
-  const hasMarginRight = !!desktopSuffix || withConnectWallet
+  const hasMarginRight = !!suffix?.desktop || withConnectWallet
   return (
     <View
       style={[
@@ -40,8 +40,8 @@ export const DesktopHeader = ({
             </View>
           )
         })}
-        {desktopSuffix}
-        {!desktopSuffix && withConnectWallet && <Web3Button />}
+        {suffix?.desktop}
+        {!suffix?.desktop && withConnectWallet && <Web3Button />}
       </View>
     </View>
   )

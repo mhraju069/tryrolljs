@@ -45,8 +45,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
   footerOptionsOnMobile,
   sections,
   selectedOptionId,
-  mobileSuffix,
-  mobileSidebarSuffix,
+  suffix,
   withConnectWallet = false,
 }) => {
   const { top } = useSafeAreaInsets()
@@ -75,7 +74,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
   }
 
   const showWeb3Button =
-    !mobileSuffix && !mobileSidebarSuffix && withConnectWallet && !isNative
+    !suffix?.mobile && !suffix?.mobileSidebar && withConnectWallet && !isNative
 
   return (
     <View
@@ -95,7 +94,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
     >
       {logo.mobileHeader}
       <View style={[container.row, container.alignCenter]}>
-        {mobileSuffix}
+        {suffix?.mobile}
         {showWeb3Button && <Web3Button connectedVariant="avatar" />}
         <Pressable style={[margin.ml16]} onPress={handleOpen}>
           {!isOpen ? (
@@ -154,7 +153,7 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                   sections={sections}
                   selectedOptionId={selectedOptionId}
                 />
-                {mobileSidebarSuffix}
+                {suffix?.mobileSidebar}
                 {showWeb3Button && (
                   <View
                     style={[

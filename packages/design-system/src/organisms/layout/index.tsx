@@ -55,7 +55,7 @@ export const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
                 <Sidebar {...sidebarProps} />
                 <View style={[styles.sidebarContainer, container.flex1]}>
                   <View style={[styles.sidebarSuffix]}>
-                    {sidebarProps.desktopSuffix}
+                    {sidebarProps.suffix?.desktop}
                   </View>
                   {children}
                 </View>

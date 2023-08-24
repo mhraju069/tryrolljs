@@ -79,8 +79,10 @@ const Template = (props: HeaderProps) => (
 )
 
 export const withWalletConnect = fromTemplate(Template, {
-  desktopSuffix: <Web3Button />,
-  mobileSuffix: <Web3Button connectedVariant="avatar" />,
+  suffix: {
+    desktop: <Web3Button />,
+    mobile: <Web3Button connectedVariant="avatar" />,
+  },
   logo: {
     desktop: <MintingLogo width={111} height={32} />,
     mobileHeader: <SimpleLogo width={32} height={32} />,

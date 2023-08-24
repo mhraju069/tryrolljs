@@ -14,6 +14,12 @@ export interface LogoSidebar {
   mobileHeader: React.ReactNode
   mobileSidebar: React.ReactNode
 }
+
+export interface SuffixSidebar {
+  desktop?: React.ReactNode
+  mobile?: React.ReactNode
+  mobileSidebar?: React.ReactNode
+}
 export interface SidebarProps {
   logo: LogoSidebar
   header?: React.ReactNode
@@ -21,9 +27,7 @@ export interface SidebarProps {
   sections: SidebarSection[]
   footerOptionsOnMobile?: SidebarFooterOptionProps[]
   footerOnDesktop?: React.ReactNode
-  desktopSuffix?: React.ReactNode
-  mobileSuffix?: React.ReactNode
-  mobileSidebarSuffix?: React.ReactNode
+  suffix?: SuffixSidebar
   /**
    * @deprecated Use Suffix props instead
    */
