@@ -1,4 +1,3 @@
-import { FlatList, Slide, View } from 'native-base'
 import { useState } from 'react'
 import {
   Dimensions,
@@ -6,9 +5,11 @@ import {
   Pressable,
   StyleSheet,
   ViewStyle,
-  TouchableOpacity,
+  View,
+  FlatList,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { AnimatePresence, Motion } from '@legendapp/motion'
 import { Icon } from '../../atoms'
 import { ButtonV2 } from '../../atoms/buttonV2'
 import { TypographyV2 } from '../../atoms/typographyV2'
@@ -23,11 +24,10 @@ const DIVIDER_HEIGHT = 1
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
     flex: 1,
   },
   headerContainer: {
-    zIndex: layer.layer101,
+    zIndex: layer.layer100,
   },
   closeIconContainer: {
     position: 'absolute',
@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
 
 export const MobileSidebar: React.FC<SidebarProps> = ({
   logo,
+  suffix,
   withConnectWallet = false,
   header,
   footerOptionsOnMobile,
   sections,
-  suffix,
   selectedOptionId,
 }) => {
   const { top } = useSafeAreaInsets()
@@ -96,31 +96,70 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
       <View style={[container.row, container.alignCenter]}>
         {suffix?.mobile}
         {showWeb3Button && <Web3Button connectedVariant="avatar" />}
-        <Pressable style={[margin.ml16]} onPress={handleOpen}>
-          {!isOpen ? (
+
+        <Motion.View
+          animate={{ opacity: isOpen ? 0 : 1 }}
+          transition={{
+            opacity: {
+              type: 'timing',
+              duration: 500,
+            },
+          }}
+        >
+          <Pressable style={[margin.ml16]} onPress={handleOpen}>
             <Icon
               variant="menu"
               width={32}
               height={32}
               color={theme.base.primary[100]}
             />
-          ) : (
-            <View width={8} height={8} />
-          )}
-        </Pressable>
-        <Slide
-          in={isOpen}
-          placement="left"
-          _overlay={{
-            isOpen,
-            style: overlayStyles,
-          }}
-        >
-          <TouchableOpacity
-            testID="overlayContainer"
-            style={[styles.container, { width }]}
-            onPress={handleClose}
+          </Pressable>
+        </Motion.View>
+      </View>
+
+      <AnimatePresence>
+        {isOpen && (
+          <Motion.View
+            initial={{ opacity: 0, x: width }}
+            exit={{ opacity: 0, x: width }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              default: {
+                type: 'spring',
+              },
+              opacity: {
+                type: 'timing',
+                duration: 500,
+              },
+            }}
+            style={{
+              position: Platform.select({
+                web: 'fixed',
+                default: 'absolute',
+              }) as any,
+              top: 0,
+              left: 0,
+              bottom: 0,
+              zIndex: layer.layer101,
+            }}
           >
+            <Pressable
+              testID="overlayContainer"
+              style={[styles.container, overlayStyles, { width }]}
+              onPress={handleClose}
+            >
+              <View style={[styles.closeIconContainer]} testID="iconContainer">
+                <ButtonV2
+                  onPress={handleClose}
+                  variant="icon"
+                  iconVariant="close"
+                  title="close"
+                  size="medium"
+                  iconColor={theme.text.white[100]}
+                  iconBackgroundColor={theme.base.primary[10]}
+                />
+              </View>
+            </Pressable>
             <View
               style={[
                 styles.menuContainer,
@@ -178,20 +217,9 @@ export const MobileSidebar: React.FC<SidebarProps> = ({
                 />
               </View>
             </View>
-            <View style={[styles.closeIconContainer]} testID="iconContainer">
-              <ButtonV2
-                onPress={handleClose}
-                variant="icon"
-                iconVariant="close"
-                title="close"
-                size="medium"
-                iconColor={theme.text.white[100]}
-                iconBackgroundColor={theme.base.primary[10]}
-              />
-            </View>
-          </TouchableOpacity>
-        </Slide>
-      </View>
+          </Motion.View>
+        )}
+      </AnimatePresence>
     </View>
   )
 }
