@@ -1,5 +1,12 @@
 # @roll-network/design-system
 
+## 2.11.0
+
+### Minor Changes
+
+- [#450](https://github.com/roll-network/tryrolljs/pull/450) [`ef3c880`](https://github.com/roll-network/tryrolljs/commit/ef3c880297f52581a53f2098c80cd927d6c85fa7) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added support to suffix components on Header and Sidebar
+  - Depracated withConnectWallet prop on both Header and Sidebar
+
 ## 2.10.0
 
 ### Minor Changes
