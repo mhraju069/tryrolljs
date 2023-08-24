@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 2.10.0
+
+### Minor Changes
+
+- [#451](https://github.com/roll-network/tryrolljs/pull/451) [`65e6257`](https://github.com/roll-network/tryrolljs/commit/65e6257431ccfcb8cbcafa6f940bd06b5a47322e) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add AccountInfoDropdown component
+
 ## 2.9.3
 
 ### Patch Changes
