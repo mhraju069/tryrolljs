@@ -60,6 +60,7 @@ const getStories = () => {
     require('../src/organisms/modalV2/modalV2.stories.tsx'),
     require('../src/organisms/table/table.stories.tsx'),
     require('../src/organisms/tokenSelect/tokenSelect.stories.tsx'),
+    require('../src/molecules/accountInfoDropdown/acountInfoDropdown.stories.tsx'),
   ]
 }
 
