@@ -1,11 +1,7 @@
-import {
-  Modal as GluestackModal,
-  ModalBackdrop as GluestackModalBackdrop,
-  ModalContent as GluestackModalContent,
-  Pressable,
-} from '@gluestack-ui/react'
-import { Platform, useWindowDimensions, View } from 'react-native'
+import { Pressable } from '@gluestack-ui/react'
+import { useWindowDimensions, View } from 'react-native'
 import { useModal } from '../../hooks'
+import { Modal } from '../modal'
 import { Icon, TypographyV2 } from '../../atoms'
 import {
   container,
@@ -15,6 +11,14 @@ import {
   padding,
   white,
 } from '../../styles'
+import type {
+  ModalV2Props,
+  ModalContentProps,
+  ModalHeaderProps,
+  ModalBodyProps,
+  ModalFooterProps,
+  ModalCloseButtonProps,
+} from './types'
 
 const styles = makeStyles({
   closeButton: {
@@ -29,57 +33,44 @@ const styles = makeStyles({
   },
 })
 
-export const ModalV2 = ({ children, size = 'md', ...props }) => {
+export const ModalV2 = ({ children, size = 'md', ...props }: ModalV2Props) => {
   const modal = useModal()
   const { height, width } = useWindowDimensions()
 
   return (
-    <GluestackModal
+    <Modal
       onClose={modal.close}
       isOpen={modal.isOpen}
       size={size}
       style={{ height, width }}
       {...props}
     >
-      <GluestackModalBackdrop
-        style={{
-          height,
-          width,
-          position: Platform.select({
-            web: 'fixed',
-            default: 'absolute',
-          }),
-        }}
-      />
       {children}
-    </GluestackModal>
+    </Modal>
   )
 }
 
-const ModalContent = (props) => (
-  <GluestackModalContent
-    {...props}
-    style={[props.style, styles.content, padding.p24]}
-  />
+const ModalContent = (props: ModalContentProps) => (
+  <View {...props} style={[props.style, styles.content, padding.p24]} />
 )
 
-const ModalHeader = ({ style, children }) => (
+const ModalHeader = ({ style, children }: ModalHeaderProps) => (
   <TypographyV2 variant="sub3" style={[style, padding.pb16]}>
     {children}
   </TypographyV2>
 )
 
-const ModalBody = ({ style, children, ...rest }) => (
+const ModalBody = ({ style, children, ...rest }: ModalBodyProps) => (
   <View style={[style, padding.pb32]} {...rest}>
     {children}
   </View>
 )
 
-const ModalFooter = ({ style, children }) => (
+const ModalFooter = ({ style, children }: ModalFooterProps) => (
   <View style={[style, container.row, margin.mlauto]}>{children}</View>
 )
 
-const ModalCloseButton = ({ onPress }) => (
+const ModalCloseButton = ({ onPress }: ModalCloseButtonProps) => (
   <Pressable style={styles.closeButton} onPress={onPress}>
     <Icon variant="close" />
   </Pressable>

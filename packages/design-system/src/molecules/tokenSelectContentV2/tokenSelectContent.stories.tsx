@@ -18,4 +18,8 @@ export const Default = fromTemplate(Template, {
   ],
 })
 
+export const NoOptions = fromTemplate(Template, {
+  options: [],
+})
+
 export default storyConfig

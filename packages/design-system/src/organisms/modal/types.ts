@@ -1,11 +1,13 @@
 import type { ViewProps, PressableProps } from 'react-native'
 import type { ReactNode } from 'react'
-import type { InterfaceModalProps } from '@gluestack-ui/modal/lib/typescript/types'
 
-export interface ModalProps extends InterfaceModalProps {
+export interface ModalProps extends ViewProps {
+  isOpen?: boolean
   children: ReactNode
   testID?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'full'
+  onClose?: () => void
+  avoidKeyboard?: boolean
 }
 
 export interface ModalContentProps extends ViewProps {

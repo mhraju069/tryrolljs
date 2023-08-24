@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { View, ScrollView } from 'react-native'
+import { ScrollView, useWindowDimensions } from 'react-native'
 import { fromTemplate } from '../../../.storybook/utils'
 import { Body, Button, Header } from '../../atoms'
 import { useModal } from '../../hooks'
@@ -15,10 +15,10 @@ const storyConfig = {
 
 const Template = ({ children, size }: ModalProps) => {
   const { toggle, isOpen, close } = useModal()
+  const { height, width } = useWindowDimensions()
   return (
-    <ScrollView>
+    <ScrollView style={{ height, width }}>
       <Button variant="primary" onPress={toggle} title="Toggle" />
-      <View style={{ height: 2000 }} />
       <Modal isOpen={isOpen} onClose={close} size={size}>
         {children}
       </Modal>

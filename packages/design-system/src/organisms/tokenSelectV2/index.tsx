@@ -67,6 +67,7 @@ export const TokenSelectV2: React.FC<TokenSelectV2Props> = ({
         onClose={handleModalClose}
         avoidKeyboard
         testID="tokenSelectModal"
+        size="sm"
       >
         <TokenSelectContentV2
           {...props}

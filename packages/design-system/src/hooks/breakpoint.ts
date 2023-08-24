@@ -1,6 +1,6 @@
 import { useWindowDimensions } from 'react-native'
 
-type Breakpoint = 'base' | 'md' | 'sm' | 'lg' | 'xl' | '2xl'
+type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 const breakpoints: Record<Breakpoint, number> = {
   base: 0,
@@ -14,12 +14,21 @@ const breakpoints: Record<Breakpoint, number> = {
 type UseBreakpointValueParam = Partial<Record<Breakpoint, any>>
 
 export function useBreakpointValue(values: UseBreakpointValueParam) {
-  const windowWidth = useWindowDimensions().width
-  const breakpointsOrder: Breakpoint[] = ['base', 'md', 'sm', 'lg', 'xl', '2xl']
+  const { width } = useWindowDimensions()
+  const breakpointOrder: Breakpoint[] = ['2xl', 'xl', 'lg', 'md', 'sm', 'base']
 
-  for (const breakpoint of breakpointsOrder) {
-    if (windowWidth < breakpoints[breakpoint] && values[breakpoint]) {
-      return values[breakpoint]
+  for (const breakpoint of breakpointOrder) {
+    if (width >= breakpoints[breakpoint]) {
+      for (
+        let i = breakpointOrder.indexOf(breakpoint);
+        i < breakpointOrder.length;
+        i++
+      ) {
+        const checkBreakpoint = breakpointOrder[i]
+        if (values[checkBreakpoint] !== undefined) {
+          return values[checkBreakpoint]
+        }
+      }
     }
   }
 
