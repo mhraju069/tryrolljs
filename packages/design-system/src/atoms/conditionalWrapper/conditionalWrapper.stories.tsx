@@ -1,10 +1,10 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Body } from '../typography'
 import { Tooltip } from '../tooltip'
 import { ConditionalWrapper, ConditionalWrapperProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('ConditionalWrapper'),
+  title: 'Design System/Atoms/ConditionalWrapper',
   component: ConditionalWrapper,
 }
 

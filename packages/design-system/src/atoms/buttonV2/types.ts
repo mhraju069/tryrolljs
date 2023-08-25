@@ -25,8 +25,9 @@ export interface ButtonV2Props {
   size?: Size
   title: string
   tooltip?: string
-  isDisabled?: boolean
-  isLoading?: boolean
+  disabled?: boolean
+  loading?: boolean
+  active?: boolean
   onPress?: (e?: GestureResponderEvent) => void
   icon?: React.ReactNode
   iconVariant?: IconVariant
@@ -36,14 +37,18 @@ export interface ButtonV2Props {
   textColor?: string
 }
 
-type States = 'rest' | 'hover' | 'active' | 'disabled'
-export type StateVariantProps = {
-  borderWidth: number
-  borderColor: string
-  backgroundColor: string
-  textColor: string
+type State = 'idle' | 'hover' | 'active' | 'disabled'
+export type StyleByStateProps = {
+  state: Record<
+    State,
+    {
+      borderWidth: number
+      borderColor: string
+      backgroundColor: string
+      textColor: string
+    }
+  >
 }
-export type VariantProps = Record<States, StateVariantProps>
 
 export interface SizeProps {
   paddingHorizontal: number
@@ -52,4 +57,4 @@ export interface SizeProps {
   borderRadius: number
 }
 
-export type BaseButtonProps = VariantProps & SizeProps & ButtonV2Props
+export type BaseButtonProps = StyleByStateProps & SizeProps & ButtonV2Props

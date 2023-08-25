@@ -1,4 +1,4 @@
-import { Divider, Pressable, useBreakpointValue } from 'native-base'
+import { Divider, Pressable } from '@gluestack-ui/react'
 import { FlatList, Platform, StyleProp, ViewStyle } from 'react-native'
 import { useCallback, useMemo, useState } from 'react'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
@@ -64,11 +64,6 @@ export const TokenSelect = ({
     [options, searchInputValue],
   )
 
-  const modalSize = useBreakpointValue({
-    base: 'full' as const,
-    lg: 'md' as const,
-  })
-
   return (
     <>
       <Pressable onPress={handleInputWrapperPress}>
@@ -83,12 +78,7 @@ export const TokenSelect = ({
         />
       </Pressable>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        size={modalSize}
-        avoidKeyboard
-      >
+      <Modal isOpen={isModalOpen} onClose={handleModalClose} avoidKeyboard>
         <Modal.Content>
           <Modal.CloseButton onPress={handleModalClose} />
 
@@ -108,8 +98,8 @@ export const TokenSelect = ({
                   <Pressable
                     key={option.value}
                     style={[container.row, container.alignCenter, padding.p8]}
-                    _hover={{
-                      backgroundColor: theme.background.highlight,
+                    sx={{
+                      ':hover': { backgroundColor: theme.background.highlight },
                     }}
                     onPress={() => {
                       setValue(option.value)

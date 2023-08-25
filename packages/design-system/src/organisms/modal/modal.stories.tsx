@@ -1,23 +1,24 @@
 import { action } from '@storybook/addon-actions'
-import { ScrollView, View } from 'native-base'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { ScrollView, useWindowDimensions } from 'react-native'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Body, Button, Header } from '../../atoms'
 import { useModal } from '../../hooks'
 import { ConfirmationModalContent } from '../confirmationModalContent'
-import { Modal, ModalProps } from './index'
+import type { ModalProps } from './types'
+import { Modal } from './index'
 
 const storyConfig = {
-  title: titleBuilder.organisms('Modal'),
+  title: 'Design System/Organisms/Modal',
   component: Modal,
   layout: 'fullscreen',
 }
 
-const Template = ({ size, children }: ModalProps) => {
+const Template = ({ children, size }: ModalProps) => {
   const { toggle, isOpen, close } = useModal()
+  const { height, width } = useWindowDimensions()
   return (
-    <ScrollView>
+    <ScrollView style={{ height, width }}>
       <Button variant="primary" onPress={toggle} title="Toggle" />
-      <View style={{ height: 2000 }} />
       <Modal isOpen={isOpen} onClose={close} size={size}>
         {children}
       </Modal>
@@ -30,7 +31,7 @@ export const Default = fromTemplate(Template, {
 })
 
 export const Confirmation = fromTemplate(Template, {
-  size: 'xl',
+  size: 'lg',
   children: (
     <ConfirmationModalContent
       title="Claim reward"

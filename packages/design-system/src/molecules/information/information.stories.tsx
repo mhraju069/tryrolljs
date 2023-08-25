@@ -1,9 +1,9 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Caption } from '../../atoms'
 import { Information, InformationProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Information'),
+  title: 'Design System/Molecules/Information',
   component: Information,
 }
 

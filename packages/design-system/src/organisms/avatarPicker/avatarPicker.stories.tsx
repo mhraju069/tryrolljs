@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import AvatarPicker from './avatarPicker'
 import { AvatarPickerProps } from './types'
 
 const storyConfig = {
-  title: titleBuilder.organisms('AvatarPicker'),
+  title: 'Design System/Organisms/AvatarPicker',
   component: AvatarPicker,
 }
 

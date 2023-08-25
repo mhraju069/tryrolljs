@@ -1,9 +1,9 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import type { ButtonProps } from './types'
 import { Button } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Button'),
+  title: 'Design System/Atoms/Button',
   component: Button,
 }
 

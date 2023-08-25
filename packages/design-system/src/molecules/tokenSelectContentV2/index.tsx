@@ -1,5 +1,5 @@
-import { Divider, Pressable } from 'native-base'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { Divider, Pressable } from '@gluestack-ui/react'
+import { FlatList, View } from 'react-native'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
 import { Icon, Spinner, TypographyV2 } from '../../atoms'
@@ -12,19 +12,6 @@ import {
   TokenSelectOptionV2,
   TokenSelectOptionV2Type,
 } from '../../atoms/tokenSelectOptionV2'
-
-const MODAL_BORDER_RADIUS = 16
-const MODAL_MAX_WIDTH = 380
-const MODAL_MAX_HEIGHT = 552
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    borderRadius: MODAL_BORDER_RADIUS,
-    maxWidth: MODAL_MAX_WIDTH,
-    maxHeight: MODAL_MAX_HEIGHT,
-    overflow: 'hidden',
-  },
-})
 
 export interface TokenSelectContentV2Props {
   defaultValue?: string
@@ -114,8 +101,8 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
     <View
       style={[
         padding.pv24,
-        styles.modalContainer,
         container.fullWidth,
+        container.flex1,
         { backgroundColor: theme.background.white },
       ]}
     >
@@ -149,9 +136,11 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
           testID="tokenSelectSearchInput"
         />
       </View>
-      <Divider style={[margin.mv24]} color={theme.background.silver} />
+      <Divider
+        style={[margin.mv24, { backgroundColor: theme.background.silver }]}
+      />
       <View style={[padding.ph24, container.flex1]}>
-        {isLoading && <Spinner size="lg" />}
+        {isLoading && <Spinner size="large" />}
         {!isLoading && !isEmpty && (
           <FlatList
             data={filteredOptions}

@@ -1,11 +1,11 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { QRCodeProps, QRCode } from '.'
 
 const DEFAULT_VALUE = 'https://tryroll.com/'
 const DEFAULT_SIZE = 200
 
 const conf = {
-  title: titleBuilder.atoms('QRCode'),
+  title: 'Design System/Atoms/QRCode',
   component: QRCode,
 }
 

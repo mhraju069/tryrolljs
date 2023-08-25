@@ -6,11 +6,11 @@ import {
   Pressable,
 } from 'react-native'
 import { useMemo } from 'react'
-import { Toast as NBToast } from 'native-base'
 import { margin, padding, container, makeStyles } from '../../styles'
 import { TypographyV2 } from '../typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { Icon } from '../icon'
+import { createUseToast } from '../toast'
 
 export type ToastV2Variant = 'success' | 'error' | 'informative'
 
@@ -114,30 +114,4 @@ export const ToastV2 = ({
   )
 }
 
-const toast = ({
-  title,
-  description,
-  onClose,
-  action,
-  variant = 'success',
-  duration,
-}: ToastV2Props & { duration?: number | null }) => {
-  const toastId = NBToast.show({
-    placement: isWeb ? 'top-right' : 'bottom',
-    duration,
-    render: () => (
-      <ToastV2
-        title={title}
-        description={description}
-        onClose={(e) => {
-          onClose?.(e)
-          NBToast.close(toastId)
-        }}
-        action={action}
-        variant={variant}
-      />
-    ),
-  })
-}
-
-ToastV2.show = toast
+export const useToastV2 = createUseToast<ToastV2Props>(ToastV2)

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Pressable, useClipboard, View } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
+import { View } from 'react-native'
 import { Body } from '../../atoms'
 import {
   margin,
@@ -11,6 +12,7 @@ import {
 import Copy from '../../assets/svg/copy.svg'
 import Check from '../../assets/svg/check.svg'
 import { truncateText } from '../../utils'
+import { useClipboard } from '../../hooks'
 
 export type CopyLinkProps = {
   url: string
@@ -32,12 +34,12 @@ export const CopyLink = ({
   maxLength = DEFAULT_MAX_LENGTH,
 }: CopyLinkProps) => {
   const [showSuccess, setShowSuccess] = useState(false)
-  const { onCopy } = useClipboard()
+  const { copy } = useClipboard()
 
   const handleCopy = useCallback(async () => {
     setShowSuccess(true)
-    await onCopy(url)
-  }, [onCopy, url])
+    await copy(url)
+  }, [copy, url])
 
   useEffect(() => {
     if (showSuccess) {

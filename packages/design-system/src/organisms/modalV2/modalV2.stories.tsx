@@ -1,13 +1,14 @@
 import { action } from '@storybook/addon-actions'
-import { ScrollView, View } from 'native-base'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { View, ScrollView } from 'react-native'
+import { fromTemplate } from '../../../.storybook/utils'
 import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useModal } from '../../hooks'
 import { ConfirmationModalContentV2 } from '../confirmationModalContentV2'
-import { ModalV2, ModalV2Props } from './index'
+import { ModalV2Props } from './types'
+import { ModalV2 } from './index'
 
 const storyConfig = {
-  title: titleBuilder.organisms('ModalV2'),
+  title: 'Design System/Organisms/ModalV2',
   component: ModalV2,
   layout: 'fullscreen',
 }
@@ -39,7 +40,7 @@ export const Default = fromTemplate(Template, {
 })
 
 export const Confirmation = fromTemplate(Template, {
-  size: 'xl',
+  size: 'lg',
   children: (
     <ConfirmationModalContentV2
       title="Claim reward"

@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Icon, IconProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Icon'),
+  title: 'Design System/Atoms/Icon',
   component: Icon,
 }
 

@@ -1,10 +1,10 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Web3Button, Web3ButtonProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Web3Button'),
+  title: 'Design System/Molecules/Web3Button',
   component: Web3Button,
 }
 

@@ -1,6 +1,7 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useState, useMemo } from 'react'
-import { Pressable, View } from 'native-base'
+import { View } from 'react-native'
+import { Pressable } from '@gluestack-ui/react'
 import Close from '../../assets/svg/close.svg'
 import {
   text,

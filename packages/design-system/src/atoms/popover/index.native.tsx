@@ -1,5 +1,5 @@
 import { useFloating, shift, flip } from '@floating-ui/react-native'
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { useCallback, useMemo } from 'react'
 import { useFloatingLayoutAndroidHandler, useTheme } from '../../hooks'
 import { container, layer } from '../../styles'

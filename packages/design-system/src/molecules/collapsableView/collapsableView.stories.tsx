@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { titleBuilder } from '../../../.storybook/utils'
 import { SubHeader } from '../../atoms'
 import { margin } from '../../styles'
 import { CollapsableView } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('CollapsableView'),
+  title: 'Design System/Molecules/CollapsableView',
   component: CollapsableView,
 }
 

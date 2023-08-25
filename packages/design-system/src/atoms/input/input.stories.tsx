@@ -1,9 +1,9 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import ArrowDownCircle from '../../assets/svg/arrowDownCircle.svg'
 import { Input, InputProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Input'),
+  title: 'Design System/Atoms/Input',
   component: Input,
 }
 

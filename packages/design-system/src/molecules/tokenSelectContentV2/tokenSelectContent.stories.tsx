@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { TokenSelectContentV2, TokenSelectContentV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('TokenSelectContent'),
+  title: 'Design System/Molecules/TokenSelectContent',
   component: TokenSelectContentV2,
 }
 
@@ -16,6 +16,10 @@ export const Default = fromTemplate(Template, {
     { name: 'Wrapped Ether', symbol: 'WETH', value: 'WETH', address: '0x01' },
     { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
   ],
+})
+
+export const NoOptions = fromTemplate(Template, {
+  options: [],
 })
 
 export default storyConfig

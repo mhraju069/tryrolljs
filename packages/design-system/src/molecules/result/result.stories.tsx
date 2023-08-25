@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Result } from './index'
 import type { ResultProps } from './index'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Result'),
+  title: 'Design System/Molecules/Result',
   component: Result,
 }
 

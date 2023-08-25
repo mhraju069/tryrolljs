@@ -1,5 +1,4 @@
-import { StyleSheet, View } from 'react-native'
-import { FlatList } from 'native-base'
+import { StyleSheet, View, FlatList } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, margin } from '../../styles'
 import { SidebarProps } from '../sidebar/types'
@@ -40,8 +39,6 @@ export const SidebarOptions: React.FC<SidebarOptionsProps> = ({
   return (
     <FlatList
       scrollEnabled={false}
-      overflowX="visible"
-      overflowY="visible"
       style={[container.fullWidth, styles.mainList]}
       data={sections}
       keyExtractor={(section) => section.id}
@@ -49,8 +46,6 @@ export const SidebarOptions: React.FC<SidebarOptionsProps> = ({
       renderItem={({ item: section }) => (
         <FlatList
           scrollEnabled={false}
-          overflowX="visible"
-          overflowY="visible"
           style={[container.fullWidth, styles.mainList]}
           data={section.options}
           keyExtractor={(option) => option.id}

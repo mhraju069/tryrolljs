@@ -1,5 +1,4 @@
-import { View } from 'native-base'
-import { Dimensions, Platform, StyleSheet } from 'react-native'
+import { Dimensions, Platform, StyleSheet, View } from 'react-native'
 import { PropsWithChildren } from 'react'
 
 import { useThemeV2 } from '../../hooks'

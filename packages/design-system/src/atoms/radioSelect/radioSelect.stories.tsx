@@ -1,18 +1,16 @@
 import { View } from 'react-native'
 import { action } from '@storybook/addon-actions'
-import { titleBuilder } from '../../../.storybook/utils'
 import { container, margin } from '../../styles'
 import { RadioSelect } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('RadioSelect'),
+  title: 'Design System/Atoms/RadioSelect',
   component: RadioSelect,
 }
 
 export const Default = () => (
   <View style={[container.halfWidth, margin.m20]}>
     <RadioSelect
-      name="default"
       value="two"
       options={[
         { name: 'One', value: 'one' },
@@ -27,7 +25,6 @@ export const Default = () => (
 export const WithDescriptions = () => (
   <View style={[container.halfWidth, margin.m20]}>
     <RadioSelect
-      name="default"
       value="two"
       options={[
         {

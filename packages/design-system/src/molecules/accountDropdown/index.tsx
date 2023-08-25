@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { Body, Anchor } from '../../atoms'
 import { useTheme, useEthAddress } from '../../hooks'
 import { margin, padding, container, makeStyles } from '../../styles'

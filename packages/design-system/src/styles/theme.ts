@@ -1,5 +1,8 @@
-import { charcoalBlack, ghostWhite, lavendar, lightGray } from './colors'
 import {
+  charcoalBlack,
+  ghostWhite,
+  lavendar,
+  lightGray,
   white,
   grey,
   crimson,
@@ -8,7 +11,7 @@ import {
   mistyRose,
   aliceBlue,
   darkNavy,
-} from '.'
+} from './colors'
 
 interface PaletteBase {
   primary: string

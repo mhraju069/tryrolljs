@@ -1,6 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import { StyleProp, ViewStyle } from 'react-native'
-import { View } from 'native-base'
+import { StyleProp, ViewStyle, View } from 'react-native'
 import { Body, Button, Spinner } from '../../atoms'
 import { useTheme, useEthAddress } from '../../hooks'
 import { shortenAddress } from '../../utils'

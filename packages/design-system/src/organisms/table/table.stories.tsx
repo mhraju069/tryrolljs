@@ -1,14 +1,13 @@
 import { PaginationState, createColumnHelper } from '@tanstack/react-table'
 import { action } from '@storybook/addon-actions'
 import { useMemo, useState } from 'react'
-import { ScrollView } from 'native-base'
-import { titleBuilder } from '../../../.storybook/utils'
+import { ScrollView } from 'react-native'
 import { ButtonV2, TokenChip, TypographyV2 } from '../../atoms'
 import { FilterOption } from '../../molecules'
 import Table from './table'
 
 const storyConfig = {
-  title: titleBuilder.organisms('Table'),
+  title: 'Design System/Organisms/Table',
   component: Table,
 }
 
@@ -28,6 +27,7 @@ const DATA: Token[] = [...Array(10)].map((_, index) => ({
 
 const columnHelper = createColumnHelper<Token>()
 
+// @ts-ignore
 const columns = [
   columnHelper.accessor('logo', {
     header: () => <TypographyV2 variant="text3">Social Token</TypographyV2>,
@@ -58,7 +58,9 @@ const columns = [
   }),
 ]
 
+// @ts-ignore
 export const Default = () => <Table data={DATA} columns={columns} />
+// @ts-ignore
 export const Loading = () => <Table data={DATA} columns={columns} loading />
 
 enum FilterValue {
@@ -158,6 +160,7 @@ export const WithFiltersAndPagination = () => {
     <ScrollView>
       <Table
         data={data}
+        // @ts-ignore
         columns={columns}
         search={search}
         filter={filter}

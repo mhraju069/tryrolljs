@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Input } from '../input'
 import { Tooltip, TooltipProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Tooltip'),
+  title: 'Design System/Atoms/Tooltip',
   component: Tooltip,
 }
 

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { ButtonV2 } from '../../atoms'
 import { container, margin, padding } from '../../styles'
 import { FormStepHeader, FormStepHeaderProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.organisms('FormStepHeader'),
+  title: 'Design System/Organisms/FormStepHeader',
   component: FormStepHeader,
 }
 

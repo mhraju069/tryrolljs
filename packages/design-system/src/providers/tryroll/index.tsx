@@ -1,14 +1,14 @@
-import { NativeBaseProvider } from 'native-base'
+import { GluestackUIProvider, config } from '@gluestack-ui/react'
 import { PropsWithChildren } from 'react'
 import { ThemeProvider } from '../theme'
 import { ThemeProviderV2 } from '../themeV2'
 
 export const TryrollProvider = ({ children }: PropsWithChildren<{}>) => (
-  <NativeBaseProvider>
+  <GluestackUIProvider config={config.theme}>
     <ThemeProvider>
       <ThemeProviderV2>{children}</ThemeProviderV2>
     </ThemeProvider>
-  </NativeBaseProvider>
+  </GluestackUIProvider>
 )
 
 const inset = {
@@ -17,9 +17,9 @@ const inset = {
 }
 
 export const TryrollTestProvider = ({ children }: PropsWithChildren<{}>) => (
-  <NativeBaseProvider initialWindowMetrics={inset}>
+  <GluestackUIProvider config={config.theme} initialWindowMetrics={inset}>
     <ThemeProvider>
       <ThemeProviderV2>{children}</ThemeProviderV2>
     </ThemeProvider>
-  </NativeBaseProvider>
+  </GluestackUIProvider>
 )

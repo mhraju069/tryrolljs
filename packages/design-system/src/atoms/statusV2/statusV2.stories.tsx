@@ -1,10 +1,10 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { StatusV2, StatusComponentProps } from '.'
 
 const DEFAULT_TITLE = 'Label Text'
 
 const conf = {
-  title: titleBuilder.atoms('StatusV2'),
+  title: 'Design System/Atoms/StatusV2',
   component: StatusV2,
 }
 

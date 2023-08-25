@@ -1,7 +1,7 @@
-import { useBreakpointValue } from 'native-base'
 import { PropsWithChildren } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
 import { MobileSidebar } from '../sidebar/mobile'
+import { useBreakpointValue } from '../../hooks'
 import { DesktopHeader } from './desktop'
 import { HeaderProps } from './types'
 

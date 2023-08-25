@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { TokenSelect, TokenSelectProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.organisms('TokenSelect'),
+  title: 'Design System/Organisms/TokenSelect',
   component: TokenSelect,
 }
 

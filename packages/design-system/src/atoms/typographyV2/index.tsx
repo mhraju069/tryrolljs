@@ -1,7 +1,7 @@
-import { useBreakpointValue } from 'native-base'
 import { GestureResponderEvent, StyleProp, Text, TextStyle } from 'react-native'
 import { ReactNode } from 'react'
 import { fontStyles, responsiveFontStyles } from '../../styles'
+import { useBreakpointValue } from '../../hooks'
 
 export type TypographyVariant =
   | 'caption2'

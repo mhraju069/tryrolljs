@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'react-native',
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?(@react-native|react-native|react-native-linear-gradient|@wagmi|wagmi|@web3modal|pretty-bytes|react-native-image-crop-picker)/.*))',
+    'node_modules/(?!((jest-)?(@react-native|react-native|react-native-linear-gradient|@wagmi|wagmi|@web3modal|pretty-bytes|react-native-image-crop-picker|@legendapp/motion|@expo/html-elements)/.*))',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testEnvironment: 'node',

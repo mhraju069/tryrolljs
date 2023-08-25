@@ -1,8 +1,7 @@
 import { View, StyleSheet, GestureResponderEvent } from 'react-native'
-import { useBreakpointValue } from 'native-base'
 import { useMemo } from 'react'
 import { TypographyV2, Icon, ButtonV2, IconVariant } from '../../atoms'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { spacing } from '../../styles'
 
 const BORDER_RADIUS = 100
@@ -31,7 +30,7 @@ const useStyles = (variant: AlertVariant) => {
   const containerAlignSelf = useBreakpointValue({
     base: 'stretch',
     md: 'flex-start',
-  })
+  } as const)
   const backgroundColor =
     variant === 'danger' ? theme.base.danger : theme.base.highlight2[10]
   const iconBackgroundColor = variant === 'danger' ? theme.base.primary[10] : ''

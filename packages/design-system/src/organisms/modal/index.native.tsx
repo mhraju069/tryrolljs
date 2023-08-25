@@ -1,15 +1,7 @@
-import {
-  IIconButtonProps,
-  IModalProps,
-  Modal as NBModal,
-  Pressable,
-  View,
-} from 'native-base'
-import { ReactNode } from 'react'
-import { useWindowDimensions, ViewProps } from 'react-native'
-import type { InterfaceBoxProps } from 'native-base/lib/typescript/components/primitives/Box'
+import { Pressable } from '@gluestack-ui/react'
+import { View, useWindowDimensions, Modal as RNModal } from 'react-native'
 import { Body, LargeHeader } from '../../atoms'
-import { useModal, useTheme } from '../../hooks'
+import { useTheme } from '../../hooks'
 import {
   container,
   layer,
@@ -19,6 +11,17 @@ import {
   white,
 } from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
+import type {
+  ModalProps,
+  ModalContentProps,
+  ModalHeaderProps,
+  ModalSubHeaderProps,
+  ModalBodyProps,
+  ModalFooterProps,
+  ModalCloseButtonProps,
+} from './types'
+
+const BACKDROP_BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.7)'
 
 const styles = makeStyles({
   closeButton: {
@@ -30,41 +33,43 @@ const styles = makeStyles({
   content: {
     backgroundColor: white,
   },
+  backdrop: {
+    backgroundColor: BACKDROP_BACKGROUND_COLOR,
+    display: 'flex',
+    position: 'absolute',
+  },
 })
 
-export interface ModalProps extends IModalProps {}
-
-export const Modal = (props: ModalProps) => {
-  const modal = useModal()
-  const { height, width } = useWindowDimensions()
-
+export const Modal = ({ isOpen, children, onClose, testID }: ModalProps) => {
+  const { width, height } = useWindowDimensions()
   return (
-    <NBModal
-      onClose={modal.close}
-      isOpen={modal.isOpen}
-      _overlay={{ style: { height, width } }}
-      {...props}
-    />
+    <RNModal
+      animationType="fade"
+      transparent
+      visible={isOpen}
+      onRequestClose={onClose}
+      testID={testID}
+    >
+      <View style={[container.center, { width, height }]}>
+        <Pressable
+          style={[{ width, height }, styles.backdrop]}
+          onPress={onClose}
+        />
+        {children}
+      </View>
+    </RNModal>
   )
 }
 
-const ModalContent = (props: InterfaceBoxProps<IModalProps>) => (
-  <NBModal.Content {...props} style={[props.style, styles.content]} />
+const ModalContent = (props: ModalContentProps) => (
+  <View {...props} style={[props.style, styles.content]} />
 )
-
-export interface ModalHeaderProps extends ViewProps {
-  children: string
-}
 
 const ModalHeader = ({ style, children }: ModalHeaderProps) => (
   <View style={[style, padding.ph40, padding.pt24, padding.pb8]}>
     <LargeHeader weight="semiBold">{children}</LargeHeader>
   </View>
 )
-
-export interface ModalSubHeaderProps extends ViewProps {
-  children: string
-}
 
 const ModalSubHeader = ({ style, children }: ModalSubHeaderProps) => {
   const theme = useTheme()
@@ -76,19 +81,11 @@ const ModalSubHeader = ({ style, children }: ModalSubHeaderProps) => {
   )
 }
 
-export interface ModalBodyProps extends ViewProps {
-  children: ReactNode
-}
-
 const ModalBody = ({ style, children, ...rest }: ModalBodyProps) => (
   <View style={[style, padding.ph40, padding.pv16]} {...rest}>
     {children}
   </View>
 )
-
-export interface ModalFooterProps extends ViewProps {
-  children: ReactNode
-}
 
 const ModalFooter = ({ style, children }: ModalFooterProps) => (
   <View
@@ -105,7 +102,7 @@ const ModalFooter = ({ style, children }: ModalFooterProps) => (
   </View>
 )
 
-const ModalCloseButton = ({ onPress }: IIconButtonProps) => (
+const ModalCloseButton = ({ onPress }: ModalCloseButtonProps) => (
   <Pressable style={styles.closeButton} onPress={onPress}>
     <CloseCircle />
   </Pressable>

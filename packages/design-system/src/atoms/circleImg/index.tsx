@@ -1,7 +1,7 @@
 import { Image, Platform, View } from 'react-native'
 import type { ImageStyle, StyleProp } from 'react-native'
 import BoringAvatar from 'boring-avatars'
-import { Avatar as NBAvatar } from 'native-base'
+import { Avatar as GluestackAvatar } from '@gluestack-ui/react'
 import { makeStyles } from '../../styles'
 
 export interface CircleImgProps {
@@ -15,8 +15,8 @@ const Avatar = Platform.select({
   web: ({ size, color }: Pick<CircleImgProps, 'size' | 'color'>) => (
     <BoringAvatar size={size} variant="marble" colors={color} />
   ),
-  default: ({ size, color }: Pick<CircleImgProps, 'size' | 'color'>) => (
-    <NBAvatar style={{ width: size, height: size }} color={color} />
+  default: ({ size }: Pick<CircleImgProps, 'size' | 'color'>) => (
+    <GluestackAvatar style={{ width: size, height: size }} />
   ),
 })
 

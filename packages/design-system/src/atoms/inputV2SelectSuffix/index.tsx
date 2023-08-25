@@ -1,6 +1,6 @@
 import { Platform, View } from 'react-native'
 import { useCallback, useRef } from 'react'
-import { Pressable } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { useThemeV2 } from '../../hooks'
 import { TypographyV2 } from '../typographyV2'
 import { container, spacing } from '../../styles'

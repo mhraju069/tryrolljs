@@ -1,6 +1,5 @@
-import { View } from 'native-base'
 import { forwardRef, ReactNode, useEffect, useRef, useState } from 'react'
-import { Animated, TextInput, TextInputProps } from 'react-native'
+import { Animated, TextInput, TextInputProps, View } from 'react-native'
 import { useTheme } from '../../hooks'
 import {
   charcoalBlack,

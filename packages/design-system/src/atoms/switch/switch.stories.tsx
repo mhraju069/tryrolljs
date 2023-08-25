@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Switch, SwitchProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Switch'),
+  title: 'Design System/Atoms/Switch',
   component: Switch,
 }
 const Template = (props: SwitchProps) => {

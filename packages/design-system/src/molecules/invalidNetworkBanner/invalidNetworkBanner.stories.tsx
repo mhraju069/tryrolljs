@@ -1,4 +1,4 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Body } from '../../atoms'
 import { useChainID } from '../../hooks'
 import { withWeb3Provider } from '../../hoc'
@@ -6,7 +6,7 @@ import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { InvalidNetworkBanner, InvalidNetworkBannerProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('InvalidNetworkBanner'),
+  title: 'Design System/Molecules/InvalidNetworkBanner',
   component: InvalidNetworkBanner,
 }
 

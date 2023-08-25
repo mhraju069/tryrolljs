@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { ConnectWeb3OptionsWagmi } from '../../molecules/connectWeb3OptionsWagmi'
 import { Web3ProviderWagmi } from '../../providers'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
@@ -7,7 +7,7 @@ import { ConnectWeb3ButtonWagmi } from '../../molecules/connectWeb3ButtonWagmi'
 import { UniswapWidget } from './index'
 
 const storyConfig = {
-  title: titleBuilder.organisms('UniswapWidget'),
+  title: 'Design System/Organisms/UniswapWidget',
   component: UniswapWidget,
 }
 

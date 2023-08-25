@@ -1,8 +1,8 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { AnalyticsCard, AnalyticsCardProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('AnalyticsCard'),
+  title: 'Design System/Molecules/AnalyticsCard',
   component: AnalyticsCard,
 }
 

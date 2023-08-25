@@ -1,7 +1,6 @@
-import { useBreakpointValue } from 'native-base'
 import { PropsWithChildren } from 'react'
 import { Platform, ScrollView, StyleSheet, View } from 'react-native'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container } from '../../styles'
 import { Sidebar, RightSidebar, RightSidebarProps } from '../../molecules'
 import type { SidebarProps } from '../../molecules'

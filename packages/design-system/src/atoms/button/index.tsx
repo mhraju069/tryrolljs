@@ -1,4 +1,4 @@
-import { Pressable } from 'native-base'
+import { Pressable } from '@gluestack-ui/react'
 import { PropsWithChildren, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { container, makeStyles, padding, text } from '../../styles'

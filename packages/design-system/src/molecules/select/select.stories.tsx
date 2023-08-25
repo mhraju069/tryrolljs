@@ -1,9 +1,9 @@
-import { View } from 'native-base'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { View } from 'react-native'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Select, SelectProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Select'),
+  title: 'Design System/Molecules/Select',
   component: Select,
 }
 

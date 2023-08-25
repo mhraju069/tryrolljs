@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useState } from 'react'
-import { Pressable, View } from 'native-base'
-import { StyleProp, ViewStyle } from 'react-native'
+import { Pressable } from '@gluestack-ui/react'
+import { View, StyleProp, ViewStyle } from 'react-native'
 import { Popover, PopoverProps } from '../../atoms'
 
 export type DropdownProps = {
@@ -21,6 +21,7 @@ export const Dropdown = ({
   const renderReference: PopoverProps['renderReference'] = useCallback(
     ({ reference, getReferenceProps }) => (
       <Pressable {...getReferenceProps()}>
+        {/* @ts-ignore */}
         <View ref={reference}>{children}</View>
       </Pressable>
     ),

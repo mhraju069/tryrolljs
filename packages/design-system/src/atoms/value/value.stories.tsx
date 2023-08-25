@@ -1,8 +1,8 @@
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Value, ValueProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Value'),
+  title: 'Design System/Atoms/Value',
   component: Value,
 }
 

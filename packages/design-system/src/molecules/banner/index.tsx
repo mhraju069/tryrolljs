@@ -1,4 +1,4 @@
-import { View } from 'native-base'
+import { View } from 'react-native'
 import { useMemo } from 'react'
 import { Body } from '../../atoms'
 import { useTheme } from '../../hooks'

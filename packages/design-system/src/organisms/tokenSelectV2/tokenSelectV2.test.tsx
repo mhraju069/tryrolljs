@@ -20,7 +20,7 @@ const onSearchSymbol = jest.fn()
 const label = 'Search name or paste contract address'
 const placeholder = 'Select a token'
 
-describe('TokenSelect', () => {
+describe('TokenSelectV2', () => {
   beforeEach(() => {
     render(
       <TokenSelectV2
@@ -38,7 +38,7 @@ describe('TokenSelect', () => {
     )
   })
 
-  it('Opens modal on input press', async () => {
+  it('opens modal on input press', async () => {
     const selectInput = await screen.findByTestId('tokenSelectInput')
     expect(selectInput).toBeDefined()
     fireEvent.press(selectInput)
@@ -46,7 +46,7 @@ describe('TokenSelect', () => {
     expect(searchInput).toBeDefined()
   })
 
-  it('Close modal on close button press', async () => {
+  it('closes modal on close button press', async () => {
     const selectInput = await screen.findByTestId('tokenSelectInput')
     expect(selectInput).toBeDefined()
     fireEvent.press(selectInput)
@@ -82,6 +82,11 @@ describe('TokenSelect', () => {
   })
 
   it('filters by address', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 
@@ -98,6 +103,11 @@ describe('TokenSelect', () => {
   })
 
   it('filters by symbol', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 
@@ -114,6 +124,11 @@ describe('TokenSelect', () => {
   })
 
   it('filters by name', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 
@@ -129,7 +144,12 @@ describe('TokenSelect', () => {
     expect(screen.queryByTestId('tokenSelectOption__usdc')).toBeDefined()
   })
 
-  it('Shows no found message', async () => {
+  it('shows no found message', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     fireEvent.changeText(searchInput, 'no coin')
     const notFoundText = await screen.findByTestId('notFoundText')
@@ -137,6 +157,11 @@ describe('TokenSelect', () => {
   })
 
   it('shows label and placeholder', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const placeHolderText = await screen.findByText(placeholder)
     const labelText = await screen.findByText(label)
     expect(placeHolderText).toBeDefined()
@@ -144,6 +169,11 @@ describe('TokenSelect', () => {
   })
 
   it('calls onSearchContract when search input is a valid contract address', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 
@@ -154,6 +184,11 @@ describe('TokenSelect', () => {
   })
 
   it('calls onSearchSymbol when search is valid', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 

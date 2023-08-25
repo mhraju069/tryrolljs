@@ -1,8 +1,7 @@
-import { useBreakpointValue } from 'native-base'
 import { useCallback, useMemo, useRef } from 'react'
 import { LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native'
 import { TypographyV2 } from '../../atoms/typographyV2'
-import { useThemeV2 } from '../../hooks'
+import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container, margin, spacing } from '../../styles'
 
 const STEP_INDEX_SIZE = spacing[24]

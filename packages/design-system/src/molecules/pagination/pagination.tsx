@@ -37,14 +37,14 @@ const Pagination = ({
           size="medium"
           variant="text"
           title="Prev"
-          isDisabled={pageIndex === 0}
+          disabled={pageIndex === 0}
           onPress={onPrev}
         />
         <ButtonV2
           size="medium"
           variant="text"
           title="Next"
-          isDisabled={pageIndex === pageCount - 1}
+          disabled={pageIndex === pageCount - 1}
           onPress={onNext}
         />
       </View>

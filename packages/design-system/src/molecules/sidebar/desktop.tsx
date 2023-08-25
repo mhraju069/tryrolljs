@@ -1,5 +1,4 @@
-import { FlatList } from 'native-base'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View, FlatList } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, layer, margin, spacing } from '../../styles'
 import { SidebarOption } from '../sidebarOption'
@@ -81,8 +80,6 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
           <View style={[margin.mb40, container.fullWidth]}>{header}</View>
         )}
         <FlatList
-          overflowX="visible"
-          overflowY="visible"
           style={[container.fullWidth]}
           data={sections}
           keyExtractor={(section) => `${section.id}`}
@@ -90,8 +87,6 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
           renderItem={({ item: section }) => (
             <FlatList
               style={[container.fullWidth]}
-              overflowX="visible"
-              overflowY="visible"
               data={section.options}
               keyExtractor={(option) => option.id}
               ItemSeparatorComponent={OptionsSeparator}

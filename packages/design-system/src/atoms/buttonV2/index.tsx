@@ -1,7 +1,7 @@
-import { Pressable, useBreakpointValue } from 'native-base'
 import { useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useThemeV2 } from '../../hooks'
+import { Pressable } from '@gluestack-ui/react'
+import { useBreakpointValue, useThemeV2 } from '../../hooks'
 import {
   container,
   FONT_SIZE_BUTTON_LARGE,
@@ -22,8 +22,8 @@ import {
   iconBasedOnSize,
   Size,
   SizeProps,
+  StyleByStateProps,
   Variant,
-  VariantProps,
 } from './types'
 
 const BaseButton = ({
@@ -31,18 +31,15 @@ const BaseButton = ({
   variant = 'primary',
   title,
   tooltip,
-  rest,
-  hover,
-  disabled,
-  active,
+  state,
   paddingHorizontal,
   paddingVertical,
   borderRadius,
   size = 'medium',
   icon,
   iconVariant,
-  isDisabled = false,
-  isLoading = false,
+  disabled = false,
+  loading = false,
   iconColor,
   iconBackgroundColor,
   onPress,
@@ -57,13 +54,19 @@ const BaseButton = ({
   })
 
   const stylesBasedOnState = useMemo(() => {
-    if (isDisabled || isLoading) return disabled
-    if (isActive) return active
-    if (isHover) return hover
-    return rest
-  }, [isDisabled, isLoading, isActive, isHover, rest, active, hover, disabled])
+    if (disabled || loading) {
+      return state.disabled
+    }
+    if (isActive) {
+      return state.active
+    }
+    if (isHover) {
+      return state.hover
+    }
+    return state.idle
+  }, [disabled, loading, isActive, isHover, state])
 
-  const isUnderlined = variant === 'text' && isHover && !isDisabled
+  const isUnderlined = variant === 'text' && isHover && !disabled
 
   const finalTextColor = textColor || stylesBasedOnState.textColor
 
@@ -92,34 +95,25 @@ const BaseButton = ({
 
   const paddingY = useMemo(() => {
     if (isActive) {
-      return paddingVertical - active.borderWidth
+      return paddingVertical - state.active.borderWidth
     }
     if (isHover) {
-      return paddingVertical - hover.borderWidth
+      return paddingVertical - state.hover.borderWidth
     }
-    return paddingVertical - rest.borderWidth
-  }, [paddingVertical, isActive, isHover, active, hover, rest])
+    return paddingVertical - state.idle.borderWidth
+  }, [paddingVertical, isActive, isHover, state])
 
   const paddingX = useMemo(() => {
     // Icon buttons are always square so we only need to check for paddingVertical
     const padding = variant === 'icon' ? paddingVertical : paddingHorizontal
     if (isActive) {
-      return padding - active.borderWidth
+      return padding - state.active.borderWidth
     }
     if (isHover) {
-      return padding - hover.borderWidth
+      return padding - state.hover.borderWidth
     }
-    return padding - rest.borderWidth
-  }, [
-    paddingHorizontal,
-    isActive,
-    isHover,
-    active,
-    hover,
-    variant,
-    paddingVertical,
-    rest,
-  ])
+    return padding - state.idle.borderWidth
+  }, [paddingHorizontal, isActive, isHover, state, variant, paddingVertical])
 
   const fontBasedOnVariantAndSize: TypographyVariant =
     variant === 'text' && size === 'large'
@@ -130,40 +124,41 @@ const BaseButton = ({
   const button = (
     <Pressable
       testID={testID}
-      isDisabled={isLoading || isDisabled}
+      disabled={loading || disabled}
       onHoverIn={() => setIsHover(true)}
       onHoverOut={() => setIsHover(false)}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
       onPress={onPress}
-      isHovered={isHover}
       // Styles
       position="relative"
       alignItems="center"
       justifyContent="center"
-      paddingX={`${paddingX}px`}
-      paddingY={`${paddingY}px`}
+      paddingHorizontal={paddingX}
+      paddingVertical={paddingY}
       borderRadius={borderRadius}
       borderColor={stylesBasedOnState.borderColor}
-      borderWidth={rest.borderWidth}
+      borderWidth={state.idle.borderWidth}
       backgroundColor={
         iconBackgroundColor || stylesBasedOnState.backgroundColor
       }
       flexDirection="row"
-      _hover={{
-        borderColor: hover.borderColor,
-        borderWidth: hover.borderWidth,
-      }}
-      _focus={{
-        backgroundColor: iconBackgroundColor || active.backgroundColor,
-      }}
-      _pressed={{
-        borderColor: active.borderColor,
-        borderWidth: active.borderWidth,
-        backgroundColor: iconBackgroundColor || active.backgroundColor,
+      sx={{
+        ':hover': {
+          borderColor: state.hover.borderColor,
+          borderWidth: state.hover.borderWidth,
+        },
+        ':focus': {
+          backgroundColor: iconBackgroundColor || state.active.backgroundColor,
+        },
+        ':active': {
+          borderColor: state.active.borderColor,
+          borderWidth: state.active.borderWidth,
+          backgroundColor: iconBackgroundColor || state.active.backgroundColor,
+        },
       }}
     >
-      {isLoading ? (
+      {loading ? (
         <Spinner size={lineHeight} color={stylesBasedOnState.textColor} />
       ) : (
         <>
@@ -209,12 +204,12 @@ const BaseButton = ({
   )
 }
 
-const useVariantsProps = (variant: Variant): VariantProps => {
+const useStyleByState = (variant: Variant): StyleByStateProps['state'] => {
   const theme = useThemeV2()
   switch (variant) {
     case 'primary': {
       return {
-        rest: {
+        idle: {
           textColor: theme.text.white[100],
           backgroundColor: theme.base.primary[100],
           borderColor: theme.base.transparent,
@@ -242,7 +237,7 @@ const useVariantsProps = (variant: Variant): VariantProps => {
     }
     case 'secondary': {
       return {
-        rest: {
+        idle: {
           textColor: theme.text.black[100],
           backgroundColor: theme.base.transparent,
           borderColor: theme.base.primary[100],
@@ -270,7 +265,7 @@ const useVariantsProps = (variant: Variant): VariantProps => {
     }
     case 'tertiary': {
       return {
-        rest: {
+        idle: {
           textColor: theme.text.black[100],
           backgroundColor: 'transparent',
           borderColor: theme.base.primary[10],
@@ -298,7 +293,7 @@ const useVariantsProps = (variant: Variant): VariantProps => {
     }
     case 'text': {
       return {
-        rest: {
+        idle: {
           textColor: theme.text.black[100],
           backgroundColor: 'transparent',
           borderColor: 'transparent',
@@ -326,7 +321,7 @@ const useVariantsProps = (variant: Variant): VariantProps => {
     }
     case 'icon': {
       return {
-        rest: {
+        idle: {
           textColor: theme.text.black[100],
           backgroundColor: 'transparent',
           borderColor: theme.base.primary[10],
@@ -402,9 +397,9 @@ export const ButtonV2 = ({
     base: size === 'large' ? 'medium' : size,
     xl: size,
   })
-  const variantProps = useVariantsProps(variant)
+  const styleByState = useStyleByState(variant)
   const sizeProps = useSizeProps(responsiveSize)
-  const baseButtonProps = { ...variantProps, ...sizeProps }
+  const baseButtonProps = { state: styleByState, ...sizeProps }
 
   return (
     <BaseButton

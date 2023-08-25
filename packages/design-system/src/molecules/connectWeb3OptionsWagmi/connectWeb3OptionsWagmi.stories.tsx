@@ -1,9 +1,8 @@
-import { titleBuilder } from '../../../.storybook/utils'
 import { Web3ProviderWagmi } from '../../providers'
 import { ConnectWeb3OptionsWagmi } from '.'
 
 const conf = {
-  title: titleBuilder.molecules('ConnectWeb3OptionsWagmi'),
+  title: 'Design System/Molecules/ConnectWeb3OptionsWagmi',
   component: ConnectWeb3OptionsWagmi,
 }
 

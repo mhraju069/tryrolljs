@@ -42,7 +42,7 @@ export const Web3Button: React.FC<Web3ButtonProps> = ({
       {...buttonProps}
       title={title}
       icon={icon}
-      isDisabled={isOpen}
+      disabled={isOpen}
       onPress={handleConnect}
     />
   )

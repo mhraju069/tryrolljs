@@ -1,9 +1,8 @@
-import { titleBuilder } from '../../../.storybook/utils'
 import { Header } from '../typography'
 import { Anchor } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('Anchor'),
+  title: 'Design System/Atoms/Anchor',
   component: Anchor,
 }
 

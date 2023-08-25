@@ -1,5 +1,5 @@
-import { useBreakpointValue } from 'native-base'
 import { Platform } from 'react-native'
+import { useBreakpointValue } from '../../hooks'
 import { DesktopSidebar } from './desktop'
 import { MobileSidebar } from './mobile'
 import { SidebarProps } from './types'

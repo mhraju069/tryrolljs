@@ -1,11 +1,11 @@
 import { View } from 'react-native'
-import { titleBuilder, fromTemplate } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Icon } from '../icon'
 import { container } from '../../styles'
 import { TooltipV2, TooltipV2Props } from '.'
 
 const storyConfig = {
-  title: titleBuilder.atoms('TooltipV2'),
+  title: 'Design System/Atoms/TooltipV2',
   component: TooltipV2,
 }
 

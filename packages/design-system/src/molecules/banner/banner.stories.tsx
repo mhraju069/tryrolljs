@@ -1,8 +1,8 @@
-import { fromTemplate, titleBuilder } from '../../../.storybook/utils'
+import { fromTemplate } from '../../../.storybook/utils'
 import { Banner, BannerProps } from '.'
 
 const storyConfig = {
-  title: titleBuilder.molecules('Banner'),
+  title: 'Design System/Molecules/Banner',
   component: Banner,
 }
 
