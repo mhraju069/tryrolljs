@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/design-system",
   "description": "Shared components for Roll applications",
-  "version": "2.11.0",
+  "version": "3.0.0",
   "main": "dist/web/cjs/index.js",
   "module": "dist/web/esm/index.js",
   "files": [

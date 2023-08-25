@@ -1,5 +1,25 @@
 # @roll-network/design-system
 
+## 3.0.0
+
+### Major Changes
+
+- [#448](https://github.com/roll-network/tryrolljs/pull/448) [`8f3b31c`](https://github.com/roll-network/tryrolljs/commit/8f3b31cc8de75927a07e5aa7d69341411a9f7894) Thanks [@teimurjan](https://github.com/teimurjan)! - Migrate from native-base to gluestack-ui
+
+  BREAKING CHANGES:
+
+  - ButtonV2
+    - Change `isDisabled` to `disabled`
+    - Change `isLoading` to `loading`
+  - Spinner
+    - Size prop is updated to `size?: 'small' | 'large' | number`
+  - Toast & ToastV2
+    - Toasts should now be called via `useToast` hook instead of `Toast.show`
+  - Modal
+    - Size prop is updated to `size?: 'xs' | 'sm' | 'md' | 'lg' | 'full'`
+  - useClipboard
+    - The hook return value is changed from `{ onCopy }` to `{ copy, paste }`
+
 ## 2.11.0
 
 ### Minor Changes
