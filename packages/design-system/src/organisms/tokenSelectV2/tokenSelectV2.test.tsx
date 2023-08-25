@@ -169,6 +169,11 @@ describe('TokenSelectV2', () => {
   })
 
   it('calls onSearchContract when search input is a valid contract address', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 
@@ -179,6 +184,11 @@ describe('TokenSelectV2', () => {
   })
 
   it('calls onSearchSymbol when search is valid', async () => {
+    const selectInput = await screen.findByTestId('tokenSelectInput')
+    expect(selectInput).toBeDefined()
+
+    fireEvent.press(selectInput)
+
     const searchInput = await screen.findByTestId('tokenSelectSearchInput')
     expect(searchInput).toBeDefined()
 

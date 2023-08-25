@@ -40,7 +40,7 @@ const styles = makeStyles({
   },
 })
 
-export const Modal = ({ isOpen, children, onClose }: ModalProps) => {
+export const Modal = ({ isOpen, children, onClose, testID }: ModalProps) => {
   const { width, height } = useWindowDimensions()
   return (
     <RNModal
@@ -48,6 +48,7 @@ export const Modal = ({ isOpen, children, onClose }: ModalProps) => {
       transparent
       visible={isOpen}
       onRequestClose={onClose}
+      testID={testID}
     >
       <View style={[container.center, { width, height }]}>
         <Pressable

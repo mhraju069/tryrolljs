@@ -143,11 +143,7 @@ const AvatarPicker: FC<AvatarPickerProps> = ({
         )}
 
         {image && (
-          <Modal
-            isOpen={isPreview}
-            onClose={handlePreviewClose}
-            testID="previewModal"
-          >
+          <Modal isOpen={isPreview} onClose={handlePreviewClose}>
             <Modal.Content style={[container.center, padding.p16]}>
               <AvatarEditor
                 ref={editorRef}

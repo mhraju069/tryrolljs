@@ -64,6 +64,7 @@ export const Modal = ({
   children,
   onClose,
   size = 'md',
+  testID,
 }: ModalProps) => {
   const { refs, context } = useFloating({
     open: isOpen,
@@ -98,6 +99,7 @@ export const Modal = ({
             aria-labelledby={labelId}
             aria-describedby={descriptionId}
             style={{ width: widthBySize[size] }}
+            data-testid={testID}
             {...getFloatingProps()}
           >
             {children}
