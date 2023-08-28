@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.0.2
+
+### Patch Changes
+
+- [#457](https://github.com/roll-network/tryrolljs/pull/457) [`703f955`](https://github.com/roll-network/tryrolljs/commit/703f9558cd6311bb8bbce403c3012d5d3fe8123b) Thanks [@teimurjan](https://github.com/teimurjan)! - Add safe area provider to TryrollProvider
+
 ## 3.0.1
 
 ### Patch Changes
