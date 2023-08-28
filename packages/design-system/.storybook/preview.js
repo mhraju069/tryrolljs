@@ -1,4 +1,3 @@
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TryrollProvider } from '../src/providers'
 import { injectFonts, injectFontsV2 } from '../src/styles'
 
@@ -18,10 +17,8 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <SafeAreaProvider>
-      <TryrollProvider>
-        <Story />
-      </TryrollProvider>
-    </SafeAreaProvider>
+    <TryrollProvider>
+      <Story />
+    </TryrollProvider>
   ),
 ]

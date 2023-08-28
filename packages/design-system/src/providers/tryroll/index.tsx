@@ -1,14 +1,17 @@
 import { GluestackUIProvider, config } from '@gluestack-ui/react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { PropsWithChildren } from 'react'
 import { ThemeProvider } from '../theme'
 import { ThemeProviderV2 } from '../themeV2'
 
 export const TryrollProvider = ({ children }: PropsWithChildren<{}>) => (
-  <GluestackUIProvider config={config.theme}>
-    <ThemeProvider>
-      <ThemeProviderV2>{children}</ThemeProviderV2>
-    </ThemeProvider>
-  </GluestackUIProvider>
+  <SafeAreaProvider>
+    <GluestackUIProvider config={config.theme}>
+      <ThemeProvider>
+        <ThemeProviderV2>{children}</ThemeProviderV2>
+      </ThemeProvider>
+    </GluestackUIProvider>
+  </SafeAreaProvider>
 )
 
 const inset = {
