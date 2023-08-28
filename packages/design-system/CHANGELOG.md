@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.0.1
+
+### Patch Changes
+
+- [#455](https://github.com/roll-network/tryrolljs/pull/455) [`ab79fca`](https://github.com/roll-network/tryrolljs/commit/ab79fcadb61a9bf1a0379afe5d791ebee60e0ac4) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export AccountInfoDropdown component
+
 ## 3.0.0
 
 ### Major Changes
