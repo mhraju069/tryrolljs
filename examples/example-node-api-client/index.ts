@@ -102,7 +102,7 @@ async function main() {
       try {
         await actionByChoice[answers.option as Choice]()
       } catch (error) {
-        logger.fatal((error as Error).toString())
+        logger.fatal(JSON.stringify(error as Error))
       }
 
       promptOptionsAgain()

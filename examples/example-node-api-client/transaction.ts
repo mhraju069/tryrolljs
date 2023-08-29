@@ -43,7 +43,7 @@ export const sendFromPlatformUser = async () => {
       },
     ])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -102,7 +102,7 @@ export const multiSendFromPlatformUser = async () => {
       },
     ])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -130,7 +130,7 @@ export const getMultiSendById = async () => {
       },
     ])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -173,7 +173,7 @@ export const getMultiSendSummary = async () => {
       printTable(response.failure)
     }
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -217,6 +217,6 @@ export const getMultisendTransactions = async () => {
       })),
     )
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
