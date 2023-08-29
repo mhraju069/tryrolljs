@@ -31,7 +31,7 @@ export const getUser = async () => {
       },
     ])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -63,7 +63,7 @@ export const createPlatformUser = async () => {
 
     printTable([response])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -104,7 +104,7 @@ export const loginPlatformUser = async () => {
 
     printTable([credentials.user])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -122,7 +122,7 @@ export const loginMultiplePlatformUsers = async () => {
         {
           type: 'input',
           name: 'userId',
-          message: 'Roll UserID',
+          message: 'Platform roll UserID',
         },
         {
           type: 'confirm',
@@ -171,10 +171,16 @@ export const loginMultiplePlatformUsers = async () => {
         sdkPool.getSDK(InteractionType.MasqueradeToken).getCredentials(userId),
       ),
     )
-
-    printTable(usersFromSdk)
+    printTable(
+      usersFromSdk.map((userFromSdk) => ({
+        userId: userFromSdk?.id,
+        username: userFromSdk?.user?.username,
+        token: userFromSdk?.token.access_token,
+        interactionType: userFromSdk?.interactionType,
+      })),
+    )
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -204,6 +210,6 @@ export const getPlatformUserDepositAddress = async () => {
 
     printTable([response])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }

@@ -42,16 +42,20 @@ export const getTokenList = async () => {
       clientPool.getClient(InteractionType.ClientCredentials).call,
       answers,
     )
-    printTable(
-      response.rows.map((row) => ({
-        id: row.uuid,
-        symbol: row.symbol,
-        contractAddress: row.contractAddress,
-      })),
-    )
+    if (response.rows.length === 0) {
+      logger.info('No tokens found')
+    } else {
+      printTable(
+        response.rows.map((row) => ({
+          id: row.uuid,
+          symbol: row.symbol,
+          contractAddress: row.contractAddress,
+        })),
+      )
+    }
     logger.info(`Total rows: ${response.totalRows}`)
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
 
@@ -81,6 +85,6 @@ export const getTokenCreator = async () => {
       },
     ])
   } catch (error) {
-    logger.fatal((error as Error).toString())
+    logger.fatal(JSON.stringify(error as Error))
   }
 }
