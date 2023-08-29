@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.0.3
+
+### Patch Changes
+
+- [#460](https://github.com/roll-network/tryrolljs/pull/460) [`0587b03`](https://github.com/roll-network/tryrolljs/commit/0587b03517ff77b94cb04027167a7365c216ec66) Thanks [@nsstarr](https://github.com/nsstarr)! - Export useEthersSigner hook
+
 ## 3.0.2
 
 ### Patch Changes
