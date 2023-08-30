@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
 import { MobileSidebar } from '../sidebar/mobile'
 import { useBreakpointValue } from '../../hooks'
+import { container } from '../../styles'
 import { DesktopHeader } from './desktop'
 import { HeaderProps } from './types'
 
@@ -13,7 +14,7 @@ export const HeaderV2: React.FC<HeaderProps & PropsWithChildren> = ({
   const isMobile = useBreakpointValue({ base: true, xl: false })
   if (isMobile) {
     return (
-      <View>
+      <View style={[container.flex1]}>
         <MobileSidebar
           {...props}
           header={mobileSidebarHeader}
