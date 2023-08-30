@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.0.4
+
+### Patch Changes
+
+- [#463](https://github.com/roll-network/tryrolljs/pull/463) [`49bcff7`](https://github.com/roll-network/tryrolljs/commit/49bcff7adf8ffdc3b94917f8a6e805f0961dbae1) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Fix height on mobile for layout and header components
+
 ## 3.0.3
 
 ### Patch Changes
