@@ -32,7 +32,7 @@ export const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
     <>
       {Platform.select({
         native: (
-          <View>
+          <View style={[container.flex1]}>
             <Sidebar {...sidebarProps} />
             <ScrollView>{children}</ScrollView>
           </View>
@@ -40,7 +40,7 @@ export const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
         web: (
           <>
             {isMobile ? (
-              <View>
+              <View style={[container.flex1]}>
                 <Sidebar {...sidebarProps} />
                 {children}
               </View>
