@@ -29,7 +29,7 @@ export default class RequestManager {
 
     this.queue = this.makeQueue()
 
-    this.axios = getAxiosInstance()
+    this.axios = getAxiosInstance(config.redactErrorData)
 
     this.userId = userId
   }

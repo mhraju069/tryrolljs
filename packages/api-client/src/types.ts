@@ -9,6 +9,7 @@ export interface Request {
 export interface Config {
   baseUrl?: string
   headers?: Record<string, unknown>
+  redactErrorData?: boolean
 }
 
 export enum BlockState {
