@@ -7,11 +7,12 @@ import {
   useId,
   FloatingOverlay,
   FloatingFocusManager,
+  FloatingPortal,
 } from '@floating-ui/react'
 import { Pressable } from '@gluestack-ui/react'
 import { View, useWindowDimensions } from 'react-native'
 import { Body, LargeHeader } from '../../atoms'
-import { useTheme } from '../../hooks'
+import { useBreakpointValue, useTheme } from '../../hooks'
 import {
   container,
   layer,
@@ -71,6 +72,10 @@ export const Modal = ({
     onOpenChange: onClose,
   })
   const { height, width } = useWindowDimensions()
+  const isMobile = useBreakpointValue({
+    base: true,
+    xl: false,
+  })
 
   const click = useClick(context)
   const dismiss = useDismiss(context, {
@@ -85,27 +90,34 @@ export const Modal = ({
 
   return (
     isOpen && (
-      <FloatingOverlay
-        lockScroll
-        style={{
-          height,
-          width,
-          ...backdropStyles,
-        }}
-      >
-        <FloatingFocusManager context={context}>
-          <div
-            ref={refs.setFloating}
-            aria-labelledby={labelId}
-            aria-describedby={descriptionId}
-            style={{ width: widthBySize[size] }}
-            data-testid={testID}
-            {...getFloatingProps()}
-          >
-            {children}
-          </div>
-        </FloatingFocusManager>
-      </FloatingOverlay>
+      <FloatingPortal>
+        <FloatingOverlay
+          lockScroll
+          style={{
+            height,
+            width,
+            ...backdropStyles,
+          }}
+        >
+          <FloatingFocusManager context={context}>
+            <div
+              ref={refs.setFloating}
+              aria-labelledby={labelId}
+              aria-describedby={descriptionId}
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                width: isMobile ? widthBySize.lg : widthBySize[size],
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+              data-testid={testID}
+              {...getFloatingProps()}
+            >
+              {children}
+            </div>
+          </FloatingFocusManager>
+        </FloatingOverlay>
+      </FloatingPortal>
     )
   )
 }

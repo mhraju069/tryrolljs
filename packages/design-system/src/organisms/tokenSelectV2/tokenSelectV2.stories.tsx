@@ -16,6 +16,12 @@ export const Default = fromTemplate(Template, {
     { name: 'Ether', symbol: 'ETH', value: 'ETH', address: '0x00' },
     { name: 'Wrapped Ether', symbol: 'WETH', value: 'WETH', address: '0x01' },
     { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
+    { name: 'USD Coin', symbol: 'USDC', value: 'USDC', address: '0x02' },
   ],
 })
 
