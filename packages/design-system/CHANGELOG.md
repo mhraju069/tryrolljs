@@ -1,5 +1,17 @@
 # @roll-network/design-system
 
+## 3.0.5
+
+### Patch Changes
+
+- [#466](https://github.com/roll-network/tryrolljs/pull/466) [`21dac03`](https://github.com/roll-network/tryrolljs/commit/21dac03db2611790b0166a9b0bfcfa87ba8ba772) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Fix Modal and TokenSelectV2 component
+
+  - add max height on TokenSelectV2
+  - add max width on TokenSelectV2
+  - use portal on Modal to prevent other elements to show on top of it
+  - center elements horizontally on Modal
+  - on mobile alway use lg size for Modal
+
 ## 3.0.4
 
 ### Patch Changes
