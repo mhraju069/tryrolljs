@@ -16,9 +16,12 @@ export const concatBaseAndRelativeUrls = (
   return `${baseUrl}/${relativeUrl}`
 }
 
-export const getAxiosInstance = () => {
+export const getAxiosInstance = (shouldRedactErrorData = true) => {
   const axiosInstance = axios.create()
-  axiosInstance.interceptors.response.use(undefined, getErrorInterceptor())
+
+  if (shouldRedactErrorData) {
+    axiosInstance.interceptors.response.use(undefined, getErrorInterceptor())
+  }
 
   return axiosInstance
 }
