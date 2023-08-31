@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.0.6
+
+### Patch Changes
+
+- [#470](https://github.com/roll-network/tryrolljs/pull/470) [`ec7a372`](https://github.com/roll-network/tryrolljs/commit/ec7a372c0ae19d2dedeb0d1e6ada644d5f2e5b3a) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Added new set of solid icons
+
 ## 3.0.5
 
 ### Patch Changes
