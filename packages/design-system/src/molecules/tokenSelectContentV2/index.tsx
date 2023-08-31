@@ -13,6 +13,9 @@ import {
   TokenSelectOptionV2Type,
 } from '../../atoms/tokenSelectOptionV2'
 
+const TOKEN_SELECT_CONTENT_HEIGHT = 552
+const TOKEN_SELECT_CONTENT_WIDTH = 380
+
 export interface TokenSelectContentV2Props {
   defaultValue?: string
   closable?: boolean
@@ -103,7 +106,12 @@ export const TokenSelectContentV2: React.FC<TokenSelectContentV2Props> = ({
         padding.pv24,
         container.fullWidth,
         container.flex1,
-        { backgroundColor: theme.background.white },
+        container.borderRadius2XL,
+        {
+          backgroundColor: theme.background.white,
+          maxHeight: TOKEN_SELECT_CONTENT_HEIGHT,
+          maxWidth: TOKEN_SELECT_CONTENT_WIDTH,
+        },
       ]}
     >
       <View
