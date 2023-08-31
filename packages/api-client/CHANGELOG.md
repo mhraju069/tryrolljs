@@ -1,5 +1,11 @@
 # @roll-network/api-client
 
+## 3.0.1
+
+### Patch Changes
+
+- [#468](https://github.com/roll-network/tryrolljs/pull/468) [`91aaa51`](https://github.com/roll-network/tryrolljs/commit/91aaa51debda6b1dee5cb5b15f9e188aa38343cd) Thanks [@teimurjan](https://github.com/teimurjan)! - Make redact error configurable
+
 ## 3.0.0
 
 ### Major Changes
