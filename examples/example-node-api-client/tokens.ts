@@ -1,16 +1,14 @@
 import { token } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
-import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
+import { InteractionType } from '@roll-network/auth-sdk'
 import inquirer from 'inquirer'
 import config from './config.js'
 import logger from './logger.js'
+import { generateClientPool } from './utils.js'
 
 export const getTokenList = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
 
     const answers = await inquirer.prompt([
       {
@@ -61,9 +59,7 @@ export const getTokenList = async () => {
 
 export const getTokenCreator = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
 
     const answers = await inquirer.prompt([
       {

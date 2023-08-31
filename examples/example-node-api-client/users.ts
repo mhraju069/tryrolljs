@@ -1,16 +1,14 @@
 import { user } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
+import { InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
 import logger from './logger.js'
+import { generateClientPool } from './utils.js'
 
 export const getUser = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -37,9 +35,7 @@ export const getUser = async () => {
 
 export const createPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(platformUserConfig)
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -69,9 +65,7 @@ export const createPlatformUser = async () => {
 
 export const loginPlatformUser = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool, sdkPool } = await generateClientPool(platformUserConfig)
 
     const answers = await inquirer.prompt([
       {
@@ -110,9 +104,7 @@ export const loginPlatformUser = async () => {
 
 export const loginMultiplePlatformUsers = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool, sdkPool } = await generateClientPool(platformUserConfig)
 
     const userIds = []
     let enterUserIdAgain = true
@@ -186,9 +178,7 @@ export const loginMultiplePlatformUsers = async () => {
 
 export const getPlatformUserDepositAddress = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(platformUserConfig)
 
     const answers = await inquirer.prompt([
       {

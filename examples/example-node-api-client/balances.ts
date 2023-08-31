@@ -1,16 +1,15 @@
 import { user } from '@roll-network/api'
 import { printTable } from 'console-table-printer'
 import inquirer from 'inquirer'
-import { ClientPool } from '@roll-network/api-client'
-import { SDKPool, InteractionType } from '@roll-network/auth-sdk'
+import { InteractionType } from '@roll-network/auth-sdk'
 import config, { platformUserConfig } from './config.js'
 import logger from './logger.js'
+import { generateClientPool } from './utils.js'
 
 export const getUserBalances = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -40,9 +39,8 @@ export const getUserBalances = async () => {
 
 export const getUserTokenBalance = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -73,9 +71,8 @@ export const getUserTokenBalance = async () => {
 
 export const hasBalance = async () => {
   try {
-    const sdkPool = new SDKPool(config)
-    await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(config)
+
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -109,9 +106,7 @@ export const hasBalance = async () => {
 
 export const getPlatformUserTokenBalance = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(platformUserConfig)
 
     const answers = await inquirer.prompt([
       {
@@ -148,9 +143,7 @@ export const getPlatformUserTokenBalance = async () => {
 
 export const getPlatformUserTokenBalances = async () => {
   try {
-    const sdkPool = new SDKPool(platformUserConfig)
-    sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-    const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+    const { clientPool } = await generateClientPool(platformUserConfig)
 
     const answers = await inquirer.prompt([
       {
