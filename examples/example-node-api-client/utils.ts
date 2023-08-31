@@ -2,12 +2,20 @@ import { user } from '@roll-network/api'
 import { ClientPool } from '@roll-network/api-client'
 import { InteractionType, SDKPool } from '@roll-network/auth-sdk'
 import inquirer from 'inquirer'
-import { platformUserConfig } from './config.js'
+import config, { platformUserConfig } from './config.js'
+
+export const generateClientPool = async (config_: typeof config) => {
+  const sdkPool = new SDKPool(config_)
+  await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
+  const clientPool = new ClientPool(
+    { baseUrl: process.env.API_URL, redactErrorData: false },
+    sdkPool,
+  )
+  return { sdkPool, clientPool }
+}
 
 export const generateMasqueradeTokenClient = async () => {
-  const sdkPool = new SDKPool(platformUserConfig)
-  await sdkPool.getSDK(InteractionType.ClientCredentials).generateToken()
-  const clientPool = new ClientPool({ baseUrl: process.env.API_URL }, sdkPool)
+  const { clientPool, sdkPool } = await generateClientPool(platformUserConfig)
 
   const answers = await inquirer.prompt([
     {

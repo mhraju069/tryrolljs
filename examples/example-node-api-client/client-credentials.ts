@@ -12,7 +12,7 @@ export const getClient = async () => {
   try {
     await sdkPool.getSDK(InteractionType.Server).generateToken()
     const clientPool = new ClientPool(
-      { baseUrl: process.env.INTERNAL_API_URL },
+      { baseUrl: process.env.INTERNAL_API_URL, redactErrorData: false },
       sdkPool,
     )
 
@@ -38,7 +38,7 @@ export const getClients = async () => {
   try {
     await sdkPool.getSDK(InteractionType.Server).generateToken()
     const clientPool = new ClientPool(
-      { baseUrl: process.env.INTERNAL_API_URL },
+      { baseUrl: process.env.INTERNAL_API_URL, redactErrorData: false },
       sdkPool,
     )
 
@@ -56,7 +56,7 @@ export const generateClientSecret = async () => {
   try {
     await sdkPool.getSDK(InteractionType.Server).generateToken()
     const clientPool = new ClientPool(
-      { baseUrl: process.env.INTERNAL_API_URL },
+      { baseUrl: process.env.INTERNAL_API_URL, redactErrorData: false },
       sdkPool,
     )
 
