@@ -1,9 +1,8 @@
 import { useWeb3Modal } from '@web3modal/react'
 import { Pressable } from 'react-native'
-import { ButtonV2, CircleImg, Icon } from '../../atoms'
+import { ButtonV2, CircleImg, Icon, ButtonV2Props } from '../../atoms'
 import { useWagmiEthAddress } from '../../hooks'
 import { shortenAddress } from '../../utils'
-import { ButtonV2Props } from '../../atoms/buttonV2/types'
 
 export interface Web3ButtonProps extends Partial<ButtonV2Props> {
   connectedVariant?: 'button' | 'avatar' | 'details'

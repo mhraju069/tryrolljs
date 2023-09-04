@@ -4,7 +4,7 @@ import { fromTemplate } from '../../../.storybook/utils'
 import { container, margin, padding, spacing } from '../../styles'
 import { lightTheme } from '../../styles/themeV2'
 import { InputV2 } from '../inputV2'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 import { InputLayoutProps, InputLayout } from '.'
 
 const storyConfig = {

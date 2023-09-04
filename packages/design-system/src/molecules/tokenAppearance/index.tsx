@@ -1,7 +1,6 @@
 import { Pressable } from '@gluestack-ui/react'
 import { View } from 'react-native'
-import { CircleImg } from '../../atoms'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { CircleImg, TypographyV2 } from '../../atoms'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container, margin } from '../../styles'
 

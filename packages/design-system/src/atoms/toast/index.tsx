@@ -24,6 +24,7 @@ import {
 } from '../../styles'
 import CloseCircle from '../../assets/svg/closeCircle.svg'
 import { Body, Caption } from '../typography'
+import { useClipboard } from '../../hooks'
 
 export type ToastVariant = 'success' | 'error' | 'light' | 'dark' | 'warn'
 
@@ -202,3 +203,23 @@ export const createUseToast = <
 }
 
 export const useToast = createUseToast<ToastProps>(Toast)
+
+export const useClipboardWithToastBase = (
+  useToast_: () => (props: any) => void,
+) => {
+  const { copy } = useClipboard()
+  const toast = useToast_()
+
+  return useCallback(
+    async (text: string) => {
+      await copy(text)
+      toast({
+        title: 'Copied to clipboard',
+        variant: 'success',
+      })
+    },
+    [toast, copy],
+  )
+}
+
+export const useClipboardWithToast = () => useClipboardWithToastBase(useToast)

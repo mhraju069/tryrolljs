@@ -5,7 +5,6 @@ import {
   useNetwork,
   useWalletClient,
 } from 'wagmi'
-
 import { providers } from 'ethers'
 
 export const useWagmiEthAddress = () => {

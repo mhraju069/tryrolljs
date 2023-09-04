@@ -1,8 +1,11 @@
 import { View } from 'react-native'
-import { ButtonV2, CircleImg } from '../../atoms'
-import { TypographyV2 } from '../../atoms/typographyV2'
 import {
+  ButtonV2,
+  CircleImg,
   useClipboardWithToast,
+  TypographyV2,
+} from '../../atoms'
+import {
   useWagmiActiveConnector,
   useWagmiEthAddress,
   useWagmiChainID,

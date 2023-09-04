@@ -13,7 +13,7 @@ const breakpoints: Record<Breakpoint, number> = {
 
 type UseBreakpointValueParam = Partial<Record<Breakpoint, any>>
 
-export function useBreakpointValue(values: UseBreakpointValueParam) {
+export const useBreakpointValue = (values: UseBreakpointValueParam) => {
   const { width } = useWindowDimensions()
   const breakpointOrder: Breakpoint[] = ['2xl', 'xl', 'lg', 'md', 'sm', 'base']
 

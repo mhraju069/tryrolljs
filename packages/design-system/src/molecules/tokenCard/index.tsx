@@ -7,8 +7,8 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
-import { CircleImg, Icon } from '../../atoms'
-import { useClipboardWithToast, useThemeV2 } from '../../hooks'
+import { CircleImg, Icon, useClipboardWithToast } from '../../atoms'
+import { useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
 import CardBlurText from '../../assets/images/card-blur-text.png'
 import { container, margin, padding, roboto } from '../../styles'

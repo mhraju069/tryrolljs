@@ -5,7 +5,7 @@ import { discordInviteUrl, instaUrl, twitterUrl } from '../../constants'
 import { openLink } from '../../utils'
 import { container, margin, padding } from '../../styles'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 
 const LOGO_SIZE = 16
 
