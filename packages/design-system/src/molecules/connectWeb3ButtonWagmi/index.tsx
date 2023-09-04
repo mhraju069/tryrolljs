@@ -1,11 +1,10 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle, View } from 'react-native'
 import { Body, Button, Spinner } from '../../atoms'
-import { useTheme } from '../../hooks'
+import { useTheme, useWagmiEthAddress } from '../../hooks'
 import { shortenAddress } from '../../utils'
 import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
-import { useEthAddress } from '../../hooks/web3Wagmi'
 import { AccountDropdownWagmi } from '../accountDropdownWagmi'
 
 export type HandleWeb3Connect = (c: AbstractConnector) => void
@@ -22,7 +21,7 @@ export const ConnectWeb3ButtonWagmi = ({
   onPress,
   activity,
 }: ConnectWeb3ButtonWagmiProps) => {
-  const address = useEthAddress()
+  const address = useWagmiEthAddress()
   const theme = useTheme()
   if (activity) {
     return (

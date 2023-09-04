@@ -8,24 +8,24 @@ import {
 
 import { providers } from 'ethers'
 
-export const useEthAddress = () => {
+export const useWagmiEthAddress = () => {
   const { address } = useAccount()
   return address
 }
 
-export const useChainID = () => {
+export const useWagmiChainID = () => {
   const { chain } = useNetwork()
   return chain?.id
 }
 
-export const useWeb3Conntectors = () => {
+export const useWagmiWeb3Conntectors = () => {
   const { isConnecting } = useAccount()
   return {
     isActivating: isConnecting,
   }
 }
 
-export const useActiveConnector = () => {
+export const useWagmiActiveConnector = () => {
   const { connector } = useAccount()
   return connector
 }
@@ -43,7 +43,7 @@ function walletClientToSigner(walletClient: WalletClient) {
 }
 
 /** Hook to convert a viem Wallet Client to an ethers.js Signer. */
-export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
+export function useWagmiEthersSigner({ chainId }: { chainId?: number } = {}) {
   const { data: walletClient } = useWalletClient({ chainId })
   return React.useMemo(
     () => (walletClient ? walletClientToSigner(walletClient) : undefined),

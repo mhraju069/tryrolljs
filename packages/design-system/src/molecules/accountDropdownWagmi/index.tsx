@@ -1,12 +1,11 @@
 import { View } from 'react-native'
 import { Body, Anchor } from '../../atoms'
-import { useTheme } from '../../hooks'
+import { useTheme, useWagmiEthAddress } from '../../hooks'
 import { margin, padding, container, makeStyles } from '../../styles'
 import { etherscanAccountUrl, shortenAddress } from '../../utils'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
 import LinkIcon from '../../assets/svg/link.svg'
-import { useEthAddress } from '../../hooks/web3Wagmi'
 
 type Props = {
   onSwitchAccounts?: () => void
@@ -49,7 +48,7 @@ const SwitchAccountLink = ({
 
 export const AccountDropdownWagmi = ({ onSwitchAccounts }: Props) => {
   const theme = useTheme()
-  const address = useEthAddress()
+  const address = useWagmiEthAddress()
   return (
     <View style={[padding.p8, styles.container]}>
       <Body color={theme.text.secondary}>Connected with MetaMask</Body>

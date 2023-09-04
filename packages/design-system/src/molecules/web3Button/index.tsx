@@ -1,7 +1,7 @@
 import { useWeb3Modal } from '@web3modal/react'
 import { Pressable } from 'react-native'
 import { ButtonV2, CircleImg, Icon } from '../../atoms'
-import { useEthAddress } from '../../hooks/web3Wagmi'
+import { useWagmiEthAddress } from '../../hooks'
 import { shortenAddress } from '../../utils'
 import { ButtonV2Props } from '../../atoms/buttonV2/types'
 
@@ -14,7 +14,7 @@ export const Web3Button: React.FC<Web3ButtonProps> = ({
   ...buttonProps
 }) => {
   const { isOpen, open } = useWeb3Modal()
-  const userAddress = useEthAddress()
+  const userAddress = useWagmiEthAddress()
 
   const handleConnect = async () => {
     if (isOpen) return

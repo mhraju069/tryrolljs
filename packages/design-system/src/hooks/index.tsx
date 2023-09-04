@@ -1,4 +1,4 @@
-export { useEthersSigner } from './web3Wagmi'
+export * from './web3Wagmi'
 export * from './theme'
 export * from './themeV2'
 export * from './web3'
