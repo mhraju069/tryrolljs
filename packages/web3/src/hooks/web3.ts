@@ -1,8 +1,9 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
+import { useWeb3Modal } from '@web3modal/react'
 import { useCallback, useContext, useEffect, useMemo } from 'react'
-import { Web3Connectors } from '../web3'
-import { Web3ConnectorsContext } from '../context'
+import { Web3Connectors } from '../connectors'
+import { Web3ConnectorsContext } from '../providers'
 
 const ethEventChainIDChanged = 'chainIdChanged'
 const ethEventChainChanged = 'chainChanged'
@@ -88,3 +89,5 @@ export const useChainID = () => {
 }
 
 export const useWeb3Conntectors = () => useContext(Web3ConnectorsContext)
+
+export { useWeb3Modal }

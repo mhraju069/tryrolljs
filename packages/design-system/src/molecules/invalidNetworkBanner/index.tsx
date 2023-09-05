@@ -1,5 +1,4 @@
-import { useChainID } from '../../hooks'
-import { SUPPORTED_CHAIN_IDS } from '../../web3'
+import { useChainID, SUPPORTED_CHAIN_IDS } from '@roll-network/web3'
 import { Banner } from '../banner'
 
 export type InvalidNetworkBannerProps = {

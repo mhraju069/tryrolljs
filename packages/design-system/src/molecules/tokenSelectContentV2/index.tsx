@@ -2,6 +2,7 @@ import { Divider, Pressable } from '@gluestack-ui/react'
 import { FlatList, View } from 'react-native'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
+import { isAddress } from '@roll-network/web3'
 import {
   Icon,
   Spinner,
@@ -11,7 +12,6 @@ import {
 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
-import { isAddress } from '../../utils'
 import { InputV2 } from '../inputV2'
 
 const TOKEN_SELECT_CONTENT_HEIGHT = 552

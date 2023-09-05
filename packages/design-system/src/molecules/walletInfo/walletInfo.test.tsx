@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native'
+import { CHAIN_ID_MAIN_NET, shortenAddress } from '@roll-network/web3'
 import { TryrollTestProvider } from '../../providers'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
 import * as utils from '../../utils'
 import { WalletInfo } from '.'
 
@@ -12,8 +12,8 @@ jest.mock('../../utils', () => ({
 }))
 
 // Mock the web3 provider
-jest.mock('../../hooks', () => ({
-  ...jest.requireActual('../../hooks'),
+jest.mock('@roll-network/web3', () => ({
+  ...jest.requireActual('@roll-network/web3'),
   useWagmiActiveConnector: () => ({
     name: 'MetaMask',
   }),
@@ -28,7 +28,7 @@ describe('WalletInfo', () => {
     })
   })
   it('renders short address', async () => {
-    const shortAddress = utils.shortenAddress(TOKEN_ADDRESS)
+    const shortAddress = shortenAddress(TOKEN_ADDRESS)
     const address = await screen.findByText(shortAddress)
     expect(address).toBeDefined()
   })

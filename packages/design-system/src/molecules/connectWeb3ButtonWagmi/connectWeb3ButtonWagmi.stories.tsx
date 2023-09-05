@@ -1,7 +1,6 @@
 import { useState } from 'react'
+import { CHAIN_ID_MAIN_NET, Web3ProviderWagmi } from '@roll-network/web3'
 import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
-import { Web3ProviderWagmi } from '../../providers'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { ConnectWeb3ButtonWagmi, ConnectWeb3ButtonWagmiProps } from '.'
 
 const storyConfig = {

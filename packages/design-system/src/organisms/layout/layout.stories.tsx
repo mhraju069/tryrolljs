@@ -1,3 +1,4 @@
+import { CHAIN_ID_MAIN_NET, Web3ProviderWagmi } from '@roll-network/web3'
 import { fromTemplate } from '../../../.storybook/utils'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
@@ -11,8 +12,6 @@ import {
   stakingTermsUrl,
   twitterUrl,
 } from '../../constants'
-import { Web3ProviderWagmi } from '../../providers'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Layout, LayoutProps } from './index'
 
 const storyConfig = {

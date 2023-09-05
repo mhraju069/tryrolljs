@@ -66,8 +66,8 @@
 <!-- @roll&#45;network/design&#45;system -->
 <g id="node7" class="node">
 <title>@roll&#45;network/design&#45;system</title>
-<path fill="none" stroke="#cfffac" d="M191.83,-187C191.83,-187 15.17,-187 15.17,-187 11.33,-187 7.5,-183.17 7.5,-179.33 7.5,-179.33 7.5,-171.67 7.5,-171.67 7.5,-167.83 11.33,-164 15.17,-164 15.17,-164 191.83,-164 191.83,-164 195.67,-164 199.5,-167.83 199.5,-171.67 199.5,-171.67 199.5,-179.33 199.5,-179.33 199.5,-183.17 195.67,-187 191.83,-187"/>
-<text text-anchor="middle" x="103.5" y="-171.8" font-family="Arial" font-size="14.00" fill="#cfffac">@roll&#45;network/design&#45;system</text>
+<path fill="none" stroke="#cfffac" d="M435.83,-187C435.83,-187 259.17,-187 259.17,-187 255.33,-187 251.5,-183.17 251.5,-179.33 251.5,-179.33 251.5,-171.67 251.5,-171.67 251.5,-167.83 255.33,-164 259.17,-164 259.17,-164 435.83,-164 435.83,-164 439.67,-164 443.5,-167.83 443.5,-171.67 443.5,-171.67 443.5,-179.33 443.5,-179.33 443.5,-183.17 439.67,-187 435.83,-187"/>
+<text text-anchor="middle" x="347.5" y="-171.8" font-family="Arial" font-size="14.00" fill="#cfffac">@roll&#45;network/design&#45;system</text>
 </g>
 <!-- @roll&#45;network/eslint&#45;config -->
 <g id="node8" class="node">
@@ -98,6 +98,18 @@
 <title>@roll&#45;network/prettier&#45;config&#45;&gt;@roll&#45;network/cli</title>
 <path fill="none" stroke="#757575" d="M197.37,-93.5C223.84,-93.5 252.2,-93.5 277.02,-93.5"/>
 <polygon fill="#757575" stroke="#757575" points="277,-97 287,-93.5 277,-90 277,-97"/>
+</g>
+<!-- @roll&#45;network/web3 -->
+<g id="node12" class="node">
+<title>@roll&#45;network/web3</title>
+<path fill="none" stroke="#c6c5fe" d="M164.33,-187C164.33,-187 42.67,-187 42.67,-187 38.83,-187 35,-183.17 35,-179.33 35,-179.33 35,-171.67 35,-171.67 35,-167.83 38.83,-164 42.67,-164 42.67,-164 164.33,-164 164.33,-164 168.17,-164 172,-167.83 172,-171.67 172,-171.67 172,-179.33 172,-179.33 172,-183.17 168.17,-187 164.33,-187"/>
+<text text-anchor="middle" x="103.5" y="-171.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">@roll&#45;network/web3</text>
+</g>
+<!-- @roll&#45;network/web3&#45;&gt;@roll&#45;network/design&#45;system -->
+<g id="edge5" class="edge">
+<title>@roll&#45;network/web3&#45;&gt;@roll&#45;network/design&#45;system</title>
+<path fill="none" stroke="#757575" d="M172.23,-175.5C193.26,-175.5 216.97,-175.5 239.97,-175.5"/>
+<polygon fill="#757575" stroke="#757575" points="239.68,-179 249.68,-175.5 239.68,-172 239.68,-179"/>
 </g>
 </g>
 </svg>

@@ -4,7 +4,7 @@ import {
   CHAIN_ID_MAIN_NET,
   CHAIN_ID_MUMBAI,
   CHAIN_ID_POLYGON,
-} from '../web3'
+} from '../connectors'
 
 export function shortenAddress(address: string, digits: number = 4) {
   if (!isAddress(address)) {

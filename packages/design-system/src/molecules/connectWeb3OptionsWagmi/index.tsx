@@ -1,6 +1,6 @@
 import { Pressable } from '@gluestack-ui/react'
 import { View } from 'react-native'
-import { useConnect } from 'wagmi'
+import { useConnect } from '@roll-network/web3'
 import Close from '../../assets/svg/close.svg'
 import {
   text,

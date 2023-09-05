@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { View } from 'react-native'
+import { Web3ProviderWagmi } from '@roll-network/web3'
 import { fromTemplate } from '../../../.storybook/utils'
 import { ConnectWeb3OptionsWagmi } from '../connectWeb3OptionsWagmi'
-import { Web3ProviderWagmi } from '../../providers'
 import { Web3Button } from '../web3Button'
 import { WalletInfo } from '.'
 

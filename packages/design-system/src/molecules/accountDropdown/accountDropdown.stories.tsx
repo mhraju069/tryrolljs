@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { withWeb3Provider } from '../../hoc'
+import { withWeb3Provider } from '@roll-network/web3'
 import { AccountDropdown } from '.'
 
 const conf = {
