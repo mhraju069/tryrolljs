@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.3.0
+
+### Minor Changes
+
+- [#477](https://github.com/roll-network/tryrolljs/pull/477) [`1ea8311`](https://github.com/roll-network/tryrolljs/commit/1ea83119cadea9d5fe85787faca62f22de9ff61f) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add Hook to convert a viem Public Client to an ethers.js Provider.
+
 ## 3.2.0
 
 ### Minor Changes
