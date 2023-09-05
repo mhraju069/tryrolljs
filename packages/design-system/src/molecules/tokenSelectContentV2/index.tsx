@@ -2,16 +2,17 @@ import { Divider, Pressable } from '@gluestack-ui/react'
 import { FlatList, View } from 'react-native'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
-import { Icon, Spinner, TypographyV2 } from '../../atoms'
-import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
-import { InputV2 } from '..'
-import { isAddress } from '../../utils'
-
 import {
+  Icon,
+  Spinner,
+  TypographyV2,
   TokenSelectOptionV2,
   TokenSelectOptionV2Type,
-} from '../../atoms/tokenSelectOptionV2'
+} from '../../atoms'
+import { useThemeV2 } from '../../hooks'
+import { container, margin, padding } from '../../styles'
+import { isAddress } from '../../utils'
+import { InputV2 } from '../inputV2'
 
 const TOKEN_SELECT_CONTENT_HEIGHT = 552
 const TOKEN_SELECT_CONTENT_WIDTH = 380

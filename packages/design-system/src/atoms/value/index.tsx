@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle, View } from 'react-native'
-import { Body } from '..'
+import { Body } from '../typography'
 import { commafy } from '../../utils'
 import { Tooltip } from '../tooltip'
 

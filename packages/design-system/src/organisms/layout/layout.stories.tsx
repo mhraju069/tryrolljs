@@ -1,7 +1,7 @@
 import { fromTemplate } from '../../../.storybook/utils'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 import { JoinBanner, TokenAppearance, Web3Button } from '../../molecules'
 import {
   discordInviteUrl,

@@ -12,13 +12,13 @@ jest.mock('../../utils', () => ({
 }))
 
 // Mock the web3 provider
-jest.mock('../../hooks/web3Wagmi', () => ({
-  ...jest.requireActual('../../hooks/web3Wagmi'),
-  useActiveConnector: () => ({
+jest.mock('../../hooks', () => ({
+  ...jest.requireActual('../../hooks'),
+  useWagmiActiveConnector: () => ({
     name: 'MetaMask',
   }),
-  useEthAddress: () => TOKEN_ADDRESS,
-  useChainID: () => CHAIN_ID_MAIN_NET,
+  useWagmiEthAddress: () => TOKEN_ADDRESS,
+  useWagmiChainID: () => CHAIN_ID_MAIN_NET,
 }))
 
 describe('WalletInfo', () => {

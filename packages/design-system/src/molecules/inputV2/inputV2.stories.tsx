@@ -2,10 +2,9 @@ import { View } from 'react-native'
 import { useState } from 'react'
 import { fromTemplate } from '../../../.storybook/utils'
 import { container, padding } from '../../styles'
-import { InputV2ActionSuffix } from '../../atoms/inputV2ActionSuffix'
-import { InputV2TextSuffix } from '../../atoms/inputV2TextSuffix'
 import { useThemeV2 } from '../../hooks'
-import { InputV2SelectSuffix } from '../../atoms'
+import { InputV2ActionSuffix, InputV2TextSuffix } from '../../atoms'
+import { InputV2SelectSuffix } from '../inputV2SelectSuffix'
 import { InputPropsV2, InputV2 } from '.'
 
 const storyConfig = {

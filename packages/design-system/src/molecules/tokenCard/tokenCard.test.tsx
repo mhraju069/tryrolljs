@@ -14,8 +14,8 @@ jest.mock('../../utils', () => ({
 }))
 
 const copy = jest.fn()
-jest.mock('../../hooks', () => ({
-  ...jest.requireActual('../../hooks'),
+jest.mock('../../atoms', () => ({
+  ...jest.requireActual('../../atoms'),
   useClipboardWithToast: () => copy,
 }))
 

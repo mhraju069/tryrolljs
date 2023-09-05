@@ -1,6 +1,5 @@
 import { View, StyleSheet } from 'react-native'
-import { ButtonV2 } from '../../atoms'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 

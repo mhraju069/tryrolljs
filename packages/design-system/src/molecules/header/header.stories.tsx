@@ -9,7 +9,7 @@ import {
   stakingTermsUrl,
   twitterUrl,
 } from '../../constants'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { Web3ProviderWagmi } from '../../providers/web3ProviderWagmi'
 import { SelectV2 } from '../selectV2'

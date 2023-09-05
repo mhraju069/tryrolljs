@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { container, margin } from '../../styles'
 

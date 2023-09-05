@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { FlatList, Pressable, StyleSheet, View } from 'react-native'
-import { Icon } from '../../atoms'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { container, margin, padding } from '../../styles'
 import { SidebarOptionProps, OptionProps } from './types'

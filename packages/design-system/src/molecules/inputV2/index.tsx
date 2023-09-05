@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { useThemeV2 } from '../../hooks'
 import { container, fontStyles, padding, spacing } from '../../styles'
-import { TypographyV2 } from '../../atoms/typographyV2'
+import { TypographyV2 } from '../../atoms'
 import { InputContainer } from '../inputContainer'
 
 export interface InputPropsV2 extends TextInputProps {

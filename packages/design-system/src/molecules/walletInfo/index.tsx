@@ -1,21 +1,24 @@
 import { View } from 'react-native'
-import { ButtonV2, CircleImg } from '../../atoms'
-import { TypographyV2 } from '../../atoms/typographyV2'
-import { useClipboardWithToast } from '../../hooks'
 import {
-  useActiveConnector,
-  useChainID,
-  useEthAddress,
-} from '../../hooks/web3Wagmi'
+  ButtonV2,
+  CircleImg,
+  useClipboardWithToast,
+  TypographyV2,
+} from '../../atoms'
+import {
+  useWagmiActiveConnector,
+  useWagmiEthAddress,
+  useWagmiChainID,
+} from '../../hooks'
 import { container, margin } from '../../styles'
 import { getEtherscanLink, openLink, shortenAddress } from '../../utils'
 
 const AVATAR_SIZE = 40
 
 export const WalletInfo: React.FC = () => {
-  const activeConnector = useActiveConnector()
-  const userAddress = useEthAddress()
-  const chainId = useChainID()
+  const activeConnector = useWagmiActiveConnector()
+  const userAddress = useWagmiEthAddress()
+  const chainId = useWagmiChainID()
   const shortAddress = userAddress ? shortenAddress(userAddress) : ''
   const clipboardWithToast = useClipboardWithToast()
 

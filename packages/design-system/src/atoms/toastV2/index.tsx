@@ -10,7 +10,7 @@ import { margin, padding, container, makeStyles } from '../../styles'
 import { TypographyV2 } from '../typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { Icon } from '../icon'
-import { createUseToast } from '../toast'
+import { createUseToast, useClipboardWithToastBase } from '../toast'
 
 export type ToastV2Variant = 'success' | 'error' | 'informative'
 
@@ -115,3 +115,6 @@ export const ToastV2 = ({
 }
 
 export const useToastV2 = createUseToast<ToastV2Props>(ToastV2)
+
+export const useClipboardWithToastV2 = () =>
+  useClipboardWithToastBase(useToastV2)
