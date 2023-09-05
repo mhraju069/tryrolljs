@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.1.0
+
+### Minor Changes
+
+- [#475](https://github.com/roll-network/tryrolljs/pull/475) [`9bb5e79`](https://github.com/roll-network/tryrolljs/commit/9bb5e793deb6c525acad082bf97a005e4a04b915) Thanks [@nsstarr](https://github.com/nsstarr)! - Added a Logo-Text icon to the Design System
+
 ## 3.0.6
 
 ### Patch Changes
