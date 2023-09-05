@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 3.2.0
+
+### Minor Changes
+
+- [#474](https://github.com/roll-network/tryrolljs/pull/474) [`061fa90`](https://github.com/roll-network/tryrolljs/commit/061fa9030dc081944407f06e2f08e0c1e43ad128) Thanks [@teimurjan](https://github.com/teimurjan)! - Add useWagmi prefix to all wagmi-related hooks
+
 ## 3.1.0
 
 ### Minor Changes
