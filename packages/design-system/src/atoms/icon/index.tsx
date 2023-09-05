@@ -61,6 +61,7 @@ import Linkedin from '../../assets/icons/linkedin.svg'
 import Lock from '../../assets/icons/lock.svg'
 import RollLogo from '../../assets/icons/roll-logo.svg'
 import Logout from '../../assets/icons/logout.svg'
+import RollLogoText from '../../assets/icons/roll-logo-text.svg'
 import Menu from '../../assets/icons/menu.svg'
 import Minus from '../../assets/icons/minus.svg'
 import Money from '../../assets/icons/money.svg'
@@ -170,6 +171,7 @@ const icons = {
   link: Link,
   link2: Link2,
   lock: Lock,
+  rollLogoText: RollLogoText,
   logout: Logout,
   menu: Menu,
   minus: Minus,
