@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 4.0.0
+
+### Major Changes
+
+- [#480](https://github.com/roll-network/tryrolljs/pull/480) [`a1f38da`](https://github.com/roll-network/tryrolljs/commit/a1f38da89f870165c8063f694e212fdc7c8c0c4b) Thanks [@teimurjan](https://github.com/teimurjan)! - Extracted web3 into a separate @roll-network/web3 package
+
 ## 3.3.0
 
 ### Minor Changes
