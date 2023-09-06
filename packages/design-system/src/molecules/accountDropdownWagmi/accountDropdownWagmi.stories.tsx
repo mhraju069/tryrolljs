@@ -1,6 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { Web3ProviderWagmi } from '../../providers'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
+import { CHAIN_ID_MAIN_NET, Web3ProviderWagmi } from '@roll-network/web3'
 import { AccountDropdownWagmi } from '.'
 
 const conf = {

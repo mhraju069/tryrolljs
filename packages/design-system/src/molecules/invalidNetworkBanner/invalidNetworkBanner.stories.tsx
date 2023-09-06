@@ -1,8 +1,10 @@
+import {
+  withWeb3Provider,
+  CHAIN_ID_MAIN_NET,
+  useChainID,
+} from '@roll-network/web3'
 import { fromTemplate } from '../../../.storybook/utils'
 import { Body } from '../../atoms'
-import { useChainID } from '../../hooks'
-import { withWeb3Provider } from '../../hoc'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
 import { InvalidNetworkBanner, InvalidNetworkBannerProps } from '.'
 
 const storyConfig = {

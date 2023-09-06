@@ -1,8 +1,12 @@
 import { View } from 'react-native'
+import {
+  etherscanAccountUrl,
+  shortenAddress,
+  useWagmiEthAddress,
+} from '@roll-network/web3'
 import { Body, Anchor } from '../../atoms'
-import { useTheme, useWagmiEthAddress } from '../../hooks'
+import { useTheme } from '../../hooks'
 import { margin, padding, container, makeStyles } from '../../styles'
-import { etherscanAccountUrl, shortenAddress } from '../../utils'
 import Copy from '../../assets/svg/copy.svg'
 import WalletIcon from '../../assets/svg/wallet.svg'
 import LinkIcon from '../../assets/svg/link.svg'

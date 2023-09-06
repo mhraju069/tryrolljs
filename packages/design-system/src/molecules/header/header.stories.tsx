@@ -1,3 +1,4 @@
+import { Web3ProviderWagmi, CHAIN_ID_MAIN_NET } from '@roll-network/web3'
 import { fromTemplate } from '../../../.storybook/utils'
 import SimpleLogo from '../../assets/svg/logoSimple.svg'
 import MintingLogo from '../../assets/svg/minting-logo.svg'
@@ -10,8 +11,6 @@ import {
   twitterUrl,
 } from '../../constants'
 import { TypographyV2 } from '../../atoms'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
-import { Web3ProviderWagmi } from '../../providers/web3ProviderWagmi'
 import { SelectV2 } from '../selectV2'
 import { Web3Button } from '../web3Button'
 import { HeaderProps } from './types'

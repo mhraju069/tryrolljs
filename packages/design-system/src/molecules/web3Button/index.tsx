@@ -1,8 +1,10 @@
-import { useWeb3Modal } from '@web3modal/react'
 import { Pressable } from 'react-native'
+import {
+  useWagmiEthAddress,
+  shortenAddress,
+  useWeb3Modal,
+} from '@roll-network/web3'
 import { ButtonV2, CircleImg, Icon, ButtonV2Props } from '../../atoms'
-import { useWagmiEthAddress } from '../../hooks'
-import { shortenAddress } from '../../utils'
 
 export interface Web3ButtonProps extends Partial<ButtonV2Props> {
   connectedVariant?: 'button' | 'avatar' | 'details'

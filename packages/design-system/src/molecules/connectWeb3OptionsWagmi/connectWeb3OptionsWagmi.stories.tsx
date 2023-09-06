@@ -1,4 +1,4 @@
-import { Web3ProviderWagmi } from '../../providers'
+import { Web3ProviderWagmi } from '@roll-network/web3'
 import { ConnectWeb3OptionsWagmi } from '.'
 
 const conf = {

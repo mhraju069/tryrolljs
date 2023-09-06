@@ -1,4 +1,4 @@
-import { withWeb3Provider } from '../../hoc'
+import { withWeb3Provider } from '@roll-network/web3'
 import { ConnectWeb3Options } from '.'
 
 const conf = {

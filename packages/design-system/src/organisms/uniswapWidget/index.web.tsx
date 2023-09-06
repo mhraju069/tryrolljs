@@ -1,5 +1,5 @@
 import { SwapWidget, SwapWidgetProps } from '@uniswap/widgets'
-import { useWagmiEthersSigner } from '../../hooks'
+import { useWagmiEthersSigner } from '@roll-network/web3'
 
 // Default token list from Uniswap
 const UNISWAP_TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
@@ -10,6 +10,7 @@ export const UniswapWidget = (props: SwapWidgetProps) => {
   const web3Provider = useWagmiEthersSigner()
   return (
     <SwapWidget
+      // @ts-ignore
       provider={web3Provider?.provider}
       tokenList={UNISWAP_TOKEN_LIST}
       defaultInputTokenAddress={DEFAULT_INPUT_TOKEN_ADDRESS}

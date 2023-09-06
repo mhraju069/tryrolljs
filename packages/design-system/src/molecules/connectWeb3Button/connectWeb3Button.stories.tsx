@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { withWeb3Provider } from '@roll-network/web3'
 import { fromTemplate } from '../../../.storybook/utils'
 import { ConnectWeb3Options } from '../connectWeb3Options'
-import { withWeb3Provider } from '../../hoc'
 import { ConnectWeb3Button, ConnectWeb3ButtonProps } from '.'
 
 const storyConfig = {

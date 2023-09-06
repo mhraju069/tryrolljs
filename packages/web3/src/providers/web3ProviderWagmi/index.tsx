@@ -7,7 +7,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { Platform } from 'react-native'
-import { SUPPORTED_CHAIN_IDS } from '../../web3'
+import { SUPPORTED_CHAIN_IDS } from '../../connectors'
 import { Web3ProviderWagmiProps } from './types'
 import { getChainsById } from './utils'
 

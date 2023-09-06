@@ -1,13 +1,16 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
 import { StyleProp, ViewStyle, View } from 'react-native'
+import {
+  AbstractConnector,
+  useWagmiEthAddress,
+  shortenAddress,
+} from '@roll-network/web3'
 import { Body, Button, Spinner } from '../../atoms'
-import { useTheme, useWagmiEthAddress } from '../../hooks'
-import { shortenAddress } from '../../utils'
+import { useTheme } from '../../hooks'
 import { container, padding } from '../../styles'
 import { Dropdown } from '../dropdown'
 import { AccountDropdownWagmi } from '../accountDropdownWagmi'
 
-export type HandleWeb3Connect = (c: AbstractConnector) => void
+export type HandleWeb3ConnectWagmi = (c: AbstractConnector) => void
 
 export type ConnectWeb3ButtonWagmiProps = {
   variant?: 'walletConnect'

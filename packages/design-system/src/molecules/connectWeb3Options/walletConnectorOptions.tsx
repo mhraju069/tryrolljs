@@ -1,10 +1,9 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
+import { Web3Connectors, AbstractConnector } from '@roll-network/web3'
 import MetaMaskLogo from '../../assets/svg/metamaskLogo.svg'
 import WalletConnectLogo from '../../assets/svg/walletConnectLogo.svg'
 import CoinBaseLogo from '../../assets/svg/coinbaseWalletLogo.svg'
 import FortmaticLogo from '../../assets/svg/fortmaticLogo.svg'
 import PortisLogo from '../../assets/svg/portisLogo.svg'
-import { Web3Connectors } from '../../web3'
 
 export type WalletProvider = {
   title: string

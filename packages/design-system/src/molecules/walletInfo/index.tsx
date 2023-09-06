@@ -1,17 +1,19 @@
 import { View } from 'react-native'
 import {
+  useWagmiActiveConnector,
+  useWagmiEthAddress,
+  useWagmiChainID,
+  getEtherscanLink,
+  shortenAddress,
+} from '@roll-network/web3'
+import {
   ButtonV2,
   CircleImg,
   useClipboardWithToast,
   TypographyV2,
 } from '../../atoms'
-import {
-  useWagmiActiveConnector,
-  useWagmiEthAddress,
-  useWagmiChainID,
-} from '../../hooks'
 import { container, margin } from '../../styles'
-import { getEtherscanLink, openLink, shortenAddress } from '../../utils'
+import { openLink } from '../../utils'
 
 const AVATAR_SIZE = 40
 

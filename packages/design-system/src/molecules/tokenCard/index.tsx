@@ -7,13 +7,17 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
+import {
+  CHAIN_ID_MAIN_NET,
+  getEtherscanLink,
+  shortenAddress,
+} from '@roll-network/web3'
 import { CircleImg, Icon, useClipboardWithToast } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
 import CardBlurText from '../../assets/images/card-blur-text.png'
 import { container, margin, padding, roboto } from '../../styles'
-import { getEtherscanLink, shortenAddress, openLink } from '../../utils'
-import { CHAIN_ID_MAIN_NET } from '../../web3'
+import { openLink } from '../../utils'
 
 const CARD_MAX_WIDTH = 325
 const CARD_HEIGHT = 210

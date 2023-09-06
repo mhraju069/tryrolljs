@@ -1,7 +1,7 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useState, useMemo } from 'react'
 import { View } from 'react-native'
 import { Pressable } from '@gluestack-ui/react'
+import { useWeb3Conntectors, AbstractConnector } from '@roll-network/web3'
 import Close from '../../assets/svg/close.svg'
 import {
   text,
@@ -12,7 +12,7 @@ import {
   lightestGray,
 } from '../../styles'
 import { Anchor, SubHeader, Body } from '../../atoms'
-import { useTheme, useWeb3Conntectors } from '../../hooks'
+import { useTheme } from '../../hooks'
 import { stakingTermsUrl } from '../../constants'
 import {
   buildWalletOptionsMobile,

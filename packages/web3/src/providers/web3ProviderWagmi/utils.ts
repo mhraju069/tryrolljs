@@ -6,7 +6,7 @@ import {
   CHAIN_ID_MAIN_NET,
   CHAIN_ID_MUMBAI,
   CHAIN_ID_POLYGON,
-} from '../../web3'
+} from '../../connectors'
 
 const MAP_CHAINS: Record<number, Chain> = {
   [CHAIN_ID_MAIN_NET]: mainnet,
@@ -17,12 +17,5 @@ const MAP_CHAINS: Record<number, Chain> = {
 }
 
 export const getChainsById = (chains: number[]) => {
-  const filterdChains: Chain[] = []
-  chains.forEach((chain) => {
-    const validChain = MAP_CHAINS[chain]
-    if (validChain) {
-      filterdChains.push(validChain)
-    }
-  })
-  return filterdChains
+  return chains.map((chain) => MAP_CHAINS[chain]).filter(Boolean) as Chain[]
 }
