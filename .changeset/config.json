@@ -10,5 +10,10 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@roll-network/example-web-oauth-client", "@roll-network/example-native-oauth-client", "@roll-network/example-node-api-client"]
+  "ignore": [
+    "@roll-network/example-web-oauth-client",
+    "@roll-network/example-native-oauth-client",
+    "@roll-network/example-node-api-client",
+    "@roll-network/example-web3-client"
+  ]
 }
