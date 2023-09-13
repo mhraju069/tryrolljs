@@ -81,7 +81,7 @@ After that, you can use methods of the SDK to interact with the OAuth server:
 
 ```javascript
 // Generate a new token
-await sdk.generateToken({}, userId);
+await sdk.generateToken(options, userId);
 
 // Refresh the token
 await sdk.refreshToken(true, userId);
