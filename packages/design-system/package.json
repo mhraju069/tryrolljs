@@ -29,7 +29,7 @@
     "@legendapp/motion": "^2.2.1",
     "@react-native-clipboard/clipboard": "^1.11.2",
     "@storybook/builder-vite": "^7.3.2",
-    "@tanstack/react-table": "^8.9.1",
+    "@tanstack/react-table": "^8.9.9",
     "@uniswap/widgets": "^2.51.2",
     "boring-avatars": "^1.6.3",
     "color": "^4.2.3",
