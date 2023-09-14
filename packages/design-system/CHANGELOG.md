@@ -1,5 +1,15 @@
 # @roll-network/design-system
 
+## 4.1.1
+
+### Patch Changes
+
+- [#490](https://github.com/roll-network/tryrolljs/pull/490) [`123a2df`](https://github.com/roll-network/tryrolljs/commit/123a2df0594038470e43e81a9f5a4707ac5e82c1) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - Added send money icon variant
+  - Export WalletInfo component
+  - Added detail variant to web3 button component
+- Updated dependencies [[`123a2df`](https://github.com/roll-network/tryrolljs/commit/123a2df0594038470e43e81a9f5a4707ac5e82c1)]:
+  - @roll-network/web3@0.0.3
+
 ## 4.1.0
 
 ### Minor Changes
