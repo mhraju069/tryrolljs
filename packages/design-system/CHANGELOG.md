@@ -1,5 +1,15 @@
 # @roll-network/design-system
 
+## 4.1.0
+
+### Minor Changes
+
+- [#486](https://github.com/roll-network/tryrolljs/pull/486) [`9ed71f1`](https://github.com/roll-network/tryrolljs/commit/9ed71f192c6add3c39c35ae448bf5a9d4d08ba43) Thanks [@nsstarr](https://github.com/nsstarr)! - Added Select filter type to Table
+
+### Patch Changes
+
+- [#487](https://github.com/roll-network/tryrolljs/pull/487) [`f99027b`](https://github.com/roll-network/tryrolljs/commit/f99027bd1b740408cd67234b761ee2a2588f1eec) Thanks [@teimurjan](https://github.com/teimurjan)! - Fix typing issue with table columns
+
 ## 4.0.1
 
 ### Patch Changes
