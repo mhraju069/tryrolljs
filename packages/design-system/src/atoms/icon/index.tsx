@@ -66,6 +66,7 @@ import Menu from '../../assets/icons/menu.svg'
 import Minus from '../../assets/icons/minus.svg'
 import Money from '../../assets/icons/money.svg'
 import Moneys from '../../assets/icons/moneys.svg'
+import MoneySend from '../../assets/icons/money-send.svg'
 import Note from '../../assets/icons/note.svg'
 import Notification from '../../assets/icons/notification.svg'
 import Outgoing from '../../assets/icons/outgoing.svg'
@@ -177,6 +178,7 @@ const icons = {
   minus: Minus,
   money: Money,
   moneys: Moneys,
+  moneySend: MoneySend,
   note: Note,
   notification: Notification,
   outgoing: Outgoing,
