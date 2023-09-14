@@ -92,9 +92,15 @@ const authSdk = new SDK(
   window.localStorage,
 )
 
+// When you get oauth code & state from authorization server, you'll have to generate a token
+// After the generation, the SDK will automatically fetch the user & save him under his ID
+const credentials = await authSdk.generateToken({
+  code,
+  state,
+})
+
 const apiClient = new Client({ baseUrl: config.apiURL }, authSdk)
-const specificUserId = '12345'
-const user = await userAPI.getMe(apiClient.getCall(specificUserId))
+const user = await userAPI.getMe(apiClient.getCall(credentials.user.userID))
 ```
 
 ### ClientPool
