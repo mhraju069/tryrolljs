@@ -29,5 +29,8 @@ export const PrimaryButton = fromTemplate(Template, {
 export const Avatar = fromTemplate(Template, {
   connectedVariant: 'avatar',
 })
+export const Details = fromTemplate(Template, {
+  connectedVariant: 'details',
+})
 
 export default storyConfig

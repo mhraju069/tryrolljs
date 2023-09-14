@@ -1,10 +1,20 @@
-import { Pressable } from 'react-native'
+import { Pressable, View } from 'react-native'
 import {
   useWagmiEthAddress,
   shortenAddress,
   useWeb3Modal,
+  useDisconnect,
 } from '@roll-network/web3'
-import { ButtonV2, CircleImg, Icon, ButtonV2Props } from '../../atoms'
+import {
+  ButtonV2,
+  CircleImg,
+  Icon,
+  ButtonV2Props,
+  TypographyV2,
+} from '../../atoms'
+import { WalletInfo } from '../walletInfo'
+import { margin } from '../../styles'
+import { useThemeV2 } from '../../hooks'
 
 export interface Web3ButtonProps extends Partial<ButtonV2Props> {
   connectedVariant?: 'button' | 'avatar' | 'details'
@@ -16,12 +26,18 @@ export const Web3Button: React.FC<Web3ButtonProps> = ({
 }) => {
   const { isOpen, open } = useWeb3Modal()
   const userAddress = useWagmiEthAddress()
+  const { disconnect } = useDisconnect()
+  const theme = useThemeV2()
 
   const handleConnect = async () => {
     if (isOpen) return
     await open({
       route: userAddress ? 'Account' : 'ConnectWallet',
     })
+  }
+
+  const handleDisconnect = () => {
+    disconnect()
   }
 
   const title = userAddress ? shortenAddress(userAddress) : 'Connect Wallet'
@@ -35,7 +51,26 @@ export const Web3Button: React.FC<Web3ButtonProps> = ({
     )
   }
 
-  // TODO: add details variant once we have the component ready
+  if (userAddress && connectedVariant === 'details') {
+    return (
+      <View>
+        <TypographyV2 variant="caption2" color={theme.text.black[30]}>
+          Account
+        </TypographyV2>
+        <View style={[margin.mv8]}>
+          <WalletInfo />
+        </View>
+        <TypographyV2
+          variant="caption2"
+          color={theme.base.danger}
+          onPress={handleDisconnect}
+        >
+          Disconnect
+        </TypographyV2>
+      </View>
+    )
+  }
+
   return (
     <ButtonV2
       size="small"
