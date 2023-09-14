@@ -1,13 +1,13 @@
 import { View } from 'react-native'
 import { container, margin } from '../../styles'
 import { ButtonV2 } from '../../atoms'
-import { FiltersProps } from './types'
+import { ButtonFiltersProps } from './types'
 
-const Filters = <F extends string>({
+const ButtonFilters = <F extends string>({
   options,
   onChange,
   value,
-}: FiltersProps<F>) => {
+}: ButtonFiltersProps<F>) => {
   return (
     <View style={container.row}>
       {options.map((filterOption, index) => (
@@ -24,4 +24,4 @@ const Filters = <F extends string>({
   )
 }
 
-export default Filters
+export default ButtonFilters
