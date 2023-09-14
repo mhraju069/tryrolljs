@@ -8887,7 +8887,7 @@ __metadata:
     "@react-native-clipboard/clipboard": ^1.11.2
     "@react-native-community/datetimepicker": ^6.1.2
     "@react-native-community/slider": ^4.2.1
-    "@roll-network/web3": ^0.0.2
+    "@roll-network/web3": ^0.0.3
     "@rollup/plugin-alias": ^3.1.9
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.2
@@ -8971,7 +8971,7 @@ __metadata:
     type-fest: ^3.1.0
     typescript: ^5.1.6
   peerDependencies:
-    "@roll-network/web3": ^0.0.2
+    "@roll-network/web3": ^0.0.3
     react: 18.1.0
     react-dom: 18.1.0
     react-native: 0.71.5
@@ -9234,7 +9234,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roll-network/web3@^0.0.2, @roll-network/web3@workspace:*, @roll-network/web3@workspace:packages/web3":
+"@roll-network/web3@^0.0.3, @roll-network/web3@workspace:*, @roll-network/web3@workspace:packages/web3":
   version: 0.0.0-use.local
   resolution: "@roll-network/web3@workspace:packages/web3"
   dependencies:
