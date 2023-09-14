@@ -2,4 +2,4 @@
 '@roll-network/design-system': minor
 ---
 
-Add Select filters to the Design System
+Added Select filter type to Table
