@@ -6,6 +6,7 @@ import {
   useWalletClient,
   usePublicClient,
   useConnect,
+  useDisconnect,
   type PublicClient,
 } from 'wagmi'
 import { providers } from 'ethers'
@@ -80,4 +81,4 @@ export function useWagmiEthersProvider({ chainId }: { chainId?: number } = {}) {
   )
 }
 
-export { useConnect }
+export { useConnect, useDisconnect }
