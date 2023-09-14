@@ -1,4 +1,11 @@
-import { Platform, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Platform,
+  StyleProp,
+  StyleSheet,
+  TextInput,
+  View,
+  ViewStyle,
+} from 'react-native'
 import { Pressable } from '@gluestack-ui/react'
 import { ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 import { Icon, Popover, PopoverProps, Spinner, TypographyV2 } from '../../atoms'
@@ -50,6 +57,7 @@ export interface SelectV2Props {
   renderReference?: SelectRenderReference
   search?: boolean
   loading?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 export const SelectV2: React.FC<SelectV2Props> = ({
@@ -60,6 +68,7 @@ export const SelectV2: React.FC<SelectV2Props> = ({
   defaultValue,
   placeholder,
   loading = false,
+  style,
 }) => {
   const theme = useThemeV2()
   const inputRef = useRef<TextInput>(null)
@@ -143,12 +152,12 @@ export const SelectV2: React.FC<SelectV2Props> = ({
             />
           }
           suffixContainerStyle={{ pointerEvents: 'none' } as any}
-          style={[styles.input, inputProps?.style]}
+          style={[styles.input, inputProps?.style, style]}
           {...inputProps}
         />
       )
     },
-    [theme, placeholder, inputValue, handleChangeText],
+    [theme, placeholder, inputValue, handleChangeText, style],
   )
 
   const customRenderReference: SelectRenderReference = useCallback(

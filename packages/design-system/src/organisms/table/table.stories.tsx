@@ -3,8 +3,9 @@ import { action } from '@storybook/addon-actions'
 import { useMemo, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { ButtonV2, TokenChip, TypographyV2 } from '../../atoms'
-import { FilterOption } from '../../molecules'
+import { ButtonFilterOption } from '../../molecules'
 import Table from './table'
+import { TableFilterType } from './types'
 
 const storyConfig = {
   title: 'Design System/Organisms/Table',
@@ -128,9 +129,10 @@ export const WithFiltersAndPagination = () => {
 
   const filter = useMemo(() => {
     return {
+      type: TableFilterType.Button as const,
       value: filterValue,
       options: FILTER_OPTIONS,
-      onChange: (filterOption: FilterOption<FilterValue>) => {
+      onChange: (filterOption: ButtonFilterOption<FilterValue>) => {
         setFilterValue(filterOption.value)
         setDataQueryParams({
           filter: filterOption.value,
@@ -140,6 +142,127 @@ export const WithFiltersAndPagination = () => {
       },
     }
   }, [filterValue, searchValue])
+
+  const pagination = useMemo(() => {
+    const pageSize = 10
+    return {
+      pageCount: 5,
+      pageSize,
+      totalCount: 50,
+      onChange: (paginationState: PaginationState) => {
+        setDataQueryParams((prevTokenMarketArgs) => ({
+          ...prevTokenMarketArgs,
+          offset: paginationState.pageIndex * pageSize,
+        }))
+      },
+    }
+  }, [])
+
+  return (
+    <ScrollView>
+      <Table
+        data={data}
+        // @ts-ignore
+        columns={columns}
+        search={search}
+        filter={filter}
+        pagination={pagination}
+      />
+    </ScrollView>
+  )
+}
+
+enum SelectFilterTitle {
+  Category = 'Category',
+}
+
+enum CategoryFilterOptionValue {
+  AllCategories = 'allcategories',
+  Send = 'send',
+  Receive = 'receive',
+}
+
+const CATEGORY_FILTER_OPTION_TITLE_BY_VALUE: Record<
+  CategoryFilterOptionValue,
+  string
+> = {
+  [CategoryFilterOptionValue.AllCategories]: 'All Categories',
+  [CategoryFilterOptionValue.Send]: 'Send',
+  [CategoryFilterOptionValue.Receive]: 'Receive',
+}
+
+export const WithSelectFiltersAndPagination = () => {
+  const [filterValuesByTitle, setFilterValuesByTitle] = useState({
+    [SelectFilterTitle.Category]: CategoryFilterOptionValue.AllCategories,
+  })
+  const [searchValue, setSearchValue] = useState('')
+  const [dataQueryParams, setDataQueryParams] = useState<
+    Record<string, string | number | undefined>
+  >({})
+
+  const data = useData(dataQueryParams)
+
+  const setDataQueryParamsOnSearch = useMemo(
+    () => (value: string) => {
+      setDataQueryParams((prevDataQueryParams) => ({
+        ...prevDataQueryParams,
+        search: value,
+      }))
+    },
+    [],
+  )
+
+  const search = useMemo(() => {
+    return {
+      value: searchValue,
+      onChange: (value: string) => {
+        setSearchValue(value)
+        setDataQueryParamsOnSearch(value)
+      },
+    }
+  }, [searchValue, setDataQueryParamsOnSearch])
+
+  const filter = useMemo(() => {
+    return {
+      type: TableFilterType.Select as const,
+      options: [
+        {
+          title: SelectFilterTitle.Category,
+          value: filterValuesByTitle[SelectFilterTitle.Category],
+          options: [
+            {
+              name: CATEGORY_FILTER_OPTION_TITLE_BY_VALUE[
+                CategoryFilterOptionValue.AllCategories
+              ],
+              value: CategoryFilterOptionValue.AllCategories,
+            },
+            {
+              name: CATEGORY_FILTER_OPTION_TITLE_BY_VALUE[
+                CategoryFilterOptionValue.Send
+              ],
+              value: CategoryFilterOptionValue.Send,
+            },
+            {
+              name: CATEGORY_FILTER_OPTION_TITLE_BY_VALUE[
+                CategoryFilterOptionValue.Receive
+              ],
+              value: CategoryFilterOptionValue.Receive,
+            },
+          ],
+          onChange: (value: string) => {
+            setFilterValuesByTitle((prevFilterValuesByTitle) => ({
+              ...prevFilterValuesByTitle,
+              [SelectFilterTitle.Category]: value as CategoryFilterOptionValue,
+            }))
+            setDataQueryParams((prevDataQueryParams) => ({
+              ...prevDataQueryParams,
+              category: value,
+            }))
+          },
+        },
+      ],
+    }
+  }, [filterValuesByTitle])
 
   const pagination = useMemo(() => {
     const pageSize = 10
