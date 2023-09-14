@@ -3,7 +3,7 @@ import type { ViewStyle, StyleProp } from 'react-native'
 import type { FiltersProps } from '../../molecules'
 
 export interface TableProps<T extends any, F extends string> {
-  columns: ColumnDef<T>[]
+  columns: ColumnDef<T, any>[]
   data: T[]
   pagination?: {
     totalCount: number

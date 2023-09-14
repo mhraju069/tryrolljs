@@ -27,7 +27,6 @@ const DATA: Token[] = [...Array(10)].map((_, index) => ({
 
 const columnHelper = createColumnHelper<Token>()
 
-// @ts-ignore
 const columns = [
   columnHelper.accessor('logo', {
     header: () => <TypographyV2 variant="text3">Social Token</TypographyV2>,
@@ -58,9 +57,7 @@ const columns = [
   }),
 ]
 
-// @ts-ignore
 export const Default = () => <Table data={DATA} columns={columns} />
-// @ts-ignore
 export const Loading = () => <Table data={DATA} columns={columns} loading />
 
 enum FilterValue {
@@ -160,12 +157,15 @@ export const WithFiltersAndPagination = () => {
     <ScrollView>
       <Table
         data={data}
-        // @ts-ignore
         columns={columns}
         search={search}
         filter={filter}
         pagination={pagination}
       />
+      <TypographyV2 variant="text2">Query Params</TypographyV2>
+      <TypographyV2 variant="text3">
+        {JSON.stringify(dataQueryParams, null, 2)}
+      </TypographyV2>
     </ScrollView>
   )
 }

@@ -8913,7 +8913,7 @@ __metadata:
     "@svgr/rollup": ^6.3.1
     "@svgr/webpack": ^6.3.1
     "@swc/jest": ^0.2.23
-    "@tanstack/react-table": ^8.9.1
+    "@tanstack/react-table": ^8.9.9
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/jest-native": ^5.1.2
     "@testing-library/react-native": ^11.3.0
@@ -11984,22 +11984,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-table@npm:^8.9.1":
-  version: 8.9.1
-  resolution: "@tanstack/react-table@npm:8.9.1"
+"@tanstack/react-table@npm:^8.9.9":
+  version: 8.9.9
+  resolution: "@tanstack/react-table@npm:8.9.9"
   dependencies:
-    "@tanstack/table-core": 8.9.1
+    "@tanstack/table-core": 8.9.9
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: 16d044c382598aad3c984d8e175183c5fd48093249dfb51ee592d2f1bb16e253aa437e0834bf9d27d69043493feeb22a5185b3226c704b99e13c45950cb82141
+  checksum: eb7b285d8fca68888b48e1ed7889085f1a88597a0f18cfc035d4f4ee60750170a59ddfd5ac1b2145a13b0fceff22216dea36c767d3813d63ada882701b391a09
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:8.9.1":
-  version: 8.9.1
-  resolution: "@tanstack/table-core@npm:8.9.1"
-  checksum: b9a514cfeb78b2ebece5116188ab929d0b0b72b6abfe6144c2b1dd68e32faafba5295b2b5dfefa9d3a0cf78dd0f20e7c313ff2dbdf013ee98232e856a549654f
+"@tanstack/table-core@npm:8.9.9":
+  version: 8.9.9
+  resolution: "@tanstack/table-core@npm:8.9.9"
+  checksum: 2103488d8aba634061738388911c1fba0d0729c083a1c30c50e0352e0c882b0d825eccd15165abd0f5184f945cf6d727bd18936e438e635eacc2f03b0e9c42e7
   languageName: node
   linkType: hard
 
