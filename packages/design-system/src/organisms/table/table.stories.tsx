@@ -174,12 +174,23 @@ export const WithFiltersAndPagination = () => {
 
 enum SelectFilterTitle {
   Category = 'Category',
+  Date = 'Date',
 }
 
 enum CategoryFilterOptionValue {
   AllCategories = 'allcategories',
   Send = 'send',
   Receive = 'receive',
+  Earn = 'earn',
+  Reward = 'reward',
+}
+
+enum DateFilterOptionValue {
+  Past1Year = 'past1year',
+  Past7Days = 'past7days',
+  Past30Days = 'past30days',
+  Past90Days = 'past90days',
+  AllTime = 'alltime',
 }
 
 const CATEGORY_FILTER_OPTION_TITLE_BY_VALUE: Record<
@@ -189,11 +200,23 @@ const CATEGORY_FILTER_OPTION_TITLE_BY_VALUE: Record<
   [CategoryFilterOptionValue.AllCategories]: 'All Categories',
   [CategoryFilterOptionValue.Send]: 'Send',
   [CategoryFilterOptionValue.Receive]: 'Receive',
+  [CategoryFilterOptionValue.Earn]: 'Earn',
+  [CategoryFilterOptionValue.Reward]: 'Reward',
 }
+
+const DATE_FILTER_OPTION_TITLE_BY_VALUE: Record<DateFilterOptionValue, string> =
+  {
+    [DateFilterOptionValue.Past1Year]: 'Past 1 Year',
+    [DateFilterOptionValue.Past7Days]: 'Past 7 Days',
+    [DateFilterOptionValue.Past30Days]: 'Past 30 Days',
+    [DateFilterOptionValue.Past90Days]: 'Past 90 Days',
+    [DateFilterOptionValue.AllTime]: 'All Time',
+  }
 
 export const WithSelectFiltersAndPagination = () => {
   const [filterValuesByTitle, setFilterValuesByTitle] = useState({
     [SelectFilterTitle.Category]: CategoryFilterOptionValue.AllCategories,
+    [SelectFilterTitle.Date]: DateFilterOptionValue.Past1Year,
   })
   const [searchValue, setSearchValue] = useState('')
   const [dataQueryParams, setDataQueryParams] = useState<
@@ -248,7 +271,20 @@ export const WithSelectFiltersAndPagination = () => {
               ],
               value: CategoryFilterOptionValue.Receive,
             },
+            {
+              name: CATEGORY_FILTER_OPTION_TITLE_BY_VALUE[
+                CategoryFilterOptionValue.Earn
+              ],
+              value: CategoryFilterOptionValue.Earn,
+            },
+            {
+              name: CATEGORY_FILTER_OPTION_TITLE_BY_VALUE[
+                CategoryFilterOptionValue.Reward
+              ],
+              value: CategoryFilterOptionValue.Reward,
+            },
           ],
+
           onChange: (value: string) => {
             setFilterValuesByTitle((prevFilterValuesByTitle) => ({
               ...prevFilterValuesByTitle,
@@ -257,6 +293,52 @@ export const WithSelectFiltersAndPagination = () => {
             setDataQueryParams((prevDataQueryParams) => ({
               ...prevDataQueryParams,
               category: value,
+            }))
+          },
+        },
+        {
+          title: SelectFilterTitle.Date,
+          value: filterValuesByTitle[SelectFilterTitle.Date],
+          options: [
+            {
+              name: DATE_FILTER_OPTION_TITLE_BY_VALUE[
+                DateFilterOptionValue.Past1Year
+              ],
+              value: DateFilterOptionValue.Past1Year,
+            },
+            {
+              name: DATE_FILTER_OPTION_TITLE_BY_VALUE[
+                DateFilterOptionValue.Past7Days
+              ],
+              value: DateFilterOptionValue.Past7Days,
+            },
+            {
+              name: DATE_FILTER_OPTION_TITLE_BY_VALUE[
+                DateFilterOptionValue.Past30Days
+              ],
+              value: DateFilterOptionValue.Past30Days,
+            },
+            {
+              name: DATE_FILTER_OPTION_TITLE_BY_VALUE[
+                DateFilterOptionValue.Past90Days
+              ],
+              value: DateFilterOptionValue.Past90Days,
+            },
+            {
+              name: DATE_FILTER_OPTION_TITLE_BY_VALUE[
+                DateFilterOptionValue.AllTime
+              ],
+              value: DateFilterOptionValue.AllTime,
+            },
+          ],
+          onChange: (value: string) => {
+            setFilterValuesByTitle((prevFilterValuesByTitle) => ({
+              ...prevFilterValuesByTitle,
+              [SelectFilterTitle.Date]: value as DateFilterOptionValue,
+            }))
+            setDataQueryParams((prevDataQueryParams) => ({
+              ...prevDataQueryParams,
+              date: value,
             }))
           },
         },
