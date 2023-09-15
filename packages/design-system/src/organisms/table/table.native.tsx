@@ -6,16 +6,12 @@ import {
 } from '@tanstack/react-table'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { useState, useMemo, useEffect } from 'react'
-import {
-  Pagination,
-  ButtonFilters,
-  InputV2,
-  SelectFilters,
-} from '../../molecules'
+import { Pagination, InputV2 } from '../../molecules'
 import { container, margin, padding, spacing } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 import { Spinner } from '../../atoms'
-import { TableFilterType, type TableProps } from './types'
+import { type TableProps } from './types'
+import TableFilter from './table-filter'
 
 const styles = StyleSheet.create({
   container: {
@@ -86,22 +82,22 @@ const Table = <T extends any, F extends string>({
       ]}
     >
       {(filter || search) && (
-        <View style={margin.mb12}>
-          <View style={margin.mb12}>
-            {search && (
-              <InputV2
-                placeholder={search.placeholder}
-                value={search.value}
-                onChangeText={search.onChange}
-              />
-            )}
-          </View>
-          {filter &&
-            (filter.type === TableFilterType.Button ? (
-              <ButtonFilters {...filter} />
-            ) : (
-              <SelectFilters {...filter} />
-            ))}
+        <View
+          style={[
+            margin.mb12,
+            container.row,
+            container.alignCenter,
+            container.justifySpaceBetween,
+          ]}
+        >
+          {search && (
+            <InputV2
+              placeholder={search.placeholder}
+              value={search.value}
+              onChangeText={search.onChange}
+            />
+          )}
+          <TableFilter filter={filter} />
         </View>
       )}
       {loading ? (

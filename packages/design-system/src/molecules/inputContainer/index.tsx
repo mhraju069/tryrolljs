@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import { Icon, TooltipV2, TypographyV2 } from '../../atoms'
 import { container, margin } from '../../styles'
 import { useThemeV2 } from '../../hooks'
@@ -9,6 +9,7 @@ export interface InputContainerProps {
   info?: string
   tooltip?: string
   children: React.ReactNode
+  style?: StyleProp<ViewStyle>
 }
 
 export const InputContainer = ({
@@ -17,10 +18,11 @@ export const InputContainer = ({
   info,
   tooltip,
   children,
+  style,
 }: InputContainerProps) => {
   const theme = useThemeV2()
   return (
-    <View testID="inputContainer">
+    <View testID="inputContainer" style={style}>
       {label && (
         <View style={[margin.mb8, container.row, container.alignCenter]}>
           <TypographyV2 variant="caption1" color={theme.text.black[100]}>

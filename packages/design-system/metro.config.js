@@ -10,6 +10,7 @@ const { getDefaultConfig } = require('metro-config')
 
 const nodeModulesPaths = [
   path.resolve(path.join(__dirname, '../../node_modules')),
+  path.resolve(__dirname, '../../node_modules/@roll-network/web3'),
 ]
 
 const extraNodeModules = {

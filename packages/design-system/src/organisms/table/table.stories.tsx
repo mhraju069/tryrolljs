@@ -121,6 +121,7 @@ export const WithFiltersAndPagination = () => {
         setSearchValue(value)
         setDataQueryParamsOnSearch(value)
       },
+      placeholder: 'Search Token',
     }
   }, [searchValue, setDataQueryParamsOnSearch])
 
@@ -242,6 +243,7 @@ export const WithSelectFiltersAndPagination = () => {
         setSearchValue(value)
         setDataQueryParamsOnSearch(value)
       },
+      placeholder: 'Search Token',
     }
   }, [searchValue, setDataQueryParamsOnSearch])
 
