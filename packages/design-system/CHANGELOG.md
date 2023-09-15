@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 4.1.2
+
+### Patch Changes
+
+- [#492](https://github.com/roll-network/tryrolljs/pull/492) [`9498f12`](https://github.com/roll-network/tryrolljs/commit/9498f12c9ef056f2fd9229b5dd3614e83a9a005e) Thanks [@teimurjan](https://github.com/teimurjan)! - Make table filters responsive
+
 ## 4.1.1
 
 ### Patch Changes
