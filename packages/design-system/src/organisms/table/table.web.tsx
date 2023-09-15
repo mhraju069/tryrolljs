@@ -6,16 +6,12 @@ import {
 } from '@tanstack/react-table'
 import { View } from 'react-native'
 import { useState, useMemo, useEffect } from 'react'
-import {
-  Pagination,
-  ButtonFilters,
-  InputV2,
-  SelectFilters,
-} from '../../molecules'
+import { Pagination, InputV2 } from '../../molecules'
 import { container, padding, spacing } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 import { Spinner } from '../../atoms'
-import { TableFilterType, type TableProps } from './types'
+import { type TableProps } from './types'
+import TableFilter from './table-filter'
 
 const styles = {
   container: {
@@ -96,24 +92,20 @@ const Table = <T extends any, F extends string>({
           style={[
             container.row,
             container.justifySpaceBetween,
-            container.alignCenter,
+            container.alignEnd,
           ]}
         >
           <View>
             {search && (
               <InputV2
-                placeholder="Search token"
+                placeholder={search.placeholder}
                 value={search.value}
                 onChangeText={search.onChange}
+                label={search.label ?? 'Search'}
               />
             )}
           </View>
-          {filter &&
-            (filter.type === TableFilterType.Button ? (
-              <ButtonFilters {...filter} />
-            ) : (
-              <SelectFilters {...filter} />
-            ))}
+          <TableFilter filter={filter} />
         </View>
       )}
       {loading ? (

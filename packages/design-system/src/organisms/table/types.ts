@@ -25,5 +25,6 @@ export interface TableProps<T extends any, F extends string> {
     value: string
     onChange: (value: string) => void
     placeholder?: string
+    label?: string
   }
 }
