@@ -15,8 +15,6 @@ const SelectFilters = ({ options }: SelectFiltersProps) => {
   const selectMargin = !isMd ? margin.ml8 : margin.mt8
   const flexDirection = isLg ? 'column' : 'row'
 
-  console.log('isLg', isLg)
-
   return (
     <View style={[!isMd && container.row, { flexDirection }]}>
       {options.map((filterOption, index) => (
