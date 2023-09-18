@@ -176,6 +176,7 @@ export const WithFiltersAndPagination = () => {
 enum SelectFilterTitle {
   Category = 'Category',
   Date = 'Date',
+  SocialToken = 'Social Token',
 }
 
 enum CategoryFilterOptionValue {
@@ -192,6 +193,10 @@ enum DateFilterOptionValue {
   Past30Days = 'past30days',
   Past90Days = 'past90days',
   AllTime = 'alltime',
+}
+
+enum TokenFilterOptionValue {
+  AllTokens = 'alltokens',
 }
 
 const CATEGORY_FILTER_OPTION_TITLE_BY_VALUE: Record<
@@ -214,10 +219,15 @@ const DATE_FILTER_OPTION_TITLE_BY_VALUE: Record<DateFilterOptionValue, string> =
     [DateFilterOptionValue.AllTime]: 'All Time',
   }
 
+const TOKEN_FILTER_OPTION_BY_VALUE: Record<TokenFilterOptionValue, string> = {
+  [TokenFilterOptionValue.AllTokens]: 'All Tokens',
+}
+
 export const WithSelectFiltersAndPagination = () => {
   const [filterValuesByTitle, setFilterValuesByTitle] = useState({
     [SelectFilterTitle.Category]: CategoryFilterOptionValue.AllCategories,
     [SelectFilterTitle.Date]: DateFilterOptionValue.Past1Year,
+    [SelectFilterTitle.SocialToken]: TokenFilterOptionValue.AllTokens,
   })
   const [searchValue, setSearchValue] = useState('')
   const [dataQueryParams, setDataQueryParams] = useState<
@@ -341,6 +351,28 @@ export const WithSelectFiltersAndPagination = () => {
             setDataQueryParams((prevDataQueryParams) => ({
               ...prevDataQueryParams,
               date: value,
+            }))
+          },
+        },
+        {
+          title: SelectFilterTitle.SocialToken,
+          value: filterValuesByTitle[SelectFilterTitle.SocialToken],
+          options: [
+            {
+              name: TOKEN_FILTER_OPTION_BY_VALUE[
+                TokenFilterOptionValue.AllTokens
+              ],
+              value: TokenFilterOptionValue.AllTokens,
+            },
+          ],
+          onChange: (value: string) => {
+            setFilterValuesByTitle((prevFilterValuesByTitle) => ({
+              ...prevFilterValuesByTitle,
+              [SelectFilterTitle.SocialToken]: value as TokenFilterOptionValue,
+            }))
+            setDataQueryParams((prevDataQueryParams) => ({
+              ...prevDataQueryParams,
+              token: value,
             }))
           },
         },
