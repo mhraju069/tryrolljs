@@ -7,16 +7,11 @@ import { SelectFiltersProps } from './types'
 
 const SelectFilters = ({ options }: SelectFiltersProps) => {
   const isMd = useBreakpointValue({ base: true, md: false })
-  const isLg = useBreakpointValue({
-    lg: true,
-    xl: true,
-  })
 
-  const selectMargin = !isMd ? margin.ml8 : margin.mt8
-  const flexDirection = isLg ? 'column' : 'row'
+  const selectMargin = !isMd ? margin.ml8 : margin.mb8
 
   return (
-    <View style={[!isMd && container.row, { flexDirection }]}>
+    <View style={[!isMd && container.row]}>
       {options.map((filterOption, index) => (
         <InputContainer
           key={filterOption.value}

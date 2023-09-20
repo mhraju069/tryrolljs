@@ -47,6 +47,9 @@ export const container = makeStyles({
   flex1: {
     flex: 1,
   },
+  flexWrap: {
+    flexWrap: 'wrap',
+  },
   inputRadius: {
     borderRadius: 3,
   },
