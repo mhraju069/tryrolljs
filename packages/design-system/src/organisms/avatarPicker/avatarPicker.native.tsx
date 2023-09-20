@@ -1,14 +1,14 @@
 import { FC, useState } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import { Image, View } from 'react-native'
 import prettyBytes from 'pretty-bytes'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import * as RNFS from 'react-native-fs'
-import { container, margin } from '../../styles'
+import { container, margin, makeStyles } from '../../styles'
 import { ButtonV2, Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { AvatarPickerProps } from './types'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   previewContainer: {
     width: 80,
     height: 80,

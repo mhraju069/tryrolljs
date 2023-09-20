@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useRef } from 'react'
-import { LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native'
+import { LayoutChangeEvent, Platform, View } from 'react-native'
 import { TypographyV2 } from '../../atoms'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
-import { container, margin, spacing } from '../../styles'
+import { container, margin, spacing, makeStyles } from '../../styles'
 
 const STEP_INDEX_SIZE = spacing[24]
 const STEP_INDEX_BORDER_RADIUS = 24
@@ -12,7 +12,7 @@ const SEPARATOR_HEIGHT = 2
 const SEPARATOR_HORIZONTAL_MARGIN = 16
 const NATIVE_LINE_HEIGHT = 20
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   stepsContainer: {
     overflow: 'hidden',
   },

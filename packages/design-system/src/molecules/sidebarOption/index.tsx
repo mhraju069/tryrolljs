@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { FlatList, Pressable, View } from 'react-native'
 import { Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { container, margin, padding, makeStyles } from '../../styles'
 import { SidebarOptionProps, OptionProps } from './types'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   mainOptionContainer: {
     position: 'relative',
   },

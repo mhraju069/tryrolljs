@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react'
-import { Animated, Pressable, StyleSheet, View } from 'react-native'
-import { container } from '../../styles'
+import { Animated, Pressable, View } from 'react-native'
+import { container, makeStyles } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 
 const CONTAINER_PADDING = 2
@@ -37,7 +37,7 @@ const useStyles = (checked: boolean, disabled?: boolean) => {
   const thumbBackgroundColor = useThumbBackgroundColor(checked, disabled)
   const styles = useMemo(
     () =>
-      StyleSheet.create({
+      makeStyles({
         container: {
           padding: CONTAINER_PADDING,
           width: CONTAINER_WIDTH,

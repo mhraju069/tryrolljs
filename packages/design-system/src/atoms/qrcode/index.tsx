@@ -1,11 +1,12 @@
 import ReactQRCode from 'react-qr-code'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
+import { makeStyles } from '../../styles'
 
 export type QRCodeProps = {
   value: string
   size?: number
 }
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     justifyContent: 'center',
   },

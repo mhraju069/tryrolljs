@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { useCallback } from 'react'
 import LogoIso from '../../assets/svg/logo-iso.svg'
 import { discordInviteUrl, instaUrl, twitterUrl } from '../../constants'
 import { openLink } from '../../utils'
-import { container, margin, padding } from '../../styles'
+import { container, makeStyles, margin, padding } from '../../styles'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
 import { TypographyV2 } from '../../atoms'
 
@@ -49,7 +49,7 @@ const DEFAULT_SOCIAL_LINKS: Omit<FooterOptionProps, 'isLast'>[] = [
   },
 ]
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   mainContainer: { maxWidth: 1120 },
   contentWrapper: {
     borderTopWidth: 1,

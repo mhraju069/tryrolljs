@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import { TypographyVariant } from '../atoms'
 import { makeStyles } from './utils'
 
@@ -143,7 +142,7 @@ export const responsiveLineHeights: Record<TypographyVariant, number> = {
   h1: 52,
 }
 
-export const fontStyles = StyleSheet.create({
+export const fontStyles = makeStyles({
   caption2: {
     fontFamily: manrope.bold,
     fontSize: FONT_SIZE_CAPTION_2,
@@ -236,7 +235,7 @@ export const fontStyles = StyleSheet.create({
   },
 })
 
-export const responsiveFontStyles = StyleSheet.create({
+export const responsiveFontStyles = makeStyles({
   caption2: {
     fontFamily: manrope.bold,
     fontSize: FONT_SIZE_CAPTION_2,

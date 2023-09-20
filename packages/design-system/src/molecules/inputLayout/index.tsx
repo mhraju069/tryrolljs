@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { TypographyV2 } from '../../atoms'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
-import { container, margin } from '../../styles'
+import { container, makeStyles, margin } from '../../styles'
 
 export interface InputLayoutProps {
   title: string
@@ -12,7 +12,7 @@ export interface InputLayoutProps {
 const CONTENT_MAX_WIDTH = 448
 const INPUT_MAX_WIDTH = 544
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   inputsContainer: {
     maxWidth: INPUT_MAX_WIDTH,
     flex: Platform.OS === 'web' ? 1 : undefined,

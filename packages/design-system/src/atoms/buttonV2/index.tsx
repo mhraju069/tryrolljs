@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import { Pressable } from '@gluestack-ui/react'
 import { useBreakpointValue, useThemeV2 } from '../../hooks'
 import {
@@ -8,6 +8,7 @@ import {
   FONT_SIZE_BUTTON_MEDIUM,
   FONT_SIZE_BUTTON_TEXT,
   lineHeights,
+  makeStyles,
   responsiveLineHeights,
 } from '../../styles'
 import { Icon } from '../icon'
@@ -71,7 +72,7 @@ const BaseButton = ({
   const finalTextColor = textColor || stylesBasedOnState.textColor
 
   const styles = useMemo(() => {
-    return StyleSheet.create({
+    return makeStyles({
       title: {
         fontWeight: '600',
         color: finalTextColor,

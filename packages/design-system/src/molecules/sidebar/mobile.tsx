@@ -3,7 +3,6 @@ import {
   Dimensions,
   Platform,
   Pressable,
-  StyleSheet,
   ViewStyle,
   View,
   FlatList,
@@ -12,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { AnimatePresence, Motion } from '@legendapp/motion'
 import { TypographyV2, Icon, ButtonV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, layer, margin, padding } from '../../styles'
+import { container, layer, makeStyles, margin, padding } from '../../styles'
 import { openLink } from '../../utils'
 import { SidebarOptions } from '../sidebarOptions'
 import { Web3Button } from '../web3Button'
@@ -20,7 +19,7 @@ import { SidebarFooterOptionProps, SidebarProps } from './types'
 
 const DIVIDER_HEIGHT = 1
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     flex: 1,
   },

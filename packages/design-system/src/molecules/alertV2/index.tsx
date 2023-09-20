@@ -1,8 +1,8 @@
-import { View, StyleSheet, GestureResponderEvent } from 'react-native'
+import { View, GestureResponderEvent } from 'react-native'
 import { useMemo } from 'react'
 import { TypographyV2, Icon, ButtonV2, IconVariant } from '../../atoms'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
-import { spacing } from '../../styles'
+import { makeStyles, spacing } from '../../styles'
 
 const BORDER_RADIUS = 100
 const CONTAINER_MD_MAX_WIDTH = 600
@@ -38,7 +38,7 @@ const useStyles = (variant: AlertVariant) => {
 
   const styles = useMemo(
     () =>
-      StyleSheet.create({
+      makeStyles({
         container: {
           borderRadius: 16,
           padding: spacing[16],

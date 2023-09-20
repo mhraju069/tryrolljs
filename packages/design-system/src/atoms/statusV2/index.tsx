@@ -1,9 +1,10 @@
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { useMemo } from 'react'
 import color from 'color'
 import { TypographyV2 } from '../typographyV2'
 import { useThemeV2 } from '../../hooks'
 import { spacing } from '../../styles/spacing'
+import { makeStyles } from '../../styles'
 
 const BORDER_RADIUS = 8
 type Status = 'warning' | 'error' | 'success' | 'action'
@@ -33,7 +34,7 @@ const useStyles = (status: Status) => {
 
   const styles = useMemo(
     () =>
-      StyleSheet.create({
+      makeStyles({
         container: {
           borderRadius: BORDER_RADIUS,
           paddingHorizontal: spacing[12],

@@ -4,16 +4,16 @@ import {
   flexRender,
   PaginationState,
 } from '@tanstack/react-table'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { useState, useMemo, useEffect } from 'react'
 import { Pagination, InputV2 } from '../../molecules'
-import { container, margin, padding, spacing } from '../../styles'
+import { container, makeStyles, margin, padding, spacing } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 import { Spinner } from '../../atoms'
 import { type TableProps } from './types'
 import TableFilter from './table-filter'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     borderRadius: 16,
   },

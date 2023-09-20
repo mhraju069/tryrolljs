@@ -1,12 +1,7 @@
-import {
-  GestureResponderEvent,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native'
+import { GestureResponderEvent, Pressable, View } from 'react-native'
 import { useMemo } from 'react'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, spacing } from '../../styles'
+import { container, makeStyles, margin, spacing } from '../../styles'
 import { CircleImg, Icon, TypographyV2 } from '../../atoms'
 
 export interface WalletCardProps {
@@ -34,7 +29,7 @@ const useStyles = ({
   const defaultSecondaryBackgroundColor = theme.base.highlight2[20]
 
   return useMemo(() => {
-    return StyleSheet.create({
+    return makeStyles({
       container: {
         width: CARD_MAX_WIDTH,
         height: CARD_HEIGHT,

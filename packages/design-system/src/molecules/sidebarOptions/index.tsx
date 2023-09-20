@@ -1,6 +1,6 @@
-import { StyleSheet, View, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container, margin } from '../../styles'
+import { container, margin, makeStyles } from '../../styles'
 import { SidebarProps } from '../sidebar/types'
 import { SidebarOption } from '../sidebarOption'
 
@@ -24,7 +24,7 @@ const OptionsSeparator: React.FC = () => (
   <View style={[{ height: SEPARATOR_HEIGHT }]} />
 )
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   mainList: {
     overflow: 'visible',
   },
