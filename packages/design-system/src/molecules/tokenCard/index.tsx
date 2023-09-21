@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   View,
   Text,
   Pressable,
@@ -16,7 +15,7 @@ import { CircleImg, Icon, useClipboardWithToast } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import RollLogoTokenCard from '../../assets/svg/roll-logo-token-card.svg'
 import CardBlurText from '../../assets/images/card-blur-text.png'
-import { container, margin, padding, roboto } from '../../styles'
+import { container, margin, padding, roboto, makeStyles } from '../../styles'
 import { openLink } from '../../utils'
 
 const CARD_MAX_WIDTH = 325
@@ -35,7 +34,7 @@ const DECORATOR_POSITION_TOP = 78
 const DECORATOR_POSITION_LEFT = -81
 const DECORATOR_BACKGROUND_COLOR = '#AAADFF'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     width: CARD_MAX_WIDTH,
     height: CARD_HEIGHT,

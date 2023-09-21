@@ -1,7 +1,7 @@
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { ButtonV2, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { container, makeStyles, margin, padding } from '../../styles'
 
 export interface JoinBannerProps {
   title: string
@@ -16,7 +16,7 @@ const MAX_BANNER_WIDTH = 200
 const CIRCLE_BACKGROUND_COLOR = '#FFE9DF'
 const CIRCLE_SIZE = 80
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     overflow: 'hidden',
     position: 'relative',

@@ -6,16 +6,16 @@ import {
   SliderThumb,
   SliderFilledTrack,
 } from '@gluestack-ui/react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, Image } from 'react-native'
 import prettyBytes from 'pretty-bytes'
-import { container, margin, padding } from '../../styles'
+import { container, margin, padding, makeStyles } from '../../styles'
 import { ButtonV2, Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { convertBlobToDataUrl } from '../../utils'
 import { Modal } from '../modal'
 import { AvatarPickerProps } from './types'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   previewContainer: {
     width: 80,
     height: 80,

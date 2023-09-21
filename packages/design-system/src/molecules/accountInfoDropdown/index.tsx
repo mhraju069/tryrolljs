@@ -1,8 +1,8 @@
-import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { FlatList, Pressable, View } from 'react-native'
 import { CircleImg, Icon, IconVariant, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
 import { Dropdown } from '../dropdown'
-import { container, margin, padding } from '../../styles'
+import { container, makeStyles, margin, padding } from '../../styles'
 
 const AVATAR_SIZE = 40
 const DROPDOWN_WIDTH = 282
@@ -23,7 +23,7 @@ export interface AccountInfoDropdownProps {
   options: AccountInfoDropdownOption[]
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     width: DROPDOWN_WIDTH,
   },

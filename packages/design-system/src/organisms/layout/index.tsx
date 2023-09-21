@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
-import { Platform, ScrollView, StyleSheet, View } from 'react-native'
+import { Platform, ScrollView, View } from 'react-native'
 import { useThemeV2, useBreakpointValue } from '../../hooks'
-import { container } from '../../styles'
+import { container, makeStyles } from '../../styles'
 import { Sidebar, RightSidebar, RightSidebarProps } from '../../molecules'
 import type { SidebarProps } from '../../molecules'
 
@@ -10,7 +10,7 @@ export interface LayoutProps {
   rightSidebarProps?: RightSidebarProps
 }
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   sidebarContainer: {
     position: 'relative',
   },

@@ -1,14 +1,19 @@
 import { forwardRef, useMemo, useState } from 'react'
 import {
   StyleProp,
-  StyleSheet,
   TextInput,
   TextInputProps,
   View,
   ViewStyle,
 } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container, fontStyles, padding, spacing } from '../../styles'
+import {
+  container,
+  fontStyles,
+  makeStyles,
+  padding,
+  spacing,
+} from '../../styles'
 import { TypographyV2 } from '../../atoms'
 import { InputContainer } from '../inputContainer'
 
@@ -30,7 +35,7 @@ const INPUT_BORDER_WIDTH = 1
 const INPUT_BORDER_RADIUS = 14
 const INPUT_LINE_HEIGHT = 20
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   count: {
     position: 'absolute',
     right: spacing[16],

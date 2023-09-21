@@ -1,13 +1,13 @@
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import { Icon, IconVariant, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { container, makeStyles, margin, padding } from '../../styles'
 
 const ANALYTICS_CARD_MAX_WIDTH = 254
 const ANALYTICS_CARD_MIN_HEIGHT = 125
 const ANALYTICS_CARD_BORDER_RADIUS = 16
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     maxWidth: ANALYTICS_CARD_MAX_WIDTH,
     minHeight: ANALYTICS_CARD_MIN_HEIGHT,

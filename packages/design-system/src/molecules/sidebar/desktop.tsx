@@ -1,6 +1,6 @@
-import { Dimensions, StyleSheet, View, FlatList } from 'react-native'
+import { Dimensions, View, FlatList } from 'react-native'
 import { useThemeV2 } from '../../hooks'
-import { container, layer, margin, spacing } from '../../styles'
+import { container, layer, makeStyles, margin, spacing } from '../../styles'
 import { SidebarOption } from '../sidebarOption'
 import { SidebarProps } from './types'
 
@@ -8,7 +8,7 @@ const DESKTOP_SIDEBAR_WIDTH = 240
 const DIVIDER_HEIGHT = 1
 const SEPARATOR_HEIGHT = 24
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     width: DESKTOP_SIDEBAR_WIDTH,
     display: 'flex',

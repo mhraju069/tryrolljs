@@ -47,6 +47,14 @@ module.exports = {
         ],
       },
     ],
+    'no-restricted-properties': [
+      'error',
+      {
+        object: 'StyleSheet',
+        property: 'create',
+        message: 'Use makeStyles from @roll-network/design-system instead.',
+      },
+    ],
   },
   ignorePatterns: ['**/dist/**/*.js', '**/dist/**/*.ts'],
 }

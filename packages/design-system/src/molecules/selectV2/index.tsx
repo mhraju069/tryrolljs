@@ -1,19 +1,12 @@
-import {
-  Platform,
-  StyleProp,
-  StyleSheet,
-  TextInput,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { Platform, StyleProp, TextInput, View, ViewStyle } from 'react-native'
 import { Pressable } from '@gluestack-ui/react'
 import { ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 import { Icon, Popover, PopoverProps, Spinner, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, padding, text } from '../../styles'
+import { container, makeStyles, padding, text } from '../../styles'
 import { InputV2 } from '../inputV2'
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   popover: {
     borderRadius: 16,
     shadowOffset: { width: 0, height: 2 },

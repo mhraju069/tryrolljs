@@ -1,8 +1,8 @@
-import { Dimensions, Platform, StyleSheet, View } from 'react-native'
+import { Dimensions, Platform, View } from 'react-native'
 import { PropsWithChildren } from 'react'
 
 import { useThemeV2 } from '../../hooks'
-import { container, layer, margin, spacing } from '../../styles'
+import { container, layer, makeStyles, margin, spacing } from '../../styles'
 import { Web3Button } from '../web3Button'
 
 export type RightSidebarProps = PropsWithChildren<{
@@ -11,7 +11,7 @@ export type RightSidebarProps = PropsWithChildren<{
 
 const RIGHT_SIDEBAR_WIDTH = 310
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     width: RIGHT_SIDEBAR_WIDTH,
     position: 'fixed' as any,

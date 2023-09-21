@@ -1,13 +1,13 @@
-import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { Pressable, StyleProp, View, ViewStyle } from 'react-native'
 import { Icon, TypographyV2 } from '../../atoms'
 import { useThemeV2 } from '../../hooks'
-import { container, margin, padding } from '../../styles'
+import { container, makeStyles, margin, padding } from '../../styles'
 
 const FEATURE_CARD_MAX_WIDTH = 320
 const FEATURE_CARD_MIN_HEIGHT = 192
 const FEATURE_CARD_BORDER_RADIUS = 16
 
-const styles = StyleSheet.create({
+const styles = makeStyles({
   container: {
     maxWidth: FEATURE_CARD_MAX_WIDTH,
     minHeight: FEATURE_CARD_MIN_HEIGHT,
