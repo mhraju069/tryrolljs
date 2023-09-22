@@ -1,5 +1,13 @@
 # @roll-network/design-system
 
+## 4.1.3
+
+### Patch Changes
+
+- [#495](https://github.com/roll-network/tryrolljs/pull/495) [`6f883a7`](https://github.com/roll-network/tryrolljs/commit/6f883a78eea9f84d64233e0e530dfb9a7addffea) Thanks [@teimurjan](https://github.com/teimurjan)! - Unified style-creation with makeStyles function
+
+  - Added a eslint rule to disallow StyleSheet.create usage
+
 ## 4.1.2
 
 ### Patch Changes
