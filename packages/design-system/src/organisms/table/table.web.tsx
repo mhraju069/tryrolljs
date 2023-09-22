@@ -7,7 +7,7 @@ import {
 import { View } from 'react-native'
 import { useState, useMemo, useEffect } from 'react'
 import { Pagination, InputV2 } from '../../molecules'
-import { container, padding, spacing } from '../../styles'
+import { container, margin, padding, spacing } from '../../styles'
 import { useThemeV2 } from '../../hooks'
 import { Spinner } from '../../atoms'
 import { type TableProps } from './types'
@@ -93,9 +93,10 @@ const Table = <T extends any, F extends string>({
             container.row,
             container.justifySpaceBetween,
             container.alignEnd,
+            container.flexWrap,
           ]}
         >
-          <View>
+          <View style={margin.mb12}>
             {search && (
               <InputV2
                 placeholder={search.placeholder}
@@ -105,7 +106,9 @@ const Table = <T extends any, F extends string>({
               />
             )}
           </View>
-          <TableFilter filter={filter} />
+          <View style={margin.mb12}>
+            <TableFilter filter={filter} />
+          </View>
         </View>
       )}
       {loading ? (

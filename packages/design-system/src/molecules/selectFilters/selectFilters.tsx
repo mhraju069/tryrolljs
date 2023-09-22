@@ -8,10 +8,10 @@ import { SelectFiltersProps } from './types'
 const SelectFilters = ({ options }: SelectFiltersProps) => {
   const isMd = useBreakpointValue({ base: true, md: false })
 
-  const selectMargin = !isMd ? margin.ml8 : margin.mt8
+  const selectMargin = !isMd ? margin.ml8 : margin.mb8
 
   return (
-    <View style={!isMd && container.row}>
+    <View style={[!isMd && container.row]}>
       {options.map((filterOption, index) => (
         <InputContainer
           key={filterOption.value}
