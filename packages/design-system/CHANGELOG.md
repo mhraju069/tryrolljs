@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 4.1.4
+
+### Patch Changes
+
+- [#494](https://github.com/roll-network/tryrolljs/pull/494) [`c53202d`](https://github.com/roll-network/tryrolljs/commit/c53202d2b99a321c44c68b1a272c8883e9c8226d) Thanks [@nsstarr](https://github.com/nsstarr)! - Added a media query for large devices in Select Filters
+
 ## 4.1.3
 
 ### Patch Changes
