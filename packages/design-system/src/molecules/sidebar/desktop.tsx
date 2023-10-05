@@ -5,6 +5,7 @@ import { SidebarOption } from '../sidebarOption'
 import { SidebarProps } from './types'
 
 const DESKTOP_SIDEBAR_WIDTH = 240
+const MIN_HEIGHT_FOR_FOOTER = 800
 const DIVIDER_HEIGHT = 1
 const SEPARATOR_HEIGHT = 24
 
@@ -82,6 +83,7 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
         <FlatList
           style={[container.fullWidth]}
           data={sections}
+          scrollEnabled={false}
           keyExtractor={(section) => `${section.id}`}
           ItemSeparatorComponent={Divider}
           renderItem={({ item: section }) => (
@@ -96,10 +98,8 @@ export const DesktopSidebar: React.FC<SidebarProps> = ({
             />
           )}
         />
-        {footerOnDesktop && (
-          <View style={[container.positionAbsolute, { bottom: spacing[16] }]}>
-            {footerOnDesktop}
-          </View>
+        {footerOnDesktop && height > MIN_HEIGHT_FOR_FOOTER && (
+          <View>{footerOnDesktop}</View>
         )}
       </View>
       <View style={styles.spacer} />
