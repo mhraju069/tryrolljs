@@ -1,5 +1,11 @@
 # @roll-network/design-system
 
+## 4.1.5
+
+### Patch Changes
+
+- [#498](https://github.com/roll-network/tryrolljs/pull/498) [`c94ff25`](https://github.com/roll-network/tryrolljs/commit/c94ff2566b4aac8a2cfa2062e2dc3c6fe0f8e5ab) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - - show footer on sidebar based on screen height
+
 ## 4.1.4
 
 ### Patch Changes
