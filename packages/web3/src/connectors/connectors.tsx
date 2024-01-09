@@ -8,6 +8,7 @@ export const CHAIN_ID_POLYGON = 137
 export const CHAIN_ID_GOERLI = 5
 export const CHAIN_ID_MUMBAI = 80001
 export const CHAIN_ID_HARDHAT = 31337
+export const CHAIN_ID_FORM_TESTNET = 132902
 
 export const SUPPORTED_CHAIN_IDS = [
   CHAIN_ID_MAIN_NET,
@@ -15,6 +16,7 @@ export const SUPPORTED_CHAIN_IDS = [
   CHAIN_ID_GOERLI,
   CHAIN_ID_MUMBAI,
   CHAIN_ID_HARDHAT,
+  CHAIN_ID_FORM_TESTNET,
 ]
 
 export class Web3Connectors {
