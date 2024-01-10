@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.4
+
+### Patch Changes
+
+- [#500](https://github.com/roll-network/tryrolljs/pull/500) [`41f8538`](https://github.com/roll-network/tryrolljs/commit/41f85388a97e403105922ced089b0684a3d8b085) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Export Form testnet chain ID
+
 ## 0.0.3
 
 ### Patch Changes
