@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.5
+
+### Patch Changes
+
+- [#502](https://github.com/roll-network/tryrolljs/pull/502) [`907493f`](https://github.com/roll-network/tryrolljs/commit/907493f10eb85c8501f7ff66a3ecf82538cff913) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Add form testnet on supported chains by wagmi
+
 ## 0.0.4
 
 ### Patch Changes
