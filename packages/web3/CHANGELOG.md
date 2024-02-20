@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.6
+
+### Patch Changes
+
+- [#504](https://github.com/roll-network/tryrolljs/pull/504) [`760e3b4`](https://github.com/roll-network/tryrolljs/commit/760e3b4ad78e743eae67751c4fc5db9287028d55) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - getEtherscanLink now supports form testnet explorer
+
 ## 0.0.5
 
 ### Patch Changes
