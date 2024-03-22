@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.8
+
+### Patch Changes
+
+- [#508](https://github.com/roll-network/tryrolljs/pull/508) [`c9e38a2`](https://github.com/roll-network/tryrolljs/commit/c9e38a2b8525257885b639bd04f7bec3e80428fc) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Updated chain data
+
 ## 0.0.7
 
 ### Patch Changes

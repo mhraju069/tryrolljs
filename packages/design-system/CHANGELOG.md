@@ -1,5 +1,12 @@
 # @roll-network/design-system
 
+## 4.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`c9e38a2`](https://github.com/roll-network/tryrolljs/commit/c9e38a2b8525257885b639bd04f7bec3e80428fc)]:
+  - @roll-network/web3@0.0.8
+
 ## 4.1.9
 
 ### Patch Changes
