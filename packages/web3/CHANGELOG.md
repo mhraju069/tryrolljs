@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.7
+
+### Patch Changes
+
+- [#506](https://github.com/roll-network/tryrolljs/pull/506) [`a01bc4e`](https://github.com/roll-network/tryrolljs/commit/a01bc4e906b3d59808274f3f6d85c078bc03a32c) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Update form testnet values
+
 ## 0.0.6
 
 ### Patch Changes
