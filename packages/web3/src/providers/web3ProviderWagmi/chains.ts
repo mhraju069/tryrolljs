@@ -1,8 +1,8 @@
 import { Chain } from 'wagmi'
 import { CHAIN_ID_FORM_TESTNET } from '../../connectors'
 
-const rpcUrl = 'https://rpc.form.network/http'
-const explorerUrl = 'https://explorer.form.network/'
+const rpcUrl = 'https://form-testnet.alt.technology'
+const explorerUrl = 'https://form-testnet-explorer.alt.technology'
 
 export const formTestnet = {
   id: CHAIN_ID_FORM_TESTNET,
