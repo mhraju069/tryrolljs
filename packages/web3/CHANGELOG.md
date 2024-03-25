@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.9
+
+### Patch Changes
+
+- [#510](https://github.com/roll-network/tryrolljs/pull/510) [`e65d5eb`](https://github.com/roll-network/tryrolljs/commit/e65d5ebdeea0eb90f23acfbc2f4d9cc54da01854) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Changed Form testnet values back to Caldera provider
+
 ## 0.0.8
 
 ### Patch Changes
