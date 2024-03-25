@@ -46,8 +46,8 @@ const ETHERSCAN_DATA: Record<number, { domain: string; prefix?: string }> = {
     prefix: 'mumbai.',
   },
   [CHAIN_ID_FORM_TESTNET]: {
-    domain: 'alt.technology',
-    prefix: 'form-testnet-explorer.',
+    domain: 'form.network',
+    prefix: 'testnet-explorer.',
   },
 }
 
