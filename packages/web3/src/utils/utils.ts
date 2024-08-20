@@ -5,6 +5,7 @@ import {
   CHAIN_ID_MAIN_NET,
   CHAIN_ID_MUMBAI,
   CHAIN_ID_POLYGON,
+  CHAIN_ID_SEPOLIA,
 } from '../connectors'
 
 export function shortenAddress(address: string, digits: number = 4) {
@@ -33,6 +34,10 @@ export const etherscanAccountUrl = (address: string) =>
 const ETHERSCAN_DATA: Record<number, { domain: string; prefix?: string }> = {
   [CHAIN_ID_MAIN_NET]: {
     domain: 'etherscan.io',
+  },
+  [CHAIN_ID_SEPOLIA]: {
+    domain: 'etherscan.io',
+    prefix: 'sepolia.',
   },
   [CHAIN_ID_GOERLI]: {
     domain: 'etherscan.io',
