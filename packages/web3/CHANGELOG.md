@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.0.10
+
+### Patch Changes
+
+- [#512](https://github.com/roll-network/tryrolljs/pull/512) [`752db17`](https://github.com/roll-network/tryrolljs/commit/752db17e6b88905305c6167a286c99a15b6494d5) Thanks [@diegonzs-roll](https://github.com/diegonzs-roll)! - Added Sepolia network support
+
 ## 0.0.9
 
 ### Patch Changes
