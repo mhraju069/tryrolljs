@@ -1,5 +1,5 @@
 import { Chain } from 'wagmi'
-import { hardhat, polygon, polygonMumbai, goerli, mainnet } from 'wagmi/chains'
+import { sepolia, hardhat, polygon, polygonMumbai, goerli, mainnet } from 'wagmi/chains'
 import {
   CHAIN_ID_FORM_TESTNET,
   CHAIN_ID_GOERLI,
@@ -15,7 +15,7 @@ const MAP_CHAINS: Record<number, Chain> = {
   [CHAIN_ID_MAIN_NET]: mainnet,
   [CHAIN_ID_POLYGON]: polygon,
   [CHAIN_ID_GOERLI]: goerli,
-  [CHAIN_ID_SEPOLIA]: polygon,
+  [CHAIN_ID_SEPOLIA]: sepolia,
   [CHAIN_ID_HARDHAT]: hardhat,
   [CHAIN_ID_MUMBAI]: polygonMumbai,
   [CHAIN_ID_FORM_TESTNET]: formTestnet,
