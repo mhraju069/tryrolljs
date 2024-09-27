@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 0.1.0
+
+### Minor Changes
+
+- [#515](https://github.com/roll-network/tryrolljs/pull/515) [`6bebe1d`](https://github.com/roll-network/tryrolljs/commit/6bebe1de1801bc236bec36758647938b77e6484d) Thanks [@marlon-wiprud](https://github.com/marlon-wiprud)! - Fixing the network config for sepolia
+
 ## 0.0.10
 
 ### Patch Changes
