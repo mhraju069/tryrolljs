@@ -3,17 +3,12 @@ import {
   TryrollProvider,
   TypographyV2,
   Web3Button,
-  injectFonts,
-  injectFontsV2,
 } from '@roll-network/design-system'
 import {
   CHAIN_ID_MAIN_NET,
   Web3ProviderWagmi,
   useWagmiEthAddress,
 } from '@roll-network/web3'
-
-injectFonts()
-injectFontsV2()
 
 function App() {
   return (

@@ -1,0 +1,97 @@
+/* V2 */
+@font-face {
+  font-family: 'Manrope-Regular';
+  src: local('Manrope-Regular'),
+    url('../src/assets/fonts/Manrope-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Medium';
+  src: local('Manrope-Medium'),
+    url('../src/assets/fonts/Manrope-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-SemiBold';
+  src: local('Manrope-SemiBold'),
+    url('../src/assets/fonts/Manrope-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Bold';
+  src: local('Manrope-Bold'),
+    url('../src/assets/fonts/Manrope-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'RobotoMono-Medium';
+  src: local('RobotoMono-Medium'),
+    url('../src/assets/fonts/RobotoMono-Medium.ttf');
+}
+
+/* V1 */
+@font-face {
+  src: local('OpenSans-Regular'),
+    url('../src/assets/fonts/OpenSans-Regular.ttf');
+  font-family: 'OpenSans-Regular';
+}
+
+@font-face {
+  src: local('OpenSans-Bold'),
+    url('../src/assets/fonts/OpenSans-Bold.ttf');
+  font-family: 'OpenSans-Bold';
+}
+
+@font-face {
+  src: local('OpenSans-BoldItalic'),
+    url('../src/assets/fonts/OpenSans-BoldItalic.ttf');
+  font-family: 'OpenSans-BoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBold'),
+    url('../src/assets/fonts/OpenSans-ExtraBold.ttf');
+  font-family: 'OpenSans-ExtraBold';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBoldItalic'),
+    url('../src/assets/fonts/OpenSans-ExtraBoldItalic.ttf');
+  font-family: 'OpenSans-ExtraBoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-Italic'),
+    url('../src/assets/fonts/OpenSans-Italic.ttf');
+  font-family: 'OpenSans-Italic';
+}
+
+@font-face {
+  src: local('OpenSans-Light'),
+    url('../src/assets/fonts/OpenSans-Light.ttf');
+  font-family: 'OpenSans-Light';
+}
+
+@font-face {
+  src: local('OpenSans-LightItalic'),
+    url('../src/assets/fonts/OpenSans-LightItalic.ttf');
+  font-family: 'OpenSans-LightItalic';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBold'),
+    url('../src/assets/fonts/OpenSans-SemiBold.ttf');
+  font-family: 'OpenSans-SemiBold';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBoldItalic'),
+    url('../src/assets/fonts/OpenSans-SemiBoldItalic.ttf');
+  font-family: 'OpenSans-SemiBoldItalic';
+}
+
+@font-face {
+  src: local('SourceCodePro-Regular'),
+    url('../src/assets/fonts/SourceCodePro-Regular.ttf');
+  font-family: 'SourceCodePro-Regular';
+}

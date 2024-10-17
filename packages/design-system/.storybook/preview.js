@@ -1,8 +1,6 @@
 import { TryrollProvider } from '../src/providers'
-import { injectFonts, injectFontsV2 } from '../src/styles'
 
-injectFonts()
-injectFontsV2()
+import './index.css'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
