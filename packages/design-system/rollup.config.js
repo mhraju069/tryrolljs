@@ -3,7 +3,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import { babel } from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import url from '@rollup/plugin-url'
 import image from '@rollup/plugin-image'
 import svgr from '@svgr/rollup'
 import copy from 'rollup-plugin-copy'
@@ -93,15 +92,20 @@ const getConfig = (format, target = 'web', visualize = false) => {
         noEmit: false,
         emitDeclarationOnly: true,
       }),
-      url({
-        include: ['**/*.ttf'],
-        limit: Infinity,
-      }),
       image({ exclude: ['**/*.svg'] }),
       svgr({
         native: true,
         icon: true,
         replaceAttrValues: { black: '{props.fill}' },
+      }),
+      copy({
+        targets: [
+          {
+            src: 'src/assets/fonts/*.ttf',
+            dest: './dist/fonts',
+          },
+        ],
+        verbose: true,
       }),
       copy({
         targets: [{ src: 'src/**/*.d.ts', dest: outputDir }],

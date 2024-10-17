@@ -1,0 +1,97 @@
+/* V2 */
+@font-face {
+  font-family: 'Manrope-Regular';
+  src: local('Manrope-Regular'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Medium';
+  src: local('Manrope-Medium'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-SemiBold';
+  src: local('Manrope-SemiBold'),
+    url('@roll-network/design-system/dist/fonts/Manrope-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Bold';
+  src: local('Manrope-Bold'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'RobotoMono-Medium';
+  src: local('RobotoMono-Medium'),
+    url('@roll-network/design-system/dist/fonts/RobotoMono-Medium.ttf');
+}
+
+/* V1 */
+@font-face {
+  src: local('OpenSans-Regular'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Regular.tts');
+  font-family: 'OpenSans-Regular';
+}
+
+@font-face {
+  src: local('OpenSans-Bold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Bold.tts');
+  font-family: 'OpenSans-Bold';
+}
+
+@font-face {
+  src: local('OpenSans-BoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-BoldItalic.tts');
+  font-family: 'OpenSans-BoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-ExtraBold.tts');
+  font-family: 'OpenSans-ExtraBold';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-ExtraBoldItalic.tts');
+  font-family: 'OpenSans-ExtraBoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-Italic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Italic.tts');
+  font-family: 'OpenSans-Italic';
+}
+
+@font-face {
+  src: local('OpenSans-Light'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Light.tts');
+  font-family: 'OpenSans-Light';
+}
+
+@font-face {
+  src: local('OpenSans-LightItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-LightItalic.tts');
+  font-family: 'OpenSans-LightItalic';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-SemiBold.tts');
+  font-family: 'OpenSans-SemiBold';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-SemiBoldItalic.tts');
+  font-family: 'OpenSans-SemiBoldItalic';
+}
+
+@font-face {
+  src: local('SourceCodePro-Regular'),
+    url('@roll-network/design-system/dist/fonts/SourceCodePro-Regular.tts');
+  font-family: 'SourceCodePro-Regular';
+}

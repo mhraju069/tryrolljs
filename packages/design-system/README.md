@@ -66,6 +66,122 @@ const MyComponent = () => {
 }
 ```
 
+### Fonts
+
+The font-families used in this design system are available at `@roll-network/design-system/dist/fonts`. Add a CSS file with the following content to import fonts to your web app:
+
+```
+/* V2 */
+@font-face {
+  font-family: 'Manrope-Regular';
+  src: local('Manrope-Regular'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Medium';
+  src: local('Manrope-Medium'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-SemiBold';
+  src: local('Manrope-SemiBold'),
+    url('@roll-network/design-system/dist/fonts/Manrope-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Manrope-Bold';
+  src: local('Manrope-Bold'),
+    url('@roll-network/design-system/dist/fonts/Manrope-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'RobotoMono-Medium';
+  src: local('RobotoMono-Medium'),
+    url('@roll-network/design-system/dist/fonts/RobotoMono-Medium.ttf');
+}
+
+/* V1 */
+@font-face {
+  src: local('OpenSans-Regular'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Regular.ttf');
+  font-family: 'OpenSans-Regular';
+}
+
+@font-face {
+  src: local('OpenSans-Bold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Bold.ttf');
+  font-family: 'OpenSans-Bold';
+}
+
+@font-face {
+  src: local('OpenSans-BoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-BoldItalic.ttf');
+  font-family: 'OpenSans-BoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-ExtraBold.ttf');
+  font-family: 'OpenSans-ExtraBold';
+}
+
+@font-face {
+  src: local('OpenSans-ExtraBoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-ExtraBoldItalic.ttf');
+  font-family: 'OpenSans-ExtraBoldItalic';
+}
+
+@font-face {
+  src: local('OpenSans-Italic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Italic.ttf');
+  font-family: 'OpenSans-Italic';
+}
+
+@font-face {
+  src: local('OpenSans-Light'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-Light.ttf');
+  font-family: 'OpenSans-Light';
+}
+
+@font-face {
+  src: local('OpenSans-LightItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-LightItalic.ttf');
+  font-family: 'OpenSans-LightItalic';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBold'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-SemiBold.ttf');
+  font-family: 'OpenSans-SemiBold';
+}
+
+@font-face {
+  src: local('OpenSans-SemiBoldItalic'),
+    url('@roll-network/design-system/dist/fonts/OpenSans-SemiBoldItalic.ttf');
+  font-family: 'OpenSans-SemiBoldItalic';
+}
+
+@font-face {
+  src: local('SourceCodePro-Regular'),
+    url('@roll-network/design-system/dist/fonts/SourceCodePro-Regular.ttf');
+  font-family: 'SourceCodePro-Regular';
+}
+```
+
+Or use `react-native-assets` with the following config to import fonts into your native app:
+
+```js
+module.exports = {
+  project: {
+    ios: {},
+    android: {},
+  },
+  assets: ['./node_modules/@roll-network/design-system/dist/fonts'],
+}
+```
+
 ## Development
 
 ### Web

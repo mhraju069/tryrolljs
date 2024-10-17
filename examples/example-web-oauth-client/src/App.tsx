@@ -1,4 +1,4 @@
-import { TryrollProvider, injectFonts } from '@roll-network/design-system'
+import { TryrollProvider } from '@roll-network/design-system'
 import { SessionManager, useSession } from '@roll-network/session-manager'
 import TopNavigation from './components/topNavigation'
 import HasBalance from './features/hasBalance'
@@ -6,8 +6,6 @@ import UserInfo from './components/userInfo'
 import Transfer from './features/transfer'
 import LoggedOut from './components/loggedOut'
 import { authSdk } from './api'
-
-injectFonts()
 
 function App() {
   return (
