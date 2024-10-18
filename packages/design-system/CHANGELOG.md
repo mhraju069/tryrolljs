@@ -1,5 +1,14 @@
 # @roll-network/design-system
 
+## 6.0.0
+
+### Major Changes
+
+- [#517](https://github.com/roll-network/tryrolljs/pull/517) [`ac9f104`](https://github.com/roll-network/tryrolljs/commit/ac9f1046e36451a0533ce41d2fbdb29ca614a2ad) Thanks [@teimurjan](https://github.com/teimurjan)! - Changed font family setup
+
+  - Removed injectFonts & injectFontsV2 functions to exclude fonts from the JS bundle.
+  - Added separate fonts folder in the dist from where web & native projects will be able to import the fonts.
+
 ## 5.0.0
 
 ### Patch Changes
