@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 1.0.0
+
+### Major Changes
+
+- [#519](https://github.com/roll-network/tryrolljs/pull/519) [`62723c3`](https://github.com/roll-network/tryrolljs/commit/62723c3054fafac0891b151fd916f22d6db2d49c) Thanks [@teimurjan](https://github.com/teimurjan)! - Added form mainnet
+
 ## 0.1.0
 
 ### Minor Changes
