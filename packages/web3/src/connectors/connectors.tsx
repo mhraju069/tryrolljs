@@ -9,6 +9,7 @@ export const CHAIN_ID_GOERLI = 5
 export const CHAIN_ID_MUMBAI = 80001
 export const CHAIN_ID_HARDHAT = 31337
 export const CHAIN_ID_FORM_TESTNET = 132902
+export const CHAIN_ID_FORM = 478
 export const CHAIN_ID_SEPOLIA = 11155111
 
 export const SUPPORTED_CHAIN_IDS = [
@@ -19,6 +20,7 @@ export const SUPPORTED_CHAIN_IDS = [
   CHAIN_ID_MUMBAI,
   CHAIN_ID_HARDHAT,
   CHAIN_ID_FORM_TESTNET,
+  CHAIN_ID_FORM,
 ]
 
 export class Web3Connectors {
