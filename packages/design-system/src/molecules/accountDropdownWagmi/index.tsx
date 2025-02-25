@@ -79,7 +79,7 @@ export const AccountDropdownWagmi = ({ onSwitchAccounts }: Props) => {
         />
         <SwitchAccountLink
           icon={<LinkIcon />}
-          title="View on Etherscan"
+          title="View on Explorer"
           href={etherscanAccountUrl(address || '')}
         />
       </View>

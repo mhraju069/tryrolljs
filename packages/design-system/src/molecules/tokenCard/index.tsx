@@ -93,7 +93,7 @@ export const TokenCard: React.FC<TokenCardProps> = ({
 }) => {
   const theme = useThemeV2()
   const hasAddress = !!address
-  const linkText = hasAddress ? 'Etherscan' : 'Draft'
+  const linkText = hasAddress ? 'Explorer' : 'Draft'
   const clipboardWithToast = useClipboardWithToast()
 
   const onPressEtherscanLink = () => {
