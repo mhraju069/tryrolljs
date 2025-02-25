@@ -1,5 +1,11 @@
 # @roll-network/web3
 
+## 1.0.1
+
+### Patch Changes
+
+- [#521](https://github.com/roll-network/tryrolljs/pull/521) [`68ab741`](https://github.com/roll-network/tryrolljs/commit/68ab741a5cf215118ecd705d5f0356947acade7e) Thanks [@teimurjan](https://github.com/teimurjan)! - Added Form to etherscan data
+
 ## 1.0.0
 
 ### Major Changes

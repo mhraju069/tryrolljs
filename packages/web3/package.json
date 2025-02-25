@@ -1,7 +1,7 @@
 {
   "name": "@roll-network/web3",
   "description": "Web3 utils for Roll applications",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
