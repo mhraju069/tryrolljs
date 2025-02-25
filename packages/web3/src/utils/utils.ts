@@ -1,5 +1,6 @@
 import { getAddress } from 'viem'
 import {
+  CHAIN_ID_FORM,
   CHAIN_ID_FORM_TESTNET,
   CHAIN_ID_GOERLI,
   CHAIN_ID_MAIN_NET,
@@ -53,6 +54,10 @@ const ETHERSCAN_DATA: Record<number, { domain: string; prefix?: string }> = {
   [CHAIN_ID_FORM_TESTNET]: {
     domain: 'form.network',
     prefix: 'testnet-explorer.',
+  },
+  [CHAIN_ID_FORM]: {
+    domain: 'form.network',
+    prefix: 'explorer.',
   },
 }
 

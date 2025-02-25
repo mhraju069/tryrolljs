@@ -49,7 +49,7 @@ describe('TokenCard', () => {
     expect(symbol).toBeDefined()
   })
   it('renders etherscan link if there is an address', async () => {
-    const etherscanLink = await screen.findByText('Etherscan')
+    const etherscanLink = await screen.findByText('Explorer')
     expect(etherscanLink).toBeDefined()
   })
   it('renders draft link if there is no address', async () => {
@@ -69,7 +69,7 @@ describe('TokenCard', () => {
   })
   it('opens etherscan link if there is an address', async () => {
     const openLink = jest.spyOn(utils, 'openLink')
-    const etherscanLink = await screen.findByText('Etherscan')
+    const etherscanLink = await screen.findByText('Explorer')
     fireEvent.press(etherscanLink)
     expect(openLink).toHaveBeenCalled()
   })
