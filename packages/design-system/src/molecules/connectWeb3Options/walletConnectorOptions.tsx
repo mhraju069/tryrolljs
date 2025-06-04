@@ -46,26 +46,18 @@ export const buildWalletOptionsWeb = (
   {
     provider: WalletProviderMetaMask,
     connector: connectors.injected,
-  },
-  {
-    provider: WalletProviderFortmatic,
-    connector: connectors.formatic,
-  },
-  {
-    provider: WalletProviderPortis,
-    connector: connectors.portis,
-  },
+  }
 ]
 
 export const buildWalletOptionsMobile = (
   connectors: Web3Connectors,
 ): WalletProviderOption[] => [
   {
-    provider: WalletProviderFortmatic,
-    connector: connectors.formatic,
+    provider: WalletProviderCoinBase,
+    connector: connectors.coinbase,
   },
   {
-    provider: WalletProviderPortis,
-    connector: connectors.portis,
+    provider: WalletProviderWalletConnect,
+    connector: connectors.walletConnect,
   },
 ]
